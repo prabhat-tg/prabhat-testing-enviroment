@@ -41,6 +41,7 @@
     "standard": "स्टैंडर्ड",
     "hav": "एचएवी",
     "force": "फोर्स",
+    "tafe": "टैफे",
     "hmt": "एचएमटी",
     "seeMoreBrands": "अधिक ब्रांड देखें",
     "allOldTractor": "सभी पुराने ट्रैक्टर",
@@ -935,7 +936,18 @@
     "allTractorbrands": "सभी ट्रैक्टर ब्रांड",
     "leadingTractorGroup": "अग्रणी ट्रैक्टर समूह",
     "selectTractorSubsidyStates": "राज्यों के अनुसार ट्रैक्टर सब्सिडी का चयन करें",
-    "popularSecondHandTractors": "लोकप्रिय सेकेंड हैंड ट्रैक्टर"
+    "ConstructionMachineryandEquipmentinIndia": "भारत में निर्माण मशीनरी और उपकरण",
+    "MahindraMahindraTractorsinIndia": "भारत में महिंद्रा एंड महिंद्रा ट्रैक्टर",
+    "escortTractorsinIndia": "भारत में एस्कॉर्ट्स एंड एस्कॉर्ट्स ट्रैक्टर",
+    "tafeTractorsinIndia": "टैफे ट्रैक्टर भारत में",
+    "itlTractorsinIndia": "आईटीएल ट्रैक्टर भारत में",
+    "TractorByBrands": "ब्रांड अनुसार ट्रैक्टर",
+    "Popular": "लोकप्रिय",
+    "and": "और",
+    "brands": "ब्रांड्स",
+    "popularSecondHandTractors": "लोकप्रिय सेकेंड हैंड ट्रैक्टर",
+    "popularSecondHandTractors": "लोकप्रिय सेकेंड हैंड ट्रैक्टर",
+    "blogsAndNews": "{prefix} ब्लॉग्स और समाचार"
   },
   "tyreDetail": {
     "about": "के बारे में",

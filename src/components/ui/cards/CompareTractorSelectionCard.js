@@ -1,18 +1,19 @@
-'use client';
-
 // ============ Used At ============
 // 1. /
 // 2. /compare-tractors
 // =================================
+
+'use client';
+
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import TG_SelectField from '../inputs/TG_SelectField';
-import TG_Button from '../buttons/MainButtons';
-import { getTractorBrands } from '@/src/services/tractor/all-tractor-brands-v2';
+// import TG_Button from '../buttons/MainButtons';
+// import { getTractorBrands } from '@/src/services/tractor/all-tractor-brands-v2';
 import { getTractorModelsByBrand } from '@/src/services/tractor/get-model-by-brand-v2';
+import TG_LinkButton from '../buttons/TgLinkButton';
 
 const CompareTractorSelectionCard = ({
-  className,
   isSelected = false, // TODO:: This seleection will be based on user inputs
   viewMode = false,
   allowChange = false,
@@ -20,8 +21,12 @@ const CompareTractorSelectionCard = ({
   onTractorSelect,
   selectedTractor = null,
   onPlaceholderClick,
+  currentLang,
+  brands
 }) => {
-  const [brands, setBrands] = useState([]);
+  // const [brands, setBrands] = useState([]);
+  console.log("selectedTractor::", selectedTractor);
+
   const [models, setModels] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState('');
   const [selectedModel, setSelectedModel] = useState('');
@@ -30,9 +35,29 @@ const CompareTractorSelectionCard = ({
   const brandSelectRef = useRef(null);
 
   // Load brands on component mount
+  // useEffect(() => {
+  //   loadBrands();
+  // }, []);
+
+  // Sync local state when selectedTractor prop changes
   useEffect(() => {
-    loadBrands();
-  }, []);
+    if (selectedTractor && selectedTractor.brand && selectedTractor.model) {
+      // Don't update local state if user has made their own selections
+      if (!selectedBrand && !selectedModel) {
+        setSelectedBrand(selectedTractor.brand);
+        setSelectedModel(selectedTractor.model);
+        // Load models for the brand if not already loaded
+        if (selectedTractor.brand && models.length === 0) {
+          loadModels(selectedTractor.brand);
+        }
+      }
+    } else if (!selectedTractor) {
+      // Clear local state when selectedTractor is removed
+      setSelectedBrand('');
+      setSelectedModel('');
+      setModels([]);
+    }
+  }, [selectedTractor, selectedBrand, selectedModel, models.length]);
 
   // Reset models when brand changes
   useEffect(() => {
@@ -47,27 +72,34 @@ const CompareTractorSelectionCard = ({
 
   // Notify parent when tractor is fully selected
   useEffect(() => {
+    // Only trigger onTractorSelect if user has actively made selections
+    // Don't interfere with prop-based selectedTractor
     if (selectedBrand && selectedModel) {
       const selectedTractorData = models.find(model => model.model === selectedModel);
       if (selectedTractorData && onTractorSelect) {
         onTractorSelect(cardIndex, selectedTractorData);
+        console.log('onTractorSelect::', cardIndex, selectedTractorData);
       }
-    } else if (onTractorSelect) {
-      onTractorSelect(cardIndex, null);
+    } else if (selectedBrand || selectedModel) {
+      // Only reset to null if user has started making selections but hasn't completed them
+      // Don't interfere if we have a selectedTractor from props and user hasn't started selecting
+      if (onTractorSelect && !selectedTractor) {
+        onTractorSelect(cardIndex, null);
+      }
     }
-  }, [selectedBrand, selectedModel, models, cardIndex]);
+  }, [selectedBrand, selectedModel, models, cardIndex, selectedTractor]);
 
-  const loadBrands = async () => {
-    try {
-      setIsLoadingBrands(true);
-      const brandsData = await getTractorBrands();
-      setBrands(brandsData || []);
-    } catch (error) {
-      console.error('Error loading brands:', error);
-    } finally {
-      setIsLoadingBrands(false);
-    }
-  };
+  // const loadBrands = async () => {
+  //   try {
+  //     setIsLoadingBrands(true);
+  //     const brandsData = await getTractorBrands();
+  //     setBrands(brandsData || []);
+  //   } catch (error) {
+  //     console.error('Error loading brands:', error);
+  //   } finally {
+  //     setIsLoadingBrands(false);
+  //   }
+  // };
 
   const loadModels = async brandName => {
     try {
@@ -87,6 +119,7 @@ const CompareTractorSelectionCard = ({
 
   const handleModelChange = e => {
     setSelectedModel(e.target.value);
+    console.log('model changed...', selectedTractor);
   };
 
   const handlePlaceholderClick = () => {
@@ -132,7 +165,42 @@ const CompareTractorSelectionCard = ({
     return 'https://images.tractorgyan.com/uploads/120278/1753707917Add-Tractor-Icon.webp';
   };
 
-  const hasSelectedTractor = selectedTractor && selectedBrand && selectedModel;
+  // ====
+  // :: Hanlde card selected value when clicking on Change Tractor button
+  const handleChangeTractor = () => {
+    console.log('clicked...');
+    onTractorSelect(cardIndex, null);
+    setSelectedBrand('');
+    setSelectedModel('');
+    setModels([]);
+  };
+
+  const ChangeBtnGroup = ({ disabled = false, onRemove }) => {
+    return (
+      <div
+        onClick={onRemove}
+        className="absolute right-1 top-2 flex w-full flex-row-reverse items-center justify-between gap-2 px-2 md:right-0 md:top-4 md:flex-row md:justify-end md:px-0 md:pr-3">
+        <button>
+          <Image
+            src="https://images.tractorgyan.com/uploads/119880/1751721362close-icon.webp"
+            height={40}
+            width={40}
+            alt="Remove Tractor Icon"
+            title="Remove Tractor Icon"
+            className="h-4 w-4 md:h-5 md:w-5"
+          />
+        </button>
+        <button
+          className={`${disabled ? 'text-gray-light' : 'text-gray-main hover:text-black'} border-b text-xs md:text-sm`}
+        >
+          Change Tractor
+        </button>
+      </div>
+    );
+  };
+
+  // const hasSelectedTractor = selectedTractor && selectedBrand && selectedModel;
+  const hasSelectedTractor = selectedTractor;
   return (
     <div className="flex flex-col gap-4">
       {/* If No Tractor Selected */}
@@ -161,6 +229,10 @@ const CompareTractorSelectionCard = ({
         <div
           className={`${viewMode ? '' : 'shadow-main'} flex w-full flex-col items-center justify-center rounded-xl p-2 md:p-4`}
         >
+          {/* <div className='absolute left-4 top-4'>Change</div> */}
+          {allowChange && (
+            <ChangeBtnGroup onRemove={() => handleChangeTractor()} />
+          )}
           <div
             className={`${viewMode ? '' : 'border'} flex w-full flex-col items-center justify-center rounded-xl border-gray-light p-2 ${!viewMode ? 'cursor-pointer' : ''}`}
             onClick={handleTractorClick}
@@ -209,8 +281,9 @@ const CompareTractorSelectionCard = ({
         </div>
       )}
 
-      {!viewMode && (
-        <>
+      {(!viewMode || !selectedTractor) && (
+        // {!viewMode && (
+        <div className='min-w-[80px] md:min-w-[280px] max-w-[300px] mx-auto mb-4'>
           <div className="mt-2">
             <TG_SelectField
               ref={brandSelectRef}
@@ -225,7 +298,7 @@ const CompareTractorSelectionCard = ({
               additionalClasses="border-green-main"
             />
           </div>
-          <div>
+          <div className="mt-2">
             <TG_SelectField
               id={`model-${cardIndex}`}
               value={selectedModel}
@@ -245,12 +318,20 @@ const CompareTractorSelectionCard = ({
               disabled={!selectedBrand}
             />
           </div>
-        </>
+        </div>
       )}
       {/* TODO:: When this button is shown, the compare tractor button will not be shown in the section cta */}
-      {viewMode && (
-        <div className="mt-2 flex w-full justify-center">
-          <TG_Button variant="outline">₹ Check Price</TG_Button>
+      {viewMode && selectedTractor && (
+        <div className="mb-4 flex w-full justify-center">
+          {selectedTractor.brand_name_en && selectedTractor.model ? (
+            <TG_LinkButton className='border-primary text-primary rounded-lg' href={`${currentLang == 'hi' ? '/hi' : ''}/${((selectedTractor.brand_name_en).replaceAll(' ', '-')).toLowerCase()}-${((selectedTractor.model).replaceAll(' ', '-')).toLowerCase()}/tractor-on-road-price/${selectedTractor.id}`}>
+              ₹ Check Price
+            </TG_LinkButton>
+          ) : (
+            <TG_LinkButton className='border-primary text-primary rounded-lg'>
+              ₹ Check Price
+            </TG_LinkButton>
+          )}
         </div>
       )}
     </div>

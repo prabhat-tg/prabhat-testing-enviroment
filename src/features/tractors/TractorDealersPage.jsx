@@ -27,7 +27,6 @@ import DealershipEnquiryForm from '@/src/components/shared/dealership-enquiry/De
 import { getTractorDealerUrls } from '@/src/services/tractor/get-tractor-dealer-urls';
 
 export default async function TractorDealersPage({ params, searchParams, url_slug }) {
-  // Initialize with default values to prevent page breaking
   let currentLang = 'en';
   let translation = {};
   let isMobile = false;
@@ -40,6 +39,8 @@ export default async function TractorDealersPage({ params, searchParams, url_slu
   let states = [];
   let allTractorBrands = [];
   let tractorDealerUrls = [];
+
+  console.log("url_slug:", url_slug);
 
   try {
     currentLang = await getSelectedLanguage();
@@ -67,7 +68,7 @@ export default async function TractorDealersPage({ params, searchParams, url_slu
     } else {
       seoHtmlDescription = await getDetailPageHeaderSEO({
         page_type: 'tractor_dealer_listing_page',
-        page_slug: 'tractor-dealers/' + url_slug,
+        url_slug: 'tractor-dealers/' + url_slug,
         lang: currentLang,
       });
     }
@@ -107,14 +108,17 @@ export default async function TractorDealersPage({ params, searchParams, url_slu
     console.error('Error fetching tractor dealer listing:', error);
   }
 
-  try {
-    suggestedDealers = await getTractorSuggestedDealerList({
-      dealer_type: 'tractor',
-      start_limit: 0,
-      end_limit: 10
-    });
-  } catch (error) {
-    console.error('Error fetching suggested tractor dealers:', error);
+  if (dealerResult.data.length === 0) {
+
+    try {
+      suggestedDealers = await getTractorSuggestedDealerList({
+        dealer_type: 'tractor',
+        start_limit: 0,
+        end_limit: 10
+      });
+    } catch (error) {
+      console.error('Error fetching suggested tractor dealers:', error);
+    }
   }
 
   try {
@@ -212,6 +216,13 @@ export default async function TractorDealersPage({ params, searchParams, url_slu
       <AboutTractorGyanServer
         slug={`${currentLang == 'hi' ? 'hi/' : ''}tractor-dealers-in-india`}
         translation={translation}
+        isTractorDealer={url_slug == 'tractor-dealers-in-india' ? false : true}
+        tractorDealerPayload={{
+          lang: currentLang,
+          ...dealerResult.brand_name && { brand_name: dealerResult.brand_name },
+          ...dealerResult.state && { state: dealerResult.state },
+          ...dealerResult.city && { city: dealerResult.city },
+        }}
       />
       <FooterComponents translation={translation} />
     </main>

@@ -6,7 +6,7 @@ import Slider from 'react-slick';
 import Image from 'next/image';
 import CompareTractorsSection from './CompareTractorsSection';
 
-const CompareTractorsSlider = ({ cta, currentTractor, compareTractors, isMobile, currentLang, isComparisonPage = false }) => {
+const CompareTractorsSlider = ({ cta, currentTractor, compareTractors, isMobile, currentLang, isComparisonPage = false, tractorBrands }) => {
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== 'undefined' ? window.innerWidth : 1200
   );
@@ -83,6 +83,8 @@ const CompareTractorsSlider = ({ cta, currentTractor, compareTractors, isMobile,
               // compareTractor={compareTractor || null}
               currentTractor={isComparisonPage ? compareTractor?.tractor1 : currentTractor}
               compareTractor={isComparisonPage ? compareTractor?.tractor2 : compareTractor || null}
+              currentLang={currentLang}
+              tractorbrands={tractorBrands}
             />
           </div>
         ))}

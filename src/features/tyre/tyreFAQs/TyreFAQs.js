@@ -7,15 +7,7 @@ const TyreFAQsServer = dynamic(() => import('./TyreFAQsServer'), {
   ssr: true,
 });
 
-const TyreFAQs = ({
-  translation,
-  faqs,
-  headingKey,
-  isDynamicTitle,
-  brandName,
-  faqsError,
-  bgColor,
-}) => {
+const TyreFAQs = ({ translation, faqs, headingKey, isDynamicTitle, brandName, faqsError, bgColor }) => {
   let headingTitle = tg_getTittleFromNestedKey(translation, headingKey);
 
   if (isDynamicTitle) {

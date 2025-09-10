@@ -8,7 +8,8 @@ export default function TittleAndCrumbs({
   title,
   breadcrumbs = [],
   showBack = false,
-  tooltipContent = null
+  tooltipContent = null,
+  customClass
 }) {
 
   return (
@@ -24,7 +25,7 @@ export default function TittleAndCrumbs({
             /* Otherwise show title if not hidden and not empty */
             !hideTitle &&
             title !== '' && (
-              <h1 className="border-b-3 mg:leading-[32px] mb-2 inline-block w-fit border-secondary pb-1 text-[18px] font-bold leading-[29px] text-black sm:text-[16px] md:text-[26px] lg:mb-0">
+              <h1 className={`${customClass ? customClass : ''} border-b-3 mg:leading-[32px] mb-2 inline-block w-fit border-secondary pb-1 text-[18px] font-bold leading-[29px] text-black sm:text-[16px] md:text-[26px] lg:mb-0`}>
                 {title}
               </h1>
             )

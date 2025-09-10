@@ -12,7 +12,6 @@ import TractorsByBrands from '@/src/components/tractor/TractorsByBrands';
 import { getAllTractorBrands } from '@/src/services/tractor/all-tractor-brands';
 import PopularSection from '@/src/components/shared/popularSection/PopularSection';
 import { getTractorPopularDetails } from '@/src/services/tractor/tractor-popular-details';
-import { getAllTractorSubsidyStates } from '@/src/services/geo/get-subsidy-states';
 import { getCompareTractorRecord } from '@/src/services/tractor/compare-tractor-brands';
 import CompareTractorsSection from '@/src/components/tractor/CompareTractorsSection';
 import Image from 'next/image';
@@ -23,8 +22,13 @@ import SocialMediaLinksShare from '@/src/components/shared/social-media/SocialMe
 import TyreDealersByStates from '../tyre/TyreDealersByStates/TyreDealersByStates';
 import CompareTractorsSlider from '@/src/components/tractor/CompareTractorsSlider';
 import { getCompareTractorsList } from '@/src/services/tractor/get-compare-tractors-list';
+import { getAllStatesBySlug } from '@/src/services/geo/get-states-by-slug';
+import { getSEOByPage } from '@/src/services/seo/get-page-seo';
+import SeoHead from '@/src/components/shared/header/SeoHead';
+import { getDetailPageHeaderSEO } from '@/src/services/detailPageHeaderSeo';
 
 export default async function CompareTractorsPage({ params }) {
+  const param = await params;
   const currentLang = await getSelectedLanguage(); // Server-side language detection
   const translation = await getDictionary(currentLang);
 
@@ -32,17 +36,28 @@ export default async function CompareTractorsPage({ params }) {
   const allTractorBrands = await getAllTractorBrands();
   const popularTractors = await getTractorPopularDetails(currentLang);
 
-  const payload = {
-    pageSlug: 'tractor-dealers',
-  };
-  const dealerStates = await getAllTractorSubsidyStates(payload);
+  // const payload = {
+  //   pageSlug: 'tractor-dealers',
+  // };
+  // const dealerStates = await getAllTractorSubsidyStates(payload);
 
   // Check if this is a comparison result page or main selection page
-  const isComparisonPage = params && params.length > 0;
-  console.log("Is comparison page:", isComparisonPage, params);
+  const isComparisonPage = param && param.length > 0;
+  console.log("Is comparison page:", isComparisonPage, param);
 
-  const compareUrl = isComparisonPage ? params[0] : '';
+  const compareUrl = isComparisonPage ? param[0] : '';
 
+  let seoData = {};
+  let seoHtml;
+  if (isComparisonPage) {
+    seoHtml = await getDetailPageHeaderSEO({
+      page_type: "compare-tractor",
+      lang: currentLang,
+      url_slug: compareUrl
+    })
+  } else {
+    seoData = await getSEOByPage((currentLang == 'hi' ? 'hi/' : '') + "compare-tractors")
+  }
   // Fetch comparison data if this is a comparison page
   let comparisonData = null;
   if (isComparisonPage && compareUrl) {
@@ -50,12 +65,18 @@ export default async function CompareTractorsPage({ params }) {
     console.log("Fetched comparison data:", comparisonData);
   }
 
+  let dealerStates = [];
+  try {
+    dealerStates = await getAllStatesBySlug({ pageSlug: 'tractor-dealers' });
+  } catch (error) {
+    console.error('Error fetching dealer states:', error);
+  }
+
   // Fetch more comparison listif this is a comparison page
   let moreComparisonList = null;
-  if (isComparisonPage && compareUrl) {
-    moreComparisonList = await getCompareTractorsList();
-    console.log("Fetched more comparison data:", moreComparisonList);
-  }
+  moreComparisonList = await getCompareTractorsList();
+  console.log("Fetched more comparison data:", moreComparisonList);
+
 
   // Generate page title based on whether it's comparison or main page
   const generatePageTitle = (url, data) => {
@@ -274,6 +295,10 @@ export default async function CompareTractorsPage({ params }) {
   return (
     <main className="pt-4 md:mt-[164px]">
       {/* TODO:: Setup Common Layout Class */}
+      <SeoHead
+        seo={seoData}
+        seoHTMLDescription={seoHtml?.data}
+      />
       <NavComponents translation={translation} isMobile={isMobile} prefLang={currentLang} />
       <div className="container mx-auto">
         <TittleAndCrumbs title={pageTitle} breadcrumbs={breadcrumbs} />
@@ -313,7 +338,10 @@ export default async function CompareTractorsPage({ params }) {
                   currentTractor={comparisonData.tractor_0}
                   compareTractor={comparisonData.tractor_1}
                   compareTractor2={comparisonData.tractor_2 ? comparisonData.tractor_2 : ''}
-                  itemsToShow={comparisonData.tractor_2 ? 3 : 2}
+                  // itemsToShow={comparisonData.tractor_2 ? 3 : 2}
+                  itemsToShow={isMobile ? 2 : 3}
+                  currentLang={currentLang}
+                  tractorbrands={allTractorBrands}
                 />
               ) : (
                 <div className="flex h-64 items-center justify-center w-full">
@@ -333,42 +361,20 @@ export default async function CompareTractorsPage({ params }) {
           </section>
 
           {/* About Section */}
-          <section className="mt-10">
+          {isComparisonPage ? <section className="mt-10">
             <div className="container">{aboutSectionSlot}</div>
-          </section>
+          </section> : null}
 
           {/* Features Comparison Section */}
-          {compareFeaturesData.length > 0 && (
+          {isComparisonPage && compareFeaturesData.length > 0 && (
             <CompareTractorsFeaturesSection comparisionData={compareFeaturesData} />
           )}
 
-          {/* Compare More Tractors Section */}
-          <section className="bg-white">
-            <div className="container">
-              <MainHeadings text="Compare Tractors" />
-              <CompareTractorsSlider
-                cta={translation?.buttons?.compareTractor || 'Compare Tractors'}
-                compareTractors={moreComparisonList || null}
-                isMobile={isMobile}
-                isComparisonPage={isComparisonPage}
-              />
-              {/* <div className="flex gap-4">
-                <div className="flex w-full flex-col gap-4 md:w-[calc(50%-.5rem)]">
-                  <CompareTractorsSection cta="Compare Tractors" viewMode={true} itemsToShow={2} />
-                  <CompareTractorsSection cta="Compare Tractors" viewMode={true} itemsToShow={2} />
-                </div>
-                <div className="hidden w-full flex-col gap-4 md:flex md:w-[calc(50%-.5rem)]">
-                  <CompareTractorsSection cta="Compare Tractors" viewMode={true} itemsToShow={2} />
-                  <CompareTractorsSection cta="Compare Tractors" viewMode={true} itemsToShow={2} />
-                </div>
-              </div> */}
-            </div>
-          </section>
+
         </>
       ) : (
-        /* Main Selection Page with Old UI */
         <>
-          <section className="bg-section-gray">
+          {/* <section className="bg-section-gray">
             <div className="justfiy-between container flex">
               <div className="hidden flex-col justify-center gap-4 pr-4 font-medium md:flex">
                 Share
@@ -381,26 +387,45 @@ export default async function CompareTractorsPage({ params }) {
                 allowChange={true}
               />
             </div>
-          </section>
+          </section> */}
 
-          <section className="bg-section-gray">
+          {!isComparisonPage ? <section className="bg-section-gray">
             <CompareTractorsSection
               heading="Compare Tractors"
               cta="Compare Tractors"
               bgColor="bg-section-gray"
-            />
-          </section>
+              currentLang={currentLang}
+              tractorbrands={allTractorBrands}
 
-          {/* About Section */}
-          <section className="mt-10">
-            <div className="container">{aboutSectionSlot}</div>
+            // allowChange={true}
+            />
+          </section> : null}
+
+          {/* Compare More Tractors Section */}
+          <section className="bg-white">
+            <div className="container">
+              <MainHeadings text="Compare Tractors" />
+              <CompareTractorsSlider
+                cta={translation?.buttons?.compareTractor || 'Compare Tractors'}
+                compareTractors={moreComparisonList || null}
+                isMobile={isMobile}
+                isComparisonPage={true}
+                tractorBrands={allTractorBrands}
+              />
+
+            </div>
           </section>
+          {/* About Section */}
+          {/* <section className="mt-10">
+            <div className="container">{aboutSectionSlot}</div>
+          </section> */}
 
           {/* Sample Features Section for Main Page */}
-          <CompareTractorsFeaturesSection comparisionData={compareFeaturesData} />
-
+          {isComparisonPage ? (
+            <CompareTractorsFeaturesSection comparisionData={compareFeaturesData} />
+          ) : null}
           {/* Compare Examples Section */}
-          <section className="bg-white">
+          {/* <section className="bg-white">
             <div className="container">
               <MainHeadings text="Compare Tractors" />
               <div className="flex gap-4">
@@ -414,7 +439,7 @@ export default async function CompareTractorsPage({ params }) {
                 </div>
               </div>
             </div>
-          </section>
+          </section> */}
         </>
       )}
 
@@ -435,25 +460,25 @@ export default async function CompareTractorsPage({ params }) {
       />
 
       <TyreDealersByStates
-        title="Select Tyre Dealers by State"
         translation={translation}
         isMobile={isMobile}
         dealerStates={dealerStates}
-        buttonText={'View All States'}
+        prefLang={currentLang}
+        title={translation?.tractorDealers?.title || 'Tractor Dealers in India'}
+        buttonText={translation?.buttons?.viewAllStates || 'View All States'}
       />
 
       <JoinOurCommunityServer translation={translation} currentLang={currentLang} />
 
       <TractorGyanOfferings translation={translation} />
 
-      <AboutTractorGyanServer slug={'tyres'} translation={translation} />
+      <AboutTractorGyanServer slug={(currentLang == 'hi' ? 'hi/' : '') + 'compare-tractors'} translation={translation} />
 
       <FooterComponents translation={translation} />
 
       <WhatsAppTopButton
         translation={translation}
         currentLang={currentLang}
-        defaultEnquiryType={'Tractor'}
         isMobile={isMobile}
       />
     </main>

@@ -41,6 +41,7 @@
     "standard": "Standard",
     "hav": "HAV",
     "force": "Force",
+    "tafe": "Tafe",
     "hmt": "Hmt",
     "seeMoreBrands": "See More Brands",
     "allOldTractor": "Buy/Sell Used Tractor/Implement",
@@ -858,7 +859,17 @@
     "allTractorbrands": "All Tractor brands",
     "leadingTractorGroup": "Leading Tractor Group",
     "selectTractorSubsidyStates": "Select Tractor Subsidy States",
-    "popularSecondHandTractors": "Popular Second Hand Tractors"
+    "ConstructionMachineryandEquipmentinIndia": "Construction Machinery and Equipment in India",
+    "MahindraMahindraTractorsinIndia": "Mahindra & Mahindra Tractors in India",
+    "escortTractorsinIndia": "Escorts & Escorts Tractors in India",
+    "tafeTractorsinIndia": "Tafe Tractors in India",
+    "itlTractorsinIndia": "Itl Tractors in India",
+    "TractorByBrands": "Tractor By Brands", 
+    "Popular": "Popular",
+    "and": "and",
+    "brands": "Brands",
+    "popularSecondHandTractors": "Popular Second Hand Tractors",
+    "blogsAndNews": "{prefix} Blogs & News"
   },
   "tyreDetail": {
     "about": "About",

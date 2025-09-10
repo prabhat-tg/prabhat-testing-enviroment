@@ -69,7 +69,7 @@ const StoryContainer = ({ webstories }) => {
         <Link href={webstory.full_url} key={index}>
           <StoryRing
             key={index}
-            numDashes={webstory.story_count}
+            numDashes={webstory?.story_count}
             size={144} // Fixed size for all rings
             gap={8} // Fixed gap for all rings
             strokeWidth={4}

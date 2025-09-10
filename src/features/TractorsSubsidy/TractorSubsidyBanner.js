@@ -48,7 +48,7 @@ const TractorSubsidyBanner = ({ translation }) => {
               height={370}
               width={1260}
               alt="tractor subsidy banner"
-              className="h-full w-auto object-fill"
+              className="h-full w-full object-fill"
             />
             {/* <div className="absolute inset-0 flex flex-col items-center gap-3 pt-10">
               <h1 className="text-4xl font-bold">Looking for subsidy information?</h1>

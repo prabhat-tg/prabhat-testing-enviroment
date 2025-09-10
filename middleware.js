@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { obsoleteUrls as originalObsoleteUrls } from './src/data/obsolete-urls';
 
-// Remove base URL and /amp suffix, ensure leading slash
+// Process obsolete URLs to keep full paths with query parameters
 const processedObsoleteUrls = originalObsoleteUrls
   .map(fullUrl => {
     try {
@@ -12,13 +12,16 @@ const processedObsoleteUrls = originalObsoleteUrls
         path = path.slice(0, -4);
       }
       // Ensure it starts with a slash
-      return path.startsWith('/') ? path : '/' + path;
+      path = path.startsWith('/') ? path : '/' + path;
+      // Include query parameters for full URL matching
+      const searchParams = urlObject.search;
+      return path + searchParams;
     } catch (error) {
       console.error(`Invalid URL in obsoleteUrls: ${fullUrl}`, error);
-      return null; // Or handle error as appropriate
+      return null;
     }
   })
-  .filter(path => path !== null); // Filter out any nulls from invalid URLs
+  .filter(url => url !== null); // Filter out any nulls from invalid URLs
 
 export function middleware(req) {
   const { cookies } = req;
@@ -34,21 +37,20 @@ export function middleware(req) {
     return response;
   }
 
-  // Obsolete URL check
-  // Normalize current pathname: remove trailing slash if not root, remove /amp
-  let currentPathForCheck = pathname;
-  if (currentPathForCheck.endsWith('/amp')) {
-    currentPathForCheck = currentPathForCheck.slice(0, -4);
-  }
-  if (currentPathForCheck !== '/' && currentPathForCheck.endsWith('/')) {
-    currentPathForCheck = currentPathForCheck.slice(0, -1);
-  }
-  // Ensure leading slash for comparison
-  if (!currentPathForCheck.startsWith('/')) {
-    currentPathForCheck = '/' + currentPathForCheck;
+  // Obsolete URL check with full URL matching including parameters
+  const currentUrl = req.nextUrl.pathname + req.nextUrl.search;
+
+  // Normalize: remove /amp if present
+  let normalizedCurrentUrl = currentUrl;
+  if (normalizedCurrentUrl.includes('/amp')) {
+    normalizedCurrentUrl = normalizedCurrentUrl.replace('/amp', '');
   }
 
-  if (processedObsoleteUrls.includes(currentPathForCheck)) {
+  const isObsoleteUrl = processedObsoleteUrls.some(obsoleteUrl =>
+    normalizedCurrentUrl === obsoleteUrl
+  );
+
+  if (isObsoleteUrl) {
     return new NextResponse(
       `
     <!DOCTYPE html>

@@ -67,7 +67,7 @@ const CompareTractorsFeaturesSection = ({
                 {group.headers && group.headers.map((header, headerIndex) => (
                   <div
                     key={headerIndex}
-                    className={`${headerIndex ? 'text-black justify-center' : 'text-gray-dark'} ${group.headers.length > 2 ? 'w-1/4' : 'w-1/3'} flex items-center`}
+                    className={`${headerIndex ? 'text-black justify-center' : 'text-gray-dark'} ${group.headers.length > 3 ? 'w-1/4' : 'w-1/3'} flex items-center`}
                   >
                     <span>{header}</span>
                   </div>
@@ -75,7 +75,7 @@ const CompareTractorsFeaturesSection = ({
               </li>
               {group.features && group.features.map((feature, featureIndex) => {
                 const shouldHide =
-                  group.headers.length > 2
+                  group.headers.length > 3
                     ? (hidden && feature.tractor1Value === feature.tractor2Value && feature.tractor2Value === feature.tractor3Value)
                     : (hidden && feature.tractor1Value === feature.tractor2Value);
 

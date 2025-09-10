@@ -1,5 +1,5 @@
-import MainHeadings from '@/src/features/tyreComponents/commonComponents/MainHeadings';
-import React from 'react';
+import MainHeadings from "@/src/features/tyreComponents/commonComponents/MainHeadings";
+import React from "react";
 
 const TyreFAQsServer = ({
   faqs,
@@ -43,7 +43,7 @@ const TyreFAQsServer = ({
                     </h3>
                     <span
                       className={`${
-                        isActive ? 'bg-gray-aluminium' : 'bg-primary'
+                        isActive ? "bg-gray-aluminium" : "bg-primary"
                       } rounded-lg p-2 text-white transition-transform duration-300`}
                     >
                       {isActive ? (
@@ -70,7 +70,7 @@ const TyreFAQsServer = ({
                   <div
                     id={`faq-answer-${index}`}
                     className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                      isActive ? 'max-h-screen' : 'max-h-0'
+                      isActive ? "max-h-screen" : "max-h-0"
                     }`}
                   >
                     <h4

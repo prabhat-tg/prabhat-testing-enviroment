@@ -44,11 +44,14 @@ export default async function TyreDetailPage({ params }) {
   return (
     <>
       <SeoHead
-        seo={{
-          canonical: `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}${prefLang == 'en' ? '' : `/${prefLang}`}/tyre/${brandSlug}/${tyreId}`,
-        }}
+        seo={{}}
         staticMetadata={{}}
         preloadUrls={[]}
+        // paginationLinks={{
+
+        //   canonical: `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}${prefLang == 'en' ? '' : '/' + prefLang}/tyre/${brandSlug}/${tyreId}`,
+
+        // }}
         seoHTMLDescription={seoHTMLDescription}
       />
       <DesktopHeader currentLang={prefLang} translation={translation} isMobile={isMobile} />

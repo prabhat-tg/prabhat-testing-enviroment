@@ -41,6 +41,9 @@ import PopularSection from '@/src/components/shared/popularSection/PopularSectio
 import { getTractorPopularDetails } from '@/src/services/tractor/tractor-popular-details';
 import { getHomeVideos } from '@/src/services/home/home-videos';
 import Link from 'next/link';
+import { getAllWebstories } from '@/src/services/home/home-webstory';
+import NewsSection from '../tyre/tyreNews/NewsSection';
+import { getAllTractorNews } from '@/src/services/tractor/all-tractor-news';
 
 /**
  * Generic Tractor Page Layout Component
@@ -105,6 +108,13 @@ export default async function TractorPageLayout(config, { params, searchParams }
       ? breadcrumbKey.split('.').reduce((obj, key) => obj?.[key], translation) || headingTitle
       : headingTitle;
 
+    let news;
+    try {
+      news = await getAllTractorNews('tractor-news');
+    } catch (error) {
+      console.error('Error fetching tractor news:', error);
+      news = [];
+    }
     // Determine the appropriate listing to show based on page configuration
     // const listingType = isTyrePage ? 'tyres' : 'tractors';    // Fetch videos, reels, and webstories with error handling
     let videos = [],
@@ -121,8 +131,15 @@ export default async function TractorPageLayout(config, { params, searchParams }
         reels = reelsData || [];
         webstories = webstoriesData || [];
       } else {
-        const videosData = await getHomeVideos('videos');
+        const [videosData, webstoriesData, reelData] = await Promise.all([
+          getHomeVideos('videos'),
+          getAllWebstories(),
+          getHomeVideos('reels')
+        ]);
         videos = videosData || [];
+        webstories = webstoriesData || [];
+        reels = reelData || [];
+        console.log("webstoriesdata:", webstoriesData);
 
       }
     } catch (error) {
@@ -405,10 +422,24 @@ export default async function TractorPageLayout(config, { params, searchParams }
           />
         )} */}
 
+        {news ? (
+          <NewsSection
+            title={translation.headings.blogsAndNews.replace(
+              '{prefix}',
+              headingTitle
+            )}
+            translation={translation}
+            langPrefix={currentLang}
+            news={news || []}
+            showFilter={false}
+            bgColor={'bg-section-white'}
+          />
+        ) : null}
+
         {/* Updates Section - only render if we have content */}
         {(videos.length > 0 || reels.length > 0 || webstories.length > 0) && (
           <UpdatesSection
-            bgColor={'bg-white'}
+            bgColor={'bg-section-gray'}
             videos={videos}
             reels={reels}
             webstories={webstories}

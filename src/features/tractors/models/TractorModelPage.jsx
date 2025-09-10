@@ -447,7 +447,7 @@ export default async function TractorModelPage({ params }) {
         modelId={tractorId}
         model={tractorDetail.model_name_en}
         showUserReviewTitle={isMobile}
-        // TODO:: Update No Review Image
+        isTractorReviewPage={true}
         noReviewImg="https://images.tractorgyan.com/uploads/120828/68b2a79244bd5-tractor-review-image.webp"
       />
 
@@ -476,6 +476,8 @@ export default async function TractorModelPage({ params }) {
               currentTractor={tractorDetail}
               compareTractors={compareTractors || null}
               isMobile={isMobile}
+              tractorBrands={allTractorBrands}
+
             />
             {/* <div className="flex gap-4">
               <div className="flex w-full flex-col gap-4 md:w-[calc(50%-.5rem)]">

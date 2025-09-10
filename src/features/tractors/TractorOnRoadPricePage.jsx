@@ -220,7 +220,7 @@ const TractorOnRoadPricePage = async ({ params, searchParams }) => {
         <JoinOurCommunityServer translation={translation} currentLang={currentLang} />
         <TractorGyanOfferings translation={translation} />
         <AboutTractorGyanServer
-          slug={(currentLang == 'hi' ? 'hi/' : '') + (routeParams ? `${routeParams['brand-model']}/tractor-on-road-price/${routeParams['modelId']}` : 'tractor-on-road-price')}
+          slug={(currentLang == 'hi' ? 'hi/' : '') + (routeParams.hasOwnProperty('brand-model') ? `${routeParams['brand-model']}/tractor-on-road-price/${routeParams['modelId']}` : 'tractor-on-road-price')}
           translation={translation}
         />
         <WhatsAppTopButton

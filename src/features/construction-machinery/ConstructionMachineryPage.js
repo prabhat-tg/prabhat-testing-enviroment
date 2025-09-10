@@ -144,6 +144,7 @@ export default async function ConstructionMachineryPage({ searchParams }) {
           heading='Construction Machinery By Brands'
           allImplementBrands={allImplementBrands}
           itemsShown={isMobile ? 9 : 12}
+          translation={translation}
         />
         <UpdatesSection
           videos={videos}

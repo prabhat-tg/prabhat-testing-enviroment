@@ -1,12 +1,11 @@
-'use client';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import ReviewsCard from '@/src/features/tyreComponents/components/tyreRatingAndReviews/ReviewsCard';
 import TyreRatingForm from '@/src/features/tyreComponents/components/tyreRatingAndReviews/TyreRatingForm';
 import { tg_getTittleFromNestedKey } from '@/src/utils';
 import Image from 'next/image';
-import { getTyreRatingReviews } from '@/src/services/tyre/ratingReviewService';
+import { getTractorReatingReviews, getTyreRatingReviews } from '@/src/services/tyre/ratingReviewService';
 
-const TyreRatingAndReviews = ({
+const TyreRatingAndReviews = async ({
   bgColor = 'bg-white',
   noReviewImg = 'https://images.tractorgyan.com/uploads/120267/68874f9862bd7-No-review-card-for-tyre.webp',
   headingTitleKey,
@@ -18,35 +17,46 @@ const TyreRatingAndReviews = ({
   form_page_name = 'model_detail',
   model,
   showUserReviewTitle = true,
+  isTractorReviewPage = false
 }) => {
-  const [reviews, setReviews] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    if (modelId) {
-      const fetchReviews = async () => {
-        try {
-          setLoading(true);
-          const result = await getTyreRatingReviews(modelId);
-          console.log('Result from getTyreRatingReviews:', result);
-
-          if (result.success) {
-            setReviews(result.data);
-          } else {
-            // setError(result.message || 'Failed to fetch reviews.');
-          }
-        } catch (err) {
-          // setError('An error occurred while fetching reviews.');
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetchReviews();
+  // const [reviews, setReviews] = useState([]);
+  // const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState(null);
+  let reviews = [];
+  try {
+    // setLoading(true);
+    if (isTractorReviewPage) {
+      const result = await getTractorReatingReviews(modelId);
+      console.log('Result from getTractorReatingReviews:', result);
+      if (result.success) {
+        reviews = (result.data);
+      } else {
+        // setError(result.message || 'Failed to fetch reviews.');
+      }
     } else {
-      setLoading(false);
+      const result = await getTyreRatingReviews(modelId);
+      console.log('Result from getTyreRatingReviews:', result);
+      if (result.success) {
+        reviews = (result.data);
+      } else {
+        // setError(result.message || 'Failed to fetch reviews.');
+      }
     }
-  }, [modelId]);
+  } catch (err) {
+    // setError('An error occurred while fetching reviews.');
+  } finally {
+    // setLoading(false);
+  }
+
+  // useEffect(() => {
+  //   if (modelId) {
+  //     const fetchReviews = async () => {
+  //     };
+  //     fetchReviews();
+  //   } else {
+  //     setLoading(false);
+  //   }
+  // }, [modelId]);
 
   let title = tg_getTittleFromNestedKey(translation, headingTitleKey);
   title = title.replace('{title}', dynamicTitle);
@@ -54,9 +64,9 @@ const TyreRatingAndReviews = ({
   userReviewTitle = userReviewTitle.replace('{title}', dynamicTitle);
 
   const renderReviews = () => {
-    if (loading) {
-      return <p>Loading reviews...</p>;
-    }
+    // if (loading) {
+    //   return <p>Loading reviews...</p>;
+    // }
 
     // if (error) {
     //   return <p>{error}</p>;

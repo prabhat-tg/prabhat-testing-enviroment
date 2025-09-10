@@ -1,4 +1,4 @@
-import TractorLoanPages from '@/src/features/loan/pages/TractorLoanPages';
+import TractorLoanPages from "@/src/features/loan/pages/TractorLoanPages";
 
 const page = () => {
   return (

@@ -9,6 +9,9 @@ const ConstructionMachineryTopSection = ({ isMobile, translation, currentLang,
     topContent,
     deviceType,
     tyreTopContent,
+    heading,
+    parent,
+    parentHeading
 }) => {
 
     let content = '';
@@ -29,12 +32,12 @@ const ConstructionMachineryTopSection = ({ isMobile, translation, currentLang,
                 <div className="relative container">
                     {/* Title + Breadcrumbs */}
                     <TittleAndCrumbs
-                        title="Construction Machinery and Equipment in India"
+                        title={heading || translation.headings.ConstructionMachineryandEquipmentinIndia}
                         breadcrumbs={[
                             { label: "Home", href: "/", title: "Home" },
                             {
-                                label: "Construction Machinery and Equipment in India",
-                                title: "Construction Machinery and Equipment in India",
+                                label: heading || translation.headings.ConstructionMachineryandEquipmentinIndia,
+                                title: heading || translation.headings.ConstructionMachineryandEquipmentinIndia,
                                 isCurrent: true,
                             },
                         ]}
@@ -68,7 +71,7 @@ const ConstructionMachineryTopSection = ({ isMobile, translation, currentLang,
 
                             {/* Construction Types */}
                             <div className="mt-8">
-                                <ConstructionMachineryType translation={translation} />
+                                <ConstructionMachineryType translation={translation} parent={parent} parentHeading={parentHeading} />
                             </div>
                         </div>
 

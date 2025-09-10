@@ -2,6 +2,8 @@ import { Inter } from 'next/font/google';
 import Script from 'next/script'; // Import next/script
 import './globals.css';
 import { NavigationEvents } from '@/src/components/NavigationEvents';
+import { readFileSync } from 'fs';
+import LocationHandler from '../src/components/LocationHandler';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -45,6 +47,7 @@ export default function RootLayout({ children }) {
           crossOrigin="anonymous"
         />
         <NavigationEvents />
+        <LocationHandler />
         {children}
       </body>
     </html>

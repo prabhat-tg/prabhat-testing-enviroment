@@ -37,7 +37,7 @@ export default async function TractorSubsidyData({ searchParams, porpsCurrentLan
       dealerStates = dealerStates.map((state) => ({
         ...state,
         state_name: state.name,
-        images: "https://images.tractorgyan.com/uploads" + state.image,
+        images: state.image,
       }));
     } else {
       storyError = true;

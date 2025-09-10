@@ -12,3 +12,17 @@ export async function getAboutContent(slug) {
     return null;
   }
 }
+
+export async function getTractorDealerContent(payload) {
+  try {
+    const result = await postData("api/tractor_dealer_footer_content", payload);
+
+    if (result && result.data) {
+      return result.data.footer;
+    }
+    return null;
+  } catch (e) {
+    console.error("Error fetching tractor dealer content:", e);
+    return null;
+  }
+}
