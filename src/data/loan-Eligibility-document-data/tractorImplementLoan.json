@@ -1,0 +1,94 @@
+{
+  "en": [
+    {
+      "section": "New Implement Loan Eligibility",
+      "description": "Check down below eligibility for a new implement loan",
+      "items": [
+        {
+          "title": "18 Years",
+          "subtext": "Minimum Age"
+        },
+        {
+          "title": "65 Years",
+          "subtext": "Maximum Age"
+        },
+        {
+          "title": "CIBIL Score",
+          "subtext": "Good credit score required"
+        }
+      ]
+    },
+    {
+      "section": "New Implement Loan Documents",
+      "description": "Documents required for new implement loan",
+      "items": [
+        {
+          "title": "Land Ownership",
+          "subtext": "Proof of ownership"
+        },
+        {
+          "title": "Address Proof",
+          "subtext": "Aadhar or one of Voter ID / Passport / Driving License"
+        },
+        {
+          "title": "Bank Statement",
+          "subtext": "Last 3 months"
+        },
+        {
+          "title": "CV Record",
+          "subtext": "12 months track record"
+        },
+        {
+          "title": "Identity Proof",
+          "subtext": "Aadhar or one of Voter ID / Passport / Driving License"
+        }
+      ]
+    }
+  ],
+  "hi": [
+    {
+      "section": "नई इम्प्लीमेंट लोन पात्रता",
+      "description": "नई इम्प्लीमेंट लोन के लिए पात्रता नीचे देखें",
+      "items": [
+        {
+          "title": "18 वर्ष",
+          "subtext": "न्यूनतम आयु"
+        },
+        {
+          "title": "65 वर्ष",
+          "subtext": "अधिकतम आयु"
+        },
+        {
+          "title": "सिबिल स्कोर",
+          "subtext": "अच्छा क्रेडिट स्कोर आवश्यक है"
+        }
+      ]
+    },
+    {
+      "section": "नई इम्प्लीमेंट लोन दस्तावेज़",
+      "description": "नई इम्प्लीमेंट लोन के लिए आवश्यक दस्तावेज़",
+      "items": [
+        {
+          "title": "भूमि स्वामित्व",
+          "subtext": "स्वामित्व का प्रमाण"
+        },
+        {
+          "title": "पता प्रमाण",
+          "subtext": "आधार या वोटर आईडी / पासपोर्ट / ड्राइविंग लाइसेंस में से कोई एक"
+        },
+        {
+          "title": "बैंक स्टेटमेंट",
+          "subtext": "पिछले 3 महीनों का"
+        },
+        {
+          "title": "सीवी रिकॉर्ड",
+          "subtext": "12 महीने का ट्रैक रिकॉर्ड"
+        },
+        {
+          "title": "पहचान प्रमाण",
+          "subtext": "आधार या वोटर आईडी / पासपोर्ट / ड्राइविंग लाइसेंस में से कोई एक"
+        }
+      ]
+    }
+  ]
+}

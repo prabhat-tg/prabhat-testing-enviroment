@@ -1,0 +1,162 @@
+.communityContainer {
+  width: 100%;
+  padding: 2rem 1rem;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+  background-color: #f4fbf4;
+}
+
+.communityTitle {
+  text-align: center;
+  color: #182c3d;
+  font-size: 1.75rem;
+  margin-bottom: 2rem;
+  font-weight: 500;
+}
+
+.platformsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.platformCard {
+  display: flex;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+  background-color: #ffffff;
+}
+
+.platformCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.platformContent {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 5px 1.05rem;
+}
+
+.platformIconWrapper {
+  margin-right: 1rem;
+}
+
+.platformIcon {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.platformInfo {
+  flex: 1;
+}
+
+.platformButtonText {
+  font-size: 0.7rem;
+  color: #718096;
+  margin-bottom: 0.25rem;
+}
+
+.platformName {
+  font-weight: 600;
+  font-size: 1.125rem;
+  color: #2d3748;
+}
+
+.platformFollowers {
+  text-align: right;
+  min-width: 80px;
+}
+
+.followersCount {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #2d3748;
+}
+
+.followersLabel {
+  font-size: 0.75rem;
+  color: #718096;
+}
+
+.google_news_head {
+  box-shadow: none;
+  background-color: unset;
+}
+
+.Google_news_img_container {
+  width: 360px;
+  height: 73px;
+}
+
+.Google_news_img_container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 1024px) {
+  .platformsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .platformsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+
+  .platformContent {
+    padding: 0.875rem 1rem;
+  }
+
+  .platformIcon {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+@media (max-width: 640px) {
+  .communityTitle {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .platformsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .platformButtonText {
+    font-size: 0.65rem;
+  }
+
+  .platformName {
+    font-size: 1rem;
+  }
+
+  .followersCount {
+    font-size: 1.125rem;
+  }
+
+  .followersLabel {
+    font-size: 0.7rem;
+  }
+}

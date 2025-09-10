@@ -1,0 +1,461 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* styles/globals.css */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+* {
+  padding: 0px;
+  margin: 0px;
+}
+
+body {
+  @apply font-sans;
+  overflow-x: hidden !important;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+img {
+  height: 100%;
+  width: 100%;
+}
+
+.container {
+  width: 100%;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+.tyre-top-content img:first-child {
+  float: left;
+  margin-right: 1rem;
+  /* Adjust as needed */
+}
+
+.Videosbuttons button,
+.video {
+  background: #fff;
+  cursor: pointer;
+}
+
+.Videosbuttons,
+.video-content {
+  gap: 20px;
+  display: flex;
+}
+
+.Video_updates {
+  width: 97vw;
+  margin: auto;
+}
+
+.mainHeadings,
+.section h3,
+.video img {
+  margin-bottom: 10px;
+}
+
+.mainHeadings {
+  font-size: 24px;
+}
+
+.Videosbuttons {
+  justify-content: start;
+  margin-bottom: 20px;
+  margin-left: 4%;
+}
+
+.Videosbuttons button {
+  padding: 10px 20px;
+  border: 1px solid gray;
+  border-radius: 18px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.Videosbuttons button.active {
+  background: green;
+  color: #fff;
+}
+
+.Videosections .section.active {
+  display: block;
+}
+
+.Videosections {
+  width: 91%;
+  margin: auto;
+}
+
+.video-content {
+  flex-wrap: wrap;
+}
+
+.video,
+.video-carousel {
+  position: relative;
+}
+
+.video {
+  flex: 1 1 calc(25% - 20px);
+  padding: 10px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow:
+    rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+.video img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px 8px 0 0;
+}
+
+.reelMainPopup .videoPopup,
+.videoMainPopup .videoPopup {
+  position: relative;
+  max-width: 800px;
+  background-color: #ffffff03;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.video-carousel {
+  overflow: hidden;
+  width: 100%;
+}
+
+.video-carousel-inner {
+  display: flex;
+  transition: transform 0.5s;
+}
+
+.video-carousel .video {
+  flex: 0 0 100%;
+}
+
+.VideosCarouselDots {
+  margin-top: 25px !important;
+}
+
+.video span,
+.viewAllBtnvideos {
+  margin-top: 10px;
+}
+
+.video h2 {
+  text-align: left;
+  font-size: 18px;
+}
+
+.video span {
+  text-align: left;
+  display: flex;
+}
+
+@media (max-width: 700px) {
+  .Videosbuttons {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
+
+  .videoPopup {
+    width: 100vw !important;
+    height: 100vh !important;
+  }
+
+  .videoPopupOverlay {
+    top: 0 !important;
+    z-index: 54321;
+  }
+
+  .videoMainPopup .videoPopup {
+    height: 60vw !important;
+  }
+}
+
+.videoViewDate {
+  justify-content: space-around;
+}
+
+.videoPopupOverlay {
+  position: fixed;
+  top: 20px;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.videoMainPopup .videoPopup {
+  width: 60%;
+  height: 73%;
+}
+
+.videoPopupCloseBtn {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  font-size: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  outline: 0;
+}
+
+.videoPopup iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 8px;
+}
+
+.videoPlayBtn {
+  position: absolute;
+  left: 42%;
+  top: 20%;
+  width: 50px !important;
+}
+
+@media (max-width: 700px) {
+  .videoPopupCloseBtn {
+    position: absolute;
+    top: -10px;
+    right: 5px;
+  }
+}
+
+/* reels */
+.custom-filter {
+  @apply filter;
+  filter: invert(55%) sepia(0) saturate(0) hue-rotate(180deg) brightness(95%) contrast(80%);
+}
+
+/* tooltip*/
+.tooltip:hover .tooltiptext {
+  @apply block opacity-100;
+}
+
+.tooltip .tooltiptext::after {
+  content: '';
+}
+
+section {
+  padding: 24px 0;
+}
+
+/* hide scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/*custom scroller css  */
+.custom-scroller::-webkit-scrollbar {
+  width: 7px;
+}
+
+.custom-scroller::-webkit-scrollbar-track {
+  background: #d3dae0;
+  border-radius: 7px;
+}
+
+.custom-scroller::-webkit-scrollbar-thumb {
+  background-color: #182c3d;
+  border-radius: 7px;
+}
+
+/* slider css  */
+.single-slide .slick-prev,
+.single-slide .slick-next {
+  display: none !important;
+}
+
+.slick-track {
+  margin-left: 0px !important;
+  /* Align to the left */
+}
+
+.slick-slider.py-5.mt-8.slick-initialized .slick-list {
+  padding: 24px;
+}
+
+.slick-dots li {
+  width: 8px !important;
+}
+
+.slick-dots li button:before {
+  width: 12px !important;
+  height: 12px !important;
+  content: '' !important;
+  border: solid 1px rgb(0, 0, 0);
+  background-color: white;
+  opacity: 1;
+  border-radius: 100%;
+}
+
+.slick-dots li.slick-active button:before {
+  opacity: 0.75;
+  color: green !important;
+  border: solid 1px green;
+  background-color: green;
+}
+
+/* implement slider  */
+.suggested-implement-slider .slick-dots li button {
+  bottom: 11px !important;
+}
+
+/* .tyre home banner  slider */
+.slider-container .tyre-home-banner button.slick-arrow.slick-prev {
+  left: 3%;
+  top: 92%;
+  z-index: 9;
+}
+
+.slider-container .tyre-home-banner button.slick-arrow.slick-next {
+  right: 3%;
+  top: 92%;
+  z-index: 9;
+}
+
+.slider-container .tyre-home-banner .slick-prev:before,
+.slider-container .tyre-home-banner .slick-next:before {
+  opacity: 1;
+}
+
+.slider-container .tyre-home-banner ul.slick-dots {
+  bottom: 8px;
+}
+
+/* model slider in tyre-details page  */
+
+.model-slider ul.slick-dots {
+  bottom: -65px !important;
+  z-index: 2;
+}
+
+.model-slider .slick-slider .next-arrow,
+.model-slider .slick-slider .prev-arrow {
+  z-index: 99;
+}
+
+/* model slider in tyre-details page  */
+
+.updates-section ul.slick-dots {
+  bottom: -35px;
+  z-index: 2;
+}
+
+.updates-section .slick-prev,
+.updates-section .slick-next {
+  bottom: -38px !important;
+  top: auto;
+  z-index: 9;
+}
+
+.updates-section .slick-prev {
+  left: 23%;
+}
+
+.updates-section .slick-next {
+  right: 23%;
+}
+
+.updates-section .slick-prev:before,
+.updates-section .slick-next:before {
+  opacity: 1;
+  border-radius: 100%;
+  background-color: rgb(175, 175, 175);
+  box-shadow: 0px 4px 4px 0px #00000045;
+  z-index: 9;
+}
+
+.model-slider .slick-slider .next-arrow,
+.model-slider .slick-slider .prev-arrow {
+  z-index: 9;
+}
+
+/* for making container responsive */
+
+@media screen and (min-width: 640px) {
+  .container {
+    max-width: 600px;
+    padding: 0 16px;
+  }
+
+  .updates-section .slick-prev {
+    left: 30%;
+  }
+
+  .updates-section .slick-next {
+    right: 30%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    max-width: 750px;
+    padding: 0 16px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .container {
+    max-width: 1000px;
+    padding: 0 18px;
+  }
+
+  .updates-section .slick-prev {
+    left: 40%;
+  }
+
+  .updates-section .slick-next {
+    right: 40%;
+  }
+}
+
+@media screen and (min-width: 1199px) {
+  .container {
+    max-width: 1162px;
+    padding: 0 20px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .container {
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 1366px) {
+  .container {
+    max-width: 1350px !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .container {
+    max-width: 95%;
+  }
+}
+
+@media screen and (min-width: 1536px) {
+  .container {
+    max-width: 1536px;
+  }
+}

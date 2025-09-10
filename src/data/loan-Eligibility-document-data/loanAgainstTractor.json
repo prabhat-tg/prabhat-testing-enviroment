@@ -1,0 +1,86 @@
+{
+  "en": [
+    {
+      "section": "Loan Against Tractor Eligibility",
+      "description": "Check down below eligibility for loan against tractor.",
+      "items": [
+        {
+          "title": "Tractor Ownership",
+          "subtext": "An owner of a tractor is eligible"
+        },
+        {
+          "title": "Ownership Proof",
+          "subtext": "Must have proof of ownership"
+        },
+        {
+          "title": "Loan History",
+          "subtext": "At least 12 EMIs of current loan must be paid"
+        }
+      ]
+    },
+    {
+      "section": "Loan Against Tractor Documents",
+      "description": "Documents required for loan against tractor",
+      "items": [
+        {
+          "title": "Ownership Proof",
+          "subtext": "Original RC of the tractor"
+        },
+        {
+          "title": "Bank Statement",
+          "subtext": "Latest bank account statement"
+        },
+        {
+          "title": "KYC Documents",
+          "subtext": "Valid identity and address proof"
+        },
+        {
+          "title": "PAN Card",
+          "subtext": "Copy of PAN card"
+        }
+      ]
+    }
+  ],
+  "hi": [
+    {
+      "section": "ट्रैक्टर के बदले लोन पात्रता",
+      "description": "नीचे ट्रैक्टर के बदले लोन के लिए पात्रता देखें।",
+      "items": [
+        {
+          "title": "ट्रैक्टर का स्वामित्व",
+          "subtext": "ट्रैक्टर का मालिक पात्र होता है"
+        },
+        {
+          "title": "स्वामित्व प्रमाण",
+          "subtext": "स्वामित्व का प्रमाण होना अनिवार्य है"
+        },
+        {
+          "title": "लोन इतिहास",
+          "subtext": "वर्तमान लोन की कम से कम 12 किश्तें चुकाई गई हों"
+        }
+      ]
+    },
+    {
+      "section": "ट्रैक्टर के बदले लोन दस्तावेज़",
+      "description": "ट्रैक्टर के बदले लोन के लिए आवश्यक दस्तावेज़",
+      "items": [
+        {
+          "title": "स्वामित्व प्रमाण",
+          "subtext": "ट्रैक्टर की मूल आरसी"
+        },
+        {
+          "title": "बैंक स्टेटमेंट",
+          "subtext": "हाल ही का बैंक खाता विवरण"
+        },
+        {
+          "title": "केवाईसी दस्तावेज़",
+          "subtext": "मान्य पहचान और पता प्रमाण"
+        },
+        {
+          "title": "पैन कार्ड",
+          "subtext": "पैन कार्ड की प्रति"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+.custom_range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 0.5rem;
+  border-radius: 0.25rem;
+  outline: none;
+  transition: background 0.3s ease;
+}
+
+.custom_range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 1.25rem;
+  width: 1.25rem;
+  border-radius: 9999px;
+  background: white;
+  border: 2px solid #008000;
+  /* green-500 */
+  cursor: pointer;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  margin-top: -6px;
+  position: relative;
+  z-index: 10;
+}
+
+.custom_range::-moz-range-thumb {
+  height: 1.25rem;
+  width: 1.25rem;
+  border-radius: 9999px;
+  background: white;
+  border: 2px solid #008000;
+  cursor: pointer;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 10;
+}

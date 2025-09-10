@@ -1,0 +1,763 @@
+[
+  {
+    "index": 1,
+    "label": "home",
+    "url": "https://images.tractorgyan.com/uploads/115180/66e7f589f22ab-home-logo.webp",
+    "link": "/"
+  },
+  {
+    "index": 2,
+    "label": "TtactorBrands",
+    "url": "https://images.tractorgyan.com/uploads/117378/6780c8944bc34-topbrand.webp",
+    "submenuHeading1": "popularTractorBrands",
+    "submenuTruncate1": 12,
+    "submenu1": [
+      {
+        "index": 1,
+        "label": "masseyFerguson",
+        "imgUrl": "https://images.tractorgyan.com/uploads/109731/653b884aa08ce-MASSEY-09_small.webp",
+        "link": "/tractor/Massey-ferguson"
+      },
+      {
+        "index": 2,
+        "label": "farmtrac",
+        "imgUrl": "https://images.tractorgyan.com/uploads/109745/653b8e4b99291-FARMTRAC-01_small.webp",
+        "link": "/tractor/Farmtrac"
+      },
+      {
+        "index": 5,
+        "label": "sonalika",
+        "imgUrl": "https://images.tractorgyan.com/uploads/109725/653b85a872402-SONALIKA-15_small.webp",
+        "link": "/tractor/Sonalika"
+      },
+      {
+        "index": 8,
+        "label": "swaraj",
+        "imgUrl": "https://images.tractorgyan.com/uploads/109723/653b8500ea8ab-SWARAJ-16_small.webp",
+        "link": "/tractor/Swaraj"
+      },
+      {
+        "index": 6,
+        "label": "johnDeere",
+        "imgUrl": "https://images.tractorgyan.com/uploads/109740/653b8bd8a0193-JOHN-DEERE-07_small.webp",
+        "link": "/tractor/John-deere"
+      },
+      {
+        "index": 7,
+        "label": "mahindra",
+        "imgUrl": "https://images.tractorgyan.com/uploads/110907/658bf888bc083-MAHINDRA-09-(1)_small.webp",
+        "link": "/tractor/Mahindra"
+      },
+      {
+        "index": 11,
+        "label": "escortsKubota",
+        "imgUrl": "https://images.tractorgyan.com/uploads/109746/653b8e86561ef-escort-kubota-13_small.webp",
+        "link": "/tractor/Escorts"
+      },
+      {
+        "index": 10,
+        "label": "newHolland",
+        "imgUrl": "https://images.tractorgyan.com/uploads/112011/65e59164cf80a-new-holland_new_small.webp",
+        "link": "/tractor/New-holland"
+      },
+      {
+        "index": 9,
+        "label": "powertrac",
+        "imgUrl": "https://images.tractorgyan.com/uploads/109729/653b87c60d661-POWERTRAC-10_small.webp",
+        "link": "/tractor/Powertrac"
+      },
+      {
+        "index": 3,
+        "label": "solisYanmar",
+        "imgUrl": "https://images.tractorgyan.com/uploads/118722/680778e073eef-Solis-logo.webp",
+        "link": "/tractor/Solis"
+      },
+      {
+        "index": 4,
+        "label": "eicher",
+        "imgUrl": "https://images.tractorgyan.com/uploads/109747/653b8ebc24c67-eicher-12_small.webp",
+        "link": "/tractor/Eicher"
+      },
+      {
+        "index": 12,
+        "label": "seeMoreBrands",
+        "imgUrl": "https://images.tractorgyan.com/uploads/117424/678657747b293-Arrow-Vector.webp",
+        "link": "/tractor-brands"
+      }
+    ]
+  },
+  {
+    "index": 4,
+    "label": "oldTractorAndImplement",
+    "url": "https://images.tractorgyan.com/uploads/115176/66e7f5471a420-old-tractor-logo.webp",
+    "submenuHeading1": "allOldTractor",
+    "submenuTruncate1": 6,
+    "submenu1": [
+      {
+        "index": 1,
+        "label": "buyUsedTractor",
+        "imgUrl": "https://images.tractorgyan.com/uploads/111708/65d4b8a2a70aa-buyOldUpdate_small.webp",
+        "link": "/second-hand-tractor"
+      },
+      {
+        "index": 2,
+        "label": "buyUsedMiniTractor",
+        "imgUrl": "https://images.tractorgyan.com/uploads/109918/6544ddb25fd13-MINI-BUY-OLD-45_small.webp",
+        "link": "/second-hand-tractor/mini-tractor"
+      },
+      {
+        "index": 3,
+        "label": "sellUsedTractor",
+        "imgUrl": "https://images.tractorgyan.com/uploads/111709/65d4b8e6f13fa-sellOldUpdate_small.webp",
+        "link": "/sell-old-tractor"
+      },
+      {
+        "index": 4,
+        "label": "sellUsedImplement",
+        "imgUrl": "https://images.tractorgyan.com/uploads/118505/67ece164714dc-Sell-used-implements.webp",
+        "link": "/sell-used-implement"
+      },
+      {
+        "index": 5,
+        "label": "buyUsedImplement",
+        "imgUrl": "https://images.tractorgyan.com/uploads/118504/67ece15125d8d-buy-used-implements.webp",
+        "link": "/buy-used-implement"
+      }
+    ]
+  },
+  {
+    "index": 3,
+    "label": "newTractors",
+    "url": "https://images.tractorgyan.com/uploads/115178/66e7f565e15a1-buy-new-tractor-logo.webp",
+    "submenuHeading1": "popularTractorType",
+    "submenuHeading2": "popularTractorGyanFeature",
+    "submenuTruncate1": 6,
+    "submenuTruncate2": 6,
+    "submenu1": [
+      {
+        "index": 1,
+        "label": "allTractor",
+        "imgUrl": "https://images.tractorgyan.com/uploads/109758/653ba2f5c0bb0-all-tractor_small.webp",
+        "link": "/tractors"
+      },
+      {
+        "index": 2,
+        "label": "latestTractor",
+        "imgUrl": "https://images.tractorgyan.com/uploads/110955/658e6e03e196b-latest_tractor_small.webp",
+        "link": "/latest-tractors-in-india"
+      },
+      {
+        "index": 3,
+        "label": "miniTractor",
+        "imgUrl": "https://images.tractorgyan.com/uploads/115182/66e7f5ab7aba7-mini-tractor-logo.webp",
+        "link": "/mini-tractors-in-india"
+      },
+      {
+        "index": 4,
+        "label": "acTractor",
+        "imgUrl": "https://images.tractorgyan.com/uploads/109762/653ba6b746dc5-ac-tractor_small.webp",
+        "link": "/ac-tractors-in-india"
+      },
+      {
+        "index": 5,
+        "label": "cngTractor",
+        "imgUrl": "https://images.tractorgyan.com/uploads/111332/65b53eff578b4-cng_small.webp",
+        "link": "/cng-tractors-in-india"
+      },
+      {
+        "index": 6,
+        "label": "fourWDTractor",
+        "imgUrl": "https://images.tractorgyan.com/uploads/110953/658e6d3968a0a-4wd_tractor_small.webp",
+        "link": "/4wd-tractors-in-india"
+      },
+      {
+        "index": 7,
+        "label": "twoWDTractor",
+        "imgUrl": "https://images.tractorgyan.com/uploads/109760/653ba65b3af7b-2wd_small.webp",
+        "link": "/2wd-tractors-in-india"
+      },
+      {
+        "index": 8,
+        "label": "electricTractor",
+        "imgUrl": "https://images.tractorgyan.com/uploads/110954/658e6d99d2276-electric_tractor_small.webp",
+        "link": "/electric-tractors-in-india"
+      },
+      {
+        "index": 9,
+        "label": "tremIVTractors",
+        "imgUrl": "https://images.tractorgyan.com/uploads/109775/653baadacf1ec-TREM--4-36_small.webp",
+        "link": "/trem-iv-tractors-in-india"
+      },
+      {
+        "index": 10,
+        "label": "allTractorSeries",
+        "imgUrl": "https://images.tractorgyan.com/uploads/109795/653ce70a866ae-ALL-TRACTOR-SERIES-38_small.webp",
+        "link": "/tractor-series-in-india"
+      }
+    ],
+    "submenu2": [
+      {
+        "index": 1,
+        "label": "tractorOnRoadPrice",
+        "imgUrl": "https://images.tractorgyan.com/uploads/109779/653bb7a758873-ON-ROAD-PRICE-34-34-(1)_small.webp",
+        "link": "/tractor-on-road-price"
+      },
+      {
+        "index": 2,
+        "label": "tractorInsurance",
+        "imgUrl": "https://images.tractorgyan.com/uploads/109792/653ce2d66d2ae-TRACTOR-INSURANCE-37_small.webp",
+        "link": "/tractor-insurance"
+      },
+      {
+        "index": 3,
+        "label": "compareTractor",
+        "imgUrl": "https://images.tractorgyan.com/uploads/109791/653ce1a7375c8-COMPARE-TRACTOR-44-44_small.webp",
+        "link": "/compare-tractors"
+      },
+      {
+        "index": 4,
+        "label": "locateTractorDealer",
+        "imgUrl": "https://images.tractorgyan.com/uploads/109789/653ce0b189793-LOCATED-TRACTOR-DEALER-41-41_small.webp",
+        "link": "/tractor-dealers-in-india"
+      },
+      {
+        "index": 5,
+        "label": "tractorDealershipEnquiry",
+        "imgUrl": "https://images.tractorgyan.com/uploads/113519/6673baadd51fa-DEALERSHIP_medium.webp",
+        "link": "/tractor-dealership-enquiry"
+      },
+      {
+        "index": 6,
+        "label": "writeTractorReview",
+        "imgUrl": "https://images.tractorgyan.com/uploads/109756/653ba116c2ec4-EXPERT-REVIEW-25_small.webp",
+        "link": "/tractor-review"
+      }
+    ]
+  },
+  {
+    "index": 5,
+    "label": "implement",
+    "url": "https://images.tractorgyan.com/uploads/115177/66e7f55799592-implements-logo.webp",
+    "submenuHeading": "ImplementCategory",
+    "submenuHeading1": "popularImplementType",
+    "submenuHeading2": "popularImplementBrands",
+    "submenuTruncate1": 6,
+    "submenuTruncate2": 6,
+    "submenu": [
+      {
+        "index": 1,
+        "label": "ImplementHome",
+        "imgUrl": "https://images.tractorgyan.com/uploads/117414/6783b998e364e-implement-home-icon_small.webp",
+        "link": "/tractor-implements-in-india"
+      },
+      {
+        "index": 2,
+        "label": "ImplementLocateImplementDealer",
+        "imgUrl": "https://images.tractorgyan.com/uploads/115961/671205a90f356-implement-dealer-icon-min_small.webp",
+        "link": "/tractor-implement-dealers-in-india"
+      },
+      {
+        "index": 3,
+        "label": "ImplementImplementsOnRoadPrice",
+        "imgUrl": "https://images.tractorgyan.com/uploads/117244/67763b8e36e03-implementNavbarIcon_small.webp",
+        "link": "/implement-on-road-price"
+      }
+    ],
+    "submenu1": [
+      {
+        "index": 1,
+        "label": "plough",
+        "imgUrl": "https://images.tractorgyan.com/uploads/110600/65733154eee6d-PLOUGH-47_small.webp",
+        "link": "/tractor-implements-in-india/plough"
+      },
+      {
+        "index": 2,
+        "label": "cultivator",
+        "imgUrl": "https://images.tractorgyan.com/uploads/110595/65733046ab24f-CULTIVATOR-47-63_small.webp",
+        "link": "/tractor-implements-in-india/cultivator"
+      },
+      {
+        "index": 3,
+        "label": "sprayer",
+        "imgUrl": "https://images.tractorgyan.com/uploads/110605/6573333de4611-spray-52_small.webp",
+        "link": "/tractor-implements-in-india/sprayer"
+      },
+      {
+        "index": 4,
+        "label": "powerTiller",
+        "imgUrl": "https://images.tractorgyan.com/uploads/110602/657331c19c471-power-tiller-50-50_small.webp",
+        "link": "/tractor-implements-in-india/power-tiller"
+      },
+      {
+        "index": 5,
+        "label": "rotavator",
+        "imgUrl": "https://images.tractorgyan.com/uploads/110604/65733281283e4-ROTAVATOR-46_small.webp",
+        "link": "/tractor-implements-in-india/rotavator"
+      },
+      {
+        "index": 6,
+        "label": "baler",
+        "imgUrl": "https://images.tractorgyan.com/uploads/110593/65732fdaa9114-baler-55_small.webp",
+        "link": "/tractor-implements-in-india/baler"
+      },
+      {
+        "index": 7,
+        "label": "harrow",
+        "imgUrl": "https://images.tractorgyan.com/uploads/110596/6573307748e72-HARROW-48_small.webp",
+        "link": "/tractor-implements-in-india/harrow"
+      },
+      {
+        "index": 8,
+        "label": "backhoeLoaders",
+        "imgUrl": "https://images.tractorgyan.com/uploads/110592/65732fa60c78e-backhoe-loader-61_small.webp",
+        "link": "/tractor-implements-in-india/backhoe-loader"
+      },
+      {
+        "index": 9,
+        "label": "combineHarvesters",
+        "imgUrl": "https://images.tractorgyan.com/uploads/110594/657330013b702-combine-harvester-59-59_small.webp",
+        "link": "/tractor-implements-in-india/combine-harvester"
+      },
+      {
+        "index": 10,
+        "label": "potatoPlanter",
+        "imgUrl": "https://images.tractorgyan.com/uploads/110601/6573318d0fb18-potato-planter-57_small.webp",
+        "link": "/tractor-implements-in-india/potato-planter"
+      },
+      {
+        "index": 11,
+        "label": "superSeeder",
+        "imgUrl": "https://images.tractorgyan.com/uploads/110607/657333a41bdf3-super-seeder-56_small.webp",
+        "link": "/tractor-implements-in-india/super-seeder"
+      },
+      {
+        "index": 12,
+        "label": "laserLeveler",
+        "imgUrl": "https://images.tractorgyan.com/uploads/110598/657330de12a5f-laser-land-leveler-58_small.webp",
+        "link": "/tractor-implements-in-india/laser-land-leveler"
+      },
+      {
+        "index": 13,
+        "label": "riceTransplanter",
+        "imgUrl": "https://images.tractorgyan.com/uploads/110603/65733250158c6-rice-transplanter-60_small.webp",
+        "link": "/tractor-implements-in-india/rice-transplanter"
+      },
+      {
+        "index": 14,
+        "label": "reaper",
+        "imgUrl": "https://images.tractorgyan.com/uploads/118156/67c99a29e0fd0-Reaper-Binder.webp",
+        "link": "/tractor-implements-in-india/reaper"
+      },
+      {
+        "index": 15,
+        "label": "strawReaper",
+        "imgUrl": "https://images.tractorgyan.com/uploads/110606/6573336b8485a-straw-reaper-54_small.webp",
+        "link": "/tractor-implements-in-india/straw-reaper"
+      },
+      {
+        "index": 16,
+        "label": "mulcher",
+        "imgUrl": "https://images.tractorgyan.com/uploads/110599/6573311fb0912-mulchar-53_small.webp",
+        "link": "/tractor-implements-in-india/mulcher"
+      },
+      {
+        "index": 17,
+        "label": "tippingTrailer",
+        "imgUrl": "https://images.tractorgyan.com/uploads/110608/657333d59ef1d-trolly-51_small.webp",
+        "link": "/tractor-implements-in-india/tipping-trailer"
+      },
+      {
+        "index": 18,
+        "label": "seedDrill",
+        "imgUrl": "https://images.tractorgyan.com/uploads/113785/668e4515f180f-Seed-Drill-icon_small.webp",
+        "link": "/tractor-implements-in-india/seed-drill"
+      },
+      {
+        "index": 19,
+        "label": "thresher",
+        "imgUrl": "https://images.tractorgyan.com/uploads/113800/668e86bc943b9-Thresher-icon_small.webp",
+        "link": "/tractor-implements-in-india/thresher"
+      },
+      {
+        "index": 20,
+        "label": "jugaad",
+        "imgUrl": "https://images.tractorgyan.com/uploads/110597/657330a78ab82-JUGAAD-62-(1)_small.webp",
+        "link": "/tractor-implements-in-india/jugaad"
+      },
+      {
+        "index": 21,
+        "label": "drones",
+        "imgUrl": "https://images.tractorgyan.com/uploads/117947/67adea2e0ec9e-drone-menu-icon.webp",
+        "link": "/tractor-implements-in-india/jugaad"
+      }
+    ],
+    "submenu2": [
+      {
+        "index": 1,
+        "label": "agrizone",
+        "imgUrl": "https://images.tractorgyan.com/uploads/116014/6718973e9b280-Agrizone-Implements_small.webp",
+        "link": "/tractor-implements/agrizone"
+      },
+      {
+        "index": 2,
+        "label": "fieldking",
+        "imgUrl": "https://images.tractorgyan.com/uploads/111732/65d5acfaf41a3-feildking_small.webp",
+        "link": "/tractor-implements/fieldking"
+      },
+      {
+        "index": 3,
+        "label": "landforce",
+        "imgUrl": "https://images.tractorgyan.com/uploads/111743/65d5b70ad1fcb-landforce_small.webp",
+        "link": "/tractor-implements/landforce"
+      },
+      {
+        "index": 4,
+        "label": "shaktiman",
+        "imgUrl": "https://images.tractorgyan.com/uploads/111749/65d5c1518f989-shaktiman_small.webp",
+        "link": "/tractor-implements/shaktiman"
+      },
+      {
+        "index": 5,
+        "label": "mahindra",
+        "imgUrl": "https://images.tractorgyan.com/uploads/110907/658bf888bc083-MAHINDRA-09-(1)_small.webp",
+        "link": "/tractor-implements/mahindra"
+      },
+      {
+        "index": 6,
+        "label": "khedut",
+        "imgUrl": "https://images.tractorgyan.com/uploads/111739/65d5b57dec026-kedut_small.webp",
+        "link": "/tractor-implements/khedut"
+      },
+      {
+        "index": 7,
+        "label": "soilMaster",
+        "imgUrl": "https://images.tractorgyan.com/uploads/implement_brand_logo/soil-master_small.webp",
+        "link": "/tractor-implements/soil-master"
+      },
+      {
+        "index": 8,
+        "label": "johnDeere",
+        "imgUrl": "https://images.tractorgyan.com/uploads/111737/65d5b4b397579-john-deere_small.webp",
+        "link": "/tractor-implements/john-deere"
+      },
+      {
+        "index": 12,
+        "label": "dasmesh",
+        "imgUrl": "https://images.tractorgyan.com/uploads/111730/65d5ac8d62490-dashmesh_small.webp",
+        "link": "/tractor-implements/dasmesh"
+      },
+      {
+        "index": 9,
+        "label": "sonalika",
+        "imgUrl": "https://images.tractorgyan.com/uploads/115326/66ec21461e7cf-new-sonalika-logo_small.webp",
+        "link": "/tractor-implements/sonalika"
+      },
+      {
+        "index": 10,
+        "label": "agristar",
+        "imgUrl": "https://images.tractorgyan.com/uploads/implement_brand_logo/agristar_medium.webp",
+        "link": "/tractor-implements/agristar"
+      },
+      {
+        "index": 11,
+        "label": "newHolland",
+        "imgUrl": "https://images.tractorgyan.com/uploads/111747/65d5c0b3dda3a-new-holland_small.webp",
+        "link": "/tractor-implements/new-holland"
+      },
+      {
+        "index": 13,
+        "label": "lemken",
+        "imgUrl": "https://images.tractorgyan.com/uploads/111744/65d5b76d57b76-lemken_small.webp",
+        "link": "/tractor-implements/lemken"
+      },
+      {
+        "index": 18,
+        "label": "seeMoreBrands",
+        "imgUrl": "https://images.tractorgyan.com/uploads/117424/678657747b293-Arrow-Vector.webp",
+        "link": "/tractor-implements-brands-in-india"
+      }
+    ]
+  },
+  {
+    "index": 6,
+    "label": "tyre",
+    "url": "https://images.tractorgyan.com/uploads/115185/66e7f5ecc7fa3-tractor-tyre-logo.webp",
+    "submenuHeading1": "popularTyreBrands",
+    "submenuTruncate1": 6,
+    "submenuTruncate2": 6,
+    "submenu1": [
+      {
+        "index": 1,
+        "label": "mrf",
+        "imgUrl": "https://images.tractorgyan.com/uploads/smm/images/tyre_brand_logo/mrf-tyre-tractorgyan_small.webp",
+        "link": "/tyre/mrf-tractor-tyre-in-india"
+      },
+      {
+        "index": 2,
+        "label": "jkTyre",
+        "imgUrl": "https://images.tractorgyan.com/uploads/smm/images/tyre_brand_logo/jk-tyre-tractorgyan_small.webp",
+        "link": "/tyre/jk-tyre-tractor-tyre-in-india"
+      },
+      {
+        "index": 3,
+        "label": "apollo",
+        "imgUrl": "https://images.tractorgyan.com/uploads/smm/images/tyre_brand_logo/apollo-tyre-tractorgyan_small.webp",
+        "link": "/tyre/apollo-tractor-tyre-in-india"
+      },
+      {
+        "index": 4,
+        "label": "ceat",
+        "imgUrl": "https://images.tractorgyan.com/uploads/smm/images/tyre_brand_logo/ceat-tyre-tractorgyan_small.webp",
+        "link": "/tyre/ceat-tractor-tyre-in-india"
+      },
+      {
+        "index": 5,
+        "label": "goodYear",
+        "imgUrl": "https://images.tractorgyan.com/uploads/smm/images/tyre_brand_logo/goodyear-tyre-tractorgyan_small.webp",
+        "link": "/tyre/good-year-tractor-tyre-in-india"
+      },
+      {
+        "index": 6,
+        "label": "mrl",
+        "imgUrl": "https://images.tractorgyan.com/uploads/smm/images/tyre_brand_logo/mrl-tyre-tractorgyan_small.webp",
+        "link": "/tyre/mrl-tractor-tyre-in-india"
+      },
+      {
+        "index": 7,
+        "label": "ralco",
+        "imgUrl": "https://images.tractorgyan.com/uploads/smm/images/tyre_brand_logo/ralco-tyre-tractorgyan_small.webp",
+        "link": "/tyre/ralco-tractor-tyre-in-india"
+      },
+      {
+        "index": 8,
+        "label": "birla",
+        "imgUrl": "https://images.tractorgyan.com/uploads/smm/images/tyre_brand_logo/birla-tyre-tractorgyan_small.webp",
+        "link": "/tyre/birla-tractor-tyre-in-india"
+      },
+      {
+        "index": 9,
+        "label": "bkt",
+        "imgUrl": "https://images.tractorgyan.com/uploads/smm/images/tyre_brand_logo/bkt-tyre-tractorgyan_small.webp",
+        "link": "/tyre/bkt-tractor-tyre-in-india"
+      },
+      {
+        "index": 10,
+        "label": "tvs",
+        "imgUrl": "https://images.tractorgyan.com/uploads/smm/images/tyre_brand_logo/tvs-tyres-logo_small.webp",
+        "link": "/tyre/tvs-tractor-tyre-in-india"
+      }
+    ],
+    "submenuHeading2": "tyreCategories",
+    "submenu2": [
+      {
+        "index": 1,
+        "label": "tyreHome",
+        "imgUrl": "https://images.tractorgyan.com/uploads/117413/6783b977396ff-tyre-home-icon_small.webp",
+        "link": "/tractor-tyre-in-india"
+      },
+      {
+        "index": 2,
+        "label": "allTyre",
+        "imgUrl": "https://images.tractorgyan.com/uploads/109763/653ba6edeb554-ALL-TYRE-31-31_small.webp",
+        "link": "/tyres"
+      },
+      {
+        "index": 3,
+        "label": "tyrePrice",
+        "imgUrl": "https://images.tractorgyan.com/uploads/110617/65733a8ac716e-tractor-price-icon-5.40-KB_small.webp",
+        "link": "/tyre-price"
+      },
+      {
+        "index": 4,
+        "label": "locateTyreDealer",
+        "imgUrl": "https://images.tractorgyan.com/uploads/115962/671205ba14fce-tyre-dealer-icon_small.webp",
+        "link": "/tractor-tyre-dealers-in-india"
+      }
+    ]
+  },
+  {
+    "index": 7,
+    "label": "videos",
+    "url": "https://images.tractorgyan.com/uploads/115186/66e7f5fc251b5-videos-logo.webp",
+    "submenuHeading1": "tractorVideosReel",
+    "submenu1": [
+      {
+        "index": 1,
+        "label": "videos",
+        "imgUrl": "https://images.tractorgyan.com/uploads/109711/653b75c468c13-VIDEO-08_small.webp",
+        "link": "/tractor-videos"
+      },
+      {
+        "index": 2,
+        "label": "reelsShorts",
+        "imgUrl": "https://images.tractorgyan.com/uploads/110614/657339e69c114-reel_small.webp",
+        "link": "/tractor-reels-and-shorts"
+      },
+      {
+        "index": 3,
+        "label": "webstory",
+        "imgUrl": "https://images.tractorgyan.com/uploads/110618/65733ac95eeae-WEBSTORY-(2)_small.webp",
+        "link": "/web-story-in-india "
+      }
+    ]
+  },
+  {
+    "index": 8,
+    "label": "blogs",
+    "url": "https://images.tractorgyan.com/uploads/115181/66e7f59836c09-blogs-logo.webp",
+    "submenuHeading1": "tractorBlogsNews",
+    "submenuTruncate1": 12,
+    "submenu1": [
+      {
+        "index": 1,
+        "label": "allBlogs",
+        "imgUrl": "https://images.tractorgyan.com/uploads/109720/653b7fc36f15f-blog-12-12-12_small.webp",
+        "link": "/tractor-industry-news-blogs"
+      },
+      {
+        "index": 2,
+        "label": "newTractorLaunch",
+        "imgUrl": "https://images.tractorgyan.com/uploads/109753/653b98956c52c-NEW-TRACTOR-LAUNCH-22_small.webp",
+        "link": "/tractor-industry-news-blogs/category/new-tractor-launch"
+      },
+      {
+        "index": 3,
+        "label": "tractorNews",
+        "imgUrl": "https://images.tractorgyan.com/uploads/110906/658bf788b3c68-TRACCTOR-NEWS-23-26-26-(1)_small.webp",
+        "link": "/tractor-industry-news-blogs/category/tractor-news"
+      },
+      {
+        "index": 4,
+        "label": "agricultureNews",
+        "imgUrl": "https://images.tractorgyan.com/uploads/110957/658e6f4fbc175-agriculture_news_small.webp",
+        "link": "/tractor-industry-news-blogs/category/agriculture-news"
+      },
+      {
+        "index": 5,
+        "label": "expertReviews",
+        "imgUrl": "https://images.tractorgyan.com/uploads/109756/653ba116c2ec4-EXPERT-REVIEW-25_small.webp",
+        "link": "/tractor-industry-news-blogs/category/expert-reviews"
+      },
+      {
+        "index": 6,
+        "label": "customerReviews",
+        "imgUrl": "https://images.tractorgyan.com/uploads/110615/65733a2087616-review_small.webp",
+        "link": "/tractor-industry-news-blogs/category/customer-reviews"
+      },
+      {
+        "index": 7,
+        "label": "subsidyBlogs",
+        "imgUrl": "https://images.tractorgyan.com/uploads/110616/65733a46b050b-subsidy_small.webp",
+        "link": "/tractors-subsidy-in-india"
+      },
+      {
+        "index": 8,
+        "label": "sarkariYojna",
+        "imgUrl": "https://images.tractorgyan.com/uploads/111707/65d4b3d2690c8-sarkari-yojna_small.webp",
+        "link": "/tractor-industry-news-blogs/category/sarkari-yojana-news"
+      },
+      {
+        "index": 9,
+        "label": "tractorSales",
+        "imgUrl": "https://images.tractorgyan.com/uploads/112796/6620c2b506610-tractor_sales_small.webp",
+        "link": "/tractor-industry-news-blogs/category/tractor-sales"
+      },
+      {
+        "index": 10,
+        "label": "tyreNews",
+        "imgUrl": "https://images.tractorgyan.com/uploads/112797/6620c55231bdd-tyre_news_small.webp",
+        "link": "/tractor-industry-news-blogs/category/tyre-news"
+      },
+      {
+        "index": 11,
+        "label": "implementNews",
+        "imgUrl": "https://images.tractorgyan.com/uploads/112798/6620c605c1991-implement-news_small.webp",
+        "link": "/tractor-industry-news-blogs/category/implement-news"
+      },
+      {
+        "index": 12,
+        "label": "automobileNews",
+        "imgUrl": "https://images.tractorgyan.com/uploads/112799/6620c627d2b28-automobile_small.webp",
+        "link": "/tractor-industry-news-blogs/category/automobile-news"
+      }
+    ]
+  },
+  {
+    "index": 9,
+    "label": "loan",
+    "url": "https://images.tractorgyan.com/uploads/115184/66e7f5dbdf79b-tractor-loan-logo.webp",
+    "submenuHeading1": "tractorLoan",
+    "submenuTruncate1": 6,
+    "submenu1": [
+      {
+        "index": 1,
+        "label": "newTractorLoan",
+        "imgUrl": "https://images.tractorgyan.com/uploads/110612/6573395316178-new_tractor_loans_small.webp",
+        "link": "/tractor-loan"
+      },
+      {
+        "index": 2,
+        "label": "secondHandTractorLoan",
+        "imgUrl": "https://images.tractorgyan.com/uploads/109777/653bab4cca22b-used-tractor-loan-20_small.webp",
+        "link": "/second-hand-tractor-loan"
+      },
+      {
+        "index": 3,
+        "label": "loanAgainstTractor",
+        "imgUrl": "https://images.tractorgyan.com/uploads/110610/657338c192387-loan-against-t_small.webp",
+        "link": "/loan-against-tractor"
+      },
+      {
+        "index": 4,
+        "label": "implementLoan",
+        "imgUrl": "https://images.tractorgyan.com/uploads/116577/673dce89cdb38-Implemente-icon-loan_small.webp",
+        "link": "/tractor-implement-loan"
+      },
+      {
+        "index": 5,
+        "label": "secondHandImplementLoan",
+        "imgUrl": "https://images.tractorgyan.com/uploads/116901/6752d2de5ed6b-Second-Hand-Implement-icon_small.webp",
+        "link": "/second-hand-tractor-implement-loan"
+      },
+      {
+        "index": 6,
+        "label": "emiCalculator",
+        "imgUrl": "https://images.tractorgyan.com/uploads/109767/653ba81219c62-emi-calculator-11_small.webp",
+        "link": "/tractor-emi-calculator"
+      }
+    ]
+  },
+  {
+    "index": 10,
+    "label": "more",
+    "url": "https://images.tractorgyan.com/uploads/115179/66e7f57a570b4-more-logo.webp",
+    "submenuHeading1": "moreAboutTractor",
+    "submenuTruncate1": 6,
+    "submenu1": [
+      {
+        "index": 1,
+        "label": "askAQuestion",
+        "imgUrl": "https://images.tractorgyan.com/uploads/109783/653bb8f885f96-ASK-QUESTIONS-09-09_small.webp",
+        "link": "/tractors-question-hub"
+      },
+      {
+        "index": 2,
+        "label": "constructionMachinery",
+        "imgUrl": "https://images.tractorgyan.com/uploads/109765/653ba7918f111-Constrution-machinery_small.webp",
+        "link": "/construction-machinery-and-equipment-in-india"
+      },
+      {
+        "index": 3,
+        "label": "agriculture&farmEquipement",
+        "imgUrl": "https://images.tractorgyan.com/uploads/109784/653bb9522a37b-tractor-implement-18_small.webp",
+        "link": "/agriculture-and-farm-equipment-in-india"
+      },
+      {
+        "index": 4,
+        "label": "drones",
+        "imgUrl": "https://images.tractorgyan.com/uploads/117947/67adea2e0ec9e-drone-menu-icon.webp",
+        "link": "/drones-in-india"
+      }
+    ]
+  }
+]

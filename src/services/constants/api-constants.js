@@ -1,0 +1,9 @@
+export const FETCH_TYRE_MODAL_API = "/api/tyre_modal";
+export const ALL_STATE_API = "/api/all_state";
+export const ALL_DISTRICT_API = "/api/all_district";
+export const ALL_TEHSIL_API = "/api/all_tehsil";
+export const ALL_IMPLEMENT_ENQUIRY = "/api/all_implement_enquiry";
+export const ALL_DEALER_LISTING = "/api/all_dealer_listing";
+export const STATE_CITY_LIST = "/api/state_city_list";
+export const SUGGESTED_DEALER_LIST = "/api/suggested_dealer_list";
+export const BLOG_CATEGORY = "/api/blog_category";

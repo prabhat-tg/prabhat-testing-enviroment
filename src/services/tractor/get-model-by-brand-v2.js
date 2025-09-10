@@ -1,0 +1,13 @@
+import { fetchData, postData } from '../apiMethods';
+
+export async function getTractorModelsByBrand(brandName, lang = 'en') {
+  try {
+    const result = await postData(
+      `/api/v2/tractor_list_by_brand?brand_name=${brandName}&lang=${lang}`
+    );
+    return result.data;
+  } catch (error) {
+    console.error('Error fetching tractor models:', error);
+    throw error;
+  }
+}

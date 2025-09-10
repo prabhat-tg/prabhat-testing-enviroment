@@ -1,0 +1,10 @@
+.tyre-brands-list.collapsed {
+  max-height: 30vh; /* Show up to 40% of viewport height */
+  overflow: hidden;
+  transition: max-height 0.3s;
+}
+.tyre-brands-list.expanded {
+  max-height: 100vh; /* Show all */
+  overflow: visible;
+  transition: max-height 0.3s;
+}

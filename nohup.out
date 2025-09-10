@@ -1,0 +1,324 @@
+
+> nextjs@0.1.0 dev
+> next dev
+
+  ▲ Next.js 14.2.5
+  - Local:        http://localhost:3000
+
+ ✓ Starting...
+ ✓ Ready in 1988ms
+ ○ Compiling /_not-found ...
+ ⨯ ./app/tractor-implements-in-india/page.js
+Error: 
+  [31mx[0m You're importing a component that needs useEffect. It only works in a Client Component but none of its parents are marked with "use client", so they're Server Components by default.
+  [31m|[0m Learn more: https://nextjs.org/docs/getting-started/react-essentials
+  [31m|[0m 
+  [31m|[0m 
+   ,-[[36;1;4m/var/www/live/nextjs/app/tractor-implements-in-india/page.js[0m:1:1]
+ [2m1[0m | import React, { useEffect, useLayoutEffect, useState } from 'react';
+   : [31;1m                ^^^^^^^^^[0m
+ [2m2[0m | import Header from '../CommonComponents/Headerfile/Header';
+ [2m3[0m | import Navbar from '../CommonComponents/NavbarFile/Navbar';
+ [2m3[0m | import Secondnav from '../CommonComponents/Secondnavbar/Secondnav';
+   `----
+
+  [31mx[0m You're importing a component that needs useLayoutEffect. It only works in a Client Component but none of its parents are marked with "use client", so they're Server Components by default.
+  [31m|[0m Learn more: https://nextjs.org/docs/getting-started/react-essentials
+  [31m|[0m 
+  [31m|[0m 
+   ,-[[36;1;4m/var/www/live/nextjs/app/tractor-implements-in-india/page.js[0m:1:1]
+ [2m1[0m | import React, { useEffect, useLayoutEffect, useState } from 'react';
+   : [31;1m                           ^^^^^^^^^^^^^^^[0m
+ [2m2[0m | import Header from '../CommonComponents/Headerfile/Header';
+ [2m3[0m | import Navbar from '../CommonComponents/NavbarFile/Navbar';
+ [2m3[0m | import Secondnav from '../CommonComponents/Secondnavbar/Secondnav';
+   `----
+
+  [31mx[0m You're importing a component that needs useState. It only works in a Client Component but none of its parents are marked with "use client", so they're Server Components by default.
+  [31m|[0m Learn more: https://nextjs.org/docs/getting-started/react-essentials
+  [31m|[0m 
+  [31m|[0m 
+   ,-[[36;1;4m/var/www/live/nextjs/app/tractor-implements-in-india/page.js[0m:1:1]
+ [2m1[0m | import React, { useEffect, useLayoutEffect, useState } from 'react';
+   : [31;1m                                            ^^^^^^^^[0m
+ [2m2[0m | import Header from '../CommonComponents/Headerfile/Header';
+ [2m3[0m | import Navbar from '../CommonComponents/NavbarFile/Navbar';
+ [2m3[0m | import Secondnav from '../CommonComponents/Secondnavbar/Secondnav';
+   `----
+
+Import trace for requested module:
+./app/tractor-implements-in-india/page.js
+ ⨯ ./app/tractor-implements-in-india/page.js
+Error: 
+  [31mx[0m You're importing a component that needs useEffect. It only works in a Client Component but none of its parents are marked with "use client", so they're Server Components by default.
+  [31m|[0m Learn more: https://nextjs.org/docs/getting-started/react-essentials
+  [31m|[0m 
+  [31m|[0m 
+   ,-[[36;1;4m/var/www/live/nextjs/app/tractor-implements-in-india/page.js[0m:1:1]
+ [2m1[0m | import React, { useEffect, useLayoutEffect, useState } from 'react';
+   : [31;1m                ^^^^^^^^^[0m
+ [2m2[0m | import Header from '../CommonComponents/Headerfile/Header';
+ [2m3[0m | import Navbar from '../CommonComponents/NavbarFile/Navbar';
+ [2m3[0m | import Secondnav from '../CommonComponents/Secondnavbar/Secondnav';
+   `----
+
+  [31mx[0m You're importing a component that needs useLayoutEffect. It only works in a Client Component but none of its parents are marked with "use client", so they're Server Components by default.
+  [31m|[0m Learn more: https://nextjs.org/docs/getting-started/react-essentials
+  [31m|[0m 
+  [31m|[0m 
+   ,-[[36;1;4m/var/www/live/nextjs/app/tractor-implements-in-india/page.js[0m:1:1]
+ [2m1[0m | import React, { useEffect, useLayoutEffect, useState } from 'react';
+   : [31;1m                           ^^^^^^^^^^^^^^^[0m
+ [2m2[0m | import Header from '../CommonComponents/Headerfile/Header';
+ [2m3[0m | import Navbar from '../CommonComponents/NavbarFile/Navbar';
+ [2m3[0m | import Secondnav from '../CommonComponents/Secondnavbar/Secondnav';
+   `----
+
+  [31mx[0m You're importing a component that needs useState. It only works in a Client Component but none of its parents are marked with "use client", so they're Server Components by default.
+  [31m|[0m Learn more: https://nextjs.org/docs/getting-started/react-essentials
+  [31m|[0m 
+  [31m|[0m 
+   ,-[[36;1;4m/var/www/live/nextjs/app/tractor-implements-in-india/page.js[0m:1:1]
+ [2m1[0m | import React, { useEffect, useLayoutEffect, useState } from 'react';
+   : [31;1m                                            ^^^^^^^^[0m
+ [2m2[0m | import Header from '../CommonComponents/Headerfile/Header';
+ [2m3[0m | import Navbar from '../CommonComponents/NavbarFile/Navbar';
+ [2m3[0m | import Secondnav from '../CommonComponents/Secondnavbar/Secondnav';
+   `----
+
+Import trace for requested module:
+./app/tractor-implements-in-india/page.js
+ ⨯ ./app/tractor-implements-in-india/page.js
+Error: 
+  [31mx[0m You're importing a component that needs useEffect. It only works in a Client Component but none of its parents are marked with "use client", so they're Server Components by default.
+  [31m|[0m Learn more: https://nextjs.org/docs/getting-started/react-essentials
+  [31m|[0m 
+  [31m|[0m 
+   ,-[[36;1;4m/var/www/live/nextjs/app/tractor-implements-in-india/page.js[0m:1:1]
+ [2m1[0m | import React, { useEffect, useLayoutEffect, useState } from 'react';
+   : [31;1m                ^^^^^^^^^[0m
+ [2m2[0m | import Header from '../CommonComponents/Headerfile/Header';
+ [2m3[0m | import Navbar from '../CommonComponents/NavbarFile/Navbar';
+ [2m3[0m | import Secondnav from '../CommonComponents/Secondnavbar/Secondnav';
+   `----
+
+  [31mx[0m You're importing a component that needs useLayoutEffect. It only works in a Client Component but none of its parents are marked with "use client", so they're Server Components by default.
+  [31m|[0m Learn more: https://nextjs.org/docs/getting-started/react-essentials
+  [31m|[0m 
+  [31m|[0m 
+   ,-[[36;1;4m/var/www/live/nextjs/app/tractor-implements-in-india/page.js[0m:1:1]
+ [2m1[0m | import React, { useEffect, useLayoutEffect, useState } from 'react';
+   : [31;1m                           ^^^^^^^^^^^^^^^[0m
+ [2m2[0m | import Header from '../CommonComponents/Headerfile/Header';
+ [2m3[0m | import Navbar from '../CommonComponents/NavbarFile/Navbar';
+ [2m3[0m | import Secondnav from '../CommonComponents/Secondnavbar/Secondnav';
+   `----
+
+  [31mx[0m You're importing a component that needs useState. It only works in a Client Component but none of its parents are marked with "use client", so they're Server Components by default.
+  [31m|[0m Learn more: https://nextjs.org/docs/getting-started/react-essentials
+  [31m|[0m 
+  [31m|[0m 
+   ,-[[36;1;4m/var/www/live/nextjs/app/tractor-implements-in-india/page.js[0m:1:1]
+ [2m1[0m | import React, { useEffect, useLayoutEffect, useState } from 'react';
+   : [31;1m                                            ^^^^^^^^[0m
+ [2m2[0m | import Header from '../CommonComponents/Headerfile/Header';
+ [2m3[0m | import Navbar from '../CommonComponents/NavbarFile/Navbar';
+ [2m3[0m | import Secondnav from '../CommonComponents/Secondnavbar/Secondnav';
+   `----
+
+Import trace for requested module:
+./app/tractor-implements-in-india/page.js
+ GET /_next/static/webpack/4e4f4bd9d4ec9a12.webpack.hot-update.json 500 in 5957ms
+ GET /tractor-implements-in-india 500 in 660ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /tractor-implements-in-india 500 in 13ms
+ GET /tractor-implements-in-india 500 in 18ms
+
+> nextjs@0.1.0 start
+> next start
+
+  ▲ Next.js 14.2.5
+  - Local:        http://localhost:3000
+
+ ✓ Starting...
+ ✓ Ready in 490ms
+
+> nextjs@0.1.0 start
+> next start -p 8080
+
+  ▲ Next.js 14.2.5
+  - Local:        http://localhost:8080
+
+ ✓ Starting...
+ ✓ Ready in 468ms
+
+> nextjs@0.1.0 start /var/www/live/nextjs
+> next start -p 8080
+
+/var/www/live/nextjs/node_modules/next/dist/compiled/commander/index.js:1
+(()=>{var t={81:t=>{"use strict";t.exports=require("child_process")},361:t=>{"use strict";t.exports=require("events")},147:t=>{"use strict";t.exports=require("fs")},17:t=>{"use strict";t.exports=require("path")},282:t=>{"use strict";t.exports=require("process")},161:(t,e,i)=>{const{InvalidArgumentError:n}=i(854);class Argument{constructor(t,e){this.description=e||"";this.variadic=false;this.parseArg=undefined;this.defaultValue=undefined;this.defaultValueDescription=undefined;this.argChoices=undefined;switch(t[0]){case"<":this.required=true;this._name=t.slice(1,-1);break;case"[":this.required=false;this._name=t.slice(1,-1);break;default:this.required=true;this._name=t;break}if(this._name.length>3&&this._name.slice(-3)==="..."){this.variadic=true;this._name=this._name.slice(0,-3)}}name(){return this._name}_concatValue(t,e){if(e===this.defaultValue||!Array.isArray(e)){return[t]}return e.concat(t)}default(t,e){this.defaultValue=t;this.def
+
+SyntaxError: Unexpected token ?
+    at Module._compile (internal/modules/cjs/loader.js:723:23)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+    at Module.require (internal/modules/cjs/loader.js:692:17)
+    at Module.mod.require (/var/www/live/nextjs/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (internal/modules/cjs/helpers.js:25:18)
+    at Object.<anonymous> (/var/www/live/nextjs/node_modules/next/dist/bin/next:7:20)
+    at Module._compile (internal/modules/cjs/loader.js:778:30)
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! nextjs@0.1.0 start: `next start -p 8080`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the nextjs@0.1.0 start script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2024-08-25T20_50_54_777Z-debug.log
+
+> nextjs@0.1.0 start
+> next start -p 8080
+
+  ▲ Next.js 14.2.5
+  - Local:        http://localhost:8080
+
+ ✓ Starting...
+ ✓ Ready in 468ms
+
+> nextjs@0.1.0 start
+> next start -p 8080
+
+  ▲ Next.js 14.2.5
+  - Local:        http://localhost:8080
+
+ ✓ Starting...
+Error: Could not find a production build in the '.next' directory. Try building your app with 'next build' before starting the production server. https://nextjs.org/docs/messages/production-start-no-build-id
+    at setupFsCheck (/var/www/live/nextjs/node_modules/next/dist/server/lib/router-utils/filesystem.js:151:19)
+    at async initialize (/var/www/live/nextjs/node_modules/next/dist/server/lib/router-server.js:61:23)
+    at async Server.<anonymous> (/var/www/live/nextjs/node_modules/next/dist/server/lib/start-server.js:249:36)
+
+> nextjs@0.1.0 start
+> next start -p 8080
+
+  ▲ Next.js 14.2.5
+  - Local:        http://localhost:8080
+
+ ✓ Starting...
+Error: Could not find a production build in the '.next' directory. Try building your app with 'next build' before starting the production server. https://nextjs.org/docs/messages/production-start-no-build-id
+    at setupFsCheck (/var/www/live/nextjs/node_modules/next/dist/server/lib/router-utils/filesystem.js:151:19)
+    at async initialize (/var/www/live/nextjs/node_modules/next/dist/server/lib/router-server.js:61:23)
+    at async Server.<anonymous> (/var/www/live/nextjs/node_modules/next/dist/server/lib/start-server.js:249:36)
+
+> nextjs@0.1.0 start
+> next start -p 8080
+
+  ▲ Next.js 14.2.5
+  - Local:        http://localhost:8080
+
+ ✓ Starting...
+Error: Could not find a production build in the '.next' directory. Try building your app with 'next build' before starting the production server. https://nextjs.org/docs/messages/production-start-no-build-id
+    at setupFsCheck (/var/www/live/nextjs/node_modules/next/dist/server/lib/router-utils/filesystem.js:151:19)
+    at async initialize (/var/www/live/nextjs/node_modules/next/dist/server/lib/router-server.js:61:23)
+    at async Server.<anonymous> (/var/www/live/nextjs/node_modules/next/dist/server/lib/start-server.js:249:36)
+
+> nextjs@0.1.0 start
+> next start -p 8080
+
+ ⨯ Failed to start server
+Error: listen EADDRINUSE: address already in use :::8080
+    at Server.setupListenHandle [as _listen2] (node:net:1902:16)
+    at listenInCluster (node:net:1959:12)
+    at Server.listen (node:net:2061:7)
+    at /var/www/live/nextjs/node_modules/next/dist/server/lib/start-server.js:280:16
+    at new Promise (<anonymous>)
+    at startServer (/var/www/live/nextjs/node_modules/next/dist/server/lib/start-server.js:191:11)
+    at Module.nextStart (/var/www/live/nextjs/node_modules/next/dist/cli/next-start.js:25:40)
+    at /var/www/live/nextjs/node_modules/next/dist/bin/next:105:856 {
+  code: 'EADDRINUSE',
+  errno: -98,
+  syscall: 'listen',
+  address: '::',
+  port: 8080
+}
+
+> nextjs@0.1.0 start
+> next start -p 8080
+
+  ▲ Next.js 14.2.5
+  - Local:        http://localhost:8080
+
+ ✓ Starting...
+ ✓ Ready in 981ms
+
+> nextjs@0.1.0 start
+> next start -p 8080
+
+ ⨯ Failed to start server
+Error: listen EADDRINUSE: address already in use :::8080
+    at Server.setupListenHandle [as _listen2] (node:net:1902:16)
+    at listenInCluster (node:net:1959:12)
+    at Server.listen (node:net:2061:7)
+    at /var/www/live/nextjs/node_modules/next/dist/server/lib/start-server.js:280:16
+    at new Promise (<anonymous>)
+    at startServer (/var/www/live/nextjs/node_modules/next/dist/server/lib/start-server.js:191:11)
+    at Module.nextStart (/var/www/live/nextjs/node_modules/next/dist/cli/next-start.js:25:40)
+    at /var/www/live/nextjs/node_modules/next/dist/bin/next:105:856 {
+  code: 'EADDRINUSE',
+  errno: -98,
+  syscall: 'listen',
+  address: '::',
+  port: 8080
+}
+
+> nextjs@0.1.0 start
+> next start -p 8080
+
+ ⨯ Failed to start server
+Error: listen EADDRINUSE: address already in use :::8080
+    at Server.setupListenHandle [as _listen2] (node:net:1902:16)
+    at listenInCluster (node:net:1959:12)
+    at Server.listen (node:net:2061:7)
+    at /var/www/live/nextjs/node_modules/next/dist/server/lib/start-server.js:280:16
+    at new Promise (<anonymous>)
+    at startServer (/var/www/live/nextjs/node_modules/next/dist/server/lib/start-server.js:191:11)
+    at Module.nextStart (/var/www/live/nextjs/node_modules/next/dist/cli/next-start.js:25:40)
+    at /var/www/live/nextjs/node_modules/next/dist/bin/next:105:856 {
+  code: 'EADDRINUSE',
+  errno: -98,
+  syscall: 'listen',
+  address: '::',
+  port: 8080
+}
+
+> nextjs@0.1.0 start
+> next start -p 8080
+
+ ⨯ Failed to start server
+Error: listen EADDRINUSE: address already in use :::8080
+    at Server.setupListenHandle [as _listen2] (node:net:1902:16)
+    at listenInCluster (node:net:1959:12)
+    at Server.listen (node:net:2061:7)
+    at /var/www/live/nextjs/node_modules/next/dist/server/lib/start-server.js:280:16
+    at new Promise (<anonymous>)
+    at startServer (/var/www/live/nextjs/node_modules/next/dist/server/lib/start-server.js:191:11)
+    at Module.nextStart (/var/www/live/nextjs/node_modules/next/dist/cli/next-start.js:25:40)
+    at /var/www/live/nextjs/node_modules/next/dist/bin/next:105:856 {
+  code: 'EADDRINUSE',
+  errno: -98,
+  syscall: 'listen',
+  address: '::',
+  port: 8080
+}
+
+> nextjs@0.1.0 start
+> next start -p 8081
+
+  ▲ Next.js 14.2.5
+  - Local:        http://localhost:8081
+
+ ✓ Starting...
+ ✓ Ready in 483ms

@@ -1,0 +1,46 @@
+.
+├── README.md 
+├── next.config.js                # Next.js configuration
+├── package.json
+├── tailwind.config.js            # Tailwind CSS configuration
+├── public                        # Static assets (favicons, images, fonts, etc.)
+│   ├── assets
+│   │   ├── images
+│   │   └── icons
+│   └── index.html
+└── src
+    ├── app                     # Next.js App directory (pages and layouts)
+    │   ├── layout.js           # Global (or root) layout
+    │   ├── page.js             # Global landing/home page
+    │   └── dashboard           # Example feature-level route
+    │       ├── layout.js       # Feature-specific layout if needed
+    │       └── page.js         # Feature page entry point
+    ├── components              # Shared reusable UI components
+    │   ├── common              # E.g., Header, Footer, Button, etc.
+    │   └── ui                  # Low-level UI primitives (forms, icons, etc.)
+    ├── features                # Feature/domain specific code
+    │   ├── tyres               # All code specific to the tyre feature
+    │   │   ├── components      # Feature-specific UI (tyre cards, listings, etc.)
+    │   │   ├── hooks           # Tyre-related React hooks
+    │   │   ├── pages           # Route-specific pages if not in app folder
+    │   │   └── services        # API calls and business logic for tyres
+    │   └── implements          # Code for implements (similar organization)
+    │       ├── components
+    │       ├── hooks
+    │       ├── pages
+    │       └── services
+    ├── lib                     # Library and helper functions (e.g., API client)
+    │   ├── apiClient.js
+    │   └── utils.js
+    ├── models                  # Domain models, types, interfaces (if using TS)
+    │   └── TyreModel.js        # Example model (or .ts)
+    ├── hooks                   # Generic React hooks used by multiple features
+    │   └── useIsMobile.js
+    ├── services                # Global service integrations (can also be feature-specific)
+    │   └── apiMethods.js
+    ├── styles                  # Global and shared styling
+    │   ├── globals.css
+    │   ├── tailwind.css
+    │   └── themes.css
+    └── utils                   # Utility functions that don’t fit elsewhere
+        └── dateHelper.js

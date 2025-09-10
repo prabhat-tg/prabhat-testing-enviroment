@@ -1,0 +1,28 @@
+.selected_tabs {
+  background: #f4fbf4;
+  position: relative;
+}
+
+.selected_tabs::before {
+  content: "";
+  position: absolute;
+  background-color: #008000;
+  left: -37px;
+  bottom: 0px;
+  height: 22px;
+  width: 37px;
+  border-bottom-right-radius: 25px;
+  box-shadow: 17px 0px 0 0 #f4fbf4;
+}
+
+.selected_tabs::after {
+  content: "";
+  position: absolute;
+  background-color: #008000;
+  right: -37px;
+  bottom: 0px;
+  height: 22px;
+  width: 37px;
+  border-bottom-left-radius: 25px;
+  box-shadow: -17px 0px 0 0 #f4fbf4;
+}

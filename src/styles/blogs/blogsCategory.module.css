@@ -1,0 +1,139 @@
+.blog_category_container {
+  width: 100%;
+  max-width: 23rem;
+  min-width: 22rem;
+  padding: 1rem;
+  background-color: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  border: 1px solid #d3dae0;
+}
+
+.blog_category_container_mobile {
+  width: 100%;
+  min-width: 100px;
+  padding: 10px 5px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  border: 1px solid #d3dae0;
+  position: relative;
+}
+
+.blog_category_header {
+  margin-bottom: 1rem;
+}
+
+.blog_category_header_mobile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+}
+
+.blog_category_title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #252525;
+}
+
+.blog_category_title_mobile {
+  font-size: 12px;
+  font-weight: 600;
+  color: #595959;
+  padding-right: 10px;
+}
+
+.blog_category_radioGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.blog_category_radioLabel {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 0.25rem;
+  border-bottom: 1px solid #e5e7eb;
+  cursor: pointer;
+}
+
+.blog_category_radioGroup .blog_category_radioLabel:last-child {
+  border-bottom: none;
+}
+
+.blog_category_radioInner {
+  display: flex;
+  align-items: center;
+}
+
+.blog_category_radioInput {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid #b8b8b8;
+  display: inline-block;
+  margin-right: 8px;
+  position: relative;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  background-color: white;
+}
+
+.checkedRadio {
+  border-color: #182c3d;
+}
+
+.checkedRadio::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  background-color: #182c3d;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s ease;
+}
+
+.activeCategory .blog_category_radioText {
+  font-weight: bold;
+}
+
+.blog_category_radioText {
+  margin-left: 0.75rem;
+  color: #727272;
+  font-weight: 500;
+}
+
+.blog_category_radioInner input[type="radio"]:checked + span {
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.blog_category_radioText,
+.blog_category_radioTextSecondary {
+  margin-left: 0.75rem;
+  color: #727272;
+  font-weight: 500;
+}
+
+.mobile_search_input {
+  background-color: #f5f5f5;
+  padding: 7px 25px 7px 10px;
+  height: 42px;
+  font-size: 13px;
+}
+
+.main_container_desktop {
+  margin: auto;
+  margin-top: 10rem;
+}
+
+@media (max-width: 768px) {
+  .main_container_mobile {
+    margin: auto;
+    margin-top: 0rem;
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "home": [
+    { "key": "welcome", "value": "स्वागत आहे" },
+    { "key": "home", "value": "मुख्यपृष्ठ" }
+  ],
+  "login": [
+    { "key": "username", "value": "मोहित" },
+    { "key": "password", "value": "ट्रॅक्टरज्ञान" },
+    { "key": "signin", "value": "साइन इन" },
+    { "key": "forgotPassword", "value": "पासवर्ड विसरलात?" }
+  ],
+  "location": [
+    { "key": "locationPoint", "value": "ఇండోర్, మధ్య ప్రదేశ్ 451010" }
+  ]
+}

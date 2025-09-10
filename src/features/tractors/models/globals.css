@@ -1,0 +1,66 @@
+/* Styling for backend HTML content in tractor details (ul, li, p, h3, etc.) */
+.tg-html-content ul {
+  list-style-type: disc;
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+.tg-html-content ol {
+  list-style-type: decimal;
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+.tg-html-content li {
+  margin-bottom: 0.5rem;
+  color: #444;
+  font-size: 1rem;
+}
+.tg-html-content p {
+  margin-bottom: 0.75rem;
+  color: #444;
+  font-size: 1rem;
+}
+.tg-html-content h1,
+.tg-html-content h2,
+.tg-html-content h3,
+.tg-html-content h4 {
+  color: #1a5c3e;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.125rem;
+}
+.tg-html-content strong {
+  font-weight: 600;
+}
+.tg-html-content em {
+  font-style: italic;
+}
+.tg-html-content a {
+  color: #1a5c3e;
+  text-decoration: underline;
+}
+.tg-html-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+.tg-html-content th,
+.tg-html-content td {
+  border: 1px solid #e5e7eb;
+  padding: 0.5rem;
+  text-align: left;
+}
+.tg-html-content img {
+  max-width: 100%;
+  height: auto;
+  margin: 0.5rem 0;
+}
+.tractor-brands-grid .tractor-brand-hidden {
+  display: none;
+}
+
+.tractor-brands-grid.show-all .tractor-brand-hidden {
+  display: block;
+}

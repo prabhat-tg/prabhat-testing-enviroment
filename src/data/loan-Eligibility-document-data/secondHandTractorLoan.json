@@ -1,0 +1,102 @@
+{
+  "en": [
+    {
+      "section": "Second Hand Tractor Loan Eligibility",
+      "description": "Check out, are you eligible for a second hand tractor loan?",
+      "items": [
+        {
+          "title": "Eligible Applicants",
+          "subtext": "Farmers or individuals using tractors for farming or commercial use"
+        },
+        {
+          "title": "Credit History",
+          "subtext": "Prior credit history should be satisfactory (if any)"
+        }
+      ]
+    },
+    {
+      "section": "Second Hand Tractor Loan Documents",
+      "description": "Necessary documents for immediate loan.",
+      "items": [
+        {
+          "title": "Land Ownership",
+          "subtext": "Proof of ownership"
+        },
+        {
+          "title": "Address Proof",
+          "subtext": "Aadhar or one of Voter ID / Passport / Driving License"
+        },
+        {
+          "title": "Bank Statement",
+          "subtext": "Last 3 months"
+        },
+        {
+          "title": "CV Record",
+          "subtext": "12 months track record"
+        },
+        {
+          "title": "Identity Proof",
+          "subtext": "Aadhar or one of Voter ID / Passport / Driving License"
+        },
+        {
+          "title": "Used Tractor RC",
+          "subtext": "Registration Certificate"
+        },
+        {
+          "title": "Used Tractor Insurance",
+          "subtext": "Proof of valid insurance"
+        }
+      ]
+    }
+  ],
+  "hi": [
+    {
+      "section": "पुराने ट्रैक्टर लोन पात्रता",
+      "description": "जांचें कि क्या आप पुराने ट्रैक्टर लोन के लिए पात्र हैं?",
+      "items": [
+        {
+          "title": "पात्र आवेदक",
+          "subtext": "किसान या वे व्यक्ति जो ट्रैक्टर का उपयोग खेती या व्यावसायिक उपयोग के लिए करते हैं"
+        },
+        {
+          "title": "क्रेडिट इतिहास",
+          "subtext": "पूर्व क्रेडिट इतिहास संतोषजनक होना चाहिए (यदि कोई हो)"
+        }
+      ]
+    },
+    {
+      "section": "पुराने ट्रैक्टर लोन दस्तावेज़",
+      "description": "तत्काल लोन के लिए आवश्यक दस्तावेज़।",
+      "items": [
+        {
+          "title": "भूमि स्वामित्व",
+          "subtext": "स्वामित्व का प्रमाण"
+        },
+        {
+          "title": "पता प्रमाण",
+          "subtext": "आधार या वोटर आईडी / पासपोर्ट / ड्राइविंग लाइसेंस में से कोई एक"
+        },
+        {
+          "title": "बैंक स्टेटमेंट",
+          "subtext": "पिछले 3 महीनों का"
+        },
+        {
+          "title": "सीवी रिकॉर्ड",
+          "subtext": "12 महीने का ट्रैक रिकॉर्ड"
+        },
+        {
+          "title": "पहचान प्रमाण",
+          "subtext": "आधार या वोटर आईडी / पासपोर्ट / ड्राइविंग लाइसेंस में से कोई एक"
+        },
+        {
+          "title": "पुराने ट्रैक्टर की आरसी",
+          "subtext": "रजिस्ट्रेशन प्रमाण पत्र"
+        },
+        {
+          "title": "पुराने ट्रैक्टर का बीमा",
+          "subtext": "वैध बीमा का प्रमाण"
+        }
+      ]
+    }
+  ]
+}

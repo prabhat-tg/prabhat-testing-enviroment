@@ -1,0 +1,3 @@
+Sitemap: https://tractorgyan.com/sitemap-final.xml
+User-agent: *
+Allow: /

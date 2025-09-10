@@ -1,0 +1,83 @@
+/\*\*
+
+- Tractor and Tyre Listing Integration Documentation
+-
+- This implementation extends the existing tyre listing system to support tractors
+- while maintaining backward compatibility with tyre functionality.
+-
+- Key Components:
+-
+- 1.  Service Layer:
+- - src/services/tractor/all-tractor-listing.js: New service for tractor API
+- - Uses API endpoint: /api/v2/tractor_list_by_brand
+- - Supports filters: brand_name, search_keyword, popular_tractor, latest_tractor, hp_range_filter
+-
+- 2.  Utility Functions:
+- - prepareTyreListingComponent: Enhanced to support both tyres and tractors
+- - New parameter: pageOrigin ('tyre' | 'tractorsByBrand')
+- - Automatically routes to correct API based on pageOrigin
+-
+- 3.  Components:
+- - TractorListingData: New component specifically for tractor listings
+- - TractorListing: Updated to render actual tractor data from API
+- - TyresListingClient: Already supports HP filters for tractors
+-
+- 4.  API Response Format:
+- Tractor API returns: {
+-      code: 200,
+-      success: true,
+-      message: "Data found success",
+-      count: 5,
+-      data: [
+-        {
+-          sno: 1,
+-          id: "440",
+-          brand: "Mahindra",
+-          model: "575 Di Xp Plus",
+-          hp: "46.9",
+-          cylinder: "4",
+-          image: "/2835/6136239820b0a_mahindra-575-DI-XP-Plus-tractorgyan.jpg",
+-          lifting_capacity: "1500 Kg",
+-          popular_tractor: "1",
+-          page_url: "/tractor/mahindra-575-di-xp-plus/440",
+-          created_at: ""
+-        }
+-      ]
+- }
+-
+- 5.  Usage Example:
+-
+- // For Tyre Pages (existing functionality)
+- const { component, paginationInfo } = await TyreListingData({
+-      params,
+-      searchParams,
+-      basePath: '/tyre/brand-name',
+-      tyreBrands,
+-      showSizeFilter: true,
+-      // pageOrigin defaults to 'tyre'
+- });
+-
+- // For Tractor Pages (new functionality)
+- const { component, paginationInfo } = await TractorListingData({
+-      params,
+-      searchParams,
+-      basePath: '/tractor/brand-name',
+-      tractorBrands,
+-      showTractorHPFilter: true,
+-      // pageOrigin is set to 'tractorsByBrand'
+- });
+-
+- 6.  Features Supported:
+- - Pagination with SEO-friendly URLs
+- - Brand filtering
+- - Search functionality
+- - HP range filtering (for tractors)
+- - Popular/Latest tractor filters
+- - Responsive design
+- - Multi-language support
+-
+- 7.  Backward Compatibility:
+- - All existing tyre functionality remains unchanged
+- - TyreListingData continues to work exactly as before
+- - Client components are shared between tyres and tractors
+    \*/

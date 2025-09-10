@@ -1,0 +1,863 @@
+.
+├── README.md
+├── app
+│   ├── (tyres)
+│   │   ├── tractor-tyre-in-india
+│   │   │   ├── layout.js
+│   │   │   └── page.js
+│   │   ├── tyre
+│   │   │   ├── [tyreBrand-tyreModel]
+│   │   │   │   └── [tyreBrandId]
+│   │   │   │       ├── layout.js
+│   │   │   │       └── page.js
+│   │   │   ├── front
+│   │   │   │   ├── layout.js
+│   │   │   │   └── page.js
+│   │   │   └── rear
+│   │   │       ├── layout.js
+│   │   │       └── page.js
+│   │   ├── tyre-price
+│   │   │   ├── layout.js
+│   │   │   └── page.js
+│   │   └── tyres
+│   │       ├── layout.js
+│   │       └── page.js
+│   ├── [implementBrand-implementModel]
+│   │   └── [implementType-on-road-price]
+│   │       └── [product_id]
+│   │           ├── Breadcrumbsmodel
+│   │           │   └── Breadcrumbs.js
+│   │           ├── ImplementEnquiryForm
+│   │           │   ├── ImplementForm.js
+│   │           │   └── ShowSuggestedPopup.js
+│   │           ├── ImplementTypeFaq
+│   │           │   └── FaqImplementType.js
+│   │           ├── PopulartImplement
+│   │           │   ├── PopImplement.js
+│   │           │   ├── PopImplementdesktop.js
+│   │           │   └── PopularImplement.css
+│   │           └── page.js
+│   ├── globals.css
+│   ├── hi
+│   │   ├── (tyres)
+│   │   │   ├── tractor-tyre-in-india
+│   │   │   │   ├── layout.js
+│   │   │   │   └── page.js
+│   │   │   ├── tyre
+│   │   │   │   ├── [tyreBrand-tyreModel]
+│   │   │   │   │   └── [tyreBrandId]
+│   │   │   │   │       ├── layout.js
+│   │   │   │   │       └── page.js
+│   │   │   │   ├── front
+│   │   │   │   │   └── page.js
+│   │   │   │   └── rear
+│   │   │   │       └── page.js
+│   │   │   └── tyres
+│   │   │       ├── layout.js
+│   │   │       └── page.js
+│   │   ├── tractor-implements
+│   │   │   └── [implementType]
+│   │   │       └── [model]
+│   │   │           └── [product_id]
+│   │   │               ├── Head.js
+│   │   │               ├── ImplementModelDetail
+│   │   │               │   ├── Breadcrumbsmodel
+│   │   │               │   │   ├── Breadcrumbs.js
+│   │   │               │   │   └── SeprateCssforMolde.css
+│   │   │               │   ├── DynamicFeature
+│   │   │               │   │   └── DynbamicFeatures.js
+│   │   │               │   ├── ImplelemntFeatureTable
+│   │   │               │   │   ├── ImplementTableFeature.css
+│   │   │               │   │   └── ImplementTableFeature.js
+│   │   │               │   ├── ImplementEnquiryForm
+│   │   │               │   │   ├── ImplementForm.js
+│   │   │               │   │   └── ShowSuggestedPopup.js
+│   │   │               │   ├── ImplementModelfaq
+│   │   │               │   │   └── Faq.js
+│   │   │               │   ├── ModelTop.css
+│   │   │               │   ├── ModelTop.js
+│   │   │               │   ├── OtherBrandImplement
+│   │   │               │   │   ├── OtherImplement.css
+│   │   │               │   │   └── OtherImplement.js
+│   │   │               │   └── ReviewSectionImplement
+│   │   │               │       ├── Review.css
+│   │   │               │       └── Review.js
+│   │   │               ├── layout.js
+│   │   │               └── page.js
+│   │   └── tractor-implements-in-india
+│   │       ├── ImplementBrand
+│   │       │   ├── ImplementBrand.css
+│   │       │   ├── ImplementBrand.js
+│   │       │   ├── ImplementBrandSmall.css
+│   │       │   └── ImplementBrandSmall.js
+│   │       ├── ImplementCarouslefile
+│   │       │   ├── Carousle.css
+│   │       │   ├── ImplementCarousle.js
+│   │       │   ├── ImplementSearchPopup.js
+│   │       │   └── SearchPopup.css
+│   │       ├── ImplementCategory
+│   │       │   ├── ImplementCategory.css
+│   │       │   └── ImplementCategory.js
+│   │       ├── ImplementHome.css
+│   │       ├── ImplementHomeFaq
+│   │       │   └── FaqImplementHome.js
+│   │       ├── ImplementTypes
+│   │       │   ├── ImplementType.css
+│   │       │   ├── ImplementType.js
+│   │       │   ├── ImplementTypeMobile.css
+│   │       │   ├── ImplementTypeMobile.js
+│   │       │   ├── ImplementTypeSmall.css
+│   │       │   └── ImplementTypeSmall.js
+│   │       ├── ImplementVideoReelWebstory
+│   │       │   └── VideoReelImplement.js
+│   │       ├── LatesImplement
+│   │       │   ├── Desktoplatest.css
+│   │       │   ├── Desktoplatest.js
+│   │       │   ├── LatestImplelemt.js
+│   │       │   └── LatestImplement.css
+│   │       ├── NewsFolderImplelemt
+│   │       │   └── NewsImplement.js
+│   │       ├── PopulartImplement
+│   │       │   ├── PopImplement.js
+│   │       │   ├── PopImplementdesktop.js
+│   │       │   └── PopularImplement.css
+│   │       ├── globals.css
+│   │       ├── index.html
+│   │       ├── laser-land-leveler
+│   │       │   ├── Breadcrumbs
+│   │       │   │   └── Breadcrumbs.js
+│   │       │   ├── DynamicMetadata.js
+│   │       │   ├── Head.js
+│   │       │   ├── ImlementTypeListing
+│   │       │   │   ├── ImplementCategoryDesktop.js
+│   │       │   │   ├── ImplementCategoryMobile.js
+│   │       │   │   └── ImplementListing.js
+│   │       │   ├── ImplementEnquiryForm
+│   │       │   │   ├── ImplementForm.js
+│   │       │   │   └── ShowSuggestedPopup.js
+│   │       │   ├── ImplementTypeFaq
+│   │       │   │   └── FaqImplementType.js
+│   │       │   ├── ImplementTypePriceList
+│   │       │   │   └── ImplementTypeprice.js
+│   │       │   ├── ImplementTypeVideoReelWebstory
+│   │       │   │   └── VideoReelTypeImplement.js
+│   │       │   ├── NewsFolderImplelemt
+│   │       │   │   └── NewsImplement.js
+│   │       │   ├── fetchImplementData.js
+│   │       │   ├── land-leveler
+│   │       │   │   ├── Breadcrumbs
+│   │       │   │   │   └── Breadcrumbs.js
+│   │       │   │   ├── CustomHead.js
+│   │       │   │   ├── ImlementTypeListing
+│   │       │   │   │   ├── ImplementCategoryDesktop.js
+│   │       │   │   │   ├── ImplementCategoryMobile.js
+│   │       │   │   │   ├── ImplementFilterBrand.js
+│   │       │   │   │   └── ImplementListing.js
+│   │       │   │   ├── ImplementEnquiryForm
+│   │       │   │   │   └── ImplementForm.js
+│   │       │   │   ├── ImplementTypeFaq
+│   │       │   │   │   └── FaqImplementType.js
+│   │       │   │   ├── ImplementTypePriceList
+│   │       │   │   │   └── ImplementTypeprice.js
+│   │       │   │   ├── ImplementTypeVideoReelWebstory
+│   │       │   │   │   └── VideoReelTypeImplement.js
+│   │       │   │   ├── layout.js
+│   │       │   │   └── page.js
+│   │       │   ├── laser-leveler
+│   │       │   │   ├── Breadcrumbs
+│   │       │   │   │   └── Breadcrumbs.js
+│   │       │   │   ├── CustomHead.js
+│   │       │   │   ├── ImlementTypeListing
+│   │       │   │   │   ├── ImplementCategoryDesktop.js
+│   │       │   │   │   ├── ImplementCategoryMobile.js
+│   │       │   │   │   ├── ImplementFilterBrand.js
+│   │       │   │   │   └── ImplementListing.js
+│   │       │   │   ├── ImplementEnquiryForm
+│   │       │   │   │   └── ImplementForm.js
+│   │       │   │   ├── ImplementTypeFaq
+│   │       │   │   │   └── FaqImplementType.js
+│   │       │   │   ├── ImplementTypePriceList
+│   │       │   │   │   └── ImplementTypeprice.js
+│   │       │   │   ├── ImplementTypeVideoReelWebstory
+│   │       │   │   │   └── VideoReelTypeImplement.js
+│   │       │   │   ├── layout.js
+│   │       │   │   └── page.js
+│   │       │   ├── layout.js
+│   │       │   └── page.js
+│   │       ├── layout.js
+│   │       ├── mahindra
+│   │       │   ├── favicon.ico
+│   │       │   ├── globals.css
+│   │       │   ├── index.html
+│   │       │   ├── layout.js
+│   │       │   ├── page.js
+│   │       │   └── page.module.css
+│   │       └── page.js
+│   ├── implement-on-road-price
+│   │   ├── Breadcrumbs
+│   │   │   └── Breadcrumbs.js
+│   │   ├── ImplementEnquiryForm
+│   │   │   ├── ImplementForm.js
+│   │   │   └── ShowSuggestedPopup.js
+│   │   ├── ImplementTypeFaq
+│   │   │   └── FaqImplementType.js
+│   │   ├── PopulartImplement
+│   │   │   ├── PopImplement.js
+│   │   │   ├── PopImplementdesktop.js
+│   │   │   └── PopularImplement.css
+│   │   └── page.js
+│   ├── layout.js
+│   ├── page.module.css
+│   ├── tractor-implements
+│   │   ├── [implementType]
+│   │   │   ├── Breadcrumbs
+│   │   │   │   └── Breadcrumbs.js
+│   │   │   ├── Head.js
+│   │   │   ├── ImplementBrandFaq
+│   │   │   │   └── FaqImplementBrand.js
+│   │   │   ├── ImplementBrandListing
+│   │   │   │   └── ListingBrand.js
+│   │   │   ├── ImplementBrandPriceList
+│   │   │   │   └── ImplementBrandprice.js
+│   │   │   ├── ImplementBrandVideoReelWebstory
+│   │   │   │   ├── VideoReel.css
+│   │   │   │   └── VideoReelBrandImplement.js
+│   │   │   ├── ImplementEnquiryForm
+│   │   │   │   ├── ImplementForm.js
+│   │   │   │   └── ShowSuggestedPopup.js
+│   │   │   ├── NewsFolderImplelemt
+│   │   │   │   └── NewsImplement.js
+│   │   │   ├── [model]
+│   │   │   │   └── [product_id]
+│   │   │   │       ├── Head.js
+│   │   │   │       ├── ImplementModelDetail
+│   │   │   │       │   ├── Breadcrumbsmodel
+│   │   │   │       │   │   ├── Breadcrumbs.js
+│   │   │   │       │   │   └── SeprateCssforMolde.css
+│   │   │   │       │   ├── DynamicFeature
+│   │   │   │       │   │   └── DynbamicFeatures.js
+│   │   │   │       │   ├── ImplelemntFeatureTable
+│   │   │   │       │   │   ├── ImplementTableFeature.css
+│   │   │   │       │   │   └── ImplementTableFeature.js
+│   │   │   │       │   ├── ImplementEnquiryForm
+│   │   │   │       │   │   ├── ImplementForm.js
+│   │   │   │       │   │   └── ShowSuggestedPopup.js
+│   │   │   │       │   ├── ImplementModelfaq
+│   │   │   │       │   │   └── Faq.js
+│   │   │   │       │   ├── ModelTop.css
+│   │   │   │       │   ├── ModelTop.js
+│   │   │   │       │   ├── OtherBrandImplement
+│   │   │   │       │   │   ├── OtherImplement.css
+│   │   │   │       │   │   └── OtherImplement.js
+│   │   │   │       │   └── ReviewSectionImplement
+│   │   │   │       │       ├── Review.css
+│   │   │   │       │       └── Review.js
+│   │   │   │       ├── layout.js
+│   │   │   │       └── page.js
+│   │   │   ├── layout.js
+│   │   │   └── page.js
+│   │   └── category
+│   │       └── [implementType]
+│   │           ├── Breadcrumbs
+│   │           │   └── Breadcrumbs.js
+│   │           ├── ImplementBrandFaq
+│   │           │   └── FaqImplementBrand.js
+│   │           ├── ImplementBrandListing
+│   │           │   └── ListingBrand.js
+│   │           ├── ImplementBrandPriceList
+│   │           │   └── ImplementBrandprice.js
+│   │           ├── ImplementBrandVideoReelWebstory
+│   │           │   └── VideoReelBrandImplement.js
+│   │           ├── ImplementEnquiryForm
+│   │           │   ├── ImplementForm.js
+│   │           │   └── ShowSuggestedPopup.js
+│   │           ├── NewsFolderImplelemt
+│   │           │   └── NewsImplement.js
+│   │           └── page.js
+│   ├── tractor-implements-brands-in-india
+│   │   ├── AllBrand
+│   │   │   ├── AllBrand.css
+│   │   │   └── ImplementAllBrand.js
+│   │   ├── Breadcrumbs
+│   │   │   └── Breadcrumbs.js
+│   │   └── page.js
+│   ├── tractor-implements-in-india
+│   │   ├── ImplementBrand
+│   │   │   ├── ImplementBrand.css
+│   │   │   ├── ImplementBrand.js
+│   │   │   ├── ImplementBrandSmall.css
+│   │   │   └── ImplementBrandSmall.js
+│   │   ├── ImplementCarouslefile
+│   │   │   ├── Carousle.css
+│   │   │   ├── ImplementCarousle.js
+│   │   │   ├── ImplementSearchPopup.js
+│   │   │   └── SearchPopup.css
+│   │   ├── ImplementCategory
+│   │   │   ├── ImplementCategory.css
+│   │   │   └── ImplementCategory.js
+│   │   ├── ImplementHome.css
+│   │   ├── ImplementHomeFaq
+│   │   │   └── FaqImplementHome.js
+│   │   ├── ImplementTypes
+│   │   │   ├── ImplementType.css
+│   │   │   ├── ImplementType.js
+│   │   │   ├── ImplementTypeMobile.css
+│   │   │   ├── ImplementTypeMobile.js
+│   │   │   ├── ImplementTypeSmall.css
+│   │   │   └── ImplementTypeSmall.js
+│   │   ├── ImplementVideoReelWebstory
+│   │   │   └── VideoReelImplement.js
+│   │   ├── LatesImplement
+│   │   │   ├── Desktoplatest.css
+│   │   │   ├── Desktoplatest.js
+│   │   │   ├── LatestImplelemt.js
+│   │   │   └── LatestImplement.css
+│   │   ├── NewsFolderImplelemt
+│   │   │   └── NewsImplement.js
+│   │   ├── PopulartImplement
+│   │   │   ├── PopImplement.js
+│   │   │   ├── PopImplementdesktop.js
+│   │   │   └── PopularImplement.css
+│   │   ├── [implementType]
+│   │   │   ├── Breadcrumbs
+│   │   │   │   └── Breadcrumbs.js
+│   │   │   ├── Head.js
+│   │   │   ├── ImlementTypeListing
+│   │   │   │   ├── ImplementCategoryDesktop.js
+│   │   │   │   ├── ImplementCategoryMobile.js
+│   │   │   │   └── ImplementListing.js
+│   │   │   ├── ImplementEnquiryForm
+│   │   │   │   ├── ImplementForm.js
+│   │   │   │   └── ShowSuggestedPopup.js
+│   │   │   ├── ImplementTypeFaq
+│   │   │   │   └── FaqImplementType.js
+│   │   │   ├── ImplementTypePriceList
+│   │   │   │   └── ImplementTypeprice.js
+│   │   │   ├── ImplementTypeVideoReelWebstory
+│   │   │   │   └── VideoReelTypeImplement.js
+│   │   │   ├── NewsFolderImplelemt
+│   │   │   │   └── NewsImplement.js
+│   │   │   ├── [brandName]
+│   │   │   │   ├── Breadcrumbs
+│   │   │   │   │   └── Breadcrumbs.js
+│   │   │   │   ├── FootercontentImplementBrnad
+│   │   │   │   │   └── FootercontentImplementBrnad.js
+│   │   │   │   ├── Head.js
+│   │   │   │   ├── ImlementTypeListing
+│   │   │   │   │   └── ImplementListing.js
+│   │   │   │   ├── ImplementEnquiryForm
+│   │   │   │   │   ├── ImplementForm.js
+│   │   │   │   │   └── ShowSuggestedPopup.js
+│   │   │   │   ├── ImplementTypeFaq
+│   │   │   │   │   └── FaqImplementType.js
+│   │   │   │   ├── ImplementTypePriceList
+│   │   │   │   │   └── ImplementTypeprice.js
+│   │   │   │   ├── ImplementTypeVideoReelWebstory
+│   │   │   │   │   └── VideoReelTypeImplement.js
+│   │   │   │   ├── NewsFolderImplelemt
+│   │   │   │   │   └── NewsImplement.js
+│   │   │   │   ├── layout.js
+│   │   │   │   └── page.js
+│   │   │   ├── land-leveler
+│   │   │   │   ├── Breadcrumbs
+│   │   │   │   │   ├── Breadcrumbs.css
+│   │   │   │   │   └── Breadcrumbs.js
+│   │   │   │   ├── Head.js
+│   │   │   │   ├── ImlementTypeListing
+│   │   │   │   │   ├── ImplementCategoryDesktop.js
+│   │   │   │   │   ├── ImplementCategoryMobile.js
+│   │   │   │   │   ├── ImplementFilterBrand.js
+│   │   │   │   │   ├── ImplementListing.js
+│   │   │   │   │   └── ImplementTypeListing.css
+│   │   │   │   ├── ImplementEnquiryForm
+│   │   │   │   │   ├── ImplementForm.css
+│   │   │   │   │   └── ImplementForm.js
+│   │   │   │   ├── ImplementTypeFaq
+│   │   │   │   │   ├── Faq.css
+│   │   │   │   │   └── FaqImplementType.js
+│   │   │   │   ├── ImplementTypePriceList
+│   │   │   │   │   ├── Brandprice.css
+│   │   │   │   │   └── ImplementTypeprice.js
+│   │   │   │   ├── ImplementTypeVideoReelWebstory
+│   │   │   │   │   ├── VideoReel.css
+│   │   │   │   │   └── VideoReelTypeImplement.js
+│   │   │   │   ├── layout.js
+│   │   │   │   └── page.js
+│   │   │   ├── laser-leveler
+│   │   │   │   ├── Breadcrumbs
+│   │   │   │   │   ├── Breadcrumbs.css
+│   │   │   │   │   └── Breadcrumbs.js
+│   │   │   │   ├── Head.js
+│   │   │   │   ├── ImlementTypeListing
+│   │   │   │   │   ├── ImplementCategoryDesktop.js
+│   │   │   │   │   ├── ImplementCategoryMobile.js
+│   │   │   │   │   ├── ImplementFilterBrand.js
+│   │   │   │   │   ├── ImplementListing.js
+│   │   │   │   │   └── ImplementTypeListing.css
+│   │   │   │   ├── ImplementEnquiryForm
+│   │   │   │   │   ├── ImplementForm.css
+│   │   │   │   │   └── ImplementForm.js
+│   │   │   │   ├── ImplementTypeFaq
+│   │   │   │   │   ├── Faq.css
+│   │   │   │   │   └── FaqImplementType.js
+│   │   │   │   ├── ImplementTypePriceList
+│   │   │   │   │   ├── Brandprice.css
+│   │   │   │   │   └── ImplementTypeprice.js
+│   │   │   │   ├── ImplementTypeVideoReelWebstory
+│   │   │   │   │   ├── VideoReel.css
+│   │   │   │   │   └── VideoReelTypeImplement.js
+│   │   │   │   ├── layout.js
+│   │   │   │   └── page.js
+│   │   │   ├── layout.js
+│   │   │   └── page.js
+│   │   ├── globals.css
+│   │   ├── index.html
+│   │   ├── laser-land-leveler
+│   │   │   ├── Breadcrumbs
+│   │   │   │   └── Breadcrumbs.js
+│   │   │   ├── Head.js
+│   │   │   ├── ImlementTypeListing
+│   │   │   │   ├── ImplementCategoryDesktop.js
+│   │   │   │   ├── ImplementCategoryMobile.js
+│   │   │   │   └── ImplementListing.js
+│   │   │   ├── ImplementEnquiryForm
+│   │   │   │   ├── ImplementForm.js
+│   │   │   │   └── ShowSuggestedPopup.js
+│   │   │   ├── ImplementTypeFaq
+│   │   │   │   └── FaqImplementType.js
+│   │   │   ├── ImplementTypePriceList
+│   │   │   │   └── ImplementTypeprice.js
+│   │   │   ├── ImplementTypeVideoReelWebstory
+│   │   │   │   └── VideoReelTypeImplement.js
+│   │   │   ├── JsonLdScript.js
+│   │   │   ├── NewsFolderImplelemt
+│   │   │   │   └── NewsImplement.js
+│   │   │   ├── [brandName]
+│   │   │   │   ├── Breadcrumbs
+│   │   │   │   │   └── Breadcrumbs.js
+│   │   │   │   ├── FootercontentImplementBrnad
+│   │   │   │   │   └── FootercontentImplementBrnad.js
+│   │   │   │   ├── Head.js
+│   │   │   │   ├── ImlementTypeListing
+│   │   │   │   │   └── ImplementListing.js
+│   │   │   │   ├── ImplementEnquiryForm
+│   │   │   │   │   └── ImplementForm.js
+│   │   │   │   ├── ImplementTypeFaq
+│   │   │   │   │   └── FaqImplementType.js
+│   │   │   │   ├── ImplementTypePriceList
+│   │   │   │   │   └── ImplementTypeprice.js
+│   │   │   │   ├── ImplementTypeVideoReelWebstory
+│   │   │   │   │   └── VideoReelTypeImplement.js
+│   │   │   │   ├── NewsFolderImplelemt
+│   │   │   │   │   └── NewsImplement.js
+│   │   │   │   ├── layout.js
+│   │   │   │   └── page.js
+│   │   │   ├── fetchImplementData.js
+│   │   │   ├── land-leveler
+│   │   │   │   ├── Breadcrumbs
+│   │   │   │   │   └── Breadcrumbs.js
+│   │   │   │   ├── CustomHead.js
+│   │   │   │   ├── ImlementTypeListing
+│   │   │   │   │   ├── ImplementCategoryDesktop.js
+│   │   │   │   │   ├── ImplementCategoryMobile.js
+│   │   │   │   │   ├── ImplementFilterBrand.js
+│   │   │   │   │   └── ImplementListing.js
+│   │   │   │   ├── ImplementEnquiryForm
+│   │   │   │   │   └── ImplementForm.js
+│   │   │   │   ├── ImplementTypeFaq
+│   │   │   │   │   └── FaqImplementType.js
+│   │   │   │   ├── ImplementTypePriceList
+│   │   │   │   │   └── ImplementTypeprice.js
+│   │   │   │   ├── ImplementTypeVideoReelWebstory
+│   │   │   │   │   ├── VideoReel.css
+│   │   │   │   │   └── VideoReelTypeImplement.js
+│   │   │   │   ├── layout.js
+│   │   │   │   └── page.js
+│   │   │   ├── laser-leveler
+│   │   │   │   ├── Breadcrumbs
+│   │   │   │   │   └── Breadcrumbs.js
+│   │   │   │   ├── CustomHead.js
+│   │   │   │   ├── ImlementTypeListing
+│   │   │   │   │   ├── ImplementCategoryDesktop.js
+│   │   │   │   │   ├── ImplementCategoryMobile.js
+│   │   │   │   │   ├── ImplementFilterBrand.js
+│   │   │   │   │   └── ImplementListing.js
+│   │   │   │   ├── ImplementEnquiryForm
+│   │   │   │   │   └── ImplementForm.js
+│   │   │   │   ├── ImplementTypeFaq
+│   │   │   │   │   └── FaqImplementType.js
+│   │   │   │   ├── ImplementTypePriceList
+│   │   │   │   │   └── ImplementTypeprice.js
+│   │   │   │   ├── ImplementTypeVideoReelWebstory
+│   │   │   │   │   ├── VideoReel.css
+│   │   │   │   │   └── VideoReelTypeImplement.js
+│   │   │   │   ├── layout.js
+│   │   │   │   └── page.js
+│   │   │   ├── layout.js
+│   │   │   └── page.js
+│   │   ├── layout.js
+│   │   ├── mahindra
+│   │   │   ├── favicon.ico
+│   │   │   ├── globals.css
+│   │   │   ├── index.html
+│   │   │   ├── layout.js
+│   │   │   ├── page.js
+│   │   │   └── page.module.css
+│   │   └── page.js
+│   └── tyreGlobals.css
+├── jsconfig.json
+├── next.config.mjs
+├── nohup.out
+├── package-lock.json
+├── package.json
+├── postcss.config.js
+├── public
+│   ├── index.html
+│   ├── static
+│   │   └── index.html
+│   └── tractor-implements-in-india
+│       └── index.html
+├── src
+│   ├── App.js
+│   ├── BrandPage
+│   │   ├── Brand.js
+│   │   ├── BrandDealer
+│   │   │   ├── DealerBrand.css
+│   │   │   └── DealerBrand.js
+│   │   ├── BrandKeyHighlight
+│   │   │   ├── Highlights.css
+│   │   │   └── Highlights.js
+│   │   ├── BrandListing
+│   │   │   ├── Listing.css
+│   │   │   └── Listing.js
+│   │   ├── BrandPriceList
+│   │   │   ├── Brandprice.css
+│   │   │   └── Brandprice.js
+│   │   ├── BrandSeries
+│   │   │   ├── Brandseries.css
+│   │   │   └── Brandseries.js
+│   │   ├── Brandfaq
+│   │   │   ├── Faq.css
+│   │   │   └── Faq.js
+│   │   ├── Breadcrumbs
+│   │   │   ├── Breadcrumbs.css
+│   │   │   └── Breadcrumbs.js
+│   │   ├── LazyLoadComponent.js
+│   │   ├── NewsFolder
+│   │   │   └── News.js
+│   │   ├── Secondhandtractor
+│   │   │   ├── Mobilesecondhnadtractor.js
+│   │   │   ├── Secondhand.js
+│   │   │   └── Secondhandtractor.css
+│   │   └── VideoReelWebstory
+│   │       ├── VideoReel.css
+│   │       └── VideoReel.js
+│   ├── CommonComponents
+│   │   ├── Banner
+│   │   │   ├── Bannerview.js
+│   │   │   ├── Bannreview.css
+│   │   │   ├── GoogleViewAds.js
+│   │   │   └── ImplementOnRoadPriceAd.js
+│   │   ├── Buttons
+│   │   │   ├── NextArrow.js
+│   │   │   └── PrevArrow.js
+│   │   ├── Carouslefile
+│   │   │   ├── Carousle.css
+│   │   │   ├── Carousle.js
+│   │   │   ├── SearchPopup.css
+│   │   │   └── SearchPopup.js
+│   │   ├── CommunityFolder
+│   │   │   ├── JoinCommunity.js
+│   │   │   └── Joincommunity.css
+│   │   ├── Comparetractor
+│   │   │   ├── Comparetractor.css
+│   │   │   └── Comparetractors.js
+│   │   ├── Emicalculator
+│   │   │   ├── Emicalcy.css
+│   │   │   └── Emicalcy.js
+│   │   ├── FooterDisclaimer
+│   │   │   ├── Discalaimer.css
+│   │   │   └── Disclaimer.js
+│   │   ├── FooterFixSection
+│   │   │   ├── FixSection.css
+│   │   │   ├── FixSection.js
+│   │   │   ├── OtpVerificationPopup.js
+│   │   │   └── ShowSuggestedPopup.js
+│   │   ├── FooterPopularSearch
+│   │   │   ├── FooterPopular.css
+│   │   │   └── FooterPopular.js
+│   │   ├── Footercontent
+│   │   │   ├── Footercontent.css
+│   │   │   └── Footercontent.js
+│   │   ├── Headerfile
+│   │   │   ├── Header.css
+│   │   │   └── Header.js
+│   │   ├── Hpfolder
+│   │   │   ├── Selecthp.css
+│   │   │   └── Selecthp.js
+│   │   ├── Implementsfolder
+│   │   │   ├── Implements.css
+│   │   │   └── Implements.js
+│   │   ├── JoinOurChannel
+│   │   │   ├── Joinchannel.css
+│   │   │   └── Joinchannel.js
+│   │   ├── LanguagePopup
+│   │   │   ├── LagnguagePop.js
+│   │   │   └── LanguagePop.css
+│   │   ├── LatesTractor
+│   │   │   ├── Desktoplatest.css
+│   │   │   ├── Desktoplatest.js
+│   │   │   ├── Latesttractor.css
+│   │   │   └── Latesttractor.js
+│   │   ├── Minitractors
+│   │   │   ├── Minitractor.css
+│   │   │   ├── Minitractor.js
+│   │   │   └── Mobileminitractor.js
+│   │   ├── NavbarFile
+│   │   │   ├── Navbar.css
+│   │   │   └── Navbar.js
+│   │   ├── NewsFolder
+│   │   │   ├── News.css
+│   │   │   └── News.js
+│   │   ├── Populartractor
+│   │   │   ├── PopTractor.css
+│   │   │   ├── Poptractor.js
+│   │   │   └── Poptrctordesktop.js
+│   │   ├── Secondhandtractor
+│   │   │   ├── Mobilesecondhnadtractor.js
+│   │   │   ├── Secondhand.js
+│   │   │   └── Secondhandtractor.css
+│   │   ├── Secondnavbar
+│   │   │   ├── Secondnav.js
+│   │   │   └── Secondnavbar.css
+│   │   ├── SignInPopup
+│   │   │   ├── ForgotPasswordForm.js
+│   │   │   ├── LoginForm.js
+│   │   │   ├── OtpForm.js
+│   │   │   ├── RegisterForm.js
+│   │   │   ├── SignInPopup.css
+│   │   │   └── SignInPopup.js
+│   │   ├── TractorBrands
+│   │   │   ├── Tractorbrands.css
+│   │   │   └── Tractorbrands.js
+│   │   ├── TractorGyanOfferings
+│   │   │   ├── Offeringsection.css
+│   │   │   └── Offeringsection.js
+│   │   └── VideoReelWebstory
+│   │       ├── VideoReel.css
+│   │       ├── VideoReel.js
+│   │       └── reelsWebStoryVideos
+│   │           ├── reels
+│   │           │   └── Reels.js
+│   │           └── webStories
+│   │               ├── StoryContainer.js
+│   │               └── StoryRing.js
+│   ├── HomePage
+│   │   └── Home.js
+│   ├── ImplementHome
+│   │   ├── ImplementBrand
+│   │   │   ├── ImplementBrand.css
+│   │   │   ├── ImplementBrand.js
+│   │   │   ├── ImplementBrandSmall.css
+│   │   │   └── ImplementBrandSmall.js
+│   │   ├── ImplementCategory
+│   │   │   ├── ImplementCategory.css
+│   │   │   └── ImplementCategory.js
+│   │   ├── ImplementHome.css
+│   │   ├── ImplementHome.js
+│   │   ├── ImplementHomeFaq
+│   │   │   └── FaqImplementHome.js
+│   │   ├── ImplementTypes
+│   │   │   ├── ImplementType.css
+│   │   │   ├── ImplementType.js
+│   │   │   ├── ImplementTypeSmall.css
+│   │   │   └── ImplementTypeSmall.js
+│   │   ├── ImplementVideoReelWebstory
+│   │   │   └── VideoReelImplement.js
+│   │   ├── LatesImplement
+│   │   │   ├── Desktoplatest.js
+│   │   │   ├── LatestImplelemt.js
+│   │   │   └── LatestImplement.css
+│   │   ├── NewsFolderImplelemt
+│   │   │   └── NewsImplement.js
+│   │   └── PopulartImplement
+│   │       ├── PopImplement.js
+│   │       └── PopImplementdesktop.js
+│   ├── ImplementTypes
+│   │   ├── Breadcrumbs
+│   │   │   └── Breadcrumbs.js
+│   │   ├── ImlementTypeListing
+│   │   │   ├── ImplementListing.js
+│   │   │   └── ImplementTypeListing.css
+│   │   ├── ImplementByTypes.js
+│   │   ├── ImplementTypeFaq
+│   │   │   └── FaqImplementType.js
+│   │   ├── ImplementTypePriceList
+│   │   │   └── ImplementTypeprice.js
+│   │   └── ImplementTypeVideoReelWebstory
+│   │       └── VideoReelTypeImplement.js
+│   ├── Locales
+│   │   ├── en.json
+│   │   ├── gu.json
+│   │   ├── hi.json
+│   │   ├── mr.json
+│   │   ├── ta.json
+│   │   └── te.json
+│   ├── ScrollToTop.js
+│   ├── TractorModelDetail
+│   │   ├── ModelMainCompo
+│   │   │   ├── Breadcrumbsmodel
+│   │   │   │   ├── Breadcrumbs.css
+│   │   │   │   └── Breadcrumbs.js
+│   │   │   ├── CompareBrandTractor
+│   │   │   │   ├── Comparetractor.css
+│   │   │   │   └── Comparetractors.js
+│   │   │   ├── ModelTop.css
+│   │   │   ├── ModelTop.js
+│   │   │   ├── Modelfaq
+│   │   │   │   ├── Faq.css
+│   │   │   │   └── Faq.js
+│   │   │   ├── OtherBrandTractor
+│   │   │   │   ├── Othertractors.css
+│   │   │   │   └── Othertractors.js
+│   │   │   ├── Populartractor
+│   │   │   │   ├── PopTractor.css
+│   │   │   │   ├── Poptractor.js
+│   │   │   │   └── Poptrctordesktop.js
+│   │   │   ├── ReviewSection
+│   │   │   │   ├── Review.css
+│   │   │   │   └── Review.js
+│   │   │   └── Secondhandtractor
+│   │   │       ├── Mobilesecondhnadtractor.js
+│   │   │       ├── Secondhand.js
+│   │   │       └── Secondhandtractor.css
+│   │   └── TractorDetails.js
+│   ├── allCss
+│   │   ├── BreadCrumbs.css
+│   │   ├── ContentAndPriceList.css
+│   │   ├── Faq.css
+│   │   ├── Footercontent.css
+│   │   ├── ImplementForm.css
+│   │   ├── ImplementTypeListing.css
+│   │   ├── News.css
+│   │   └── VideoReel.css
+│   ├── data
+│   │   ├── menuItems.json
+│   │   └── tyreOfferingsData.json
+│   ├── i18n.js
+│   ├── index.js
+│   ├── reportWebVitals.js
+│   ├── services
+│   │   ├── apiClient.js
+│   │   ├── apiMethods.js
+│   │   └── apiUrl.js
+│   ├── setupTests.js
+│   ├── svgFiles
+│   │   ├── EmojiRating1.js
+│   │   ├── EmojiRating2.js
+│   │   ├── EmojiRating3.js
+│   │   ├── EmojiRating4.js
+│   │   ├── EmojiRating5.js
+│   │   └── StarRatingIcon.js
+│   ├── tyreComponents
+│   │   ├── commonComponents
+│   │   │   ├── Breadcrubm.js
+│   │   │   ├── MainHeadings.js
+│   │   │   ├── Tooltip.js
+│   │   │   ├── WhatsAppTopButton.js
+│   │   │   ├── buttons
+│   │   │   │   ├── MainButton.js
+│   │   │   │   ├── NextArrow.js
+│   │   │   │   └── PrevArrow.js
+│   │   │   ├── cards
+│   │   │   │   └── TyreDetailsCard.js
+│   │   │   ├── footer
+│   │   │   │   ├── AboutTractorGyanSection.js
+│   │   │   │   ├── FixedFooterSection.js
+│   │   │   │   ├── Footer.js
+│   │   │   │   └── MobileFooter.js
+│   │   │   ├── googleAdds
+│   │   │   │   └── GoogleAdds.js
+│   │   │   ├── headers
+│   │   │   │   ├── DesktopHeader.js
+│   │   │   │   └── SecondNavbar.js
+│   │   │   ├── navbar
+│   │   │   │   ├── HeaderTabs.js
+│   │   │   │   └── MobileNavbar.js
+│   │   │   ├── otpVerificationPopup
+│   │   │   │   └── OtpVerificationPopup.js
+│   │   │   ├── reelsWebStoryVideos
+│   │   │   │   ├── reels
+│   │   │   │   │   └── Reels.js
+│   │   │   │   ├── videos
+│   │   │   │   │   └── VideosContainer.js
+│   │   │   │   └── webStories
+│   │   │   │       ├── StoryContainer.js
+│   │   │   │       └── StoryRing.js
+│   │   │   ├── sliders
+│   │   │   │   ├── TyreDetailMainSLider.js
+│   │   │   │   └── TyreModelSlider.js
+│   │   │   └── submitOtpForm
+│   │   │       └── SubmitOtpForm.js
+│   │   └── components
+│   │       ├── allTyreListing
+│   │       │   ├── tyrePriceList
+│   │       │   │   └── ListingMainSection.js
+│   │       │   └── tyresListing
+│   │       │       ├── ListingCard.js
+│   │       │       └── TyresListing.js
+│   │       ├── dealer
+│   │       │   ├── TyreDealersByStates
+│   │       │   │   └── TyreDealersByStates.js
+│   │       │   ├── dealerListing
+│   │       │   │   └── DealerListing.js
+│   │       │   └── dealershipRegistrationForm
+│   │       │       └── DealershipRegistrationForm.js
+│   │       ├── dmca
+│   │       │   └── DmcaCodeComponent.js
+│   │       ├── forms
+│   │       │   └── InquireForm.js
+│   │       ├── joinOurCommunity
+│   │       │   ├── CommunityCard.js
+│   │       │   └── JoinOurCommunity.js
+│   │       ├── popularTyres
+│   │       │   ├── PopularTyreCard.js
+│   │       │   └── PopularTyres.js
+│   │       ├── relatedTyres
+│   │       │   └── RelatedTyres.js
+│   │       ├── tractorGyanOfferings
+│   │       │   ├── OfferingsCard.js
+│   │       │   └── TractorGyanOfferings.js
+│   │       ├── tractorsByBrands
+│   │       │   ├── BrandCards.js
+│   │       │   └── TractorsByBrands.js
+│   │       ├── tyreDetailsSection
+│   │       │   └── TyreDetailsAndFeatures.js
+│   │       ├── tyreFAQs
+│   │       │   └── TyreFAQs.js
+│   │       ├── tyreHomeBanner
+│   │       │   └── HomeBanner.js
+│   │       ├── tyreNews
+│   │       │   └── NewsSection.js
+│   │       ├── tyreOnRoadPrice
+│   │       │   └── TyreOnRoadPrice.js
+│   │       ├── tyreRatingAndReviews
+│   │       │   ├── ReviewsCard.js
+│   │       │   ├── TyreRatingAndReviews.js
+│   │       │   └── TyreRatingForm.js
+│   │       ├── tyresByBrands
+│   │       │   ├── TyreByBrandsCard.js
+│   │       │   ├── TyreDealersByBrands.js
+│   │       │   └── TyresByBrands.js
+│   │       ├── tyresBySize
+│   │       │   ├── FrontTyreCard.js
+│   │       │   ├── RearTyreCard.js
+│   │       │   └── TyresBySizes.js
+│   │       └── updatesAbouteTyre
+│   │           └── UpdatesSection.js
+│   └── utils
+│       └── useIsMobile.js
+├── structure.txt
+└── tailwind.config.js
+
+296 directories, 565 files

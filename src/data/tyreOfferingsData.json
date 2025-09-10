@@ -1,0 +1,82 @@
+[
+  {
+    "label": "newTractor",
+    "link": "/tractors",
+    "imgUrl": "https://images.tractorgyan.com/uploads/115168/66e7f1e59719d-new-tractor-logo.webp"
+  },
+  {
+    "label": "compareTractor",
+    "link": "/compare-tractors",
+    "imgUrl": "https://images.tractorgyan.com/uploads/115167/66e7f1d838b45-compare-tractor-logo.webp"
+  },
+  {
+    "label": "tractorPrice",
+    "link": "/tractor-on-road-price",
+    "imgUrl": "https://images.tractorgyan.com/uploads/115174/66e7f251f00bc-tractor-price-logo.webp"
+  },
+  {
+    "label": "buySecondHandTractor",
+    "link": "/second-hand-tractor",
+    "imgUrl": "https://images.tractorgyan.com/uploads/115171/66e7f215d4750-buy-second-hand-tractor-logo.webp"
+  },
+  {
+    "label": "sellSecondHandTractor",
+    "link": "/sell-old-tractor",
+    "imgUrl": "https://images.tractorgyan.com/uploads/115166/66e7f1c06e01c-sell-second-hand-tractor-logo.webp"
+  },
+  {
+    "label": "miniTractor",
+    "link": "/mini-tractors-in-india",
+    "imgUrl": "https://images.tractorgyan.com/uploads/115165/66e7f1b2da322-mini-tractor-logo.webp"
+  },
+  {
+    "label": "tractorLoan",
+    "link": "/tractor-loan",
+    "imgUrl": "https://images.tractorgyan.com/uploads/115164/66e7f1a61d799-tractor-loan-logo.webp"
+  },
+  {
+    "label": "tractorSubsidy",
+    "link": "/tractors-subsidy-in-india",
+    "imgUrl": "https://images.tractorgyan.com/uploads/115161/66e7f1746076b-tractor-subsidy-logo.webp"
+  },
+  {
+    "label": "tractorReview",
+    "link": "/tractor-review",
+    "imgUrl": "https://images.tractorgyan.com/uploads/115163/66e7f1947f4e3-write-tractor-review-logo.webp"
+  },
+  {
+    "label": "tractorDealer",
+    "link": "/tractor-dealers-in-india",
+    "imgUrl": "https://images.tractorgyan.com/uploads/115173/66e7f23996270-find-tractor-dealer-logo.webp"
+  },
+  {
+    "label": "emiCalculator",
+    "link": "/tractor-emi-calculator",
+    "imgUrl": "https://images.tractorgyan.com/uploads/115172/66e7f229e4348-emi-calculator-logo.webp"
+  },
+  {
+    "label": "tractorNews",
+    "link": "/tractor-industry-news-blogs/category/tractor-news",
+    "imgUrl": "https://images.tractorgyan.com/uploads/115162/66e7f186f3611-tractor-news-logo.webp"
+  },
+  {
+    "label": "tractorVideos",
+    "link": "/tractor-videos",
+    "imgUrl": "https://images.tractorgyan.com/uploads/115160/66e7f13f8e47e-tractor-videos-logo.webp"
+  },
+  {
+    "label": "tractorTyre",
+    "link": "/tractor-tyre-in-india",
+    "imgUrl": "https://images.tractorgyan.com/uploads/115175/66e7f262bceb9-tractor-tyre-logo.webp"
+  },
+  {
+    "label": "tractorImplement",
+    "link": "/tractor-implements-in-india",
+    "imgUrl": "https://images.tractorgyan.com/uploads/115169/66e7f1f3c838d-tractor-implements-logo.webp"
+  },
+  {
+    "label": "agricultureNews",
+    "link": "/tractor-industry-news-blogs/category/agriculture-news",
+    "imgUrl": "https://images.tractorgyan.com/uploads/115170/66e7f2039425b-agriculture-news-logo.webp"
+  }
+]

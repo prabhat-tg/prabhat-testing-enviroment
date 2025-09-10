@@ -1,0 +1,321 @@
+.SignInPopupOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000000000;
+  backdrop-filter: blur(4px);
+}
+.SignInPopupContent {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 8px;
+  background: #fff;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1.5rem;
+}
+.registerPopupHeading {
+  font-size: 18px;
+  font-weight: 600;
+  color: #182c3d;
+  border-bottom: 3px solid #00522e;
+  padding: 2px;
+  border-radius: 0;
+  margin-bottom: 0px;
+  /* position: absolute;
+  z-index: 55; */
+}
+.loginNameMobileSpan,
+.registerPopMAinDiv {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 6px;
+}
+.registerNameMobileSpanDual {
+  display: flex;
+  width: 100%;
+  gap: 20px;
+  align-items: end;
+}
+.loginNameMobileSpan input,
+.otpNameMobileSpan input,
+.registerConfirmPasswordSpan input,
+.registerEmailSpan input,
+.registerNameMobileSpan input,
+.registerOtpSpan input,
+.registerPasswordSpan input,
+.submitRegisterPopup {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  /* outline: #707c88 solid 1px;
+  border: none; */
+}
+.registerOtpSpan input {
+  width: 100%;
+}
+.verifyOtpBtnSpan {
+  display: flex;
+  gap: 20px;
+}
+.registerNameMobileSpan {
+  width: 50%;
+}
+.submitRegisterPopup {
+  background-color: #008000;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 8px 0;
+}
+.registerConfirmPasswordSpan,
+.registerEmailSpan,
+.registerNameMobileSpan,
+.registerOtpSpan,
+.registerPasswordSpan {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.signUpFullDiv {
+  display: flex;
+  flex-direction: column;
+  width: 35%;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+.termsParaOfRegister {
+  font-size: 12px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.loginInSpan,
+.termsParaOfRegister a {
+  color: #4682b4;
+}
+.signUpLogoTg {
+  width: 30%;
+  /* position: absolute; */
+  /* left: 50%;
+  top: 23px;
+  transform: translateX(-50%); */
+  height: fit-content;
+}
+.signUpFullDiv label {
+  color: #182c3d;
+  font-size: 14px;
+  font-weight: 600;
+}
+.signUpFullDiv input.error {
+  border: 1px solid red;
+}
+.signUpFullDiv input:focus {
+  border: 1px solid gray;
+}
+.logInParaOfRegister {
+  margin-top: 10px;
+  justify-content: center;
+  font-size: 14px;
+}
+.loginInSpan {
+  font-weight: 700;
+  cursor: pointer;
+}
+.mainavbar li {
+  cursor: pointer;
+}
+.forgotParaOfRegister {
+  justify-content: end;
+  margin-top: 10px;
+  cursor: pointer;
+}
+.welcomeMessage {
+  text-align: center;
+  margin-top: 20px;
+}
+.logoutBtn {
+  background: #a9a9a9;
+  color: #000;
+  padding: 5px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+}
+.logoutBtn:hover {
+  background-color: #adff2f;
+}
+
+.registerNameMobileSpanDual button,
+.verifyOtpBtnSpan button {
+  font-size: 14px;
+  width: 25%;
+  padding: 0;
+  background: 0 0;
+  border: 1px solid #008000;
+  border-radius: 6px;
+  height: 38px;
+  color: #008000;
+  cursor: pointer;
+  font-weight: 600;
+}
+.registerNameMobileSpanDual button {
+  width: fit-content;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.registerNameMobileSpanDual button:hover,
+.verifyOtpBtnSpan button:hover {
+  background: #008000;
+  color: #fff;
+}
+.error-message,
+.success-message {
+  font-size: 12px;
+  /* animation: 1s infinite blink; */
+}
+.error-message {
+  color: red;
+}
+.success-message {
+  color: #008000;
+}
+.error_message {
+  color: #ef4444;
+  font-size: 12px;
+  margin-top: 4px;
+}
+.success-message {
+  color: green;
+}
+.passwordContainer,
+.viefyOtpWithTimer {
+  position: relative;
+  width: 100%;
+}
+.otpTimer,
+.togglePassword {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: #4682b4;
+  cursor: pointer;
+  font-size: 14px;
+}
+.loginRegisterPopForm {
+  width: 95%;
+}
+.registerAndLoginFeature {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.logInWithOtp {
+  font-size: 16px;
+  font-weight: 600;
+  color: #04192b;
+  cursor: pointer;
+}
+.forgetPassword {
+  font-size: 13px;
+  font-weight: 400;
+  color: #595959;
+  cursor: pointer;
+  text-align: end;
+}
+.registerNowAgain {
+  font-size: 15px;
+}
+.registerNowAgain span {
+  text-decoration: underline;
+  color: #4682b4;
+  font-weight: 600;
+  cursor: pointer;
+}
+.sign-in-heading-container {
+  width: fit-content;
+  display: grid;
+  z-index: 1;
+}
+.login-first-bg {
+  width: 53%;
+  position: absolute;
+  left: 0;
+  height: 30px;
+  bottom: -7px;
+  object-fit: cover;
+}
+.login-second-bg {
+  width: 60%;
+  position: absolute;
+  right: 0;
+  height: 30px;
+  top: 5px;
+  object-fit: cover;
+}
+.sign-in-heading-container h4 {
+  width: fit-content;
+  position: absolute;
+  left: 50%;
+  top: 20px;
+  transform: translateX(-50%);
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+@media (max-width: 700px) {
+  .signUpFullDiv {
+    width: 85%;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  .signUpLogoTg {
+    width: 30%;
+  }
+  .registerNameMobileSpanDual {
+    flex-direction: column;
+    gap: 2px;
+  }
+  .registerNameMobileSpan {
+    width: 100%;
+  }
+  .SignInPopupContent {
+    padding: 10px 20px;
+  }
+  .registerPopupHeading {
+    font-size: 17px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  .registerPopMAinDiv {
+    gap: 0px;
+  }
+  .registerNameMobileSpanDual button {
+    font-size: 13px;
+    white-space: nowrap;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 4px;
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "home": [
+    { "key": "welcome", "value": "આપનું સ્વાગત છે" },
+    { "key": "home", "value": "મુખપૃષ્ઠ" }
+  ],
+  "login": [
+    { "key": "username", "value": "મોહિત" },
+    { "key": "password", "value": "ટ્રેક્ટરજ્ઞાન" },
+    { "key": "signin", "value": "સાઇન ઇન કરો" },
+    { "key": "forgotPassword", "value": "પાસવર્ડ ભૂલ્યા છો?" }
+  ],
+  "location": [
+    { "key": "locationPoint", "value": "ઈન્દોર, મધ્ય પ્રદેશ 451010" }
+  ]
+}

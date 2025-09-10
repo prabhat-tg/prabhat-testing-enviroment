@@ -1,0 +1,155 @@
+.langPopupContainer,
+.langSelectionDiv {
+  width: 100%;
+  display: flex;
+  border-radius: inherit;
+}
+
+@keyframes fadeOverlay {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.langPopupContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+  animation: fadeOverlay 0.3s ease-in forwards;
+}
+
+.langPopupDiv {
+  position: relative;
+  background-color: #fff;
+  border-radius: 18px;
+  text-align: center;
+  height: 47vh;
+  display: flex;
+  width: 55vw;
+  border-radius: 28px;
+  animation: fadeInScale 0.4s ease-out forwards;
+  opacity: 0;
+  transform: scale(0.85);
+}
+.langPopupCloseButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+.langLeftDiv,
+.langRightDiv {
+  display: flex;
+  width: 50%;
+  border-radius: inherit;
+}
+.langLeftDiv {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  background-color: #f4fbf4;
+  border-radius: 25px 0px 0px 25px;
+  width: 45%;
+}
+.langRightDiv {
+  width: 57%;
+}
+.langPopupHeading {
+  color: #29852b;
+  font-size: 25px;
+  font-weight: 700;
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  padding-bottom: 1.5rem;
+}
+.langPopupHeading img {
+  width: 25px;
+  height: 25px;
+}
+.languageTypeBtn {
+  border: 1.5px solid #d3dae0;
+  color: #595959;
+  font-size: 20px;
+  width: 85%;
+  margin: 10px;
+  border-radius: 29px;
+  padding: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.langRightDiv img {
+  width: 100%;
+  border-radius: 0 25px 25px 0;
+}
+.languageTypeBtn:hover {
+  background: #29852b;
+  color: #ffff;
+  font-weight: 600;
+}
+@media (max-width: 700px) {
+  .langSelectionDiv {
+    flex-direction: column;
+  }
+  .langPopupDiv {
+    width: 90%;
+    height: 40vh;
+  }
+  .langLeftDiv,
+  .langRightDiv {
+    width: 100%;
+    flex-direction: unset;
+    flex-wrap: wrap;
+  }
+  .langRightDiv {
+    height: 100%;
+  }
+  .langLeftDiv {
+    margin-bottom: 0;
+    gap: 0;
+    padding-top: 7px;
+    padding-bottom: 18px;
+    border-radius: 25px 25px 0px 0px;
+  }
+  .langPopupHeading {
+    font-size: 20px;
+    width: 100%;
+    justify-content: center;
+    padding: 20px 10px 10px;
+  }
+  .languageTypeBtn {
+    width: 43%;
+    font-size: 14px;
+  }
+  .langRightDiv img {
+    border-radius: 0 0 18px 18px;
+    height: 150px;
+    object-fit: fill;
+  }
+
+  .langPopupHeading img {
+    width: 15px;
+    height: 15px;
+  }
+}

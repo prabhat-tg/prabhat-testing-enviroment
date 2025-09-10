@@ -1,0 +1,158 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*custom scroller css  */
+.custom-scroller::-webkit-scrollbar {
+  width: 7px;
+}
+
+.custom-scroller::-webkit-scrollbar-track {
+  background: #d3dae0;
+  border-radius: 7px;
+}
+
+.custom-scroller::-webkit-scrollbar-thumb {
+  background-color: #182c3d;
+  border-radius: 7px;
+}
+
+/* slider css  */
+.single-slide .slick-prev,
+.single-slide .slick-next {
+  display: none !important;
+}
+
+.slick-track {
+  margin-left: 0px !important;
+  /* Align to the left */
+}
+
+.slick-slider.py-5.mt-8.slick-initialized .slick-list {
+  padding: 24px;
+}
+
+.slick-dots li {
+  width: 8px !important;
+}
+
+.slick-dots li button:before {
+  width: 12px !important;
+  height: 12px !important;
+  content: '' !important;
+  border: solid 1px rgb(0, 0, 0);
+  background-color: white;
+  opacity: 1;
+  border-radius: 100%;
+}
+
+.slick-dots li.slick-active button:before {
+  opacity: 0.75;
+  color: green !important;
+  border: solid 1px green;
+  background-color: green;
+}
+
+/* Prevent body scroll when mobile navbar is open */
+.no-scroll {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+
+/* TODO::Header Specific Styles | Move to respective file */
+/* .selected-menu {
+  position: relative;
+} */
+
+.selected-menu .selected-menu-block-t,
+.selected-menu .selected-menu-block-b {
+  width: 24px;
+  height: 24px;
+  background-color: #ffffff;
+  position: absolute;
+  right: 0;
+}
+
+.selected-menu .selected-menu-block-t {
+  top: -24px;
+  border-radius: 9999px 0 0 0;
+}
+
+.selected-menu .selected-menu-block-b {
+  bottom: -24px;
+  border-radius: 0 0 0 9999px;
+}
+
+.selected-menu .selected-menu-block-t::before,
+.selected-menu .selected-menu-block-b::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  width: 25px;
+  height: 25px;
+  background-color: #002a17;
+  z-index: 0;
+}
+
+.selected-menu .selected-menu-block-t::before {
+  top: -1px;
+  border-radius: 9999px 0;
+}
+
+.selected-menu .selected-menu-block-b::after {
+  bottom: -1px;
+  border-radius: 0 9999px;
+}
+
+.border-b-3 {
+  border-bottom-width: 3px;
+}
+
+/* Styles for lists within #about-content */
+#about-content ul {
+  list-style-type: disc;
+  margin-left: 1.5rem; /* Equivalent to ml-6 in Tailwind */
+  padding-left: 0.5rem; /* Equivalent to pl-2 in Tailwind */
+}
+
+#about-content ol {
+  list-style-type: decimal;
+  margin-left: 1.5rem; /* Equivalent to ml-6 in Tailwind */
+  padding-left: 0.5rem; /* Equivalent to pl-2 in Tailwind */
+}
+
+/* Optional: Add some space between list items */
+#about-content li {
+  margin-bottom: 0.25rem; /* Equivalent to mb-1 in Tailwind */
+}
+
+/* Custom spacing in slider */
+.custom-gap-slider .slick-slide {
+  padding: 0 0.5rem;
+}
+.custom-gap-slider .slick-list {
+  margin: 0 -0.5rem;
+}
+
+/* Styling for latest sectiom slider */
+.latest-section-slider .slick-slide {
+  transition: transform 0.2s ease-in;
+}
+.latest-section-slider .slick-slide:not(.slick-current) {
+  transform: scale(0.9);
+}
+
+.compare-tractors-slider .slick-list {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE/Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+

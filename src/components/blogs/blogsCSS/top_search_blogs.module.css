@@ -1,0 +1,19 @@
+.blogs_listing_view_icon_container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.blogs_listing_view_icon_container img {
+  min-width: 25px;
+  max-width: 25px;
+  min-height: 23px;
+  max-height: 23px;
+}
+
+.blogs_view_featured_image {
+  height: 165px;
+  max-width: 300px;
+  min-width: 300px;
+  border-radius: 16px;
+}
