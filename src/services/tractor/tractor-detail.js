@@ -22,7 +22,7 @@ export async function getTractorDetail({ productId, lang }) {
         result.data[0].images = images.join(',');
       }
     }
-    console.log('Tractor detail API response:', productId, lang);
+    console.log('Tractor detail API response:', productId, lang, result);
 
     return result?.data?.[0] || null;
   } catch (error) {

@@ -96,7 +96,7 @@ export default async function TractorImplementCategoryPage({ params, searchParam
     })
   } catch (error) {
     console.error('Failed to fetch implement top content::', error);
-    allImplementBrands = [];
+    topContent = [];
   }
 
   // TODO:: Update as per API
@@ -300,16 +300,22 @@ export default async function TractorImplementCategoryPage({ params, searchParam
         </div>
       </section>
       {/* TODO:: Update the props to make them generic */}
-      <TyrePriceInquireForm
-        bgColor="bg-green-lighter"
-        formTitle={`Get ${brand.name} Implement Price`}
-        tyreBrands={tractorBrands}
-        translation={translation}
-        currentLang={currentLang}
-        banner={tgb_implement_on_road_price}
-        mobileBanner={tgb_implement_on_road_price_mobile}
-        isMobile={isMobile}
-      />
+      <div className='py-6'>
+        <TyrePriceInquireForm
+          bgColor="bg-green-lighter"
+          formTitle={`Get ${brand.name} Implement Price`}
+          tyreBrands={allImplementBrands}
+          translation={translation}
+          currentLang={currentLang}
+          banner={tgb_implement_on_road_price}
+          mobileBanner={tgb_implement_on_road_price_mobile}
+          isMobile={isMobile}
+          type={'IMPLEMENT'}
+          submitBtnText={'₹ Get Implement Price'}
+          pageSource={pageSlug}
+          pageName={'implement_category'} // TODO:: Check w/ BE
+        />
+      </div>
       {news.length ? (
         <NewsSection
           translation={translation}

@@ -114,6 +114,7 @@ export default async function TractorSubsidyData({ searchParams, porpsCurrentLan
             categoriesError={categoryError}
             porpsCurrentLang={porpsCurrentLang}
             showHeading={false}
+            toggleMode={false}
           />
           {/* <DealersByStates
             title={translation.headings.searchTractordealersByStates}

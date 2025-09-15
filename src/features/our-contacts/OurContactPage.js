@@ -1,8 +1,8 @@
-import DesktopHeader from '@/src/components/shared/header/DesktopHeader'
+import DesktopHeader from '@/src/components/shared/header/DesktopHeader';
 import { getDictionary } from '@/src/lib/dictonaries';
 import { getSelectedLanguage } from '@/src/services/locale';
 import { isMobileView } from '@/src/utils';
-import React from 'react'
+import React from 'react';
 import FooterComponents from '../tyre/FooterComponents';
 import FeedBackForm from './FeedBackForm';
 import MobileFooter from '@/src/components/shared/footer/MobileFooter';
@@ -37,19 +37,25 @@ export default async function OurContactPage({ searchParams }) {
                 showLanguageSelector={false}
             />
             <main>
-                <FeedBackForm
-                    isMobile={isMobile}
+                <FeedBackForm isMobile={isMobile} translation={translation} bgColor={'bg-blue-lightest'} />
+                {isMobile && (
+                    <section>
+                        <div className="container">
+                            <div className="mt-4">
+                                <ConnectUsSection isMobile={isMobile} bgColor={'bg-blue-lightest'} />
+                            </div>
+                        </div>
+                    </section>
+                )}
+
+                <WhatsAppTopButton
                     translation={translation}
-                    bgColor={"bg-blue-lightest"}
-                />
-                <ConnectUsSection
+                    currentLang={currentLang}
                     isMobile={isMobile}
-                    bgColor={"bg-blue-lightest"} />
-                <WhatsAppTopButton translation={translation} currentLang={currentLang} isMobile={isMobile} />
+                />
             </main>
             <FooterComponents translation={translation} />
             {isMobile && <MobileFooter translation={translation} />}
         </>
-    )
+    );
 }
-

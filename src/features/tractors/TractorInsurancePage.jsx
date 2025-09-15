@@ -109,7 +109,7 @@ const TractorInsurancePage = async () => {
             breadcrumbs={[
               {
                 label: translation?.breadcrubm.tractorGyanHome || 'Home',
-                href: '/',
+                href: currentLang ? '/hi' : '/',
                 title: translation?.breadcrubm.tractorGyanHome || 'Home',
               },
               {

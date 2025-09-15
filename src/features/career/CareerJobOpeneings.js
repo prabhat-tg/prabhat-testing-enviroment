@@ -11,7 +11,6 @@ const CareerJobOpenings = ({ isMobile, translation, jobsData, jobListError }) =>
   const [lastOtpSentNumber, setLastOtpSentNumber] = useState('');
   const [otp, setOtp] = useState('');
   const [otpError, setOtpError] = useState('');
-
   const [otpSuccessMsg, SetOtpSuccessMsg] = useState(false);
   const [localOtp, setLocalOtp] = useState('');
   const [mainId, setMainId] = useState('');
@@ -25,7 +24,6 @@ const CareerJobOpenings = ({ isMobile, translation, jobsData, jobListError }) =>
     number: false,
   });
   const [isResendEnabled, setIsResendEnabled] = useState(false);
-
   const [openSections, setOpenSections] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFormModalOpen, setIsFormModalOpen] = useState(false);
@@ -37,7 +35,6 @@ const CareerJobOpenings = ({ isMobile, translation, jobsData, jobListError }) =>
   });
   const [formErrors, setFormErrors] = useState({});
   const apiUrl = getApiUrl();
-
   const ChevronDownIcon = () => (
     <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -397,7 +394,7 @@ const CareerJobOpenings = ({ isMobile, translation, jobsData, jobListError }) =>
                                   <h4 className="mb-0 text-lg font-bold text-black">{job.title}</h4>
                                   {(job?.experience || job.location) && (
                                     <p className="leading-sm text-[10px] font-medium md:text-xs md:leading-relaxed">
-                                      {job.experience || null} | {job.location || null}
+                                      Experience: {job.experience || null} | Location: {job.location || null}
                                     </p>
                                   )}
                                 </div>
@@ -440,34 +437,40 @@ const CareerJobOpenings = ({ isMobile, translation, jobsData, jobListError }) =>
         {/* Job Details Modal */}
         {isModalOpen && selectedJob && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4 backdrop-blur-[5px]">
-            <div className="max-h-[80vh] w-full max-w-2xl overflow-y-auto rounded-lg bg-white">
-              <div className="flex items-center justify-between border-b border-primary p-6">
-                <h2 className="text-xl font-bold text-black">Job Application</h2>
+            <div className="max-h-[80vh] w-full max-w-2xl overflow-y-auto rounded-lg bg-white relative">
+              <div className="flex items-center justify-between border-b border-primary p-6 py-4">
+                <h2 className="text-xl font-bold text-black">{selectedJob.title}</h2>
                 <button
                   onClick={closeAllModals}
-                  className="flex h-6 w-6 items-center justify-center rounded-full border-[1px] border-gray-secondary bg-white text-xl"
+                  className="absolute right-2 top-2 flex h-6 w-6 min-w-6 items-center justify-center rounded-full"
                 >
-                  ×
+                  <Image
+                    src={'https://images.tractorgyan.com/uploads/119880/1751721362close-icon.webp'}
+                    height={50}
+                    width={50}
+                    alt="close icon"
+                    title="close icon"
+                  />
                 </button>
               </div>
 
               <div className="p-6">
-                <h3 className="mb-2 text-lg font-semibold text-gray-grey">
+                <h3 className="mb-2 text-lg font-semibold text-black">
                   Job Title - {selectedJob.title}
                 </h3>
                 {(selectedJob.experience || selectedJob.location) && (
-                  <p className="mb-4 text-gray-grey">
-                    {selectedJob.experience || null} | {selectedJob.location || null}
+                  <p className="mb-4 text-black">
+                    Experience: {selectedJob.experience || null} | Location: {selectedJob.location || null}
                   </p>
                 )}
 
                 <div className="mb-6">
                   {/* <h4 className="mb-2 font-medium text-black">Job Description</h4> */}
                   <div
-                    className="prose prose-sm max-w-none text-gray-grey"
+                    className="prose prose-sm max-w-none text-black"
                     dangerouslySetInnerHTML={{ __html: selectedJob.details }}
                   />
-                  {/* <p className="leading-relaxed text-gray-grey">{selectedJob.details}</p> */}
+                  {/* <p className="leading-relaxed text-black">{selectedJob.details}</p> */}
                 </div>
 
                 <div className="flex space-x-4">

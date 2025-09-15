@@ -108,7 +108,8 @@ const TractorImplementTypes = ({
   isMobile,
   floatingBg = false,
   slider = false,
-  placedInFilter = false
+  placedInFilter = false,
+  currentLang
 }) => {
   return (
     <section className={`${bgColor} relative`}>
@@ -124,9 +125,9 @@ const TractorImplementTypes = ({
         {!slider && (
           <div className={`${placedInFilter ? 'mb-4 md:gap-4' : 'mb-8 md:gap-8'} grid grid-cols-9 md:grid-cols-9 gap-4`}>
             {allImplementTypes?.slice(0, itemsShown).map((item, index) => (
-              <ImplementTypeCard 
+              <ImplementTypeCard
                 key={index}
-                title={item.name}
+                title={currentLang == 'hi' ? item.name_hi : item.name}
                 imgSrc={`https://images.tractorgyan.com/uploads/${item.image}`}
                 url={item.url}
                 placedInFilter={placedInFilter}
@@ -151,7 +152,7 @@ const TractorImplementTypes = ({
                   {pair.map((item, subIndex) => (
                     <ImplementTypeCard
                       key={`${index}-${subIndex}`}
-                      title={item.name}
+                      title={currentLang == 'hi' ? item.name_hi : item.name}
                       imgSrc={`https://images.tractorgyan.com/uploads/${item.image}`}
                       url={item.url}
                     />
@@ -163,14 +164,14 @@ const TractorImplementTypes = ({
               allImplementTypes?.map((item, index) => (
                 <div key={index}>
                   <ImplementTypeCard
-                    title={item.name}
+                    title={currentLang == 'hi' ? item.name_hi : item.name}
                     imgSrc={`https://images.tractorgyan.com/uploads/${item.image}`}
                     url={item.url}
                   />
                 </div>
               ))
             )}
-          </Slider>        
+          </Slider>
         )}
 
         {cta && (

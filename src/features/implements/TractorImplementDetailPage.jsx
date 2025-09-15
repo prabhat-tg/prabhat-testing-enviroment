@@ -9,13 +9,12 @@ import { getTyreBrands } from '@/src/services/tyre/tyre-brands';
 import TractorGyanOfferings from '@/src/components/shared/offerings/TractorGyanOfferings';
 import AboutTractorGyanServer from '@/src/components/shared/about/AboutTractorGyanServer';
 import LoanCalculator from '../loan/loanCalculator/LoanCalculator';
-import InquireForm from '../tyreComponents/components/forms/InquireForm';
+import TyrePriceInquireForm from '../tyreComponents/components/forms/InquireForm';
 import TyreRatingAndReviews from '../tyreComponents/components/tyreRatingAndReviews/TyreRatingAndReviews';
 import RelatedTyres from '../tyre/relatedTyres/RelatedTyres';
 import { getRelatedTractors } from '@/src/services/tractor/related-tractors';
 import TittleAndCrumbs from '@/src/components/shared/TittleAndCrumbs/TittleAndCrumbs';
 import NavComponents from '../tyre/NavComponents';
-import TractorDetailsSpecs from '../tractors/models/TractorModelSpecs';
 import {
   tgb_implement_on_road_price,
   tgb_implement_on_road_price_mobile,
@@ -31,6 +30,10 @@ import Image from 'next/image';
 import { getAllImplementCategories } from '@/src/services/implement/all-implement-categories';
 import { getAllImplementBrandsDetail } from '@/src/services/implement/get-all-implement-brands';
 import { getAllImplementDetails } from '@/src/services/implement/get-all-implement-details';
+import { getDetailsImplementFAQs } from '@/src/services/implement/get-implement-details-faqs';
+import { getRelatedImplements } from '@/src/services/implement/get-related-implements';
+import SeoHead from '@/src/components/shared/header/SeoHead';
+import { getDetailPageHeaderSEO } from '@/src/services/detailPageHeaderSeo';
 
 export const dynamic = 'force-dynamic';
 export default async function TractorImplementDetailPage({ params }) {
@@ -39,9 +42,12 @@ export default async function TractorImplementDetailPage({ params }) {
 
   const isMobile = await isMobileView(); // Server-side mobile detection
 
-  const param = await params;
+  // const param = await params;
+  const param = params;
   const pageSlug = params?.slug;
+  const implementType = param?.brand;
   const implementId = pageSlug[1]; // 440
+  const pageUrl = `tractor-implements/` + implementType + '/' + pageSlug[0] + '/' + pageSlug[1];
 
   // const params = await searchParams;
   const headingTitle = 'John Deere Single Bottom MB Plough (MB3001M)';
@@ -60,6 +66,7 @@ export default async function TractorImplementDetailPage({ params }) {
   let implementCategories;
   try {
     implementCategories = await getAllImplementCategories();
+    // console.log('===implementCategories===', implementCategories);
   } catch (error) {
     implementCategories = [];
   }
@@ -91,6 +98,21 @@ export default async function TractorImplementDetailPage({ params }) {
     // implementDetail = await getAllImplementDetails('plough', 93);
   } catch (error) {
     console.error('Failed to fetch implement brands data:', error);
+  }
+
+  const staticMetadata = {};
+
+  let seoData = null;
+  try {
+    const seoPayload = {
+      page_url: pageUrl,
+      page_type: 'implement_detail',
+      lang: currentLang,
+    };
+    const seoRes = await getDetailPageHeaderSEO(seoPayload);
+    seoData = seoRes?.data || null;
+  } catch (error) {
+    console.error('Error fetching SEO data:', error);
   }
 
 
@@ -127,7 +149,17 @@ export default async function TractorImplementDetailPage({ params }) {
     },
   ];
 
-  const relatedTractors = await getRelatedTractors({ implementId });
+  // const relatedTractors = await getRelatedTractors({ implementId });
+  let relatedImplements = [];
+  try {
+    relatedImplements = await getRelatedImplements({
+      implement_type: implementType,
+      id: implementId,
+      lang: currentLang,
+    });
+  } catch (error) {
+    console.error('Failed to fetch FAQs:', error);
+  }
 
   // TODO:: WIP - Tractor About Section
   const aboutSectionSlot = (
@@ -138,12 +170,15 @@ export default async function TractorImplementDetailPage({ params }) {
         </h2>
       </div>
       <div className="custom-scroller h-full max-h-[160px] overflow-auto pe-4 text-sm font-normal text-gray-dark md:max-h-[340px]">
-        {implementDetail?.aboutabout && implementDetail?.dynamic_content === 'No' ? (
-          <div>{implementDetail.aboutabout}</div>
+        {/* {implementDetail?.aboutabout && implementDetail?.dynamic_content === 'No' ? ( */}
+        {implementDetail?.about_us ? (
+          <div className='tg-html-content'>
+            <div dangerouslySetInnerHTML={{ __html: implementDetail.about_us }} />
+          </div>
         ) : (
           <div>
             <p className="mb-3">
-              With the help of {`${implementDetail?.brand_name} ${implementDetail?.model_name}`}, it's
+              With the help of {`${implementDetail?.brand_name_en} ${implementDetail?.model}`}, it's
               easy for a farmer to move the tractor in a field and use different kinds of
               implements.
             </p>
@@ -221,13 +256,14 @@ export default async function TractorImplementDetailPage({ params }) {
   // TODO:: API Needed
   let faqs = [];
   try {
-    // const faqResponse = await getImplementFAQs({
-    //   category_slug: param.slug,
-    //   lang: currentLang,
-    // });
-    // if (faqResponse && faqResponse.success) {
-    //   faqs = faqResponse.data || [];
-    // }
+    const faqResponse = await getDetailsImplementFAQs({
+      implement_type: implementType,
+      id: implementId,
+      lang: currentLang,
+    });
+    if (faqResponse && faqResponse.success) {
+      faqs = faqResponse.data || [];
+    }
   } catch (error) {
     console.error('Failed to fetch FAQs:', error);
     faqs = [];
@@ -237,6 +273,7 @@ export default async function TractorImplementDetailPage({ params }) {
 
   return (
     <main>
+      <SeoHead seo={seoData} staticMetadata={staticMetadata} />
       <NavComponents translation={translation} isMobile={isMobile} prefLang={currentLang} />
       {/* TODO:: Setup Common Layout Class */}
       <div className="container mx-auto !pt-4 md:mt-[164px]">
@@ -246,12 +283,12 @@ export default async function TractorImplementDetailPage({ params }) {
             { label: 'Home', href: '/', title: 'Home' },
             {
               label: 'Tractor Implements',
-              href: '/tractor-brands',
+              href: '/tractor-implements-in-india',
               title: 'Tractor Implements',
             },
             {
-              label: `${brand.name} Implements`,
-              title: `${brand.name} Implements`,
+              label: `${implementDetail?.brand_name_en} Implements`,
+              title: `${implementDetail?.brand_name_en} Implements`,
             },
             {
               label: `${implementDetail?.model}`,
@@ -312,11 +349,12 @@ export default async function TractorImplementDetailPage({ params }) {
       <div className="mt-4 md:mt-10">
         <RelatedTyres
           tyreId={implementId}
-          tyres={relatedTractors}
+          tyres={relatedImplements}
           isMobile={isMobile}
           tyreDetail={implementDetail}
           translation={translation}
           currentLang={currentLang}
+          mode={'implement'}
         />
       </div>
 
@@ -343,17 +381,23 @@ export default async function TractorImplementDetailPage({ params }) {
         noReviewImg="https://images.tractorgyan.com/uploads/117235/6773e5b906cbc-no-review-card.webp"
       />
 
-      {/* TODO:: Update it to make it generic */}
-      <InquireForm
-        translation={translation}
-        currentLang={currentLang}
-        brandName={brand.name}
-        tyreBrands={tyreBrandsData}
-        heading={'headings.inquireforTyrePrice'}
-        banner={tgb_implement_on_road_price}
-        mobileBanner={tgb_implement_on_road_price_mobile}
-        submitBtnText="Send Enquiry"
-      />
+      <div className='my-4 md:my-6'>
+        {/* TODO:: Update it to make it generic */}
+        <TyrePriceInquireForm
+          translation={translation}
+          currentLang={currentLang}
+          brandName={implementDetail.brand_name_en}
+          tyreBrands={allImplementBrandsWithDetails}
+          type='IMPLEMENT'
+          heading={'headings.inquireforTyrePrice'}
+          banner={tgb_implement_on_road_price}
+          mobileBanner={tgb_implement_on_road_price_mobile}
+          submitBtnText="Send Enquiry"
+          implementType={implementType}
+          pageSource={pageUrl}
+          pageName={'implement_details'}
+        />
+      </div>
 
       <TractorImplementTypes
         heading="Implements By Types"
@@ -369,6 +413,7 @@ export default async function TractorImplementDetailPage({ params }) {
         allImplementBrands={allImplementBrandsWithDetails}
         itemsShown={isMobile ? 9 : 12}
         translation={translation}
+        prefLang={currentLang}
       />
 
       <ImplementsCategorySlider
@@ -391,7 +436,7 @@ export default async function TractorImplementDetailPage({ params }) {
         translation={translation}
         currentLang={currentLang}
         tyreBrands={tyreBrandsData}
-        defaultEnquiryType={'Tyre'}
+        defaultEnquiryType={'Implement'}
         isMobile={isMobile}
       />
     </main>

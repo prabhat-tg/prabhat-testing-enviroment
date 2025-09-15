@@ -25,7 +25,7 @@ export const getAllTractorDealerListing = async ({
 
     response.data = response.data.map(dealer => ({
       ...dealer,
-      images: 'https://images.tractorgyan.com/uploads' + dealer.images,
+      images: 'https://tractorgyan.com' + dealer.images,
     }));
 
     return {

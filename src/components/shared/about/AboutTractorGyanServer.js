@@ -11,10 +11,11 @@ export default async function AboutPage({
   tractorDealerPayload = {}
 }) {
   let rawHtml;
-  if (isTractorDealer) {
+  if (isStatic) rawHtml = staticData;
+  else if (isTractorDealer) {
     rawHtml = await getTractorDealerContent(tractorDealerPayload);
   }
-  else if (isStatic) rawHtml = staticData;
+
   else rawHtml = await getAboutContent(slug);
   const { title, strippedContent } = processContent(rawHtml);
 

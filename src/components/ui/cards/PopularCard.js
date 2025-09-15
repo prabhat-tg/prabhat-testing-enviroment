@@ -15,7 +15,7 @@ const TG_PopularCard = ({
   return (
     <div className="flex h-full flex-col justify-between rounded-2xl border border-gray-light bg-white p-5 transition-all duration-300 hover:border-secondary hover:bg-green-lighter">
       <div>
-        <h5 className="mb-2.5 line-clamp-2 text-lg font-semibold leading-6 text-black min-h-[56px] md:min-h-[45px] py-1">
+        <h5 className={`${type === "implement" ? "mb-0 min-h-[46px]" : "mb-2.5 min-h-[56px]"} line-clamp-2 text-lg font-semibold leading-6 text-black md:min-h-[45px] py-1`}>
           <Link
             href={detailUrl}
             title={title}
@@ -44,7 +44,7 @@ const TG_PopularCard = ({
 
       <Link
         href={detailUrl}
-        className="mb-4"
+        className={type === "implement" ? "mb-0" : "mb-4"}
         title={title}
         aria-label={`Image of ${title}`}
       >
@@ -61,7 +61,7 @@ const TG_PopularCard = ({
       </Link>
 
       {Object.keys(specs).length > 0 && (
-        <div className="flex h-full max-h-12 justify-between rounded-lg bg-green-mint px-2 py-1.5 text-center text-sm">
+        <div className=" flex h-full max-h-12 justify-between rounded-lg bg-green-mint px-2 py-1.5 text-center text-sm">
           {Object.entries(specs).map(([label, value], index, arr) => (
             <div
               key={label}

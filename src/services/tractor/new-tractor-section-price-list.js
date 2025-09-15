@@ -27,14 +27,13 @@ function formatPriceRange(priceRange) {
     return formatIndianPrice(priceRange);
 }
 
-export async function getNewTractorSectionPriceList({ section_name, lang = 'en' }) {
+export async function getNewTractorSectionPriceList(payload) {
     try {
-        const payload = {
-            section_name,
-            lang,
-        };
+
 
         const response = await postData('api/new_tractor_section_price_list', payload);
+
+        console.log("New Tractor Section Price List Response:", payload);
 
         if (!response || !response.data) {
             console.error('No data received from new_tractor_section_price_list API');

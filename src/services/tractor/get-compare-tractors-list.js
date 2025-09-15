@@ -1,4 +1,4 @@
-import { fetchData, } from '../apiMethods';
+import { fetchData, postData, } from '../apiMethods';
 
 export async function getCompareTractorsList() {
   try {
@@ -37,3 +37,30 @@ export async function getCompareTractorsList() {
 };
 
 
+export async function fetchSecondOptionToCompare(first_id) {
+  try {
+    const result = await postData('/api/get_second_option_to_compare', { first_id })
+    if (result.success) {
+      return result;
+    }
+    return null;
+
+  } catch (e) {
+    console.error('Error fetching second option to compare:', e);
+    throw e;
+  }
+}
+
+export async function fetchThirdOptionToCompare(first_id, second_id) {
+  try {
+    const result = await postData('/api/get_third_option_to_compare', { first_id, second_id })
+    if (result.success) {
+      return result;
+    }
+    return null;
+
+  } catch (e) {
+    console.error('Error fetching third option to compare:', e);
+    throw e;
+  }
+}

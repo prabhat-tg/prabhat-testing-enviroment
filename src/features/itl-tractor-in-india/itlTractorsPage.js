@@ -32,11 +32,11 @@ export default async function ItlTractorsPage({ searchParams, isSeriesListing = 
     hpRange = null,
     hpTitle = null }) {
     const apiUrl = getApiUrl();
-    const seoSlug = `itl-tractors-in-india`;
-    const seoData = await getSEOByPage(seoSlug);
     const currentLang = await getSelectedLanguage(); // Server-side language detection
     const translation = await getDictionary(currentLang);
     const isMobile = await isMobileView();
+    const seoSlug = currentLang === "en" ? `itl-tractors-in-india` : `hi/itl-tractors-in-india`;
+    const seoData = await getSEOByPage(seoSlug);
     let faqs;
     let allTractorBrands;
     const pageSlug = 'itl-tractors-in-india';
@@ -141,7 +141,7 @@ export default async function ItlTractorsPage({ searchParams, isSeriesListing = 
                     deviceType={isMobile ? 'mobile' : 'desktop'}
                     heading={translation.headings.itlTractorsinIndia}
                     parent={"brand-leading"}
-                    parentHeading={'itl'}
+                    parentHeading={currentLang === "en" ? 'itl' : 'आईटीएल'}
                 />
                 <TractorImplementBrands
                     bgColor={'bg-section-gray'}
@@ -158,6 +158,7 @@ export default async function ItlTractorsPage({ searchParams, isSeriesListing = 
                     translation={translation}
                     langPrefix={currentLang}
                     isMobile={isMobile}
+                    redirectRoute={"/tractors"}
                 />
                 <UpdatesSection
                     bgColor={'bg-section-gray'}

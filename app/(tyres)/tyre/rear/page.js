@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import RearTyrePage from '@/src/features/tyre/RearTyrePage';
 import ListingSkeleton from '@/src/components/ui/listingSkeleton/listingSkeleton';
+export const dynamic = "force-dynamic";
 
 const Page = ({ params, searchParams }) => {
   return (

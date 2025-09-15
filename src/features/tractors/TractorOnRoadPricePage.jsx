@@ -94,7 +94,7 @@ const TractorOnRoadPricePage = async ({ params, searchParams }) => {
     <>
       <SeoHead seo={seoData} staticMetadata={{}} preloadUrls={[]} seoHTMLDescription={htmlSeo?.data}
         paginationLinks={{
-          canonical: `${apiUrl}/${currentLang === 'hi' ? 'hi/' : ''}tractor-on-road-price`,
+          canonical: `${routeParams['brand-model'] ? `${apiUrl}/${currentLang === 'hi' ? 'hi/' : ''}${routeParams['brand-model']}/tractor-on-road-price/${routeParams['modelId']}` : apiUrl + '/' + (currentLang === 'hi' ? 'hi/' : '') + 'tractor-on-road-price'}`,
         }} />
       <DesktopHeader isMobile={isMobile} translation={translation} currentLang={currentLang} />{' '}
       <div className="pt-4 md:mt-[164px]">

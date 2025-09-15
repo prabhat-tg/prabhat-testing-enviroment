@@ -22,21 +22,21 @@ const DesktopTractorsByBrands = ({
         )}
 
         <div className="flex flex-wrap mb-6 -mx-1.5 md:-mx-2">
-          {allTractorBrands?.slice(0, 9).map((item, index) => (
+          {(isMiniTractorPage ? allTractorBrands : allTractorBrands?.slice(0, 9)).map((item, index) => (
             <div key={index} className="basis-1/3 px-1.5 md:px-2">
               <BrandCards
                 imgUrl={item.image}
                 name={langPrefix === "hi" ? item.name_hi : item.name}
-                url={(langPrefix === "hi" ? "/hi" : "") + (isMiniTractorPage ? item.url.replaceAll("/tractor", "/mini-tractor-in-india") : item.url)}
+                url={(langPrefix === "hi" ? "/hi" : "") + (isMiniTractorPage ? item.page_url : item.url)}
               />
             </div>
           ))}
         </div>
 
-        <MainButton
+        {!isMiniTractorPage ? <MainButton
           text={translation.buttons.viewAllBrands}
           linkUrl={`${langPrefix === "en" ? "" : "/hi"}/tractor-brands`}
-        />
+        /> : null}
       </div>
     </section>
   );

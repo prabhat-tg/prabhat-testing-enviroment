@@ -13,6 +13,7 @@ import { getAllTractorBrands } from '@/src/services/tractor/all-tractor-brands';
 import { getTractorModelsByBrand } from '@/src/services/tractor/get-tractor-models-by-brand';
 import { usePathname } from 'next/navigation';
 import { tgi_arrow_right } from '@/src/utils/assets/icons';
+import { getAllImplementBrandsDetail } from '@/src/services/implement/get-all-implement-brands';
 
 const WhatsAppTopButton = ({
   translation,
@@ -76,6 +77,20 @@ const WhatsAppTopButton = ({
       productNameSingular: 'Dealer', // Or perhaps not applicable for product context
       productNamePlural: 'Dealers',
       getSubmitButtonText: () => translation?.buttons?.submit || 'Submit',
+    },
+    // TODO::WIP
+    Implement: {
+      formTitle: translation?.enquiryForm?.implementEnquiryForm || 'Implement Enquiry Form',
+      brandLabel: translation?.enquiryForm?.implementBrand || 'Implement Brand',
+      modelLabel: translation?.enquiryForm?.implementModel || 'Implement Model',
+      fetchBrandsFn: getAllImplementBrandsDetail,
+      fetchModelsFn: getTyreModal,
+      typeId: isMobile ? 104 : 103,
+      payloadType: 'Implement',
+      showBrandModelFields: true,
+      productNameSingular: 'Implement',
+      productNamePlural: 'Implements',
+      getSubmitButtonText: () => `₹ ${translation?.enquiryForm.getImplementPrice || 'Get Price'}`,
     },
   };
 

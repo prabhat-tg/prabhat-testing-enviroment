@@ -130,9 +130,10 @@ const ReelsDetailSection = ({ param, reelDetailData, isMobile, youtubeCount }) =
                   width="100%"
                   height="100%"
                   src={
-                    reelData.url_of_video.includes('autoplay=1')
-                      ? reelData.url_of_video
-                      : `${reelData.url_of_video}${reelData.url_of_video.includes('?') ? '&' : '?'}autoplay=1`
+                    reelData.url_of_video.includes("autoplay=1")
+                      ? `${reelData.url_of_video}&mute=1&playsinline=1`
+                      : `${reelData.url_of_video}${reelData.url_of_video.includes("?") ? "&" : "?"
+                      }autoplay=1&mute=1&playsinline=1`
                   }
                   title={reelData.title}
                   frameBorder="0"

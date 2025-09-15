@@ -90,18 +90,13 @@ const MobileNavbar = ({ tabset, translation, currentLang = 'en' }) => {
   ];
 
   const implementTabs = [
-    {
-      tabHeading: translation.mobileNavbar.implement.allImplements,
-      linkUrl: `${langPrefix}/tyres`,
-      imgUrl: tgi_tyre_nav.all_tyres,
-      altText: 'all-tyre-img',
-    },
     // {
-    //   tabHeading: 'Videos',
-    //   linkUrl: '/tractor-videos',
-    //   imgUrl: tgi_tractor_nav.videos,
-    //   altText: 'implement-videos-img',
+    //   tabHeading: translation.mobileNavbar.implement.allImplements,
+    //   linkUrl: `${langPrefix}/tyres`,
+    //   imgUrl: tgi_tyre_nav.all_tyres,
+    //   altText: 'all-tyre-img',
     // },
+
     // {
     //   tabHeading: 'Reels',
     //   linkUrl: '/tractor-reels-and-shorts',
@@ -131,6 +126,12 @@ const MobileNavbar = ({ tabset, translation, currentLang = 'en' }) => {
       linkUrl: `${langPrefix}/tractor-industry-news-blogs/category/tyre-news`,
       imgUrl: tgi_tyre_nav.tyre_blogs,
       altText: 'implement-blog-img',
+    },
+    {
+      tabHeading: 'Videos',
+      linkUrl: `${langPrefix}/tractor-videos`,
+      imgUrl: tgi_tractor_nav.videos,
+      altText: 'implement-videos-img',
     },
   ];
 

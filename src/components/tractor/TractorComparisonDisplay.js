@@ -5,7 +5,7 @@ import Image from 'next/image';
 import TG_Button from '../ui/buttons/MainButtons';
 import { getCompareTractorRecord } from '@/src/services/tractor/compare-tractor-brands';
 
-const TractorComparisonDisplay = ({ compareUrl, translation }) => {
+const TractorComparisonDisplay = ({ compareUrl, translation, currentLang }) => {
   const [comparisonData, setComparisonData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -20,7 +20,7 @@ const TractorComparisonDisplay = ({ compareUrl, translation }) => {
     try {
       setIsLoading(true);
       setError(null);
-      const data = await getCompareTractorRecord(compareUrl);
+      const data = await getCompareTractorRecord(compareUrl, currentLang);
       setComparisonData(data);
     } catch (err) {
       console.error('Error loading comparison data:', err);

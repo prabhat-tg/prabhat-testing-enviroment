@@ -32,6 +32,7 @@ const TyresListingClient = ({
   isMobileViewProp,
   tractorHPs, // Add tractorHPs prop
   isMiniTractorPage = false, // New prop to identify mini tractor page
+  isMiniTractorBrandPage = false, // New prop to identify mini tractor brand page
 }) => {
   const router = useRouter();
 
@@ -363,7 +364,7 @@ const TyresListingClient = ({
                 )}
 
                 {/* Brand Filter */}
-                {showBrandFilter && tyreBrands && tyreBrands.length > 0 && (
+                {!isMiniTractorBrandPage && showBrandFilter && tyreBrands && tyreBrands.length > 0 && (
                   <div className="mb-2 md:mb-6">
                     <h4 className="mb-2 text-base font-semibold md:mb-4">
                       {translation.headings.brand}

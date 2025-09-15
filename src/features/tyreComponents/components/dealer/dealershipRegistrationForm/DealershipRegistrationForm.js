@@ -11,8 +11,9 @@ import { getAllStates } from '@/src/services/tyre/all-state';
 import { getFetchDistricts } from '@/src/services/tyre/all-distric';
 import { getFetchTehsil } from '@/src/services/tyre/all-tehsil';
 import { getTyreBrands } from '@/src/services/tyre/tyre-brands';
+import { getAllTractorBrands } from '@/src/services/tractor/all-tractor-brands';
 
-const DealershipRegistrationForm = ({ translation }) => {
+const DealershipRegistrationForm = ({ translation, dealerType = 'Tyre', showBanner = false }) => {
   const isMobile = useIsMobile();
   const [brands, setBrands] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState('');
@@ -22,6 +23,7 @@ const DealershipRegistrationForm = ({ translation }) => {
   const [selectedDistrict, setSelectedDistrict] = useState('');
   const [tehsils, setTehsils] = useState([]);
   const [selectedTehsil, setSelectedTehsil] = useState('');
+  const [pincode, setPincode] = useState('');
   const [dealershipName, setDealershipName] = useState('');
   const [contactPersonName, setContactPersonName] = useState('');
   const [email, setEmail] = useState('');
@@ -64,11 +66,16 @@ const DealershipRegistrationForm = ({ translation }) => {
   }, [isSameAddress, dealershipAddress]);
 
   useEffect(() => {
-    const fetchModels = async () => {
-      const result = await getTyreBrands();
-      setBrands(result);
+    const fetchBrands = async () => {
+      if (dealerType == 'tractor') {
+        const result = await getAllTractorBrands();
+        setBrands(result);
+      } else {
+        const result = await getTyreBrands();
+        setBrands(result);
+      }
     };
-    fetchModels();
+    fetchBrands();
   }, []);
 
   useEffect(() => {
@@ -145,11 +152,11 @@ const DealershipRegistrationForm = ({ translation }) => {
     formData.append('district', selectedDistrict);
     formData.append('tahsil', selectedTehsil);
     formData.append('state', selectedState);
-    formData.append('pincode', '');
+    formData.append('pincode', pincode);
     formData.append('emailid', email);
     formData.append('dealership_addr', dealershipAddress);
     formData.append('service_addr', serviceCenterAddress);
-    formData.append('dealer_type', 'Tyre');
+    formData.append('dealer_type', dealerType || 'Tyre');
 
     if (file) {
       formData.append('support_doc', file);
@@ -169,7 +176,7 @@ const DealershipRegistrationForm = ({ translation }) => {
         if (isSkipped) {
           setSuccessMessage(
             translation?.dealerRegistration?.dealershipSubmissionSuccess ||
-              'Thank you for submitting your dealership on TractorGyan. Our team will review the details within 2–3 days, and it will go live on our platform shortly after approval.'
+            'Thank you for submitting your dealership on TractorGyan. Our team will review the details within 2–3 days, and it will go live on our platform shortly after approval.'
           );
         } else {
           setSuccessMessage(
@@ -187,6 +194,7 @@ const DealershipRegistrationForm = ({ translation }) => {
         setContactPersonName('');
         setSelectedDistrict('');
         setSelectedTehsil('');
+        setPincode('');
         setSelectedState('');
         setEmail('');
         setDealershipAddress('');
@@ -211,7 +219,7 @@ const DealershipRegistrationForm = ({ translation }) => {
     if (!mobile) {
       alert(
         translation?.dealerRegistration?.phoneNumberMissing ||
-          'Phone Number or request ID is missing.'
+        'Phone Number or request ID is missing.'
       );
     }
 
@@ -302,7 +310,7 @@ const DealershipRegistrationForm = ({ translation }) => {
     if (!mobile) {
       alert(
         translation?.dealerRegistration?.phoneNumberMissing ||
-          'Phone Number or request ID is missing.'
+        'Phone Number or request ID is missing.'
       );
       return;
     }
@@ -335,7 +343,7 @@ const DealershipRegistrationForm = ({ translation }) => {
         } else {
           alert(
             translation?.dealerRegistration?.failedToVerifyOtp ||
-              'Failed to verify OTP. Please try again.'
+            'Failed to verify OTP. Please try again.'
           );
         }
       })
@@ -377,7 +385,7 @@ const DealershipRegistrationForm = ({ translation }) => {
     if (!localMobile || !mobile) {
       alert(
         translation?.dealerRegistration?.mobileNumberMissing ||
-          'Mobile number or OTP request ID is missing.'
+        'Mobile number or OTP request ID is missing.'
       );
       return;
     }
@@ -395,7 +403,7 @@ const DealershipRegistrationForm = ({ translation }) => {
         } else {
           alert(
             translation?.dealerRegistration?.failedToResendOtp ||
-              'Failed to resend OTP. Please try again.'
+            'Failed to resend OTP. Please try again.'
           );
         }
       })
@@ -423,6 +431,11 @@ const DealershipRegistrationForm = ({ translation }) => {
 
     if (!selectedTehsil) {
       setError(translation?.dealerRegistration?.tehsilRequired || 'Tehsil is required');
+      return;
+    }
+
+    if (!pincode || pincode.length !== 6) {
+      setError(translation?.dealerRegistration?.pincodeRequired || 'Please enter a valid 6-digit pincode');
       return;
     }
 
@@ -455,15 +468,14 @@ const DealershipRegistrationForm = ({ translation }) => {
     <>
       <section id="dealer-registration">
         <div className="container">
-          <div className="flex w-full flex-col gap-8 md:items-center md:justify-between lg:flex-row">
-            <div className="w-full overflow-hidden rounded-2xl shadow-main lg:max-w-[calc(100%_-_270px)] xl:max-w-[982px]">
+          <div className={`flex w-full flex-col gap-8 md:items-center md:justify-between ${showBanner ? 'lg:flex-row' : ''}`}>
+            <div className={`w-full overflow-hidden rounded-2xl shadow-main ${showBanner ? 'lg:max-w-[calc(100%_-_270px)] xl:max-w-[982px]' : ''}`}>
               <div className="relative h-full max-h-[143px] w-full shadow-nav md:min-h-[118px] xl:max-h-[118px]">
                 <Image
-                  src={`${
-                    isMobile
-                      ? 'https://images.tractorgyan.com/uploads/117764/67a053360489f-dealership-banner--mobile.webp'
-                      : 'https://images.tractorgyan.com/uploads/117763/67a05290a2458-dealership-banner-desktop.webp'
-                  }`}
+                  src={`${isMobile
+                    ? 'https://images.tractorgyan.com/uploads/117764/67a053360489f-dealership-banner--mobile.webp'
+                    : 'https://images.tractorgyan.com/uploads/117763/67a05290a2458-dealership-banner-desktop.webp'
+                    }`}
                   height={500}
                   width={2000}
                   title="Dealership Banner"
@@ -472,11 +484,11 @@ const DealershipRegistrationForm = ({ translation }) => {
                 />
                 <div className="absolute left-0 top-0 h-full p-3 text-white sm:p-5 md:w-full md:py-6 md:ps-8">
                   <h3 className="mb-1.5 text-lg font-bold md:text-2xl">
-                    {translation?.dealerRegistration?.tyreDealershipRegistration ||
+                    {translation?.dealerRegistration?.[dealerType == 'tractor' ? 'tractorDealershipRegistration' : 'tyreDealershipRegistration'] ||
                       'Tyre Dealership Registration'}
                   </h3>
                   <div className="max-w-[60%] text-xs font-medium md:text-sm">
-                    {translation?.dealerRegistration?.dealershipDescription ||
+                    {translation?.dealerRegistration?.[dealerType == 'tractor' ? 'dealershipDescriptionTractor' : 'dealershipDescriptionTyre'] ||
                       'If you are a Tyre dealer, Please showcase your dealership in our platform.'}
                   </div>
                 </div>
@@ -729,6 +741,29 @@ const DealershipRegistrationForm = ({ translation }) => {
                       </select>
                     </div>
                   </div>
+                  <div className="col-span-3 md:col-span-2">
+                    <label
+                      htmlFor="pincode"
+                      className="mb-0 block text-sm font-bold text-black"
+                    >
+                      {translation?.enquiryForm?.pincode || 'Pincode'}
+                    </label>
+                    <div className="mt-2">
+                      <input
+                        type="text"
+                        id="pincode"
+                        placeholder={
+                          translation?.dealerRegistration?.pincodePlaceholder || 'Enter Pincode'
+                        }
+                        value={pincode}
+                        onChange={e => setPincode(e.target.value)}
+                        required
+                        pattern="[0-9]{6}"
+                        maxLength="6"
+                        className="h-[38px] w-full rounded-lg border border-gray-light bg-transparent px-4 py-2 text-sm text-black placeholder:text-gray-main focus:outline-none"
+                      />
+                    </div>
+                  </div>
 
                   <div className="col-span-6 md:col-span-3">
                     <label
@@ -806,9 +841,8 @@ const DealershipRegistrationForm = ({ translation }) => {
                     <div className="mt-2">
                       <label
                         htmlFor="file-upload"
-                        className={`flex h-16 w-full items-center justify-center gap-2.5 rounded-lg border ${
-                          fileError ? 'border-red-500' : 'border-gray-light'
-                        } bg-transparent px-4 py-2 text-sm text-black placeholder:text-gray-main focus:outline-none`}
+                        className={`flex h-16 w-full items-center justify-center gap-2.5 rounded-lg border ${fileError ? 'border-red-500' : 'border-gray-light'
+                          } bg-transparent px-4 py-2 text-sm text-black placeholder:text-gray-main focus:outline-none`}
                       >
                         {file ? (
                           <span className="text-sm font-medium text-blue-link underline">
@@ -877,6 +911,37 @@ const DealershipRegistrationForm = ({ translation }) => {
                 {error && <p className="text-red-500">{error}</p>}
               </div>
             </div>
+            {/* Banner Section - conditionally rendered */}
+            {showBanner && (
+              <>
+                <Link
+                  href="https://tractorgyan.com/tractors"
+                  className="h-full w-full overflow-hidden rounded-2xl lg:hidden"
+                >
+                  <Image
+                    src="https://images.tractorgyan.com/uploads/118100/67c190c6d514b-Implement-Listing-Banner-Mob.webp"
+                    height={500}
+                    width={500}
+                    alt="All Tractor Page Banner"
+                    title="All Tractor Page Banner"
+                    className="h-full object-cover"
+                  />
+                </Link>
+                <Link
+                  href="https://tractorgyan.com/tractors"
+                  className="hidden h-full max-h-[526px] w-full max-w-[270px] overflow-hidden rounded-2xl lg:block"
+                >
+                  <Image
+                    src="https://images.tractorgyan.com/uploads/118099/67c1903aa3cb5-Implement-Listing-Banner-Desk.webp"
+                    height={200}
+                    width={200}
+                    alt="All Tractor Page Banner"
+                    title="All Tractor Page Banner"
+                    className="h-full w-full object-contain object-center"
+                  />
+                </Link>
+              </>
+            )}
             {/* <!-- Verticle ad for full website desktop --> */}
             {/* <div>
               <script

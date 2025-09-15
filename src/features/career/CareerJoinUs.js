@@ -18,13 +18,9 @@ const CareerJoinUs = ({ isMobile }) => {
             </div>
             <div className="absolute bottom-12 left-[5%] top-[25%] w-[90%] text-white">
               <p className="mb-0 text-sm">JOIN US IN OUR MOVEMENT</p>
-              <h2 className="mb-2 text-2xl font-bold">{`#BuldingForBharat`}</h2>
+              <h2 className="mb-2 text-2xl font-bold">{`#BuildingForBharat`}</h2>
               <p className="text-sm font-light leading-6">
-                At TractorGyan, we're on a mission to empower rural India with technology,
-                innovation, and knowledge. Our #BuildForBharat movement is about creating impactful
-                solutions that uplift farmers and drive real change in the agri-sector. If you're
-                passionate about building for the heart of India, this is your calling. Come be part
-                of something bigger—where your work truly matters.
+                At TractorGyan, we're on a mission to empower rural India with technology, innovation, and knowledge. Our #BuildingForBharat movement is about creating impactful solutions that uplift farmers and drive real change in the agri-sector. If you're passionate about building for the heart of India, this is your calling. Come be part of something bigger—where your work truly matters.
               </p>
             </div>
           </div>
@@ -56,13 +52,9 @@ const CareerJoinUs = ({ isMobile }) => {
             </div>
             <div className="bottom-12 w-[50%] ps-[2%] pt-[2%] text-white">
               <p className="mb-4 text-sm">JOIN US IN OUR MOVEMENT</p>
-              <h2 className="mb-4 text-4xl font-bold">{`#BuldingForBharat`}</h2>
+              <h2 className="mb-4 text-4xl font-bold">{`#BuildingForBharat`}</h2>
               <p className="font-light leading-7 md:text-sm lg:text-base">
-                At TractorGyan, we're on a mission to empower rural India with technology,
-                innovation, and knowledge. Our #BuildForBharat movement is about creating impactful
-                solutions that uplift farmers and drive real change in the agri-sector. If you're
-                passionate about building for the heart of India, this is your calling. Come be part
-                of something bigger—where your work truly matters.
+                At TractorGyan, we're on a mission to empower rural India with technology, innovation, and knowledge. Our #BuildingForBharat movement is about creating impactful solutions that uplift farmers and drive real change in the agri-sector. If you're passionate about building for the heart of India, this is your calling. Come be part of something bigger—where your work truly matters.
               </p>
             </div>
           </div>

@@ -248,7 +248,13 @@ export default async function TyreDealersSlugPage({ params, searchParams }) {
 
       {dealerDetail && (
         <>
-          <TyreDealerDetail dealerDetail={dealerDetail} translation={translation} />
+          <TyreDealerDetail
+            dealerDetail={dealerDetail}
+            translation={translation}
+            currentLang={prefLang}
+            dealerType="tyre"
+            isMobile={isMobile}
+          />
           <DealershipRegistrationForm translation={translation} />
 
           <TyreDealersByBrands

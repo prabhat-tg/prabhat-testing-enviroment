@@ -29,17 +29,17 @@ const LatestTractorCard = ({
   const tractorSpecs = [
     {
       icon: 'https://images.tractorgyan.com/uploads/120013/687a3908d589e-horse-power-icon.webp',
-      label: 'HP',
+      label: translation?.headerNavbar?.hp || 'HP',
       value: hp,
     },
     {
       icon: 'https://images.tractorgyan.com/uploads/120014/687a3a6b9e833-cylinder-icon.webp',
-      label: 'Cylinder',
+      label: translation?.headerNavbar?.cylinder || 'Cylinder',
       value: cylinder,
     },
     {
       icon: 'https://images.tractorgyan.com/uploads/120015/687a3bb3e1d81-capacity-jcb-icon.webp',
-      label: 'Lifting Capacity',
+      label: translation?.headerNavbar?.liftingCapacity || 'Lifting Capacity',
       value: lifting_capacity,
     },
   ];
@@ -47,17 +47,17 @@ const LatestTractorCard = ({
   const implementSpecs = [
     {
       icon: 'https://images.tractorgyan.com/uploads/120378/1754151320latest-implement-power-icon.webp',
-      label: 'Power',
+      label: translation?.headerNavbar?.power || 'Power',
       value: power,
     },
     {
       icon: 'https://images.tractorgyan.com/uploads/120380/1754151353latest-implement-width-icon.webp',
-      label: 'Width(mm)',
+      label: translation?.headerNavbar?.widthMm || 'Width(mm)',
       value: width,
     },
     {
       icon: 'https://images.tractorgyan.com/uploads/120379/1754151340latest-implement-warranty-icon.webp',
-      label: 'Warranty',
+      label: translation?.headerNavbar?.warranty || 'Warranty',
       value: warranty,
     },
   ];
@@ -89,7 +89,7 @@ const LatestTractorCard = ({
         <div className="mt-2 -ml-1">
           <Link href={pageUrl}>
             <button className="mb-2 inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-sm font-medium text-black">
-              {translation.buttons.viewDetails}
+              {translation?.headerNavbar?.viewDetails || 'View Details'}
               <Image
                 src={'https://images.tractorgyan.com/uploads/117424/678657747b293-Arrow-Vector.webp'}
                 height={50}

@@ -35,7 +35,7 @@ export async function getAllImplementTypeListing({
         });
 
         console.log(
-            'All tractors listing result:',
+            'All implement listing result:',
             {
                 implement_type,
                 search_keyword,
@@ -46,7 +46,7 @@ export async function getAllImplementTypeListing({
                 brand_name,
                 lang,
             },
-            result.data
+            result
         );
 
         if (result && result.success) {
@@ -56,7 +56,7 @@ export async function getAllImplementTypeListing({
             }));
             return {
                 items: result.data || [],
-                totalCount: result.count || 0,
+                totalCount: result.count_data || result.count || 0,
             };
         }
 

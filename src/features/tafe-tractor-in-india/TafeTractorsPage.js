@@ -32,11 +32,11 @@ export default async function TafeTractorsPage({ searchParams, isSeriesListing =
     hpRange = null,
     hpTitle = null }) {
     const apiUrl = getApiUrl();
-    const seoSlug = `tafe-tractors-in-india`;
-    const seoData = await getSEOByPage(seoSlug);
     const currentLang = await getSelectedLanguage(); // Server-side language detection
     const translation = await getDictionary(currentLang);
     const isMobile = await isMobileView();
+    const seoSlug = currentLang === "en" ? `tafe-tractors-in-india` : `hi/tafe-tractors-in-india`;
+    const seoData = await getSEOByPage(seoSlug);
     let faqs;
     let allTractorBrands;
     const pageSlug = 'tafe-tractors-in-india';
@@ -115,7 +115,7 @@ export default async function TafeTractorsPage({ searchParams, isSeriesListing =
                     tyreTopContent={topContent}
                     heading={translation.headings.tafeTractorsinIndia}
                     parent={"brand-leading"}
-                    parentHeading={'Tafe'}
+                    parentHeading={translation.headerNavbar.tafe}
                 />
                 <TractorImplementBrands
                     bgColor={'bg-section-gray'}
@@ -132,6 +132,7 @@ export default async function TafeTractorsPage({ searchParams, isSeriesListing =
                     translation={translation}
                     langPrefix={currentLang}
                     isMobile={isMobile}
+                    redirectRoute={"/tractors"}
                 />
                 <UpdatesSection
                     bgColor={'bg-section-gray'}

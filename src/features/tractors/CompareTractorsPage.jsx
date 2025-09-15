@@ -61,7 +61,7 @@ export default async function CompareTractorsPage({ params }) {
   // Fetch comparison data if this is a comparison page
   let comparisonData = null;
   if (isComparisonPage && compareUrl) {
-    comparisonData = await getCompareTractorRecord(compareUrl);
+    comparisonData = await getCompareTractorRecord(compareUrl, currentLang);
     console.log("Fetched comparison data:", comparisonData);
   }
 
@@ -84,7 +84,14 @@ export default async function CompareTractorsPage({ params }) {
 
     // If we have comparison data, use the actual tractor names
     if (data && data.tractor_0 && data.tractor_1) {
-      return `${data.tractor_0.brand} ${data.tractor_0.model} vs ${data.tractor_1.brand} ${data.tractor_1.model} - Compare Tractors`;
+      let title = `${data.tractor_0.brand} ${data.tractor_0.model} vs ${data.tractor_1.brand} ${data.tractor_1.model}`;
+
+      // Add third tractor if it exists
+      if (data.tractor_2) {
+        title += ` vs ${data.tractor_2.brand} ${data.tractor_2.model}`;
+      }
+
+      return `${title} - ${translation.buttons.compareTractor}`;
     }
 
     // Fallback to URL-based title generation
@@ -105,12 +112,12 @@ export default async function CompareTractorsPage({ params }) {
   const breadcrumbs = [
     {
       label: translation?.breadcrumbs?.home || 'Home',
-      href: '/',
+      href: currentLang == 'hi' ? '/hi' : '/',
       title: translation?.breadcrumbs?.home || 'Home',
     },
     {
       label: translation?.headerNavbar?.compareTractor || 'Compare Tractors',
-      href: '/compare-tractors',
+      href: currentLang == 'hi' ? '/hi/compare-tractors' : '/compare-tractors',
       title: translation?.headerNavbar?.compareTractor || 'Compare Tractors',
       isCurrent: !isComparisonPage,
     },
@@ -137,67 +144,67 @@ export default async function CompareTractorsPage({ params }) {
     // Define specification categories and their respective fields
     const specCategories = [
       {
-        title: 'Engine',
+        title: translation?.headerNavbar?.engineCategory || 'Engine',
         specs: [
-          { key: 'engine_name', label: 'Engine Name' },
-          { key: 'hp', label: 'HP' },
-          { key: 'displacement_cc', label: 'Displacement' },
-          { key: 'cylinder', label: 'Cylinder' },
-          { key: 'engine_rated_rpm', label: 'Rated RPM' },
-          { key: 'cooling_system', label: 'Cooling System' },
-          { key: 'fuel_tank_capacity', label: 'Fuel Tank Capacity' },
-          { key: 'air_filter', label: 'Air Filter' },
+          { key: 'engine_name', label: translation?.headerNavbar?.engineName || 'Engine Name' },
+          { key: 'hp', label: translation?.headerNavbar?.hp || 'HP' },
+          { key: 'displacement_cc', label: translation?.headerNavbar?.displacement || 'Displacement' },
+          { key: 'cylinder', label: translation?.headerNavbar?.cylinder || 'Cylinder' },
+          { key: 'engine_rated_rpm', label: translation?.headerNavbar?.ratedRpm || 'Rated RPM' },
+          { key: 'cooling_system', label: translation?.headerNavbar?.coolingSystem || 'Cooling System' },
+          { key: 'fuel_tank_capacity', label: translation?.headerNavbar?.fuelTankCapacity || 'Fuel Tank Capacity' },
+          { key: 'air_filter', label: translation?.headerNavbar?.airFilter || 'Air Filter' },
         ]
       },
       {
-        title: 'Transmission',
+        title: translation?.headerNavbar?.transmissionCategory || 'Transmission',
         specs: [
-          { key: 'transmission_name', label: 'Transmission Type' },
-          { key: 'number_of_gears', label: 'Number of Gears' },
-          { key: 'clutch_type', label: 'Clutch Type' },
-          { key: 'clutch_size', label: 'Clutch Size' },
-          { key: 'maximum_forward_speed', label: 'Max Forward Speed' },
-          { key: 'maximum_reverse_speed', label: 'Max Reverse Speed' },
+          { key: 'transmission_name', label: translation?.headerNavbar?.transmissionType || 'Transmission Type' },
+          { key: 'number_of_gears', label: translation?.headerNavbar?.numberOfGears || 'Number of Gears' },
+          { key: 'clutch_type', label: translation?.headerNavbar?.clutchType || 'Clutch Type' },
+          { key: 'clutch_size', label: translation?.headerNavbar?.clutchSize || 'Clutch Size' },
+          { key: 'maximum_forward_speed', label: translation?.headerNavbar?.maxForwardSpeed || 'Max Forward Speed' },
+          { key: 'maximum_reverse_speed', label: translation?.headerNavbar?.maxReverseSpeed || 'Max Reverse Speed' },
         ]
       },
       {
-        title: 'PTO',
+        title: translation?.headerNavbar?.ptoCategory || 'PTO',
         specs: [
-          { key: 'pto_hp', label: 'PTO HP' },
-          { key: 'pto_type', label: 'PTO Type' },
-          { key: 'pto_speed', label: 'PTO Speed' },
+          { key: 'pto_hp', label: translation?.headerNavbar?.ptoHP || 'PTO HP' },
+          { key: 'pto_type', label: translation?.headerNavbar?.ptoType || 'PTO Type' },
+          { key: 'pto_speed', label: translation?.headerNavbar?.ptoSpeed || 'PTO Speed' },
         ]
       },
       {
-        title: 'Dimensions & Weight',
+        title: translation?.headerNavbar?.dimensionsWeightCategory || 'Dimensions & Weight',
         specs: [
-          { key: 'length', label: 'Length' },
-          { key: 'width', label: 'Width' },
-          { key: 'height', label: 'Height' },
-          { key: 'wheel_base', label: 'Wheel Base' },
-          { key: 'tractor_weight', label: 'Weight' },
-          { key: 'ground_clearance', label: 'Ground Clearance' },
-          { key: 'turning_radius', label: 'Turning Radius' },
+          { key: 'length', label: translation?.headerNavbar?.length || 'Length' },
+          { key: 'width', label: translation?.headerNavbar?.width || 'Width' },
+          { key: 'height', label: translation?.headerNavbar?.height || 'Height' },
+          { key: 'wheel_base', label: translation?.headerNavbar?.wheelBase || 'Wheel Base' },
+          { key: 'tractor_weight', label: translation?.headerNavbar?.tractorWeight || 'Weight' },
+          { key: 'ground_clearance', label: translation?.headerNavbar?.groundClearance || 'Ground Clearance' },
+          { key: 'turning_radius', label: translation?.headerNavbar?.turningRadius || 'Turning Radius' },
         ]
       },
       {
-        title: 'Hydraulics & Steering',
+        title: translation?.headerNavbar?.hydraulicsSteeringCategory || 'Hydraulics & Steering',
         specs: [
-          { key: 'lifting_capacity', label: 'Lifting Capacity' },
-          { key: 'hydrolic_control', label: 'Hydraulic Control' },
-          { key: 'steering', label: 'Steering' },
-          { key: 'brakes', label: 'Brakes' },
-          { key: 'point_linkage', label: '3-Point Linkage' },
+          { key: 'lifting_capacity', label: translation?.headerNavbar?.liftingCapacity || 'Lifting Capacity' },
+          { key: 'hydrolic_control', label: translation?.headerNavbar?.hydraulicControl || 'Hydraulic Control' },
+          { key: 'steering', label: translation?.headerNavbar?.steering || 'Steering' },
+          { key: 'brakes', label: translation?.headerNavbar?.brakes || 'Brakes' },
+          { key: 'point_linkage', label: translation?.headerNavbar?.pointLinkage || '3-Point Linkage' },
         ]
       },
       {
-        title: 'Other Specifications',
+        title: translation?.headerNavbar?.otherSpecificationsCategory || 'Other Specifications',
         specs: [
-          { key: 'wheel_drive', label: 'Wheel Drive' },
-          { key: 'tyre_size', label: 'Tyre Size' },
-          { key: 'price_range', label: 'Price Range' },
-          { key: 'warrenty', label: 'Warranty' },
-          { key: 'series', label: 'Series' },
+          { key: 'wheel_drive', label: translation?.headerNavbar?.wheelDrive || 'Wheel Drive' },
+          { key: 'tyre_size', label: translation?.headerNavbar?.tyreSize || 'Tyre Size' },
+          { key: 'price_range', label: translation?.headerNavbar?.priceRange || 'Price Range' },
+          { key: 'warrenty', label: translation?.headerNavbar?.warranty || 'Warranty' },
+          { key: 'series', label: translation?.headerNavbar?.series || 'Series' },
         ]
       }
     ];
@@ -217,9 +224,9 @@ export default async function CompareTractorsPage({ params }) {
         title: category.title,
         headers: [
           'Specification',
-          `${tractor0.brand} ${tractor0.model}`,
-          `${tractor1.brand} ${tractor1.model}`,
-          ...(tractor2 ? [`${tractor2?.brand || ''} ${tractor2?.model || ''}`] : []), // add header only if tractor2 exists
+          `**${tractor0.brand} ${tractor0.model}**`,
+          `**${tractor1.brand} ${tractor1.model}**`,
+          ...(tractor2 ? [`**${tractor2?.brand || ''} ${tractor2?.model || ''}**`] : []), // add header only if tractor2 exists
         ],
         features: features,
       };
@@ -230,29 +237,29 @@ export default async function CompareTractorsPage({ params }) {
     ? formatComparisonFeatures(comparisonData)
     : [
       {
-        title: 'Engine',
+        title: translation?.headerNavbar?.engineCategory || 'Engine',
         headers: ['Specification', 'Tractor 1', 'Tractor 2'],
         features: [
-          { name: 'Engine Name', tractor1Value: 'SIMPSONS S325.1 TIII A', tractor2Value: 'SIMPSONS S325.1 TIII A' },
-          { name: 'HP', tractor1Value: '30 HP', tractor2Value: '35 HP' },
-          { name: 'Cylinder', tractor1Value: '3 Cylinder', tractor2Value: '3 Cylinder' },
-          { name: 'Displacement', tractor1Value: '1947 CC', tractor2Value: '2100 CC' },
+          { name: translation?.headerNavbar?.engineName || 'Engine Name', tractor1Value: 'SIMPSONS S325.1 TIII A', tractor2Value: 'SIMPSONS S325.1 TIII A' },
+          { name: translation?.headerNavbar?.hp || 'HP', tractor1Value: '30 HP', tractor2Value: '35 HP' },
+          { name: translation?.headerNavbar?.cylinder || 'Cylinder', tractor1Value: '3 Cylinder', tractor2Value: '3 Cylinder' },
+          { name: translation?.headerNavbar?.displacement || 'Displacement', tractor1Value: '1947 CC', tractor2Value: '2100 CC' },
         ],
       },
       {
-        title: 'Transmission',
+        title: translation?.headerNavbar?.transmissionCategory || 'Transmission',
         headers: ['Specification', 'Tractor 1', 'Tractor 2'],
         features: [
-          { name: 'Transmission Type', tractor1Value: 'Constant Mesh', tractor2Value: 'Constant Mesh' },
-          { name: 'Number of Gears', tractor1Value: '8 Forward + 4 Reverse', tractor2Value: '12 Forward + 3 Reverse' },
+          { name: translation?.headerNavbar?.transmissionType || 'Transmission Type', tractor1Value: 'Constant Mesh', tractor2Value: 'Constant Mesh' },
+          { name: translation?.headerNavbar?.numberOfGears || 'Number of Gears', tractor1Value: '8 Forward + 4 Reverse', tractor2Value: '12 Forward + 3 Reverse' },
         ],
       },
       {
-        title: 'PTO',
+        title: translation?.headerNavbar?.ptoCategory || 'PTO',
         headers: ['Specification', 'Tractor 1', 'Tractor 2'],
         features: [
-          { name: 'PTO HP', tractor1Value: '25 HP', tractor2Value: '30 HP' },
-          { name: 'PTO Speed', tractor1Value: '540 RPM', tractor2Value: '540 RPM' },
+          { name: translation?.headerNavbar?.ptoHP || 'PTO HP', tractor1Value: '25 HP', tractor2Value: '30 HP' },
+          { name: translation?.headerNavbar?.ptoSpeed || 'PTO Speed', tractor1Value: '540 RPM', tractor2Value: '540 RPM' },
         ],
       },
     ];
@@ -273,11 +280,12 @@ export default async function CompareTractorsPage({ params }) {
       </div>
       <div className="custom-scroller h-full max-h-[340px] overflow-auto pe-4 text-sm font-normal text-gray-dark">
         {comparisonData?.description ||
+          translation?.headerNavbar?.compareTractorDescription ||
           'Compare these two tractors to find the best match for your farming needs. Detailed specifications, features, and performance comparisons are provided below to help you make an informed decision.'
         }
       </div>
       <button className="text-medium mt-3 flex items-center gap-2 text-sm">
-        Read More
+        {translation?.headerNavbar?.readMore || 'Read More'}
         <span>
           <Image
             src="https://images.tractorgyan.com/uploads/117142/676901b0c9bf7-gray-arrow.webp"
@@ -298,6 +306,9 @@ export default async function CompareTractorsPage({ params }) {
       <SeoHead
         seo={seoData}
         seoHTMLDescription={seoHtml?.data}
+        paginationLinks={{
+          canonical: `${process.env.NEXT_PUBLIC_API_URL}${currentLang == 'hi' ? '/hi' : ''}${isComparisonPage && compareUrl ? `/compare/${compareUrl}` : '/compare-tractors'}`
+        }}
       />
       <NavComponents translation={translation} isMobile={isMobile} prefLang={currentLang} />
       <div className="container mx-auto">
@@ -313,7 +324,7 @@ export default async function CompareTractorsPage({ params }) {
             }
             title={translation?.headerNavbar?.compareTractor || 'Compare Tractors'}
             additionalClasses={'mb-6 md:mb-10'}
-            pageUrl={'/'}
+            pageUrl={(currentLang === 'hi' ? '/hi' : '') + '/compare-tractors'}
           />
         )}
       </div>
@@ -323,10 +334,10 @@ export default async function CompareTractorsPage({ params }) {
         /* Comparison Results Page with Old UI */
         <>
           {/* Main Comparison Display */}
-          <section className="bg-section-gray">
+          <section className="bg-section-white">
             <div className="justfiy-between container flex">
               <div className="hidden flex-col justify-center gap-4 pr-4 font-medium md:flex">
-                Share
+                {translation?.headerNavbar?.share || 'Share'}
                 <SocialMediaLinksShare direction="flex-col" />
               </div>
               {comparisonData && comparisonData.tractor_0 && comparisonData.tractor_1 ? (
@@ -339,19 +350,22 @@ export default async function CompareTractorsPage({ params }) {
                   compareTractor={comparisonData.tractor_1}
                   compareTractor2={comparisonData.tractor_2 ? comparisonData.tractor_2 : ''}
                   // itemsToShow={comparisonData.tractor_2 ? 3 : 2}
-                  itemsToShow={isMobile ? 2 : 3}
+                  itemsToShow={3}
+                  // itemsToShow={isMobile ? 2 : 3}
                   currentLang={currentLang}
                   tractorbrands={allTractorBrands}
+                  isDisabledEnable={true}
+                  translation={translation}
                 />
               ) : (
                 <div className="flex h-64 items-center justify-center w-full">
                   <div className="text-center">
                     <h2 className="text-gray-600 mb-4 text-xl font-semibold">
-                      {translation?.headerNavbar?.noTractorsSelected ||
+                      {translation?.headerNavbar?.noComparisonDataAvailable ||
                         'No comparison data available'}
                     </h2>
                     <p className="text-gray-500">
-                      {translation?.headerNavbar?.pleaseSelectTractors ||
+                      {translation?.headerNavbar?.pleaseTryAgain ||
                         'Please try again or select tractors from below'}
                     </p>
                   </div>
@@ -361,13 +375,16 @@ export default async function CompareTractorsPage({ params }) {
           </section>
 
           {/* About Section */}
-          {isComparisonPage ? <section className="mt-10">
+          {/* {isComparisonPage ? <section className="mt-10">
             <div className="container">{aboutSectionSlot}</div>
-          </section> : null}
+          </section> : null} */}
 
           {/* Features Comparison Section */}
           {isComparisonPage && compareFeaturesData.length > 0 && (
-            <CompareTractorsFeaturesSection comparisionData={compareFeaturesData} />
+            <CompareTractorsFeaturesSection
+              comparisionData={compareFeaturesData}
+              translation={translation}
+            />
           )}
 
 
@@ -389,28 +406,36 @@ export default async function CompareTractorsPage({ params }) {
             </div>
           </section> */}
 
-          {!isComparisonPage ? <section className="bg-section-gray">
-            <CompareTractorsSection
-              heading="Compare Tractors"
-              cta="Compare Tractors"
-              bgColor="bg-section-gray"
-              currentLang={currentLang}
-              tractorbrands={allTractorBrands}
-
-            // allowChange={true}
-            />
-          </section> : null}
+          {!isComparisonPage ?
+            <section className="bg-section-gray">
+              <CompareTractorsSection
+                heading="Compare Tractors"
+                cta="Compare Tractors"
+                bgColor="bg-section-gray"
+                currentLang={currentLang}
+                tractorbrands={allTractorBrands}
+                helpText='Select atleast 2 tractors for comparison'
+                itemsToShow={3}
+                // itemsToShow={isMobile ? 2 : 3}
+                showCheckPrice={false}
+                translation={translation}
+              // allowChange={true}
+              />
+            </section> : null}
 
           {/* Compare More Tractors Section */}
           <section className="bg-white">
             <div className="container">
-              <MainHeadings text="Compare Tractors" />
+              <MainHeadings text={translation.headings.popularTractorComparison} />
               <CompareTractorsSlider
                 cta={translation?.buttons?.compareTractor || 'Compare Tractors'}
                 compareTractors={moreComparisonList || null}
                 isMobile={isMobile}
                 isComparisonPage={true}
+                viewMode={true}
+                showCheckPrice={false}
                 tractorBrands={allTractorBrands}
+                translation={translation}
               />
 
             </div>
@@ -422,7 +447,10 @@ export default async function CompareTractorsPage({ params }) {
 
           {/* Sample Features Section for Main Page */}
           {isComparisonPage ? (
-            <CompareTractorsFeaturesSection comparisionData={compareFeaturesData} />
+            <CompareTractorsFeaturesSection
+              comparisionData={compareFeaturesData}
+              translation={translation}
+            />
           ) : null}
           {/* Compare Examples Section */}
           {/* <section className="bg-white">

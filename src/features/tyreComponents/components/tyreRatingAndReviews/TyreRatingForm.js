@@ -7,6 +7,7 @@ import SuccessPopup from './SuccessPopup'; // Will create this component
 // Tractor brand/model APIs
 import { getTractorBrands } from '@/src/services/tractor/all-tractor-brands-v2';
 import { getTractorModelsByBrand } from '@/src/services/tractor/get-model-by-brand-v2';
+import { getAllTractorModels } from '@/src/services/tractor/all-tractor-models';
 
 const TyreRatingForm = ({ brand, model, form_page_name, translation }) => {
   const [selectedRating, setSelectedRating] = useState(0);
@@ -39,7 +40,7 @@ const TyreRatingForm = ({ brand, model, form_page_name, translation }) => {
     if (form_page_name === 'tractor_review' && selectedBrand) {
       setTractorModels([]);
       setSelectedModel('');
-      getTractorModelsByBrand(selectedBrand)
+      getAllTractorModels(selectedBrand)
         .then((models) => setTractorModels(models || []))
         .catch(() => setTractorModels([]));
     }

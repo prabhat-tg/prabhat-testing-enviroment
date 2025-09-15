@@ -15,24 +15,24 @@ const CareerPerksBenefits = () => {
       image: 'https://images.tractorgyan.com/uploads/120089/687f6ee136f05-Work-Life.webp',
       description: 'Enjoy flexible work hours that support both personal and professional life.',
     },
-    {
-      title: 'Vacation',
-      highlight: 'Policy',
-      image: 'https://images.tractorgyan.com/uploads/120085/687f6e619b523-Vacation.webp',
-      description: 'Take time off with our generous and hassle-free vacation plan.',
-    },
+    // {
+    //   title: 'Vacation',
+    //   highlight: 'Policy',
+    //   image: 'https://images.tractorgyan.com/uploads/120085/687f6e619b523-Vacation.webp',
+    //   description: 'Take time off with our generous and hassle-free vacation plan.',
+    // },
     {
       title: 'Menstrual',
       highlight: 'Leave',
       image: 'https://images.tractorgyan.com/uploads/120084/687f6e3db8c5d-Menstrual-Leave.webp',
       description: 'Prioritizing wellness with dedicated menstrual leave for all who need it.',
     },
-    {
-      title: 'No Question Asked',
-      highlight: 'Leave',
-      image: 'https://images.tractorgyan.com/uploads/120087/687f6e9bd0676-No-Q-Leave.webp',
-      description: 'Take personal time off whenever needed, no explanations required.',
-    },
+    // {
+    //   title: 'No Question Asked',
+    //   highlight: 'Leave',
+    //   image: 'https://images.tractorgyan.com/uploads/120087/687f6e9bd0676-No-Q-Leave.webp',
+    //   description: 'Take personal time off whenever needed, no explanations required.',
+    // },
     {
       title: 'Professional',
       highlight: 'Development',
@@ -45,17 +45,18 @@ const CareerPerksBenefits = () => {
       image: 'https://images.tractorgyan.com/uploads/120088/687f6eb948062-Innovative-Env.webp',
       description: 'Collaborate in a culture that values creativity and fresh ideas.',
     },
+    // {
+    //   title: 'Trust and',
+    //   highlight: 'Ownership',
+    //   image: 'https://images.tractorgyan.com/uploads/120082/687f6dfa56462-Trust-and-Ownership.webp',
+    //   description: 'Take charge of your work with autonomy and full team support.',
+    // },
     {
-      title: 'Trust and',
-      highlight: 'Ownership',
-      image: 'https://images.tractorgyan.com/uploads/120082/687f6dfa56462-Trust-and-Ownership.webp',
-      description: 'Take charge of your work with autonomy and full team support.',
-    },
-    {
-      title: 'Endless',
+      title: 'Trust, Ownership and Endless',
       highlight: 'Support',
       image: 'https://images.tractorgyan.com/uploads/120086/687f6e7c58e7b-Endless-Support.webp',
-      description: 'Thrive in a workplace where guidance and encouragement are always available.',
+      description:
+        'Take charge of your work with autonomy and thrive in a workplace where guidance and encouragement are always available.',
     },
   ];
 

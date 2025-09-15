@@ -9,14 +9,14 @@ import TG_Button from "../ui/buttons/MainButtons";
 import MainHeadings from "@/src/features/tyreComponents/commonComponents/MainHeadings";
 import Link from "next/link";
 
-const ImplementsCategorySlider = ({ heading, categories, cta, isMobile, itemsShown = 5, bgColor = 'bg-white' }) => {
+const ImplementsCategorySlider = ({ heading, categories, cta, isMobile, itemsShown = 5, bgColor = 'bg-white', currentLang }) => {
   const ImplementCategoryCard = ({
     title,
     url,
     className
   }) => {
     return (
-      <Link href={url}>
+      <Link href={`/${url}`}>
         <div className={`${className} p-3 flex flex-col items-center justify-center rounded-lg shadow-bottom border border-gray-light`}>
           <h2 className="text-sm md:text-md font-semibold text-center text-nowrap">{title}</h2>
         </div>
@@ -41,11 +41,11 @@ const ImplementsCategorySlider = ({ heading, categories, cta, isMobile, itemsSho
       </div>
     );
   };
-  
+
   const NextArrow = ({ onClick }) => (
     <ArrowButton onClick={onClick} position="right-[20%] md:right-[40%]" alt="next-button-icon" />
   );
-  
+
   const PrevArrow = ({ onClick }) => (
     <ArrowButton onClick={onClick} position="left-[15%] md:left-[40%]" rotate alt="previous-button-icon" />
   );
@@ -60,7 +60,7 @@ const ImplementsCategorySlider = ({ heading, categories, cta, isMobile, itemsSho
     autoplay: false,
     autoplaySpeed: 2000,
     nextArrow: isMobile ? <NextArrow /> : false,
-    prevArrow: isMobile ?  <PrevArrow /> : false,
+    prevArrow: isMobile ? <PrevArrow /> : false,
     responsive: [
       {
         breakpoint: 1200,
@@ -96,14 +96,14 @@ const ImplementsCategorySlider = ({ heading, categories, cta, isMobile, itemsSho
           {categories?.map((category, index) => (
             index % 2 === 0 && (
               <div key={index}>
-                <ImplementCategoryCard 
-                  title={category.name}
+                <ImplementCategoryCard
+                  title={currentLang == 'hi' ? category.name_hi : category.name}
                   url={category.url}
                   className="mb-6"
                 />
                 {categories[index + 1] && (
-                  <ImplementCategoryCard 
-                    title={categories[index + 1].name}
+                  <ImplementCategoryCard
+                    title={currentLang == 'hi' ? categories[index + 1].name_hi : categories[index + 1].name}
                     url={categories[index + 1].url}
                     className="mb-6"
                   />

@@ -102,7 +102,7 @@ const ConstructionMachineryType = async ({ translation, parentHeading }) => {
         <section>
             <div className="container">
                 {parentHeading ? (<MainHeadings
-                    text={`${translation.headings.Popular} ${parentHeading} ${translation.headings.and} ${parentHeading} ${translation.headings.brands}`}
+                    text={`${translation.headings.Popular} ${parentHeading} ${translation.headings.brands}`}
                 />) : (<MainHeadings
                     text={"Construction Machinery By Type"}
                 />)}
@@ -119,7 +119,7 @@ const ConstructionMachineryType = async ({ translation, parentHeading }) => {
                         />
                     ))}
 
-                    {parentHeading === "Mahindra" && mahindraData.map((item) => (
+                    {(parentHeading === "Mahindra" || parentHeading === "महिंद्रा") && mahindraData.map((item) => (
                         <ConstructionMachineryCard
                             key={item.id}
                             label={item.name}   // ✅ changed from item.label → item.name
@@ -130,7 +130,7 @@ const ConstructionMachineryType = async ({ translation, parentHeading }) => {
                         />
                     ))}
 
-                    {parentHeading === "Escorts" && escortsData.map((item) => (
+                    {(parentHeading === "Escorts Kubota" || parentHeading === "एस्कॉर्ट्स कुबोटा") && escortsData.map((item) => (
                         <ConstructionMachineryCard
                             key={item.id}
                             label={item.name}   // ✅ changed from item.label → item.name
@@ -141,7 +141,7 @@ const ConstructionMachineryType = async ({ translation, parentHeading }) => {
                         />
                     ))}
 
-                    {parentHeading === "Tafe" && tafeData.map((item) => (
+                    {(parentHeading === "Tafe" || parentHeading === "टैफे") && tafeData.map((item) => (
                         <ConstructionMachineryCard
                             key={item.id}
                             label={item.name}   // ✅ changed from item.label → item.name
@@ -152,7 +152,7 @@ const ConstructionMachineryType = async ({ translation, parentHeading }) => {
                         />
                     ))}
 
-                    {parentHeading === "itl" && itlData.map((item) => (
+                    {(parentHeading === "itl" || parentHeading === "आईटीएल") && itlData.map((item) => (
                         <ConstructionMachineryCard
                             key={item.id}
                             label={item.name}   // ✅ changed from item.label → item.name

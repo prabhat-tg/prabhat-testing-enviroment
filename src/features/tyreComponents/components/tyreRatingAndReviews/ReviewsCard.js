@@ -24,13 +24,13 @@ const ReviewsCard = ({ review }) => {
           />
           <span className="text-sm font-medium">{name}</span>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-1 md:gap-3">
           {[1, 2, 3, 4, 5].map(star => (
             <div key={star} className="h-4 w-4">
               <StarRatingIcon width="14" height="14" clicked={star <= numericRating} />
             </div>
           ))}
-          <span className="ps-2 text-base font-medium text-gray-dark">({numericRating}.0)</span>
+          <span className="ps-0 md:ps-2 text-sm md:text-base font-medium text-gray-dark">({numericRating}.0)</span>
         </div>
       </div>
       <div className="mb-[2px]">

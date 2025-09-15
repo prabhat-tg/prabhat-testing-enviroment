@@ -31,7 +31,8 @@ const CompareFeaturesRow = ({ feature, isLast = false, columns = 2 }) => {
 };
 
 const CompareTractorsFeaturesSection = ({
-  comparisionData = []
+  comparisionData = [],
+  translation = {}
 }) => {
   if (!comparisionData || comparisionData.length === 0) {
     return null;
@@ -43,7 +44,7 @@ const CompareTractorsFeaturesSection = ({
       <div className="container">
         <div className="flex justify-end pb-4">
           {/* <p>{hidden ? "Hidden" : "Visible"}</p> */}
-          <TG_ToggleSwitch label="Hide Common Features" variant="OVERFLOW" onToggle={(val) => setHidden(val)} />
+          <TG_ToggleSwitch label={translation?.headerNavbar?.hideCommonFeatures || "Hide Common Features"} variant="OVERFLOW" onToggle={(val) => setHidden(val)} />
         </div>
         {comparisionData.map((group, index) => (
           <div key={index} className={`${index < comparisionData.length - 1 ? 'mb-10' : ''}`}>
@@ -69,7 +70,7 @@ const CompareTractorsFeaturesSection = ({
                     key={headerIndex}
                     className={`${headerIndex ? 'text-black justify-center' : 'text-gray-dark'} ${group.headers.length > 3 ? 'w-1/4' : 'w-1/3'} flex items-center`}
                   >
-                    <span>{header}</span>
+                    <span className={headerIndex > 0 ? 'font-semibold' : ''}>{header.replace(/\*\*/g, '')}</span>
                   </div>
                 ))}
               </li>

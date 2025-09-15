@@ -12,14 +12,15 @@ const TyreDealersByStates = ({
   title,
   buttonText,
   isMobile,
-  showHeading = true // Used at '/tractors-subsidy-in-india'
+  showHeading = true, // Used at '/tractors-subsidy-in-india'
+  toggleMode = true
 }) => {
   // Use title prop if provided, otherwise fallback to heading, then to default translation
   const displayHeading = title || heading || translation.headings.TyreDealersByStates;
 
   return (
     <section className={`container ${!showHeading && isMobile ? 'pt-0' : ''} `}>
-      <div id="tyre-states-grid" >
+      <div id="tyre-states-grid" className={toggleMode ? 'expanded' : ''}>
         {!isMobile ? (
           <MainHeadings text={displayHeading} />
         ) :
@@ -37,7 +38,7 @@ const TyreDealersByStates = ({
               title={item.state_name + ' image'}
               className="col-span-3 md:col-span-2 xl:col-span-1"
             >
-              <div className="mb-2 flex h-[65px] items-center justify-center rounded-xl border-[2px] border-transparent bg-white shadow-[1px_5px_16px_0px_rgba(88,98,89,0.21)] hover:border-secondary hover:bg-green-lighter md:mb-4 md:h-[99px] overflow-hidden">
+              <div className={"mb-2 flex h-[65px] items-center justify-center rounded-xl border-[2px] border-transparent bg-white shadow-[1px_5px_16px_0px_rgba(88,98,89,0.21)] hover:border-secondary hover:bg-green-lighter md:mb-4 md:h-[99px] overflow-hidden" + (toggleMode ? ' expanded' : '')}>
                 <Image
                   src={item.images}
                   height={300}
@@ -53,8 +54,8 @@ const TyreDealersByStates = ({
             </Link>
           ))}
         </div>
-        <TyreDealersByStateToggle translation={translation} buttonText={buttonText} />
-      </div>
+        {toggleMode ? <TyreDealersByStateToggle translation={translation} buttonText={buttonText} />
+          : null}      </div>
     </section>
   );
 };

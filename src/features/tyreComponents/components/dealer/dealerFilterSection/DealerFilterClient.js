@@ -93,7 +93,7 @@ export default function DealerFilterClient({
         {page === 'implement'
           ? translation?.headings?.findImplementDealerNearYou || 'Find Implement Dealer Near You'
           : dealerType === 'tractor'
-            ? ''
+            ? translation?.headings?.findTractorDealerNearYou || 'Find Tractor Dealer near you'
             : translation?.headings?.findTyreDealerNearYou || 'Find Tyre Dealer Near You'}
       </h6>
       <form

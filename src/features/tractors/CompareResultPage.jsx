@@ -75,7 +75,7 @@ export default async function CompareResultPage({ params }) {
       <section className="bg-white py-8">
         <div className="container">
           {compareUrl ? (
-            <TractorComparisonDisplay compareUrl={compareUrl} translation={translation} />
+            <TractorComparisonDisplay currentLang={currentLang} compareUrl={compareUrl} translation={translation} />
           ) : (
             <div className="flex h-64 items-center justify-center">
               <div className="text-center">

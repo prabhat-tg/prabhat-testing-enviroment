@@ -21,7 +21,6 @@ import DealershipRegistrationForm from '../tyreComponents/components/dealer/deal
 import TyreDealersByStates from '../tyre/TyreDealersByStates/TyreDealersByStates';
 import TyreFaqsData from '../tyre/tyreFAQs/TyreFaqsData';
 import TractorImplementBrands from '@/src/components/shared/tractor-implement-brands/TractorImplementBrands';
-import { tgi_implement_types } from '@/src/utils/assets/icons';
 
 export default async function TractorImplementDealersPage({ params, searchParams }) {
   const currentLang = await getSelectedLanguage();
@@ -117,6 +116,7 @@ export default async function TractorImplementDealersPage({ params, searchParams
         heading='Implements By Brands'
         allImplementBrands={allImplementBrands}
         itemsShown={isMobile ? 9 : 12}
+        translation={translation}
       />
       <TyreDealersByStates
         heading="Implement Dealers By State"

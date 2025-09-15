@@ -35,9 +35,22 @@ const ConstructionMachineryTopSection = ({ isMobile, translation, currentLang,
                         title={heading || translation.headings.ConstructionMachineryandEquipmentinIndia}
                         breadcrumbs={[
                             { label: "Home", href: "/", title: "Home" },
+                            ...((parentHeading === "Escorts Kubota" || parentHeading === "एस्कॉर्ट्स कुबोटा" || parentHeading === "Tafe" || parentHeading === "टैफे" || parentHeading === "Mahindra" || parentHeading === "महिंद्रा" || parentHeading === "आईटीएल" || parentHeading === "itl")
+                                ? [
+                                    {
+                                        label: translation.headings.TractorBrands,
+                                        href: `/${currentLang === "hi" ? "hi/" : ""}tractor-brands`,
+                                        title: translation.headings.TractorBrands,
+                                    },
+                                ]
+                                : []),
                             {
-                                label: heading || translation.headings.ConstructionMachineryandEquipmentinIndia,
-                                title: heading || translation.headings.ConstructionMachineryandEquipmentinIndia,
+                                label:
+                                    heading ||
+                                    translation.headings.ConstructionMachineryandEquipmentinIndia,
+                                title:
+                                    heading ||
+                                    translation.headings.ConstructionMachineryandEquipmentinIndia,
                                 isCurrent: true,
                             },
                         ]}

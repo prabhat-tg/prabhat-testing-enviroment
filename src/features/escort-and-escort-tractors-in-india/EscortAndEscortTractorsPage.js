@@ -32,11 +32,11 @@ export default async function EscortAndEscortTractorsPage({ searchParams, isSeri
     hpRange = null,
     hpTitle = null }) {
     const apiUrl = getApiUrl();
-    const seoSlug = `escorts-tractors-in-india`;
-    const seoData = await getSEOByPage(seoSlug);
     const currentLang = await getSelectedLanguage(); // Server-side language detection
     const translation = await getDictionary(currentLang);
+    const seoSlug = currentLang === "en" ? `escorts-tractors-in-india` : `hi/escorts-tractors-in-india`;
     const isMobile = await isMobileView();
+    const seoData = await getSEOByPage(seoSlug);
     let faqs;
     let allTractorBrands;
     const pageSlug = 'escorts-tractors-in-india';
@@ -121,7 +121,7 @@ export default async function EscortAndEscortTractorsPage({ searchParams, isSeri
                     tyreTopContent={topContent}
                     heading={translation.headings.escortTractorsinIndia}
                     parent={"brand-leading"}
-                    parentHeading={'Escorts'}
+                    parentHeading={currentLang === "en" ? 'Escorts Kubota' : "एस्कॉर्ट्स कुबोटा"}
                 />
                 <TractorImplementBrands
                     bgColor={'bg-section-gray'}
@@ -138,6 +138,7 @@ export default async function EscortAndEscortTractorsPage({ searchParams, isSeri
                     translation={translation}
                     langPrefix={currentLang}
                     isMobile={isMobile}
+                    redirectRoute={"/tractors"}
                 />
                 {news ? (
                     <NewsSection

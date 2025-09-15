@@ -1,4 +1,5 @@
 import HpGroupPage from '@/src/features/tractors/HpGroupPage';
+export const dynamic = "force-dynamic";
 
 const Page = ({ params, searchParams }) => {
   return (

@@ -48,7 +48,6 @@ import { getImplementTypePriceList } from '@/src/services/implement/implemet-typ
 import { getSEOByPage } from '@/src/services/seo/get-page-seo';
 import SeoHead from '@/src/components/shared/header/SeoHead';
 import TractorListingData from '../tractors/listing/TractorListingData';
-import { getAllImplementTypeListing } from '@/src/services/implement/get-all-implement-type-listing';
 
 export const dynamic = 'force-dynamic'; // Ensure the page is always rendered dynamically
 
@@ -136,53 +135,38 @@ export default async function TractorImplementTypePage({ params, searchParams })
 
   // TODO:: For UI Only
   const subcategories = [
-    { name: 'Self Propelled', img: tgi_implement_combine_harvester },
-    { name: 'Tractor Mounted', img: tgi_implement_combine_harvester },
-    { name: 'Sugarcane', img: tgi_implement_combine_harvester }
+    { name: translation.headerNavbar.selfPropelled, img: tgi_implement_combine_harvester },
+    { name: translation.headerNavbar.tractorMounted, img: tgi_implement_combine_harvester },
+    { name: translation.headerNavbar.sugarcane, img: tgi_implement_combine_harvester }
   ];
 
   const { tyresListingClientProps, tyresListingProps } = await prepareTyreListingComponent({
-    param: params,
-    isMobile,
-    pageOrigin: 'tractorsByBrand',
-    pageSlug,
+    param: param,
+    searchParamsObj: searchParamObj,
     pageType: 'implements',
+    pageSlug,
     prefLang: currentLang,
     translation,
-    tyreBrands: allImplementBrands,
     allImplementTypes: allImplementTypes,
-    ITEMS_PER_PAGE: 16,
-    searchParamsObj: searchParamObj,
+    showBrandFilter: true,
+    showSizeFilter: false,
+    showTyreBrandsSection: false,
     showImplementBrandsSection: true,
     showImplementTypesSection: true,
+    showLocationFilter: false,
     subcategories: subcategories,
-    showBrandFilter: true,
+    showTractorHPFilter: false,
+    filterBySize: false,
+    isMobile,
+    ITEMS_PER_PAGE: 16,
+    tyreBrands: allImplementBrands,
+    brandPageUrl: null,
+    basePathFromUrl: null,
     basePath: param.slug
   });
 
-  // Get pagination info from TractorListingData
-  const { component: TractorListingComponent, paginationInfo } = await TractorListingData({
-    params: param,
-    searchParams: searchParamObj,
-    // basePath: hpRange
-    //   ? `${currentLang == 'hi' ? '/hi/' : '/'}${hpRange}`
-    //   : `${currentLang == 'hi' ? '/hi' : ''}/tractor/${param['brand-name']}${isSeriesListing && seriesName ? `/${seriesName}` : ''}`,
-    tractorBrands,
-    // showBrandFilter: hpRange ? true : false,
-    showSizeFilter: false,
-    showTyreBrandsSection: false,
-    // brandName: isSeriesListing
-    //   ? brandByLang.name +
-    //   ' ' +
-    //   seriesName
-    //     .replace(/-/g, ' ')
-    //     .replace(/\b\w/g, l => l.toUpperCase())
-    //     .replace('Tractors', '')
-    //   : hpRange ? hpTitle : brandByLang.name,
-  });
-
-  // Extract pagination data
-  const { hasNextPage, currentPage } = paginationInfo;
+  // Extract pagination data from tyresListingProps
+  const { hasNextPage, currentPage, totalPages } = tyresListingProps;
 
   // Generate base URL for pagination
   const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com';
@@ -200,40 +184,8 @@ export default async function TractorImplementTypePage({ params, searchParams })
 
   const seoData = await getSEOByPage(pageSlug);
 
-  const ITEMS_PER_PAGE = 16;
-
-  const page = Number(searchParamObj?.page) || 1;
-  const searchKeyword = searchParamObj?.search || '';
-  const brandName = searchParamObj?.brand || null;
-  const sortBy = searchParamObj?.sortBy || '';
-
-  const startLimit = (page - 1) * ITEMS_PER_PAGE;
-  const endLimit = startLimit + ITEMS_PER_PAGE;
-
-  let latestImplement = 'no';
-  let popularImplement = 'no';
-
-  if (sortBy.toLowerCase() === 'popularity') {
-    popularImplement = 'yes';
-  }
-  if (sortBy.toLowerCase() === 'latest launches') {
-    latestImplement = 'yes';
-  }
-
-  const getAllImplementTypeListingData = await getAllImplementTypeListing({
-    implement_type: param.slug,
-    search_keyword: searchKeyword,
-    start_limit: startLimit,
-    end_limit: endLimit,
-    latest_implement: latestImplement,
-    popular_implement: popularImplement,
-    brand_name: brandName,
-    lang: currentLang,
-  });
-
   return (
     <main>
-      {' '}
       {/* Using main as the root layout element */}
       <SeoHead
         seo={seoData}
@@ -257,7 +209,7 @@ export default async function TractorImplementTypePage({ params, searchParams })
           category={category}
           tableHeaders={[
             {
-              key: 'implementModel',
+              key: translation.headings.implementModel,
               width: 'w-[45%]',
               dataKey: item => (
                 <Link
@@ -270,12 +222,12 @@ export default async function TractorImplementTypePage({ params, searchParams })
               ),
             },
             {
-              key: 'implementPower',
+              key: translation.headings.implementPower,
               width: 'w-[25%]',
               dataKey: item => item.implement_power,
             },
             {
-              key: 'implementPrice',
+              key: translation.headings.implementPrice,
               width: 'w-[30%]',
               dataKey: item => item.price,
             },
@@ -287,13 +239,13 @@ export default async function TractorImplementTypePage({ params, searchParams })
               title: translation.breadcrubm.tractorGyanHome
             },
             {
-              label: translation.breadcrumbs.implementBrands,
+              label: translation.headerNavbar.tractorImplements,
               href: (currentLang == 'hi' ? '/hi' : '') + '/tractor-implements-in-india',
-              title: 'Tractor Implements',
+              title: translation.headerNavbar.tractorImplements,
             },
             {
-              label: `${brand.name} Implements`,
-              title: `${brand.name} Implements`,
+              label: `${translation.common.tractor} ${brand.name} ${translation.headerNavbar.implement}`,
+              title: `${translation.common.tractor} ${brand.name} ${translation.headerNavbar.implement}`,
               isCurrent: true,
             },
           ]}
@@ -316,7 +268,7 @@ export default async function TractorImplementTypePage({ params, searchParams })
           />
           {/* Sub Category Filter */}
           {subcategories?.length && isMobile && (
-            <SubCategoryTabs heading="Combine Harvester By Category" subcategories={subcategories} />
+            <SubCategoryTabs heading={translation.headerNavbar.combineHarvesterByCategory} subcategories={subcategories} />
           )}
           <div className="flex flex-col gap-6 md:flex-row lg:gap-2 xl:gap-6">
             {!isMobile && (
@@ -326,7 +278,7 @@ export default async function TractorImplementTypePage({ params, searchParams })
             )}
 
             <div className="flex-1">
-              <TractorListing {...tyresListingProps} initialTyres={getAllImplementTypeListingData} basePath={param.slug} />
+              <TractorListing {...tyresListingProps} basePath={param.slug} />
             </div>
           </div>
         </div>
@@ -334,7 +286,7 @@ export default async function TractorImplementTypePage({ params, searchParams })
       {/* TODO:: Update the props to make them generic */}
       <TyrePriceInquireForm
         bgColor="bg-green-lighter"
-        formTitle={`Get ${brand.name} Implement Price`}
+        formTitle={`${translation.headings.getImplementPrice || 'Get'} ${brand.name} ${translation.headerNavbar.implement}`}
         tyreBrands={tractorBrands}
         translation={translation}
         currentLang={currentLang}

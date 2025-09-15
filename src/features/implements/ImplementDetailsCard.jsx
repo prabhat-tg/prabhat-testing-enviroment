@@ -8,6 +8,7 @@ import TG_Button from "@/src/components/ui/buttons/MainButtons";
 import Tooltip from "@/src/features/tyreComponents/commonComponents/Tooltip";
 import SocialMediaLinksShare from "@/src/components/shared/social-media/SocialMediaShare";
 import Image from "next/image";
+import TG_LinkButton from "@/src/components/ui/buttons/TgLinkButton";
 
 const ImplementDetailsCard = ({
   implementId,
@@ -61,7 +62,7 @@ const ImplementDetailsCard = ({
       <div className="relative h-full w-full pt-3 md:max-h-[480px] md:max-w-[350px] lg:max-w-[335px] xl:max-w-[350px]">
         <TractorMainSlider
           title={` ${implementDetail.brand_name_en}  ${implementDetail.model} image`}
-          imgUrl={[`/${implementDetail.image}`]} // TODO:: API is not returning array of images
+          imgUrl={`/${implementDetail.image}`} // TODO:: API is not returning array of images
           // imgUrl={implementDetail.images}
           brandLogo={implementDetail.brand_logo}
           showThumbnails={false}
@@ -132,13 +133,22 @@ const ImplementDetailsCard = ({
           </div>
         </div>
         <div className="mt-6 w-full flex md:flex-col gap-2 md:gap-4">
-          <TG_Button
+          {/* <TG_Button
             className='w-full md:flex-1'
             icon={tgi_arrow_right_white}
             iconPosition="right"
           >
             ₹ Get Best Implement Price
-          </TG_Button>
+          </TG_Button> */}
+          <TG_LinkButton
+            variant="primary"
+            href={implementDetail?.road_price_url}
+            iconSrc={tgi_arrow_right_white}
+            iconClass="w-3"
+            className="rounded-md w-full md:flex-1"
+          >
+            ₹ Get Best Implement Price
+          </TG_LinkButton>
         </div>
       </div>
     </div>

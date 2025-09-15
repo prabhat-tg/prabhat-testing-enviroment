@@ -73,15 +73,16 @@ const TyreModelSlider = ({ tyres, currentLang, mode = 'tyre', translation }) => 
             key={index}
             reviews={tyre.reviews || tyre.review_count}
             rating={tyre.rating || tyre.avg_rating}
-            size={tyre.tyre_size || tyre.hp}
-            type={tyre.tyre_type || tyre.cylinder}
-            title={tyre.title}
+            size={tyre.tyre_size || tyre.hp || tyre.implement_power}
+            type={tyre.tyre_type || tyre.cylinder || tyre.implement_type}
+            title={tyre.title || tyre.model}
             brandName={tyre.brandName || tyre.brand_name}
-            imgUrl={tyre.imgUrl || tyre.images}
+            imgUrl={tyre.imgUrl || tyre.images || tyre.image}
             pageUrl={(currentLang === 'hi' ? '/hi' : '') + (tyre.pageUrl || tyre.page_url)}
             popularTyre={tyre.popularTyre || tyre.popular_tyre}
             mode={mode}
             translation={translation}
+            isLast={index === tyres.length - 1}
           />
         ))}
       </Slider>

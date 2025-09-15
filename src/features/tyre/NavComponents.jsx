@@ -43,7 +43,7 @@ export default async function NavComponents({ isMobile, translation, prefLang, m
     <>
       {<DesktopHeader isMobile={isMobile} translation={translation} currentLang={prefLang} />}
       {/* {!isMobile && <SecondNavbar />} */}
-      {isMobile && mobileTabs && <MobileNavbar translation={translation} tabset={mobileTabs} />}
+      {isMobile && mobileTabs && <MobileNavbar translation={translation} tabset={mobileTabs} currentLang={prefLang} />}
     </>
   );
 }

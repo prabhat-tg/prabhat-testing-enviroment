@@ -44,8 +44,8 @@ const LeadingTractorGroup = ({
           <MainHeadings text={translation.headings.tractorsbyBrands} />
         )} */}
 
-        <div className="mb-8 grid grid-cols-3 gap-4">
-          {leadingTractorGroups?.slice(0, 3).map((item, index) => (
+        <div className="mb-8 grid grid-cols-4 gap-4">
+          {leadingTractorGroups?.map((item, index) => (
             <GroupCard
               imgUrl={item.image}
               name={langPrefix == "hi" ? item.brand_name_hi : item.brand_name}

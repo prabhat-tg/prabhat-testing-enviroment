@@ -1,8 +1,12 @@
-import Image from "next/image";
-import Link from "next/link";
-import React from "react";
-import TopBrands from "./TopBrands";
-import TittleAndCrumbs from "@/src/components/shared/TittleAndCrumbs/TittleAndCrumbs";
+import Image from 'next/image';
+import Link from 'next/link';
+import React from 'react';
+import TopBrands from './TopBrands';
+import TittleAndCrumbs from '@/src/components/shared/TittleAndCrumbs/TittleAndCrumbs';
+import { BankDetailsListing } from '@/src/utils/loan/bank-details';
+import DesktopTractorsByBrands from '@/src/components/tractor/DesktopTractorsByBrands';
+import GoogleAdVertical from '../../social/GoogleAdVertical/GoogleAdVertical';
+import { BankDetailsListingHindi } from '@/src/utils/loan/bank-details-hi';
 
 const LoanSchemeDetailPage = ({
   translation,
@@ -10,63 +14,39 @@ const LoanSchemeDetailPage = ({
   allTractorBrands,
   isMobile,
   allTractorBrandsError,
+  slug,
 }) => {
-  const data = {
-    bank: {
-      name: "AXIS BANK",
-      logo: "https://images.tractorgyan.com/uploads/bank_logo/axis_bank.jpg",
-    },
-    introduction: {
-      title: "Introduction",
-      content:
-        "Axis Bank brings you the best deals in the market and a range of attractive features on loans for tractors. As part of its Agriculture Loans portfolio, Axis Bank offers Tractor Loans to both first-time and experienced applicants, with loan amounts and tenures that suit your requirements. For farmers who already own tractors and need to fulfill their farming needs with even more confidence, Axis Bank offers Loan Against Tractor. You need to fulfill the Tractor Loans eligibility criteria. One of the main criteria to avail the Tractor Loan is a minimum 3 years of land holding for farmers.",
-    },
-    banner: {
-      imageDesktop:
-        "https://images.tractorgyan.com/uploads/banner_images/finance_desktop.jpg",
-      imageMobile:
-        "https://images.tractorgyan.com/uploads/banner_images/finance_mobile.jpg",
-      text: "ट्रैक्टर के लिए लोन चाहिए? या अपने पुराने ट्रैक्टर की जानकारी के लिए नीचे क्लिक करें।",
-      button: "अभी आवेदन करें",
-    },
-    eligibility: [
-      {
-        title: "Eligibility for Tractor Finances",
-        items: [
-          "Minimum age of applicant should be 18 years",
-          "Maximum age of applicant should be 75 years as on date of funding",
-          "Minimum 3 years of land holding for farmers",
-        ],
-      },
-      {
-        title: "Eligibility for Tractor Finances",
-        items: [
-          "Minimum age of applicant should be 18 years",
-          "Maximum age of applicant should be 75 years as on date of funding",
-          "Minimum 3 years of land holding for farmers",
-        ],
-      },
-      {
-        title: "Features and Benefits of Tractor Finances",
-        items: [
-          "Customized Loans",
-          "Flexible Repayment Options",
-          "Monthly/Quarterly/ Half-yearly/Annual Repayment Options",
-          "Loan for new as well as used tractors",
-          "Loan Against Existing Loan (Refinancing)",
-          "Hassle-free",
-          "Easy and Quick Documentation",
-        ],
-      },
-    ],
-    interest_rates: {
-      title: "Interest Rate and Charges for Tractor Finance",
-      rates: Array(8).fill({
-        label: "Interest Rate",
-        value: "Effective Rate 17.50% - 20.00%",
-      }),
-    },
+  const filteredData = BankDetailsListing?.filter(val => val.url === slug);
+  const filteredDataHi = BankDetailsListingHindi?.filter(val => val.url === slug);
+  const data = langPrefix == 'en' ? filteredData[0] : filteredDataHi[0];
+
+  if (!data) {
+    return (
+      <div className="container py-10 text-center">
+        <p>Bank details not found</p>
+      </div>
+    );
+  }
+
+  const banner = {
+    imageDesktop: 'https://images.tractorgyan.com/uploads/banner_images/finance_desktop.jpg',
+    imageMobile: 'https://images.tractorgyan.com/uploads/banner_images/finance_mobile.jpg',
+    text: 'ट्रैक्टर के लिए लोन चाहिए? या अपने पुराने ट्रैक्टर की जानकारी के लिए नीचे क्लिक करें।',
+    button: 'अभी आवेदन करें',
   };
+
+  const introductionBlocks = data.content?.['INTRODUCTION:'] || [];
+  const introData = introductionBlocks[0]?.content;
+
+  const interestSection = data.content?.['INTEREST RATE & CHARGES FOR TRACTOR FINANCE'];
+
+  const otherSections = Object.entries(data.content).filter(([heading]) => {
+    const normalizedHeading = heading.trim().replace(/:$/, '').toLowerCase();
+    return (
+      normalizedHeading !== 'introduction' &&
+      normalizedHeading !== 'interest rate & charges for tractor finance'
+    );
+  });
 
   return (
     <section>
@@ -76,136 +56,179 @@ const LoanSchemeDetailPage = ({
           breadcrumbs={[
             {
               label: translation?.breadcrubm.home,
-              href: "/",
-              title: "Home",
+              href: '/',
+              title: 'Home',
             },
             {
               label: translation.loan.tractorLoan,
-              href: "/tractor-loan",
+              href: '/tractor-loan',
               title: translation.loan.tractorLoan,
             },
             {
-              label: "AXIS Bank",
-              title: "AXIS Bank",
+              label: data.bankName,
+              title: data.bankName,
               isCurrent: true,
             },
           ]}
         />
 
         <div className="flex h-full w-full flex-col gap-6 lg:flex-row">
-          <div className="mx-auto rounded-2xl border-[1px] border-gray-light p-4 md:space-y-6 lg:max-w-[75%]">
-            {/* Bank Header */}
+          <div className="mx-auto rounded-2xl border border-gray-light p-4 md:space-y-4 md:pb-11 lg:max-w-[75%]">
             <div className="flex items-center space-x-4">
               <Image
-                src={data.bank.logo}
-                height={500}
-                width={500}
-                alt="Bank Logo"
-                className="h-24 w-24"
+                src={data.logoUrl}
+                height={96}
+                width={96}
+                alt={`${data.bankName} Logo`}
+                className="h-24 w-24 rounded-lg object-contain"
+                priority
               />
-              <h1 className="text-2xl font-bold">{data.bank.name}</h1>
+              <h1 className="text-2xl font-bold">{data.bankName}</h1>
             </div>
 
-            {/* Introduction */}
-            <div>
-              <h2 className="mb-2 text-lg font-semibold">
-                {data.introduction.title}
-              </h2>
-              <p className="mb-4 text-sm font-normal text-gray-dark md:mb-6">
-                {data.introduction.content}
-              </p>
-            </div>
+            {introData && (
+              <div>
+                <h2 className="mb-2 text-lg font-semibold">Introduction</h2>
+                <p className="mb-4 text-sm font-normal text-gray-dark md:mb-6">{introData}</p>
+              </div>
+            )}
 
-            {/* Banner */}
             <Link href="/tractor-loan">
               <div className="h-full max-h-[6.25rem] w-full overflow-hidden rounded-lg lg:max-h-[9.375rem]">
                 <Image
-                  src={data.banner.imageMobile}
+                  src={banner.imageMobile}
                   height={210}
                   width={380}
-                  alt="loan image"
-                  title="loan image"
-                  className="h-full w-full rounded-lg lg:hidden"
+                  alt="Tractor Loan Banner"
+                  title="Tractor Loan"
+                  className="h-full w-full rounded-lg object-cover lg:hidden"
+                  priority={isMobile}
+                  sizes="(max-width: 768px) 100vw, 0px"
                 />
                 <Image
-                  src={data.banner.imageDesktop}
+                  src={banner.imageDesktop}
                   height={200}
                   width={800}
-                  alt="loan image"
-                  title="loan image"
-                  className="hidden h-full w-auto rounded-lg lg:block"
+                  alt="Tractor Loan Banner"
+                  title="Tractor Loan"
+                  className="hidden h-full w-full rounded-lg object-cover lg:block"
+                  priority={!isMobile}
+                  sizes="(min-width: 768px) 75vw, 100vw"
                 />
               </div>
             </Link>
 
-            {/* Eligibility Cards */}
-            <div className="grid grid-cols-1 gap-4 max-md:mt-4 md:grid-cols-3">
-              {data.eligibility.map((block, index) => (
-                <div
-                  key={index}
-                  className="shadow-sm rounded-lg bg-white p-4 shadow-bottom"
-                >
-                  <h4 className="mb-6 text-lg font-semibold text-black">
-                    {block.title}
-                  </h4>
-                  <ul className="list-disc space-y-1 pl-6">
-                    {block.items.map((item, i) => (
-                      <li
-                        key={i}
-                        className="text-sm font-normal text-gray-dark"
-                      >
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
+            <div className="grid grid-cols-1 gap-6 pt-4 md:grid-cols-2">
+              {otherSections.map(([heading, blocks], idx) => (
+                <div key={idx} className="rounded-lg bg-white p-4 shadow-bottom">
+                  <h2 className="mb-2 text-lg font-semibold">{heading}</h2>
+
+                  {Array.isArray(blocks) &&
+                    blocks.map((block, i) => {
+                      if (block.type === 'paragraph') {
+                        return (
+                          <p key={i} className="mb-2 text-sm font-medium text-black">
+                            {block.content}
+                          </p>
+                        );
+                      }
+
+                      if (block.type === 'list') {
+                        return (
+                          <ul key={i} className="mb-4 list-disc space-y-1 pl-6">
+                            {block.items.map((li, j) => (
+                              <li key={j} className="text-sm font-normal text-gray-dark">
+                                {li.content}
+                              </li>
+                            ))}
+                          </ul>
+                        );
+                      }
+
+                      return null;
+                    })}
                 </div>
               ))}
             </div>
 
-            {/* Interest Rates */}
-            <div className="rounded-2xl py-4 shadow-bottom">
-              <h3 className="mb-2 text-center text-lg font-semibold">
-                {data.interest_rates.title}
-              </h3>
-              <div className="grid grid-cols-2 px-2 sm:grid-cols-2 sm:gap-4 md:grid-cols-3">
-                {data.interest_rates.rates.map((rate, index) => (
-                  <div
-                    key={index}
-                    className="shadow-sm border-b-[1px] border-gray-light py-2 text-center md:border-none md:p-4"
-                  >
-                    <p className="text-sm font-semibold text-gray-dark lg:text-base">
-                      {rate.label}
-                    </p>
-                    <p className="text-xs font-normal text-gray-dark lg:text-sm">
-                      {rate.value}
-                    </p>
-                  </div>
-                ))}
+            {interestSection && (
+              <div className="rounded-2xl p-4 shadow-bottom md:pt-6">
+                <h3 className="mb-2 text-center text-lg font-semibold">{interestSection.title}</h3>
+                <p className="text-center text-sm font-semibold text-gray-dark lg:text-base">
+                  {interestSection.subtitle}
+                </p>
+
+                <div className="grid grid-cols-2 px-2 sm:grid-cols-2 sm:gap-4 md:grid-cols-2">
+                  {interestSection.sections.map((item, idx) => (
+                    <div
+                      key={idx}
+                      className="border-b border-gray-light py-2 text-center md:border-none md:p-4"
+                    >
+                      <p className="text-sm font-semibold text-gray-dark lg:text-base">
+                        {item.heading}
+                      </p>
+
+                      {item.values && (
+                        <>
+                          <p className="text-xs font-normal text-gray-dark lg:text-sm">
+                            Max {item.values.max}
+                          </p>
+                          <p className="text-xs font-normal text-gray-dark lg:text-sm">
+                            Min {item.values.min}
+                          </p>
+                          <p className="text-xs font-normal text-gray-dark lg:text-sm">
+                            Mean {item.values.mean}
+                          </p>
+                        </>
+                      )}
+
+                      {item.description && !item.link && (
+                        <p className="mb-2 text-xs font-normal text-black lg:text-sm">
+                          {item.description}
+                        </p>
+                      )}
+
+                      {item.link && (
+                        <p className="text-xs font-normal text-gray-dark lg:text-sm">
+                          Please{' '}
+                          <Link target="_blank" href={item.link}>
+                            click here
+                          </Link>{' '}
+                          for schedule of charges.
+                        </p>
+                      )}
+
+                      {item.slabs &&
+                        item.slabs.map((slab, i) => (
+                          <p
+                            key={i}
+                            className="text-center text-xs font-normal text-gray-dark lg:text-sm"
+                          >
+                            {slab}
+                          </p>
+                        ))}
+
+                      {item.note && (
+                        <p className="pt-4 text-xs font-normal text-gray-dark lg:text-sm">
+                          {item.note}
+                        </p>
+                      )}
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
+          </div>
+          <div className="flex flex-wrap">
+            <DesktopTractorsByBrands
+              translation={translation}
+              langPrefix={langPrefix}
+              allTractorBrands={allTractorBrands}
+              heading={translation.headings.TopBrands}
+            />
+            <GoogleAdVertical />
           </div>
         </div>
-
-        {/* Error Handling for Tractor Brands */}
-        {allTractorBrandsError ? (
-          <div className="py-5 text-center">
-            <p>
-              {translation?.error_messages?.tractor_brands_unavailable ||
-                "Tractor brands are currently unavailable."}
-            </p>
-          </div>
-        ) : allTractorBrands && Array.isArray(allTractorBrands) ? (
-          allTractorBrands.length > 0 ? (
-            <TopBrands brands={allTractorBrands} translation={translation} />
-          ) : (
-            <div className="py-5 text-center">
-              <p>
-                {translation?.error_messages?.no_tractor_brands ||
-                  "No tractor brands found."}
-              </p>
-            </div>
-          )
-        ) : null}
       </div>
     </section>
   );

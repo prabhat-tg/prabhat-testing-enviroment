@@ -17,7 +17,8 @@ export async function getPopularImplements(lang) {
       // Keeping all other original keys if needed
       ...item,
     }));
-    // console.log("Popular Implements Modified:", modifiedData);
+    console.log("Popular Implements Modified:", result.data);
+
     return modifiedData;
     // return result.data;
   } catch (error) {

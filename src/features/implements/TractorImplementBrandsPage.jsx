@@ -14,11 +14,9 @@ import MobileFooter from '@/src/components/shared/footer/MobileFooter';
 import DesktopHeader from '@/src/components/shared/header/DesktopHeader';
 import TittleAndCrumbs from '@/src/components/shared/TittleAndCrumbs/TittleAndCrumbs';
 import PopularSection from '@/src/components/shared/popularSection/PopularSection';
-import { getTractorPopularDetails } from '@/src/services/tractor/tractor-popular-details';
 import TractorImplementTypes from '@/src/components/shared/tractor-implements/TractorImplementTypes';
 import TractorImplementBrands from '@/src/components/shared/tractor-implement-brands/TractorImplementBrands';
 import { getAllImplementTypes } from '@/src/services/implement/all-implement-types';
-import { getAllImplementBrands } from '@/src/services/implement/all-implement-brands';
 import { getAllImplementBrandsDetail } from '@/src/services/implement/get-all-implement-brands';
 import { getPopularImplements } from '@/src/services/implement/popular-implements';
 
@@ -73,6 +71,8 @@ const TractorImplementBrandsPage = async () => {
         <TractorImplementBrands
           allImplementBrands={allImplementBrands}
           showAll={true}
+          translation={translation}
+          prefLang={currentLang}
         />
 
         <TractorImplementTypes

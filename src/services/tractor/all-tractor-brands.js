@@ -3,6 +3,8 @@ import { fetchData } from '../apiMethods';
 export async function getAllTractorBrands() {
   try {
     const result = await fetchData('/api/all_tractor_brands');
+    console.log("All Tractor Brands:", result);
+
     return result.data;
   } catch (error) {
     console.error('Error fetching all tractor brands:', error);

@@ -1,7 +1,8 @@
 import React from 'react';
-import DealerListingClient from './DealerListingClient';
 import DealerCard from './DealerCard';
+import dynamic from 'next/dynamic';
 import RegistrationBanner from './RegistrationBanner';
+const DealerListingClient = dynamic(() => import('./DealerListingClient'));
 
 const DealerListing = ({
   dealerDetails,
@@ -11,7 +12,6 @@ const DealerListing = ({
   suggestedDealers,
   dealerType,
 }) => {
-  console.log("dealer type in dealer listing:", dealerType);
 
   const capitalizeWords = str => {
     if (!str) return '';

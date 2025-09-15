@@ -23,8 +23,6 @@ const TractorListing = ({
   const totalPages = Math.ceil(totalTyresCount / itemsPerPage);
   const showReelAfter = isMobile ? 1 : 3;
 
-  console.log("Is Mobile: ", isMobile);
-
   const buildPageLink = pageNumber => {
     const queryParams = new URLSearchParams();
     if (activeFilters?.brand) queryParams.set('brand', activeFilters.brand);
@@ -175,7 +173,7 @@ const TractorListing = ({
 
           {pageType === 'implements' && (
             <div className="flex flex-wrap gap-4 lg:gap-4 xl:gap-4">
-              {initialTyres?.items?.map((implement, index) => (
+              {initialTyres?.map((implement, index) => (
                 <TG_HorizontalCard
                   title={`${implement.brand_name} ${implement.model}`}
                   imageSrc={`https://images.tractorgyan.com/uploads${implement.image}`}

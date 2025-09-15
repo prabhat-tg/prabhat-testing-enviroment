@@ -418,7 +418,7 @@ const TractorInsuranceForm = ({
                         </option>
                         {tractorModels?.length > 0 ? (
                           tractorModels.map((model, index) => (
-                            <option key={index} value={model.model}>
+                            <option key={index} value={model.id}>
                               {model.model}
                             </option>
                           ))
@@ -697,6 +697,7 @@ const TractorInsuranceForm = ({
           district={selectedDistrict}
           tehsil={selectedTehsil}
           name={name}
+          encryptedOtp={otp}
           existVerified={existVerified}
           closeEnquryPopup={() => setShowOtpPopup(false)}
           enquiryType={'Insurance'}

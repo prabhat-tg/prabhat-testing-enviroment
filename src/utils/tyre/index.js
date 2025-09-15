@@ -17,7 +17,8 @@ export const getBrandFromSlug = (slug, tyreBrands) => {
     const brand = tyreBrands.filter(brand => {
       return (
         brand.name.toLowerCase().includes(parts[0]) ||
-        brand.name_hi.toLowerCase().includes(parts[0])
+        brand.name_hi.toLowerCase().includes(parts[0]) ||
+        brand.name_en && brand?.name_en.toLowerCase().includes(parts[0])
       );
     });
     return brand[0];

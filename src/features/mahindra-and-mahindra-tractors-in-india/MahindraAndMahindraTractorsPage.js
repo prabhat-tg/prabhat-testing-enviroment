@@ -32,11 +32,12 @@ export default async function MahindraAndMahindraTractorsPage({ searchParams, is
     hpRange = null,
     hpTitle = null }) {
     const apiUrl = getApiUrl();
-    const seoSlug = `mahindra-and-mahindra-tractors-in-india`;
-    const seoData = await getSEOByPage(seoSlug);
+
     const currentLang = await getSelectedLanguage(); // Server-side language detection
     const translation = await getDictionary(currentLang);
     const isMobile = await isMobileView();
+    const seoSlug = currentLang === "en" ? `mahindra-and-mahindra-tractors-in-india` : `hi/mahindra-and-mahindra-tractors-in-india`;
+    const seoData = await getSEOByPage(seoSlug);
     let faqs;
     let allTractorBrands;
     const pageSlug = 'mahindra-and-mahindra-tractors-in-india';
@@ -122,7 +123,7 @@ export default async function MahindraAndMahindraTractorsPage({ searchParams, is
                     tyreTopContent={topContent}
                     heading={translation.headings.MahindraMahindraTractorsinIndia}
                     parent={"brand-leading"}
-                    parentHeading={'Mahindra'}
+                    parentHeading={translation.footer.mahindra}
                 />
                 <TractorImplementBrands
                     bgColor={'bg-section-gray'}
@@ -139,6 +140,7 @@ export default async function MahindraAndMahindraTractorsPage({ searchParams, is
                     translation={translation}
                     langPrefix={currentLang}
                     isMobile={isMobile}
+                    redirectRoute={"/tractors"}
                 />
                 {news ? (
                     <NewsSection

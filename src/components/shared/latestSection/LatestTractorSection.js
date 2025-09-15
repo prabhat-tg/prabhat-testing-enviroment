@@ -18,7 +18,8 @@ const LatestTractorSection = ({
   cta,
   redirectRoute = '/tyres',
   popularDataError,
-  type = 'tractor'
+  type = 'tractor',
+  showViewAll = true
 }) => {
   const ArrowButton = ({ onClick, position, rotate = false, alt }) => {
     return (
@@ -39,11 +40,11 @@ const LatestTractorSection = ({
   };
 
   const NextArrow = ({ onClick }) => (
-    <ArrowButton onClick={onClick} position="right-[20%] md:right-[40%]" alt="next-button-icon" />
+    <ArrowButton onClick={onClick} position="right-[20%] md:right-[40%]" alt={translation?.buttons?.nextButtonIcon || "Next Button"} />
   );
 
   const PrevArrow = ({ onClick }) => (
-    <ArrowButton onClick={onClick} position="left-[15%] md:left-[40%]" rotate alt="previous-button-icon" />
+    <ArrowButton onClick={onClick} position="left-[15%] md:left-[40%]" rotate alt={translation?.buttons?.previousButtonIcon || "Previous Button"} />
   );
 
   const settings = {
@@ -62,8 +63,9 @@ const LatestTractorSection = ({
     return (
       <div className="py-5 text-center">
         <p>
-          {translation?.error_messages?.popular_tractors_unavailable ||
-            'Popular tractors are currently unavailable.'}
+          {translation?.error_messages?.popularTractorsUnavailable ||
+            translation?.error_messages?.latestImplementsUnavailable ||
+            'Content is currently unavailable.'}
         </p>
       </div>
     );
@@ -72,7 +74,7 @@ const LatestTractorSection = ({
   return (
     <section className={`${bgColor ? bgColor : ''}`}>
       <div className="container">
-        <MainHeadings text={heading || 'Latest Tractors'} />
+        <MainHeadings text={heading || translation?.headerNavbar?.latestImplements || 'Latest Tractors'} />
         {!isMobile ? (
           <div className="mb-8 grid grid-cols-4 gap-4 2xl:gap-8">
             {popularData?.slice(0, 4).map((item, index) => {
@@ -122,10 +124,10 @@ const LatestTractorSection = ({
             </Slider>
           </div>
         )}
-        <MainButton
+        {showViewAll ? <MainButton
           text={cta ? cta : translation.buttons.viewAllPopularTractor}
           linkUrl={`${langPrefix == 'en' ? '' : langPrefix}${redirectRoute}`}
-        />
+        /> : null}
       </div>
     </section>
   );

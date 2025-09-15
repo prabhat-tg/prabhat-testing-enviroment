@@ -6,6 +6,7 @@ import { getDictionary } from "@/src/lib/dictonaries";
 import { getSelectedLanguage } from "@/src/services/locale";
 import { isMobileView } from "@/src/utils";
 
+export const dynamic = "force-dynamic";
 const page = async () => {
   const prefLang = await getSelectedLanguage();
   const isMobile = await isMobileView();

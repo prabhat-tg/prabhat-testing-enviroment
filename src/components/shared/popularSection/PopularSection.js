@@ -12,7 +12,8 @@ const PopularSection = ({
   langPrefix,
   redirectRoute = '/tyres',
   popularDataError,
-  type = 'tractor'
+  type = 'tractor',
+  showViewAll = true
 }) => {
   if (popularDataError) {
     return (
@@ -64,10 +65,10 @@ const PopularSection = ({
             type={type}
           />
         )}
-        <MainButton
+        {showViewAll ? <MainButton
           text={cta || translation.buttons.viewAllPopularTractor}
           linkUrl={`${langPrefix == 'en' ? '' : '/hi'}${redirectRoute}`}
-        />
+        /> : null}
       </div>
     </section>
   );

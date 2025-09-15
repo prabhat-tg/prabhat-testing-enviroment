@@ -1,5 +1,4 @@
 'use client';
-import { useIsMobile } from '@/src/hooks/useIsMobile';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
@@ -17,8 +16,10 @@ export default function ContactForm({
   isCloseAfterSubmit,
   setIsCloseAfterSubmit,
   translation,
+  inquiryType = "tyre", // tractor and implement
+  onOtpScreenAppear,
+  isMobile
 }) {
-  const isMobile = useIsMobile();
   const [isScrolled, setIsScrolled] = useState(false);
   const [product_id, setProductId] = useState('');
   const [states, setStates] = useState([]);
@@ -135,7 +136,9 @@ export default function ContactForm({
       district: selectedDistrict,
       tehsil: selectedTehsil,
       state: selectedState,
-      type_id: 94,
+      type_id: inquiryType === "tractor"
+        ? (isMobile ? 10 : 9)
+        : (isMobile ? 93 : 94),
       user_message: 'Enquiry',
       otp_type: 'form_submit_otp_send',
       form_name: 'connect_with_dealer',
@@ -148,6 +151,10 @@ export default function ContactForm({
       if (result.status === 'success') {
         setOtp(result?.otp);
         setShowOtpPopup(true);
+        // Notify parent component that OTP screen has appeared
+        if (onOtpScreenAppear) {
+          onOtpScreenAppear();
+        }
         setExistVerified(result?.text || null);
         setPrimaryId(result?.primary_id);
         setIsCloseAfterSubmit(true);
@@ -176,6 +183,7 @@ export default function ContactForm({
         {showOtpPopup ? (
           <SubmitOtpForm
             otp={otp}
+            encryptedOtp={otp}
             mobile={mobile_name}
             primaryId={primaryId}
             product_id={product_id}
@@ -192,6 +200,8 @@ export default function ContactForm({
             dealerContactName={dealerContactName}
             existVerified={existVerified}
             productNameSingular={'Dealer'}
+            translation={translation}
+            enquiryType={'Dealer'}
           />
         ) : (
           isCloseAfterSubmit && (

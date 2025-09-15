@@ -230,6 +230,7 @@ const TG_HomePage = async ({ searchParams, prefLangs }) => {
             cta="Compare Tractors"
             currentLang={prefLang}
             tractorbrands={allTractorBrands}
+            translation={translation}
           />
         </section>
 

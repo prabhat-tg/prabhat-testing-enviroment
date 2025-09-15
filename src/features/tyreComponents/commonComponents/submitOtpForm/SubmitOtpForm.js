@@ -27,7 +27,7 @@ const DealerInfo = ({ dealerContactName, dealerMobile, maskMobile }) => (
     <div className="flex items-center">
       <span className="text-gray-500 text-xs">Mobile Number:</span>
       <span className="text-gray-900 ps-2 text-base font-semibold">
-        {maskMobile ? maskMobile(dealerMobile) : dealerMobile}
+        {dealerMobile}
       </span>
     </div>
   </div>
@@ -78,6 +78,7 @@ const SubmitOtpForm = ({
   productNamePlural,
   enquiryType, // This will determine the main context ('Tyre', 'Tractor', 'Dealer', 'Insurance')
   currentLang,
+  encryptedOtp
 }) => {
   // State
   const [otpTimer, setOtpTimer] = useState(20);
@@ -272,7 +273,24 @@ const SubmitOtpForm = ({
   const verifyOtp = e => {
     e.preventDefault();
     if (!primaryId) return alert('OTP or request ID missing.');
-    postData(`api/enquiry_otp_verify`, {
+    postData(`api/enquiry_otp_verify`, enquiryType == 'Insurance' ? {
+      out: enteredOtp,
+      main_id: encryptedOtp,
+      p_id: primaryId,
+      button_type: "submit",
+      keyup: "session_verify",
+      mobile: mobile,
+      submit_form_name: 'enquiry_datas'
+
+    } : enquiryType == 'Dealer' ? {
+      user_otp: enteredOtp,
+      db_otp: encryptedOtp,
+      p_id: primaryId,
+      mobile: mobile,
+      direct_verify: "direct_verify",
+      form_name: "enquiry_datas",
+      submit_form_name: 'enquiry_datas'
+    } : {
       otp: enteredOtp,
       primary_id: primaryId,
     })
@@ -1067,9 +1085,9 @@ const SubmitOtpForm = ({
                   dealerMobile={dealerMobile}
                   maskMobile={maskMobile}
                 />
-                <button onClick={handleGetPrice} className="text-base text-blue-link">
+                {/* <button onClick={handleGetPrice} className="text-base text-blue-link">
                   {translation?.suggestedPopup.verifyMobile}
-                </button>
+                </button> */}
               </div>
               <WhatsappChannel translation={translation} />
             </div>
