@@ -49,8 +49,11 @@ const LatestTractorSection = ({
 
   const settings = {
     dots: true,
+    centerMode: true,
+    className: "center",
+    centerPadding: "32px",
     speed: 500,
-    slidesToShow: 1.15,
+    slidesToShow: 1,
     slidesToScroll: 1,
     infinite: false,
     autoplay: false,
@@ -101,7 +104,7 @@ const LatestTractorSection = ({
           </div>
         ) : (
           <div className="mb-10">
-            <Slider {...settings} className="latest-section-slider pb-4">
+            <Slider {...settings} className="latest-section-slider pb-4 -ml-8">
               {popularData?.slice(0, 4).map((item, index) => (
                 <LatestTractorCard
                   key={index}

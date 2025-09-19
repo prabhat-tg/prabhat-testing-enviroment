@@ -153,10 +153,8 @@ export default function TyreDealerDetail({
                           src={
                             'https://images.tractorgyan.com/uploads/116793/674d478769820-VerifiedByBadgeBlackText.webp'
                           }
-                          width={56}
-                          height={44}
-                          loading="lazy"
-                          decoding="async"
+                          height={300}
+                          width={300}
                           alt="brand-logo"
                           title="brand-logo"
                           className="absolute right-0 top-0 h-auto max-h-11 w-auto max-w-14"

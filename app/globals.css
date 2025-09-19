@@ -141,6 +141,7 @@
 }
 .latest-section-slider .slick-slide:not(.slick-current) {
   transform: scale(0.9);
+  max-height: 340px;
 }
 
 .compare-tractors-slider .slick-list {

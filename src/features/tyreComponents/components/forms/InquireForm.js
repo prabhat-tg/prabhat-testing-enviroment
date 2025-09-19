@@ -109,7 +109,7 @@ const TyrePriceInquireForm = ({
 
           data.forEach(modelItem => {
             if ((+modelItem?.product_id == +preFilledModelId) || (+modelItem.id == +preFilledModelId)) {
-
+              setProductId(modelItem.id);
               setSelectedModel(modelItem.model_en || modelItem.model);
             }
           })
@@ -249,7 +249,7 @@ const TyrePriceInquireForm = ({
         type_id: isMobile ? 6 : 5,
       };
       apiEndpoint = '/api/enquiry_data_otp_send';
-    } if (type === 'IMPLEMENT') {
+    } else if (type === 'IMPLEMENT') {
       // Payload for implement
       payload = {
         // 'user-message': 'Enquiry',
@@ -459,7 +459,7 @@ const TyrePriceInquireForm = ({
                             const selectedModelItem = tyreModels[selectedIndex];
                             if (type === 'TRACTOR') {
                               setSelectedModel(selectedModelItem.model_en);
-                              setProductId(selectedModelItem.product_id);
+                              setProductId(selectedModelItem.id);
                             } if (type === 'IMPLEMENT') {
                               setSelectedModel(selectedModelItem.model);
                               setProductId(selectedModelItem.id);

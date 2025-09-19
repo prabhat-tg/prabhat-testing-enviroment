@@ -1,6 +1,6 @@
 import React from 'react';
 import HeaderTabs from './HeaderTabs';
-import { tgi_tractor_nav, tgi_tyre_nav } from '@/src/utils/assets/icons';
+import { tgi_implement_nav, tgi_tractor_nav, tgi_tyre_nav } from '@/src/utils/assets/icons';
 
 const MobileNavbar = ({ tabset, translation, currentLang = 'en' }) => {
   const langPrefix = currentLang === 'hi' ? '/hi' : '';
@@ -112,25 +112,25 @@ const MobileNavbar = ({ tabset, translation, currentLang = 'en' }) => {
     {
       tabHeading: translation.mobileNavbar.implement.implementPrice,
       linkUrl: `${langPrefix}/implement-on-road-price`,
-      imgUrl: tgi_tyre_nav.tyre_price,
+      imgUrl: tgi_implement_nav.subsidy, // Icon needs to be designed
       altText: 'implement-price-img',
     },
     {
       tabHeading: translation.mobileNavbar.implement.webstory,
       linkUrl: `${langPrefix}/web-story-in-india`,
-      imgUrl: tgi_tractor_nav.webstory,
+      imgUrl: tgi_implement_nav.webstory,
       altText: 'implement-webstory-img',
     },
     {
       tabHeading: translation.mobileNavbar.implement.implementBlogs,
       linkUrl: `${langPrefix}/tractor-industry-news-blogs/category/tyre-news`,
-      imgUrl: tgi_tyre_nav.tyre_blogs,
+      imgUrl: tgi_implement_nav.all, // Icon needs to be designed
       altText: 'implement-blog-img',
     },
     {
       tabHeading: 'Videos',
       linkUrl: `${langPrefix}/tractor-videos`,
-      imgUrl: tgi_tractor_nav.videos,
+      imgUrl: tgi_implement_nav.videos,
       altText: 'implement-videos-img',
     },
   ];

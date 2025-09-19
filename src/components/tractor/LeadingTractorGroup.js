@@ -44,7 +44,7 @@ const LeadingTractorGroup = ({
           <MainHeadings text={translation.headings.tractorsbyBrands} />
         )} */}
 
-        <div className="mb-8 grid grid-cols-4 gap-4">
+        <div className="mb-8 grid grid-cols-2 md:grid-cols-4 gap-4">
           {leadingTractorGroups?.map((item, index) => (
             <GroupCard
               imgUrl={item.image}

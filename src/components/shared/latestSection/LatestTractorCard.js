@@ -126,7 +126,7 @@ const LatestTractorCard = ({
               key={index}
               className="flex w-full flex-1 flex-col items-center rounded-lg bg-white p-1 text-center"
             >
-              <div className="mx-auto h-5 w-full min-w-4 max-w-8">
+              <div className="mx-auto h-5 w-full min-w-4 max-w-8 flex justify-center">
                 <img
                   src={spec.icon}
                   alt={`${spec.label}-icon`}

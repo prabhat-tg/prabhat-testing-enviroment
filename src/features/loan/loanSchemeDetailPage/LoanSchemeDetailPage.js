@@ -7,6 +7,7 @@ import { BankDetailsListing } from '@/src/utils/loan/bank-details';
 import DesktopTractorsByBrands from '@/src/components/tractor/DesktopTractorsByBrands';
 import GoogleAdVertical from '../../social/GoogleAdVertical/GoogleAdVertical';
 import { BankDetailsListingHindi } from '@/src/utils/loan/bank-details-hi';
+import GoogleAdHorizontal from '../../social/GoogleAdHorizontal/GoogleAdHorizontal';
 
 const LoanSchemeDetailPage = ({
   translation,
@@ -226,7 +227,7 @@ const LoanSchemeDetailPage = ({
               allTractorBrands={allTractorBrands}
               heading={translation.headings.TopBrands}
             />
-            <GoogleAdVertical />
+            {isMobile ? <GoogleAdHorizontal /> : (<GoogleAdVertical />)}
           </div>
         </div>
       </div>

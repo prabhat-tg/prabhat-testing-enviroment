@@ -141,24 +141,44 @@ const TractorImplementTypes = ({
           <Slider {...settings} className="custom-gap-slider pb-4 mb-4 md:mb-6">
             {isMobile ? (
               // Mobile: Show items in pairs
+              // allImplementTypes?.reduce((acc, _, i) => {
+              //   if (i % 2 === 0) {
+              //     const pair = allImplementTypes.slice(i, i + 2);
+              //     acc.push(pair);
+              //   }
+              //   return acc;
+              // }, []).map((pair, index) => (
+              //   <div key={index}>
+              //     {pair.map((item, subIndex) => (
+              //       <ImplementTypeCard
+              //         key={`${index}-${subIndex}`}
+              //         title={currentLang == 'hi' ? item.name_hi : item.name}
+              //         imgSrc={`https://images.tractorgyan.com/uploads/${item.image}`}
+              //         url={item.url}
+              //       />
+              //     ))}
+              //   </div>
+              // ))
+              // Mobile: Show items in triplets
               allImplementTypes?.reduce((acc, _, i) => {
-                if (i % 2 === 0) {
-                  const pair = allImplementTypes.slice(i, i + 2);
-                  acc.push(pair);
+                if (i % 3 === 0) {
+                  const triplet = allImplementTypes.slice(i, i + 3); // take 3 items
+                  acc.push(triplet);
                 }
                 return acc;
-              }, []).map((pair, index) => (
-                <div key={index}>
-                  {pair.map((item, subIndex) => (
-                    <ImplementTypeCard
-                      key={`${index}-${subIndex}`}
-                      title={currentLang == 'hi' ? item.name_hi : item.name}
-                      imgSrc={`https://images.tractorgyan.com/uploads/${item.image}`}
-                      url={item.url}
-                    />
-                  ))}
-                </div>
-              ))
+              }, [])
+                .map((triplet, index) => (
+                  <div key={index} className="flex gap-4">
+                    {triplet.map((item, subIndex) => (
+                      <ImplementTypeCard
+                        key={`${index}-${subIndex}`}
+                        title={currentLang == 'hi' ? item.name_hi : item.name}
+                        imgSrc={`https://images.tractorgyan.com/uploads/${item.image}`}
+                        url={item.url}
+                      />
+                    ))}
+                  </div>
+                ))
             ) : (
               // Desktop: show one item per slide
               allImplementTypes?.map((item, index) => (

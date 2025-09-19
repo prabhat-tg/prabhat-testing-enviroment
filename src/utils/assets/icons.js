@@ -49,7 +49,16 @@ export const tgi_tyre_nav = {
     front_tyre: `${CDN_URL}/117150/676a442e7c620-H-Front-Tyre.webp`,
     rear_tyre: `${CDN_URL}/117151/676a45d747538-H-Rear-Tyre.webp`,
     tyre_blogs: `${CDN_URL}/117152/676a46689b65d-H-Tyre-Blogs.webp`,
-};  
+};
+
+export const tgi_implement_nav = {
+    all: `${CDN_URL}/121056/1758120506All-Implements-Icon.webp`,
+    emi: `${CDN_URL}/121057/1758120518Implement-EMI-Calculator-Icon.webp`,
+    reels: `${CDN_URL}/121058/1758120528Implements-Reels-Icon.webp`,
+    subsidy: `${CDN_URL}/121059/1758120538Implements-Subsidy-Icon.webp`,
+    videos: `${CDN_URL}/121060/1758120551Implements-Videos-Icon.webp`,
+    webstory: `${CDN_URL}/121061/1758120566Implements-Webstory-Icon.webp`,
+};
 
 
 // Implement Types

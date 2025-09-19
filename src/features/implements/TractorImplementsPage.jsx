@@ -91,6 +91,7 @@ export default async function TractorImplementsPage({ params }) {
   let latestData;
   try {
     latestData = await getLatestImplements(currentLang);
+    // console.log('latest implements = ', latestData);
   } catch (error) {
     latestData = [];
   }
@@ -158,7 +159,7 @@ export default async function TractorImplementsPage({ params }) {
         bgColor={'bg-section-gray'}
         heading={translation.headerNavbar.implementsByBrands}
         allImplementBrands={allImplementBrandsWithDetails}
-        itemsShown={isMobile ? 12 : 10}
+        itemsShown={isMobile ? 9 : 10}
         translation={translation}
         prefLang={currentLang}
       />

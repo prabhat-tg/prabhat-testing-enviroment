@@ -5,7 +5,7 @@ import ImplementHomePageBannerSearchClient from './ImplementHomePageBannerSearch
 const ImplementHomePageBanner = ({ banner, isMobile = false, currentLang }) => {
 
   const bgImg = banner[0]?.slider_image;
-  const gradientOverlay = "linear-gradient(180deg, rgba(217, 217, 217, 0) 66.09%, rgba(119, 119, 119, 0.59) 79.69%, #4D4D4D 85.62%, #212020 91.9%, #1B1B1B 100%)";
+  const gradientOverlay = "linear-gradient(180deg, rgba(0, 0, 0, 0) 66.09%, rgba(0, 0, 0, 0.75) 100%)";
 
   return (
     // TODO:: Update banner images and implement slider

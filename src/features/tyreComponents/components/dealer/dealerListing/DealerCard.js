@@ -41,10 +41,10 @@ const DealerCard = async ({
                     width={56}
                     alt="verified-badge"
                     title="verified-badge"
-                    loading="lazy"
-                    decoding="async"
-                    quality={60}
                     className="h-auto max-h-11 w-auto max-w-14 object-contain"
+                    style={{
+                      objectFit: 'contain'
+                    }}
                   />
                 </div>
               )}

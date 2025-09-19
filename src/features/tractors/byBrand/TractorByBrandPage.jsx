@@ -500,7 +500,7 @@ export default async function TractorByBrandPage({
                   title: `${brandByLang.name} ${translation.headerNavbar.tractors}`,
                   ...(isSeriesListing ? {} : { isCurrent: true }),
                   ...(isSeriesListing
-                    ? { href: (currentLang == 'hi' ? '/hi' : '') + `/tractor/${param['brand-name']}` }
+                    ? { href: (currentLang == 'hi' ? '/hi' : '') + `/tractor/${(param['brand-name']).replace(/\b\w/g, (char) => char.toUpperCase())}` }
                     : {}),
                 },
                 ...(isSeriesListing
@@ -519,7 +519,7 @@ export default async function TractorByBrandPage({
       </div>
       {/* Tractor Listing Section with Two-Column Layout */}
       {TractorListingComponent}
-      {!hpRange ? (
+      {!hpRange && tractorSeries.length > 0 ? (
         <section className="mt-0 md:mt-10">
           <div className="container">
             <div className="flex flex-col gap-6 md:flex-row">

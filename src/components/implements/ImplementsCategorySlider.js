@@ -17,7 +17,7 @@ const ImplementsCategorySlider = ({ heading, categories, cta, isMobile, itemsSho
   }) => {
     return (
       <Link href={`/${url}`}>
-        <div className={`${className} p-3 flex flex-col items-center justify-center rounded-lg shadow-bottom border border-gray-light`}>
+        <div className={`${className} p-3 flex flex-col items-center justify-center rounded-lg shadow-bottom border border-gray-light hover:border-secondary hover:bg-green-lighter`}>
           <h2 className="text-sm md:text-md font-semibold text-center text-nowrap">{title}</h2>
         </div>
       </Link>

@@ -236,7 +236,8 @@ const DesktopHeader = ({ translation, currentLang, isMobile, showLanguageSelecto
     const skipForDetailPages =
       /^\/tractor-industry-news-blogs\/\d+/.test(pathname) ||
       /^\/tractor-videos\/[^/]+/.test(pathname) ||
-      /^\/tractor-reels-and-shorts\/[^/]+/.test(pathname);
+      /^\/tractor-reels-and-shorts\/[^/]+/.test(pathname) ||
+      /^(\/hi)?\/tractor\/[^/]+/.test(pathname);  // added this route because we are showing ad of reel in tractor listing page
 
     if (!preferredLang && !isClosedPopUp && !skipForDetailPages) {
       const timeout = setTimeout(() => {

@@ -1,11 +1,8 @@
 import TittleAndCrumbs from '@/src/components/shared/TittleAndCrumbs/TittleAndCrumbs';
 import DealerListing from '../dealerListing/DealerListing';
-import dynamic from 'next/dynamic';
+import DealerFilterClient from './DealerFilterClient';
 import Link from 'next/link';
 import Image from 'next/image';
-
-const DealerFilterClient = dynamic(
-  () => import('./DealerFilterClient'));
 
 const PAGE_SIZE = 15;
 
@@ -129,7 +126,7 @@ export default async function DealerFilterSection({
         : 'https://images.tractorgyan.com/uploads/117674/67988ae896d7f-tyre-dealer-banner-mobile.webp';
 
   return (
-    <section className="container lg:mt-[172px]">
+    <section className="container lg:mt-[142px]">
       <div className=" relative">
         {/* <div className={isMobile ? `w-[90%] m-auto` : ``}>
         </div> */}
@@ -270,10 +267,6 @@ export default async function DealerFilterSection({
               width={1000}
               title="Tyre Price Banner"
               alt="tyre price banner"
-              sizes="(min-width: 1536px) 1200px, (min-width: 768px) 900px, 100vw"
-              priority
-              decoding="async"
-              quality={75}
               className="h-full w-full object-cover object-center"
             />
           </div>
@@ -284,9 +277,6 @@ export default async function DealerFilterSection({
               width={1000}
               title="Tyre Price Banner"
               alt="tyre price banner"
-              loading="lazy"
-              decoding="async"
-              quality={70}
               className="w-full"
             />
           </div>

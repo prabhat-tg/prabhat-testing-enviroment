@@ -3,6 +3,7 @@ import React from 'react';
 import TG_HorizontalCard from '@/src/components/ui/cards/ListingCard';
 import SecondHandTractorCard from '@/src/components/ui/cards/secondHandTractorCards/SecondHandTractorCard';
 import { TG_ReelsCard } from '@/src/components/ui/cards/reels/ReelsCards';
+import ClientVideoWrapper from '@/src/components/ui/video/ClientVideoWrapper';
 
 const TractorListing = ({
   pageType,
@@ -104,20 +105,15 @@ const TractorListing = ({
                     {reel && (
                       reel.url_of_video && reel.featured_image && !reel.image ? (
                         <div className="relative rounded-2xl border border-gray-light p-4 w-full h-full flex flex-col justify-between bg-white min-h-[360px] md:min-h-[540px]">
-                          <div className="bg-gray-lighter w-full h-full flex-1 rounded-xl overflow-hidden relative min-h-[200px] md:min-h-[360px]">
-                            <iframe
-                              src={
-                                reel.url_of_video.includes('autoplay=1')
-                                  ? reel.url_of_video
-                                  : `${reel.url_of_video}${reel.url_of_video.includes('?') ? '&' : '?'}autoplay=1&mute=1`
-                              }
-                              title={reel.title}
-                              allow="autoplay; encrypted-media"
-                              allowFullScreen
-                              className="absolute top-0 left-0 w-full h-full min-h-[200px] md:min-h-[360px] aspect-video rounded-xl border-none"
-                              style={{ minHeight: 0 }}
-                            />
-                          </div>
+                          <ClientVideoWrapper
+                            videoUrl={reel.url_of_video}
+                            title={reel.title}
+                            isMobile={isMobile}
+                            className="bg-gray-lighter w-full h-full flex-1 rounded-xl overflow-hidden relative min-h-[200px] md:min-h-[360px]"
+                          // onUserInteraction={() => {
+                          //   console.log('User scrolled - audio enabled for video');
+                          // }}
+                          />
                         </div>
                       ) : (
                         <TG_ReelsCard data={reel} />

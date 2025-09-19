@@ -71,7 +71,7 @@ const PopularCard = ({
                       'Lifting Capacity': item.lifting_capacity,
                     }
                     : {
-                      Power: item.power,
+                      Power: `${item.power} HP`,
                       Warranty: item.warranty,
                       Width: item.width,
                     }
@@ -135,7 +135,7 @@ const PopularCard = ({
                   'Lifting Capacity': lifting_capacity,
                 }
                 : {
-                  Power: power,
+                  Power: `${power} HP`,
                   Warranty: warranty,
                   Width: width,
                 }

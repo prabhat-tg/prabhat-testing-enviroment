@@ -113,12 +113,11 @@ const ImplementHomePageBannerSearchClient = ({ currentLang }) => {
     </button>
   );
 
-  const Dropdown = ({ type, items, onSelect, isLoading }) => {
+  const Dropdown = ({ type, items, onSelect, selectedItem, isLoading }) => {
     // Create default option based on type
     const defaultOption = {
       isDefault: true,
-      name: type === 'brand' ? 'Select Brand' : undefined,
-      title: type === 'category' ? 'Select Type' : undefined,
+      name: type === 'brand' ? 'Select Brand' : type === 'category' ? 'Select Type' : undefined
     };
 
     // Combine default option with items
@@ -139,11 +138,12 @@ const ImplementHomePageBannerSearchClient = ({ currentLang }) => {
                 key={index}
                 className={`${item.isDefault
                   ? 'text-gray-500 border-gray-200 border-b font-medium'
-                  : 'text-gray-700 hover:bg-gray-100'
-                  } block w-full px-4 py-1 text-left text-xs`}
+                  : 'text-gray-700 hover:bg-gray-100 hover:text-primary cursor-pointer'
+                  } block w-full px-4 py-1 text-left text-xs
+                ${item.name === selectedItem ? 'text-primary' : ''}`}
                 onClick={() => onSelect(item)}
               >
-                {item.name}
+                {currentLang === 'hi' ? item.name_hi : item.name}
               </button>
             ))
           ) : (
@@ -155,7 +155,7 @@ const ImplementHomePageBannerSearchClient = ({ currentLang }) => {
   };
 
   return (
-    <div className="ms-auto mt-7 hidden h-[251px] w-full max-w-[302px] rounded-xl bg-white p-[18px] shadow-[0px_2.89px_12.28px_0px_#50635054] md:block">
+    <div className="ms-auto mt-0 hidden h-[251px] w-full max-w-[302px] rounded-xl bg-white p-[18px] shadow-[0px_2.89px_12.28px_0px_#50635054] md:block">
       <h5 className="mb-4 text-lg font-semibold leading-5">Search Implements</h5>
       <p className="mb-1.5 text-xs font-medium text-[#595959]">Search by Brands</p>
       <div className="mb-2.5 flex gap-2.5">
@@ -170,6 +170,7 @@ const ImplementHomePageBannerSearchClient = ({ currentLang }) => {
             type="brand"
             items={brands}
             onSelect={handleBrandSelect}
+            selectedItem={selectedBrand?.name}
             isLoading={loading.brands}
           />
         </div>
@@ -185,7 +186,13 @@ const ImplementHomePageBannerSearchClient = ({ currentLang }) => {
             selectedValue={selectedCategory?.name}
             disabled={selectedBrand}
           />
-          <Dropdown type="category" items={categoryOptions} onSelect={handleCategorySelect} isLoading={loading.category} />
+          <Dropdown
+            type="category"
+            items={categoryOptions}
+            onSelect={handleCategorySelect}
+            selectedItem={selectedCategory?.name}
+            isLoading={loading.category}
+          />
         </div>
       </div>
       <button
