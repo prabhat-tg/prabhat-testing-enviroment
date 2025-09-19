@@ -133,27 +133,59 @@ const TractorListing = ({
                 <meta itemProp="itemListOrder" content="https://schema.org/ItemListOrderAscending" />
 
                 {(reel ? initialTyres.slice(showReelAfter) : initialTyres).map((tractor, index) => (
-                  // {initialTyres.map((tractor, index) => (
-                  <TG_HorizontalCard
+                  <div
                     key={tractor.id}
-                    title={`${tractor.brand} ${tractor.model}`}
-                    total_reviews={tractor.total_reviews || tractor.total_review || 0}
-                    avg_review={tractor.avg_review || 0}
-                    imageSrc={`https://images.tractorgyan.com/uploads${tractor.image}`}
-                    detailUrl={(currentLang == 'hi' ? '/hi' : '') + tractor.page_url}
-                    specs={{
-                      [translation?.tractorSpecs?.hp || 'HP']: tractor.hp,
-                      [translation?.tractorSpecs?.cylinders || 'Cylinder']: tractor.cylinder,
-                      [translation?.headerNavbar?.liftingCapacity || 'Lifting Capacity']: tractor.lifting_capacity,
-                    }}
-                    buttonText={translation?.headerNavbar?.checkPrice || "Check Price"}
-                    buttonPrefix="₹ "
-                    isPopular={tractor.popular_tractor === '1'}
-                    showRatingOnTop={pageType === 'tractors'}
-                    translation={translation} // Pass translation
-                    position={index + 1 + (currentPage - 1) * itemsPerPage} // Calculate position for SEO
-                    tractorId={tractor.id} // Pass tractor ID for SEO
-                  />
+                    itemProp="itemListElement"
+                    itemScope
+                    itemType="https://schema.org/ListItem"
+                  >
+                    <meta itemProp="position" content={(index + 1 + (currentPage - 1) * itemsPerPage).toString()} />
+
+                    <div itemProp="item" itemScope itemType="https://schema.org/Product">
+                      <meta itemProp="name" content={`${tractor.brand} ${tractor.model}`} />
+                      <link itemProp="url" href={(currentLang == 'hi' ? '/hi' : '') + tractor.page_url} />
+                      <TG_HorizontalCard
+                        // key={tractor.id}
+                        title={`${tractor.brand} ${tractor.model}`}
+                        total_reviews={tractor.total_reviews || tractor.total_review || 0}
+                        avg_review={tractor.avg_review || 0}
+                        imageSrc={`https://images.tractorgyan.com/uploads${tractor.image}`}
+                        detailUrl={(currentLang == 'hi' ? '/hi' : '') + tractor.page_url}
+                        specs={{
+                          [translation?.tractorSpecs?.hp || 'HP']: tractor.hp,
+                          [translation?.tractorSpecs?.cylinders || 'Cylinder']: tractor.cylinder,
+                          [translation?.headerNavbar?.liftingCapacity || 'Lifting Capacity']: tractor.lifting_capacity,
+                        }}
+                        buttonText={translation?.headerNavbar?.checkPrice || "Check Price"}
+                        buttonPrefix="₹ "
+                        isPopular={tractor.popular_tractor === '1'}
+                        showRatingOnTop={pageType === 'tractors'}
+                        translation={translation}
+                        position={index + 1 + (currentPage - 1) * itemsPerPage}
+                        tractorId={tractor.id}
+                      />
+                    </div>
+                  </div>
+                  // <TG_HorizontalCard
+                  //   key={tractor.id}
+                  //   title={`${tractor.brand} ${tractor.model}`}
+                  //   total_reviews={tractor.total_reviews || tractor.total_review || 0}
+                  //   avg_review={tractor.avg_review || 0}
+                  //   imageSrc={`https://images.tractorgyan.com/uploads${tractor.image}`}
+                  //   detailUrl={(currentLang == 'hi' ? '/hi' : '') + tractor.page_url}
+                  //   specs={{
+                  //     [translation?.tractorSpecs?.hp || 'HP']: tractor.hp,
+                  //     [translation?.tractorSpecs?.cylinders || 'Cylinder']: tractor.cylinder,
+                  //     [translation?.headerNavbar?.liftingCapacity || 'Lifting Capacity']: tractor.lifting_capacity,
+                  //   }}
+                  //   buttonText={translation?.headerNavbar?.checkPrice || "Check Price"}
+                  //   buttonPrefix="₹ "
+                  //   isPopular={tractor.popular_tractor === '1'}
+                  //   showRatingOnTop={pageType === 'tractors'}
+                  //   translation={translation}
+                  //   position={index + 1 + (currentPage - 1) * itemsPerPage}
+                  //   tractorId={tractor.id}
+                  // />
                 ))}
               </div>
             </>

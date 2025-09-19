@@ -79,6 +79,13 @@ export default async function TractorTyreInIndiaPage() {
         staticMetadata={staticMetadata}
         preloadUrls={homeBanners.length > 0 && [homeBanners[0].slider_image]}
         seoHTMLDescription={seoHTMLDescription?.data}
+        canonical={`${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}${prefLang === "en" ? '' : "/hi"}/tractor-tyre-in-india`}
+        hreflang={{
+          en:
+            `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/tractor-tyre-in-india`,
+          hi:
+            `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/hi/tractor-tyre-in-india`
+        }}
       />
       <NavComponents
         translation={translation}
