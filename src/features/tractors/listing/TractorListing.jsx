@@ -16,7 +16,7 @@ const TractorListing = ({
   currentLang, // Used by buildPageLink
   currentDate, // Prop for "Data Last Updated On"
   basePath, // Add basePath prop for correct URL building
-  pageOrigin, // Add pageOrigin to determine URL structure
+  pageOrigin = "https://tractorgyan.com", // Add pageOrigin to determine URL structure
   isMobile,
   reel // <-- Accept reel prop
 }) => {
@@ -54,6 +54,15 @@ const TractorListing = ({
     // return `${baseUrl}?${queryParams.toString()}`;
   };
 
+  // Helper: build absolute URL for schema
+  const abs = (path) => {
+    if (!path) return '';
+    if (/^https?:\/\//i.test(path)) return path;
+    const origin = (pageOrigin || '').replace(/\/$/, '');
+    if (!origin) return path;
+    return path.startsWith('/') ? `${origin}${path}` : `${origin}/${path}`;
+  };
+
   return (
     // This component no longer defines the two-column layout.
     // It's expected to fill the space provided by its parent in app/(tyres)/tyres/page.js
@@ -67,16 +76,14 @@ const TractorListing = ({
         </div>
       ) : (
         <>
-          {pageType === 'tractors' && (
+          {/* {pageType === 'tractors' && (
             <>
-              {/* BEGINS::Handling Reels Section */}
               {reel ? (
                 <div
                   className="flex flex-col md:flex-row flex-wrap items-stretch gap-4 lg:gap-4 mb-4"
                   itemScope
                   itemType="https://schema.org/ItemList"
                 >
-                  {/* Width to be kept in sync with TG_HorizontalCard */}
                   <div className='flex flex-1 flex-col gap-4 lg:gap-4 w-full max-w-[420px]'>
                     {initialTyres.slice(0, showReelAfter).map((tractor, index) => (
                       <TG_HorizontalCard
@@ -110,9 +117,6 @@ const TractorListing = ({
                             title={reel.title}
                             isMobile={isMobile}
                             className="bg-gray-lighter w-full h-full flex-1 rounded-xl overflow-hidden relative min-h-[200px] md:min-h-[360px]"
-                          // onUserInteraction={() => {
-                          //   console.log('User scrolled - audio enabled for video');
-                          // }}
                           />
                         </div>
                       ) : (
@@ -122,13 +126,11 @@ const TractorListing = ({
                   </div>
                 </div>
               ) : null}
-              {/* ENDS::Handling Reels Section */}
               <div
                 className="flex flex-wrap gap-4 lg:gap-4 xl:gap-4"
                 itemScope
                 itemType="https://schema.org/ItemList"
               >
-                {/* Hidden ItemList metadata */}
                 <meta itemProp="numberOfItems" content={totalTyresCount} />
                 <meta itemProp="itemListOrder" content="https://schema.org/ItemListOrderAscending" />
 
@@ -187,6 +189,161 @@ const TractorListing = ({
                   //   tractorId={tractor.id}
                   // />
                 ))}
+              </div>
+            </>
+          )} */}
+
+          {pageType === 'tractors' && (
+            <>
+              {/* reels area (keeps ItemList microdata for reel layout too) */}
+              {reel ? (
+                <div
+                  className="flex flex-col md:flex-row flex-wrap items-stretch gap-4 lg:gap-4 mb-4"
+                  itemScope
+                  itemType="https://schema.org/ItemList"
+                >
+                  <div className="flex flex-1 flex-col gap-4 lg:gap-4 w-full max-w-[420px]">
+                    {initialTyres.slice(0, showReelAfter).map((tractor, index) => (
+                      <TG_HorizontalCard
+                        key={tractor.id}
+                        title={`${tractor.brand} ${tractor.model}`}
+                        total_reviews={tractor.total_reviews || tractor.total_review || 0}
+                        avg_review={tractor.avg_review || 0}
+                        imageSrc={`https://images.tractorgyan.com/uploads${tractor.image}`}
+                        detailUrl={(currentLang == 'hi' ? '/hi' : '') + tractor.page_url}
+                        specs={{
+                          [translation?.tractorSpecs?.hp || 'HP']: tractor.hp,
+                          [translation?.tractorSpecs?.cylinders || 'Cylinder']: tractor.cylinder,
+                          [translation?.headerNavbar?.liftingCapacity || 'Lifting Capacity']: tractor.lifting_capacity,
+                        }}
+                        buttonText={translation?.headerNavbar?.checkPrice || "Check Price"}
+                        buttonPrefix="₹ "
+                        isPopular={tractor.popular_tractor === '1'}
+                        showRatingOnTop={pageType === 'tractors'}
+                        translation={translation}
+                        position={index + 1 + (currentPage - 1) * itemsPerPage}
+                        tractorId={tractor.id}
+                      />
+                    ))}
+                  </div>
+
+                  <div className="flex flex-1 w-full max-w-[420px] items-stretch">
+                    {reel && (
+                      reel.url_of_video && reel.featured_image && !reel.image ? (
+                        <div className="relative rounded-2xl border border-gray-light p-4 w-full h-full flex flex-col justify-between bg-white min-h-[360px] md:min-h-[540px]">
+                          <ClientVideoWrapper
+                            videoUrl={reel.url_of_video}
+                            title={reel.title}
+                            isMobile={isMobile}
+                            className="bg-gray-lighter w-full h-full flex-1 rounded-xl overflow-hidden relative min-h-[200px] md:min-h-[360px]"
+                          />
+                        </div>
+                      ) : (
+                        <TG_ReelsCard data={reel} />
+                      )
+                    )}
+                  </div>
+                </div>
+              ) : null}
+
+              {/* MAIN ItemList: IMPORTANT - we add itemListElement microdata for each product */}
+              <div
+                className="flex flex-wrap gap-4 lg:gap-4 xl:gap-4"
+                itemScope
+                itemType="https://schema.org/ItemList"
+              >
+                <meta itemProp="numberOfItems" content={totalTyresCount} />
+                <meta itemProp="itemListOrder" content="https://schema.org/ItemListOrderAscending" />
+
+                {(reel ? initialTyres.slice(showReelAfter) : initialTyres).map((tractor, index) => {
+                  const position = index + 1 + (currentPage - 1) * itemsPerPage;
+                  const itemUrl = abs((currentLang === 'hi' ? '/hi' : '') + (tractor.page_url || ''));
+                  const imageUrl = tractor.image ? `https://images.tractorgyan.com/uploads${tractor.image}` : '';
+                  const avg = tractor.avg_review ?? tractor.avgRating ?? tractor.rating;
+                  const totalReviews = tractor.total_reviews ?? tractor.totalReview ?? tractor.review_count;
+                  const hasRating = avg !== undefined && avg !== null && totalReviews !== undefined && totalReviews !== null;
+                  const hasPrice = (tractor.price !== undefined && tractor.price !== null && tractor.price !== '') ||
+                    (tractor.price_min !== undefined && tractor.price_min !== null && tractor.price_min !== '');
+
+                  // fallback offer when neither rating nor price exists
+                  const useFallbackOffer = !hasRating && !hasPrice;
+
+                  // pick price value if available
+                  const priceValue = (tractor.price ?? tractor.price_min ?? tractor.price_max ?? 0);
+
+                  return (
+                    <div
+                      key={tractor.id || `${tractor.brand}-${tractor.model}-${index}`}
+                      itemProp="itemListElement"
+                      itemScope
+                      itemType="https://schema.org/ListItem"
+                      className="w-full"
+                    >
+                      <meta itemProp="position" content={position.toString()} />
+
+                      <div itemProp="item" itemScope itemType="https://schema.org/Product" className="w-full">
+                        {/* Product basics */}
+                        <meta itemProp="name" content={`${tractor.brand || ''} ${tractor.model || ''}`.trim()} />
+                        <link itemProp="url" href={itemUrl} />
+                        {imageUrl && <meta itemProp="image" content={imageUrl} />}
+
+                        {/* Brand as nested object */}
+                        {tractor.brand && (
+                          <div itemProp="brand" itemScope itemType="https://schema.org/Brand">
+                            <meta itemProp="name" content={tractor.brand} />
+                          </div>
+                        )}
+
+                        {/* If rating available -> provide aggregateRating */}
+                        {hasRating && (
+                          <div itemProp="aggregateRating" itemScope itemType="https://schema.org/AggregateRating">
+                            <meta itemProp="ratingValue" content={String(avg)} />
+                            <meta itemProp="reviewCount" content={String(totalReviews)} />
+                          </div>
+                        )}
+
+                        {/* If price exists -> provide an Offer. If not and no rating, provide fallback Offer to satisfy validator */}
+                        {(hasPrice || useFallbackOffer) && (
+                          <div itemProp="offers" itemScope itemType="https://schema.org/Offer">
+                            <meta itemProp="url" content={itemUrl} />
+                            <meta itemProp="priceCurrency" content={tractor.currency || 'INR'} />
+                            <meta itemProp="price" content={String(priceValue)} />
+                            {/* availability: use in_stock flag if available, otherwise PreOrder for fallback */}
+                            <meta
+                              itemProp="availability"
+                              content={
+                                tractor.in_stock !== undefined
+                                  ? (tractor.in_stock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock')
+                                  : (useFallbackOffer ? 'https://schema.org/PreOrder' : 'https://schema.org/OutOfStock')
+                              }
+                            />
+                          </div>
+                        )}
+
+                        {/* Render the visible card */}
+                        <TG_HorizontalCard
+                          title={`${tractor.brand} ${tractor.model}`}
+                          total_reviews={tractor.total_reviews || tractor.total_review || 0}
+                          avg_review={tractor.avg_review || 0}
+                          imageSrc={imageUrl}
+                          detailUrl={(currentLang == 'hi' ? '/hi' : '') + tractor.page_url}
+                          specs={{
+                            [translation?.tractorSpecs?.hp || 'HP']: tractor.hp,
+                            [translation?.tractorSpecs?.cylinders || 'Cylinder']: tractor.cylinder,
+                            [translation?.headerNavbar?.liftingCapacity || 'Lifting Capacity']: tractor.lifting_capacity,
+                          }}
+                          buttonText={translation?.headerNavbar?.checkPrice || "Check Price"}
+                          buttonPrefix="₹ "
+                          isPopular={tractor.popular_tractor === '1'}
+                          showRatingOnTop={pageType === 'tractors'}
+                          translation={translation}
+                          position={position}
+                          tractorId={tractor.id}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </>
           )}
