@@ -150,7 +150,7 @@ const TractorListing = ({
                         <link itemProp="url" href={itemUrl} />
                         {imageUrl && <meta itemProp="image" content={imageUrl} />}
 
-                        {/* {tractor.brand && (
+                        {tractor.brand && (
                           <div itemProp="brand" itemScope itemType="https://schema.org/Brand">
                             <meta itemProp="name" content={tractor.brand} />
                           </div>
@@ -163,7 +163,7 @@ const TractorListing = ({
                           </div>
                         )}
 
-                        {(hasPrice || useFallbackOffer) && (
+                        {/* {(hasPrice || useFallbackOffer) && (
                           <div itemProp="offers" itemScope itemType="https://schema.org/Offer">
                             <meta itemProp="url" content={itemUrl} />
                             <meta itemProp="priceCurrency" content={tractor.currency || 'INR'} />
