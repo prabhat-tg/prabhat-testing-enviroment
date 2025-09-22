@@ -163,21 +163,21 @@ const TractorListing = ({
                           </div>
                         )}
 
-                        {/* {(hasPrice || useFallbackOffer) && (
+                        {(hasPrice || useFallbackOffer) && (
                           <div itemProp="offers" itemScope itemType="https://schema.org/Offer">
                             <meta itemProp="url" content={itemUrl} />
                             <meta itemProp="priceCurrency" content={tractor.currency || 'INR'} />
                             <meta itemProp="price" content={String(priceValue)} />
-                            <meta
+                            {/* <meta
                               itemProp="availability"
                               content={
                                 tractor.in_stock !== undefined
                                   ? (tractor.in_stock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock')
                                   : (useFallbackOffer ? 'https://schema.org/PreOrder' : 'https://schema.org/OutOfStock')
                               }
-                            />
+                            /> */}
                           </div>
-                        )} */}
+                        )}
 
                         <TG_HorizontalCard
                           title={`${tractor.brand} ${tractor.model}`}
