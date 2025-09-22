@@ -57,49 +57,26 @@ const TractorListing = ({
 
   // build ItemList JSON-LD (ListItems point to WebPage to avoid Product validations)
   const itemListSchema = itemsForSchema.length > 0 ? 
-  // {
-  //   "@context": "https://schema.org",
-  //   "@type": "ItemList",
-  //   "name": `${translation?.headings?.hpGroupName || 'Tractors'}${pageType ? ` - ${pageType}` : ''}`,
-  //   "numberOfItems": Number(totalTyresCount || itemsForSchema.length),
-  //   "itemListOrder": "https://schema.org/ItemListOrderAscending",
-  //   "itemListElement": itemsForSchema.map((tractor, i) => {
-  //     const position = i + 1 + (Number(currentPage || 1) - 1) * (Number(itemsPerPage || 1));
-  //     const url = abs((currentLang === 'hi' ? '/hi' : '') + (tractor?.page_url || ''));
-  //     const name = `${tractor?.brand || ''} ${tractor?.model || ''}`.trim() || tractor?.page_url || `item-${position}`;
-  //     return {
-  //       "@type": "ListItem",
-  //       "position": position,
-  //       "item": {
-  //         "@type": "WebPage",
-  //         "url": url,
-  //         "name": name
-  //       }
-  //     };
-  //   })
-  // } 
   {
-    "@context": "https://schema.org/",
-    "@type": "Product",
-    "name": "All Tractor Price in India in 2025",
-
-      "aggregateRating": {
-      "@type": "AggregateRating",
-      "reviewCount": "15548",
-      "worstRating": "1",
-      "bestRating": "5",
-      "ratingValue": "4.5"
-    },
-    "review": [],
-    
-    "offers": {
-      "@type": "AggregateOffer",
-      "lowPrice": 244118,
-      "highPrice": 2791800,
-      "priceCurrency": "INR",
-      "offerCount": 30,
-      "offers": [ ]
-    }
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": `${translation?.headings?.hpGroupName || 'Tractors'}${pageType ? ` - ${pageType}` : ''}`,
+    "numberOfItems": Number(totalTyresCount || itemsForSchema.length),
+    "itemListOrder": "https://schema.org/ItemListOrderAscending",
+    "itemListElement": itemsForSchema.map((tractor, i) => {
+      const position = i + 1 + (Number(currentPage || 1) - 1) * (Number(itemsPerPage || 1));
+      const url = abs((currentLang === 'hi' ? '/hi' : '') + (tractor?.page_url || ''));
+      const name = `${tractor?.brand || ''} ${tractor?.model || ''}`.trim() || tractor?.page_url || `item-${position}`;
+      return {
+        "@type": "ListItem",
+        "position": position,
+        "item": {
+          "@type": "WebPage",
+          "url": url,
+          "name": name
+        }
+      };
+    })
   }
   : null;
 
