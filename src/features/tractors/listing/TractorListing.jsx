@@ -145,8 +145,8 @@ const TractorListing = ({
                     >
                       <meta itemProp="position" content={position.toString()} />
 
-                      <div itemProp="item" itemScope itemType="https://schema.org/Product" className="w-full">
-                        <meta itemProp="name" content={`${tractor.brand || ''} ${tractor.model || ''}`.trim()} />
+                      <div itemProp="item" itemScope itemType="https://schema.org/Carousels" className="w-full">
+                        {/* <meta itemProp="name" content={`${tractor.brand || ''} ${tractor.model || ''}`.trim()} />
                         <link itemProp="url" href={itemUrl} />
                         {imageUrl && <meta itemProp="image" content={imageUrl} />}
 
@@ -165,7 +165,7 @@ const TractorListing = ({
 
                         {(hasPrice || useFallbackOffer) && (
                           <div itemProp="offers" itemScope itemType="https://schema.org/Offer">
-                            {/* <meta itemProp="url" content={itemUrl} />
+                            <meta itemProp="url" content={itemUrl} />
                             <meta itemProp="priceCurrency" content={tractor.currency || 'INR'} />
                             <meta itemProp="price" content={String(priceValue)} />
                             <meta
@@ -175,9 +175,9 @@ const TractorListing = ({
                                   ? (tractor.in_stock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock')
                                   : (useFallbackOffer ? 'https://schema.org/PreOrder' : 'https://schema.org/OutOfStock')
                               }
-                            /> */}
+                            />
                           </div>
-                        )}
+                        )} */}
 
                         <TG_HorizontalCard
                           title={`${tractor.brand} ${tractor.model}`}
