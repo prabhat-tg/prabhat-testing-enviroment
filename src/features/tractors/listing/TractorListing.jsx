@@ -64,71 +64,45 @@ const TractorListing = ({
           {pageType === 'tractors' && (
             <>
               {reel ? (
-                <div
-                  className="flex flex-col md:flex-row flex-wrap items-stretch gap-4 lg:gap-4 mb-4"
-                  itemScope
-                  itemType="https://schema.org/ItemList"
-                >
-                  <meta itemProp="numberOfItems" content={showReelAfter + 1} />
-                  <meta itemProp="itemListOrder" content="https://schema.org/ItemListOrderAscending" />
-                  
+                <div className="flex flex-col md:flex-row flex-wrap items-stretch gap-4 lg:gap-4 mb-4">
                   <div className="flex flex-1 flex-col gap-4 lg:gap-4 w-full max-w-[420px]">
-                    {initialTyres.slice(0, showReelAfter).map((tractor, index) => {
-                      const itemUrl = abs((currentLang === 'hi' ? '/hi' : '') + (tractor.page_url || ''));
-                      const imageUrl = tractor.image ? `https://images.tractorgyan.com/uploads${tractor.image}` : '';
-                      
-                      return (
-                        <div
-                          key={tractor.id}
-                          itemProp="itemListElement"
-                          itemScope
-                          itemType="https://schema.org/ListItem"
-                        >
-                          <meta itemProp="position" content={String(index + 1)} />
-                          <div itemProp="item" itemScope itemType="https://schema.org/Product">
-                            <meta itemProp="name" content={`${tractor.brand || ''} ${tractor.model || ''}`.trim()} />
-                            <link itemProp="url" href={itemUrl} />
-                            {imageUrl && <meta itemProp="image" content={imageUrl} />}
-                            
-                            {tractor.brand && (
-                              <div itemProp="brand" itemScope itemType="https://schema.org/Brand">
-                                <meta itemProp="name" content={tractor.brand} />
-                              </div>
-                            )}
-                            
-                            <TG_HorizontalCard
-                              title={`${tractor.brand} ${tractor.model}`}
-                              total_reviews={tractor.total_reviews || tractor.total_review || 0}
-                              avg_review={tractor.avg_review || 0}
-                              imageSrc={imageUrl}
-                              detailUrl={(currentLang == 'hi' ? '/hi' : '') + tractor.page_url}
-                              specs={{
-                                [translation?.tractorSpecs?.hp || 'HP']: tractor.hp,
-                                [translation?.tractorSpecs?.cylinders || 'Cylinder']: tractor.cylinder,
-                                [translation?.headerNavbar?.liftingCapacity || 'Lifting Capacity']: tractor.lifting_capacity,
-                              }}
-                              buttonText={translation?.headerNavbar?.checkPrice || "Check Price"}
-                              buttonPrefix="₹ "
-                              isPopular={tractor.popular_tractor === '1'}
-                              showRatingOnTop={pageType === 'tractors'}
-                              translation={translation}
-                              position={index + 1 + (currentPage - 1) * itemsPerPage}
-                              tractorId={tractor.id}
-                            />
-                          </div>
-                        </div>
-                      );
-                    })}
+                    {initialTyres.slice(0, showReelAfter).map((tractor, index) => (
+                      <TG_HorizontalCard
+                        key={tractor.id}
+                        title={`${tractor.brand} ${tractor.model}`}
+                        total_reviews={tractor.total_reviews || tractor.total_review || 0}
+                        avg_review={tractor.avg_review || 0}
+                        imageSrc={`https://images.tractorgyan.com/uploads${tractor.image}`}
+                        detailUrl={(currentLang == 'hi' ? '/hi' : '') + tractor.page_url}
+                        specs={{
+                          [translation?.tractorSpecs?.hp || 'HP']: tractor.hp,
+                          [translation?.tractorSpecs?.cylinders || 'Cylinder']: tractor.cylinder,
+                          [translation?.headerNavbar?.liftingCapacity || 'Lifting Capacity']: tractor.lifting_capacity,
+                        }}
+                        buttonText={translation?.headerNavbar?.checkPrice || "Check Price"}
+                        buttonPrefix="₹ "
+                        isPopular={tractor.popular_tractor === '1'}
+                        showRatingOnTop={pageType === 'tractors'}
+                        translation={translation}
+                        position={index + 1 + (currentPage - 1) * itemsPerPage}
+                        tractorId={tractor.id}
+                      />
+                    ))}
                   </div>
 
-                  <div className="flex flex-1 w-full max-w-[420px] items-stretch">
+                  <div 
+                    className="flex flex-1 w-full max-w-[420px] items-stretch"
+                    itemScope
+                    itemType="https://schema.org/ItemList"
+                  >
+                    <meta itemProp="numberOfItems" content="1" />
                     {reel && (
                       <div
                         itemProp="itemListElement"
                         itemScope
                         itemType="https://schema.org/ListItem"
                       >
-                        <meta itemProp="position" content={String(showReelAfter + 1)} />
+                        <meta itemProp="position" content="1" />
                         <div itemProp="item" itemScope itemType="https://schema.org/VideoObject">
                           <meta itemProp="name" content={reel.title || 'Tractor Video'} />
                           {reel.url_of_video && <meta itemProp="contentUrl" content={reel.url_of_video} />}
