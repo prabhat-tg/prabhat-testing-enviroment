@@ -165,10 +165,10 @@ const TractorListing = ({
 
                         {(hasPrice || useFallbackOffer) && (
                           <div itemProp="offers" itemScope itemType="https://schema.org/Offer">
-                            <meta itemProp="url" content={itemUrl} />
+                            {/* <meta itemProp="url" content={itemUrl} />
                             <meta itemProp="priceCurrency" content={tractor.currency || 'INR'} />
                             <meta itemProp="price" content={String(priceValue)} />
-                            {/* <meta
+                            <meta
                               itemProp="availability"
                               content={
                                 tractor.in_stock !== undefined
