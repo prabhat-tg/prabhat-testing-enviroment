@@ -283,7 +283,7 @@ const TractorListing = ({
                       <meta itemProp="position" content={position.toString()} />
 
                       <div itemProp="item" itemScope itemType="https://schema.org/Review" className="w-full">
-                        {/* <meta itemProp="name" content={`${tractor.brand || ''} ${tractor.model || ''}`.trim()} />
+                        <meta itemProp="name" content={`${tractor.brand || ''} ${tractor.model || ''}`.trim()} />
                         <link itemProp="url" href={itemUrl} />
                         {imageUrl && <meta itemProp="image" content={imageUrl} />}
 
@@ -314,7 +314,7 @@ const TractorListing = ({
                               }
                             />
                           </div>
-                        )} */}
+                        )}
 
                         {/* Render the visible card */}
                         <TG_HorizontalCard
