@@ -30,13 +30,10 @@ const TractorListing = ({
     if (activeFilters?.size) queryParams.set('size', activeFilters.size);
     if (activeFilters?.sortBy) queryParams.set('sortBy', activeFilters.sortBy);
     if (activeFilters?.hpRange) queryParams.set('hpRange', activeFilters.hpRange);
-
     if (activeFilters?.searchQuery) queryParams.set('search', activeFilters.searchQuery);
     else if (activeFilters?.search) queryParams.set('search', activeFilters.search);
-
     if (currentLang && currentLang !== 'en') queryParams.set('lang', currentLang);
     else if (activeFilters?.lang && activeFilters.lang !== 'en') queryParams.set('lang', activeFilters.lang);
-
     if (pageNumber > 1) queryParams.set('page', pageNumber.toString());
     return `${basePath}${queryParams.toString() ? '?' : ''}${queryParams.toString()}`;
   };
@@ -49,10 +46,10 @@ const TractorListing = ({
     return path.startsWith('/') ? `${origin}${path}` : `${origin}/${path}`;
   };
 
-  // Items used for schema must match UI slicing
+  // slice items same as UI
   const itemsForSchema = (reel ? (initialTyres || []).slice(showReelAfter) : (initialTyres || []));
 
-  // 1) Build ItemList JSON-LD (every ListItem.item -> WebPage to avoid Product validations)
+  // ItemList JSON-LD (each ListItem.item is WebPage) — server-rendered
   const itemListSchema = itemsForSchema.length > 0 ? {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -75,67 +72,14 @@ const TractorListing = ({
     })
   } : null;
 
-  // 2) Build Product JSON-LD only for the FIRST item (itemsForSchema[0]) — include offers or aggregateRating if available.
-  const first = itemsForSchema && itemsForSchema.length > 0 ? itemsForSchema[0] : null;
-
-  // Decide productSchema only if first exists
-  let productSchema = null;
-  if (first) {
-    const firstUrl = abs((currentLang === 'hi' ? '/hi' : '') + (first.page_url || ''));
-    const firstName = `${first.brand || ''} ${first.model || ''}`.trim() || first.page_url || 'Unnamed item';
-
-    const avg = first.avg_review ?? first.avgRating ?? first.rating;
-    const totalReviews = first.total_reviews ?? first.totalReview ?? first.review_count;
-    const hasRating = (avg !== undefined && avg !== null && totalReviews !== undefined && totalReviews !== null);
-
-    const price = first.price ?? first.price_min ?? first.price_max ?? null;
-    const hasPrice = price !== null && price !== undefined && price !== '';
-
-    // If rating or price exists, create product with that field.
-    // Else — we still create a product with a minimal fallback OFFER to force 'pass' for first item.
-    if (hasRating || hasPrice) {
-      productSchema = {
-        "@context": "https://schema.org",
-        "@type": "Product",
-        "name": firstName,
-        "url": firstUrl,
-        ...(first.image ? { "image": [`https://images.tractorgyan.com/uploads${first.image}`] } : {}),
-        ...(first.brand ? { "brand": { "@type": "Brand", "name": first.brand } } : {}),
-        ...(hasRating ? { "aggregateRating": { "@type": "AggregateRating", "ratingValue": String(avg), "reviewCount": String(totalReviews) } } : {}),
-        ...(hasPrice ? { "offers": { "@type": "Offer", "url": firstUrl, "price": String(price), "priceCurrency": first.currency || "INR" } } : {})
-      };
-    } else {
-      // --------- FALLBACK (only used to guarantee FIRST passes) ----------
-      // WARNING: This fallback is a safety valve to make first pass in Rich Results.
-      // Prefer replacing this with real price/rating from backend.
-      productSchema = {
-        "@context": "https://schema.org",
-        "@type": "Product",
-        "name": firstName,
-        "url": firstUrl,
-        "offers": {
-          "@type": "Offer",
-          "url": firstUrl,
-          "price": "0",
-          "priceCurrency": "INR",
-          "availability": "https://schema.org/PreOrder"
-        }
-      };
-      // -----------------------------------------------------------------
-    }
-  }
-
-  // JSON strings safe for embedding
   const itemListJson = itemListSchema ? JSON.stringify(itemListSchema).replace(/<\/script>/gi, '<\\/script>') : null;
-  const productJson = productSchema ? JSON.stringify(productSchema).replace(/<\/script>/gi, '<\\/script>') : null;
 
   return (
     <>
-      {/* Server-rendered scripts: ItemList (always) and Product (only for first item) */}
+      {/* Server-rendered ItemList JSON-LD only (no Product schema at all) */}
       {itemListJson && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: itemListJson }} />}
-      {productJson && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: productJson }} />}
 
-      {/* Hidden microdata fallback for ItemList (keeps itemListElement present in DOM) */}
+      {/* Hidden microdata fallback (uses WebPage, not Product) */}
       {itemsForSchema.length > 0 && (
         <div itemScope itemType="https://schema.org/ItemList" style={{ display: 'none' }}>
           <meta itemProp="numberOfItems" content={String(totalTyresCount || itemsForSchema.length)} />
@@ -157,7 +101,7 @@ const TractorListing = ({
         </div>
       )}
 
-      {/* Visible UI (unchanged) */}
+      {/* Visible UI */}
       <div className="h-full w-full">
         {noDataFound ? (
           <div className="my-10 text-center md:mt-40">{translation?.headings?.noResultFound || 'No Result Found'}</div>
@@ -166,7 +110,7 @@ const TractorListing = ({
             {pageType === 'tractors' && (
               <>
                 {reel ? (
-                  <div className="flex flex-col md:flex-row flex-wrap items-stretch gap-4 lg:gap-4 mb-4" itemScope itemType="https://schema.org/ItemList">
+                  <div className="flex flex-col md:flex-row flex-wrap items-stretch gap-4 lg:gap-4 mb-4">
                     <div className="flex flex-1 flex-col gap-4 lg:gap-4 w-full max-w-[420px]">
                       {initialTyres.slice(0, showReelAfter).map((tractor, index) => (
                         <TG_HorizontalCard
@@ -211,44 +155,29 @@ const TractorListing = ({
                   </div>
                 ) : null}
 
-                <div className="flex flex-wrap gap-4 lg:gap-4 xl:gap-4" itemScope itemType="https://schema.org/ItemList">
-                  <meta itemProp="numberOfItems" content={totalTyresCount} />
-                  <meta itemProp="itemListOrder" content="https://schema.org/ItemListOrderAscending" />
-
-                  {(reel ? initialTyres.slice(showReelAfter) : initialTyres).map((tractor, index) => {
-                    const position = index + 1 + (currentPage - 1) * (itemsPerPage || 1);
-                    const itemUrl = abs((currentLang === 'hi' ? '/hi' : '') + (tractor.page_url || ''));
-                    const imageUrl = tractor.image ? `https://images.tractorgyan.com/uploads${tractor.image}` : '';
-                    return (
-                      <div key={tractor.id || `${tractor.brand}-${tractor.model}-${index}`} itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem" className="w-full">
-                        <meta itemProp="position" content={String(position)} />
-                        <div itemProp="item" itemScope itemType="https://schema.org/WebPage" className="w-full">
-                          <meta itemProp="url" content={itemUrl} />
-                          <meta itemProp="name" content={`${tractor.brand || ''} ${tractor.model || ''}`.trim()} />
-                          {/* Visible card */}
-                          <TG_HorizontalCard
-                            title={`${tractor.brand} ${tractor.model}`}
-                            total_reviews={tractor.total_reviews || tractor.total_review || 0}
-                            avg_review={tractor.avg_review || 0}
-                            imageSrc={imageUrl}
-                            detailUrl={(currentLang == 'hi' ? '/hi' : '') + tractor.page_url}
-                            specs={{
-                              [translation?.tractorSpecs?.hp || 'HP']: tractor.hp,
-                              [translation?.tractorSpecs?.cylinders || 'Cylinder']: tractor.cylinder,
-                              [translation?.headerNavbar?.liftingCapacity || 'Lifting Capacity']: tractor.lifting_capacity,
-                            }}
-                            buttonText={translation?.headerNavbar?.checkPrice || "Check Price"}
-                            buttonPrefix="₹ "
-                            isPopular={tractor.popular_tractor === '1'}
-                            showRatingOnTop={pageType === 'tractors'}
-                            translation={translation}
-                            position={position}
-                            tractorId={tractor.id}
-                          />
-                        </div>
-                      </div>
-                    );
-                  })}
+                <div className="flex flex-wrap gap-4 lg:gap-4 xl:gap-4">
+                  {(reel ? initialTyres.slice(showReelAfter) : initialTyres).map((tractor, index) => (
+                    <TG_HorizontalCard
+                      key={tractor.id}
+                      title={`${tractor.brand} ${tractor.model}`}
+                      total_reviews={tractor.total_reviews || tractor.total_review || 0}
+                      avg_review={tractor.avg_review || 0}
+                      imageSrc={`https://images.tractorgyan.com/uploads${tractor.image}`}
+                      detailUrl={(currentLang == 'hi' ? '/hi' : '') + tractor.page_url}
+                      specs={{
+                        [translation?.tractorSpecs?.hp || 'HP']: tractor.hp,
+                        [translation?.tractorSpecs?.cylinders || 'Cylinder']: tractor.cylinder,
+                        [translation?.headerNavbar?.liftingCapacity || 'Lifting Capacity']: tractor.lifting_capacity,
+                      }}
+                      buttonText={translation?.headerNavbar?.checkPrice || "Check Price"}
+                      buttonPrefix="₹ "
+                      isPopular={tractor.popular_tractor === '1'}
+                      showRatingOnTop={pageType === 'tractors'}
+                      translation={translation}
+                      position={index + 1 + (currentPage - 1) * (itemsPerPage || 1)}
+                      tractorId={tractor.id}
+                    />
+                  ))}
                 </div>
               </>
             )}
@@ -311,6 +240,7 @@ const TractorListing = ({
 };
 
 export default TractorListing;
+
 
 
 
