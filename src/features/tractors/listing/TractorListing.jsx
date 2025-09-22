@@ -281,7 +281,7 @@ const TractorListing = ({
                     >
                       <meta itemProp="position" content={position.toString()} />
 
-                      <div itemProp="item" itemScope itemType="https://schema.org" className="w-full">
+                      <div itemProp="item" itemScope itemType="https://schema.org/Product" className="w-full">
                         {/* <meta itemProp="name" content={`${tractor.brand || ''} ${tractor.model || ''}`.trim()} />
                         <link itemProp="url" href={itemUrl} />
                         {imageUrl && <meta itemProp="image" content={imageUrl} />}
