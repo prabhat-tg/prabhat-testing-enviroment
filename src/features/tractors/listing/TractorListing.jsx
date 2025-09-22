@@ -49,7 +49,7 @@ const TractorListing = ({
   // slice items same as UI
   const itemsForSchema = (reel ? (initialTyres || []).slice(showReelAfter) : (initialTyres || []));
 
-  // ItemList JSON-LD (each ListItem.item is WebPage) — server-rendered
+  // Build ItemList JSON-LD (server-rendered). Each ListItem.item is WebPage (NOT Product).
   const itemListSchema = itemsForSchema.length > 0 ? {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -76,10 +76,10 @@ const TractorListing = ({
 
   return (
     <>
-      {/* Server-rendered ItemList JSON-LD only (no Product schema at all) */}
+      {/* Server-side JSON-LD for ItemList (crawler reads this) */}
       {itemListJson && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: itemListJson }} />}
 
-      {/* Hidden microdata fallback (uses WebPage, not Product) */}
+      {/* Hidden microdata fallback (WebPage items) */}
       {itemsForSchema.length > 0 && (
         <div itemScope itemType="https://schema.org/ItemList" style={{ display: 'none' }}>
           <meta itemProp="numberOfItems" content={String(totalTyresCount || itemsForSchema.length)} />
@@ -101,7 +101,7 @@ const TractorListing = ({
         </div>
       )}
 
-      {/* Visible UI */}
+      {/* Visible UI (unchanged) */}
       <div className="h-full w-full">
         {noDataFound ? (
           <div className="my-10 text-center md:mt-40">{translation?.headings?.noResultFound || 'No Result Found'}</div>
@@ -240,6 +240,7 @@ const TractorListing = ({
 };
 
 export default TractorListing;
+
 
 
 
