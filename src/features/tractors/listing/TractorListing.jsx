@@ -77,7 +77,7 @@ const TractorListing = ({
         }
       };
     })
-  }
+  } 
   : null;
 
   const itemListJson = itemListSchema ? JSON.stringify(itemListSchema).replace(/<\/script>/gi, '<\\/script>') : null;
