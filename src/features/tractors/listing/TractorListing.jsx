@@ -48,99 +48,94 @@ const TractorListing = ({
     return `${basePath || ''}${queryParams.toString() ? '?' : ''}${queryParams.toString()}`;
   };
 
-  const abs = (path) => {
-    if (!path) return '';
-    if (/^https?:\/\//i.test(path)) return path;
-    const origin = (pageOrigin || '').replace(/\/$/, '');
-    if (!origin) return path;
-    return path.startsWith('/') ? `${origin}${path}` : `${origin}/${path}`;
+ // --- start: improved JSON-LD generation for Product + ItemList ---
+const toAbs = p => {
+  if (!p) return '';
+  if (/^https?:\/\//i.test(p)) return p;
+  const origin = (pageOrigin || '').replace(/\/$/, '');
+  if (!origin) return p.startsWith('/') ? p : `/${p}`;
+  return p.startsWith('/') ? `${origin}${p}` : `${origin}/${p}`;
+};
+
+const itemsForSchema = (reel ? (initialTyres || []).slice(showReelAfter) : (initialTyres || []));
+
+// build product nodes
+const productNodes = itemsForSchema.map((tractor, i) => {
+  const pos = i + 1 + (cp - 1) * ipp;
+  // canonical absolute item URL (no fragment)
+  const itemUrl = toAbs((currentLang === 'hi' ? '/hi' : '') + (tractor?.page_url || ''));
+  const name = `${(tractor?.brand || '').trim()} ${(tractor?.model || '').trim()}`.trim() || `Tractor ${pos}`;
+
+  // image: MUST be absolute array if available
+  const image = tractor?.image ? toAbs(`https://images.tractorgyan.com/uploads${tractor.image}`) : undefined;
+
+  // price handling: only include offers if a real price exists (non-empty, non-zero)
+  const rawPrice = tractor?.price ?? tractor?.price_min ?? tractor?.price_max ?? null;
+  const hasPrice = rawPrice !== null && rawPrice !== undefined && String(rawPrice).trim() !== '' && Number(rawPrice) > 0;
+
+  // build offers only if hasPrice === true
+  const offers = hasPrice ? {
+    "@type": "Offer",
+    "url": itemUrl,
+    "price": String(Number(rawPrice)), // numeric string
+    "priceCurrency": tractor?.currency || "INR",
+    "availability": tractor?.in_stock !== undefined
+      ? (tractor.in_stock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock")
+      : "https://schema.org/InStock"
+  } : undefined;
+
+  const node = {
+    "@type": "Product",
+    "@id": itemUrl,          // use absolute URL as @id (no fragment)
+    "name": name,
+    "url": itemUrl,
+    ...(image ? { "image": [image] } : {}),
+    ...(tractor?.short_description ? { "description": String(tractor.short_description).slice(0, 300) } : {}),
+    ...(tractor?.sku ? { "sku": String(tractor.sku) } : {}),
+    ...(offers ? { "offers": offers } : {})
   };
 
-  // items used for schema must match UI slicing
-  const itemsForSchema = (reel ? (initialTyres || []).slice(showReelAfter) : (initialTyres || []));
+  // add rating only if both present and valid numbers
+  const avg = tractor?.avg_review ?? tractor?.avgRating ?? tractor?.rating;
+  const totalReviews = tractor?.total_reviews ?? tractor?.totalReview ?? tractor?.review_count;
+  if (avg !== undefined && avg !== null && totalReviews !== undefined && totalReviews !== null) {
+    node.aggregateRating = {
+      "@type": "AggregateRating",
+      "ratingValue": String(avg),
+      "reviewCount": String(totalReviews)
+    };
+  }
 
-  // Build product nodes and itemlist node for JSON-LD @graph
-  const productNodes = itemsForSchema.map((tractor, i) => {
+  return node;
+});
+
+// ItemList should reflect only the actual items you included above
+const itemListNode = itemsForSchema.length > 0 ? {
+  "@type": "ItemList",
+  "name": `${translation?.headings?.hpGroupName || 'Tractors'}${pageType ? ` - ${pageType}` : ''}`,
+  "numberOfItems": Number(itemsForSchema.length), // use the actual length here
+  "itemListOrder": "https://schema.org/ItemListOrderAscending",
+  "itemListElement": itemsForSchema.map((tractor, i) => {
     const pos = i + 1 + (cp - 1) * ipp;
-    const itemUrl = abs((currentLang === 'hi' ? '/hi' : '') + (tractor?.page_url || ''));
-    const productId = `${itemUrl}#product`; // use as @id
-    const name = `${(tractor?.brand || '').trim()} ${(tractor?.model || '').trim()}`.trim() || `Tractor ${pos}`;
-    const image = tractor?.image ? `https://images.tractorgyan.com/uploads${tractor.image}` : undefined;
-    const brandName = tractor?.brand || undefined;
-
-    // ratings
-    const avg = tractor?.avg_review ?? tractor?.avgRating ?? tractor?.rating;
-    const totalReviews = tractor?.total_reviews ?? tractor?.totalReview ?? tractor?.review_count;
-
-    // price
-    const rawPrice = tractor?.price ?? tractor?.price_min ?? tractor?.price_max ?? null;
-    const hasPrice = rawPrice !== null && rawPrice !== undefined && rawPrice !== '';
-    const priceValue = hasPrice ? String(rawPrice) : null;
-
-    // Build offers (real if available else fallback pre-order)
-    const offers = hasPrice ? {
-      "@type": "Offer",
-      "url": itemUrl,
-      "price": priceValue,
-      "priceCurrency": (tractor?.currency || 'INR'),
-      "availability": tractor?.in_stock !== undefined ? (tractor.in_stock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock') : 'https://schema.org/InStock'
-    } : {
-      "@type": "Offer",
-      "url": itemUrl,
-      "price": "0",
-      "priceCurrency": (tractor?.currency || 'INR'),
-      "availability": "https://schema.org/PreOrder"
+    const itemUrl = toAbs((currentLang === 'hi' ? '/hi' : '') + (tractor?.page_url || ''));
+    return {
+      "@type": "ListItem",
+      "position": pos,
+      "item": { "@id": itemUrl } // reference the Product by its absolute @id
     };
+  })
+} : null;
 
-    const node = {
-      "@type": "Product",
-      "@id": productId,
-      "name": name,
-      "url": itemUrl,
-      ...(image ? { "image": [image] } : {}),
-      ...(brandName ? { "brand": { "@type": "Brand", "name": brandName } } : {}),
-      "offers": offers
-    };
+const graph = [
+  ...productNodes,
+  ...(itemListNode ? [itemListNode] : [])
+];
 
-    // Add aggregateRating if we have real rating info
-    if (avg !== undefined && avg !== null && totalReviews !== undefined && totalReviews !== null) {
-      node.aggregateRating = {
-        "@type": "AggregateRating",
-        "ratingValue": String(avg),
-        "reviewCount": String(totalReviews)
-      };
-    }
-
-    return node;
-  });
-
-  // ItemList node that references the product nodes by @id
-  const itemListNode = itemsForSchema.length > 0 ? {
-    "@type": "ItemList",
-    "name": `${translation?.headings?.hpGroupName || 'Tractors'}${pageType ? ` - ${pageType}` : ''}`,
-    "numberOfItems": Number(totalTyresCount || itemsForSchema.length),
-    "itemListOrder": "https://schema.org/ItemListOrderAscending",
-    "itemListElement": itemsForSchema.map((tractor, i) => {
-      const pos = i + 1 + (cp - 1) * ipp;
-      const itemUrl = abs((currentLang === 'hi' ? '/hi' : '') + (tractor?.page_url || ''));
-      const productId = `${itemUrl}#product`;
-      return {
-        "@type": "ListItem",
-        "position": pos,
-        "item": { "@id": productId } // reference Product by @id
-      };
-    })
-  } : null;
-
-  // Build the @graph array: all products then ItemList (order doesn't matter)
-  const graph = [];
-  if (productNodes.length) productNodes.forEach(n => graph.push(n));
-  if (itemListNode) graph.push(itemListNode);
-
-  const jsonLd = graph.length > 0 ? JSON.stringify({
-    "@context": "https://schema.org",
-    "@graph": graph
-  }).replace(/<\/script>/gi, '<\\/script>') : null;
+const jsonLd = graph.length > 0 ? JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": graph
+}).replace(/<\/script>/gi, '<\\/script>') : null;
+// --- end: improved JSON-LD generation ---
 
   return (
     <>
