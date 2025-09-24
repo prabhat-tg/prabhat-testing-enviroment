@@ -55,7 +55,7 @@ const TractorListing = ({
     return path.startsWith('/') ? `${origin}${path}` : `${origin}/${path}`;
   };
 
-  const itemsForSchema = (initialTyres || []).slice(0, showReelAfter);
+  const itemsForSchema = (initialTyres || []).slice(0, 16);
 
   const productNodes = itemsForSchema.map((tractor, i) => {
     const pos = i + 1 + (cp - 1) * ipp;
