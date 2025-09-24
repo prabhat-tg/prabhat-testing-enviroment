@@ -109,7 +109,7 @@ const TractorListing = ({
       node.aggregateRating = {
         "@type": "AggregateRating",
         "ratingValue": String(avgNum || 0),
-        // "reviewCount": String(avgNum || 0)
+        "ratingCount": String(avgNum || 0)
       };
     // }
 
