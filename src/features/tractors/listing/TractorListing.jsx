@@ -57,7 +57,7 @@ const TractorListing = ({
   };
 
   // items used for schema must match UI slicing
-  const itemsForSchema = (initialTyres || []).slice(0, 10);
+  const itemsForSchema = (initialTyres || []).slice(0, showReelAfter);
 
   // Build product nodes and itemlist node for JSON-LD @graph
   const productNodes = itemsForSchema.map((tractor, i) => {
@@ -90,7 +90,7 @@ const TractorListing = ({
     } : undefined;
 
     const node = {
-      "@type": "Product",
+      "@type": "ListItem",
       "@id": itemUrl,          // use absolute URL as @id (no fragment)
       "name": name,
       "url": itemUrl,
@@ -119,9 +119,9 @@ const TractorListing = ({
   // ItemList should reflect only the actual items you included above
   const itemListNode = itemsForSchema.length > 0 ? {
     "@type": "ItemList",
-    "name": `${translation?.headings?.hpGroupName || 'Tractors'}${pageType ? ` - ${pageType}` : ''}`, // todo
-    "numberOfItems": Number(itemsForSchema.length), // use the actual length here
-    "itemListOrder": "https://schema.org/ItemListOrderAscending",
+    // "name": `${translation?.headings?.hpGroupName || 'Tractors'}${pageType ? ` - ${pageType}` : ''}`, // todo
+    // "numberOfItems": Number(itemsForSchema.length), // use the actual length here
+    // "itemListOrder": "https://schema.org/ItemListOrderAscending",
     "itemListElement": itemsForSchema.map((tractor, i) => {
       const pos = i + 1 + (cp - 1) * ipp;
       const itemUrl = toAbs((currentLang === 'hi' ? '/hi' : '') + (tractor?.page_url || ''));
