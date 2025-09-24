@@ -47,7 +47,6 @@ const TractorListing = ({
     return `${basePath || ''}${queryParams.toString() ? '?' : ''}${queryParams.toString()}`;
   };
 
-  // Absolute URL helper (defensive)
   const toAbs = (path) => {
     if (!path) return '';
     if (/^https?:\/\//i.test(path)) return path;
@@ -56,20 +55,15 @@ const TractorListing = ({
     return path.startsWith('/') ? `${origin}${path}` : `${origin}/${path}`;
   };
 
-  // items used for schema must match UI slicing
   const itemsForSchema = (initialTyres || []).slice(0, showReelAfter);
 
-  // Build product nodes and itemlist node for JSON-LD @graph
   const productNodes = itemsForSchema.map((tractor, i) => {
     const pos = i + 1 + (cp - 1) * ipp;
-    // canonical absolute item URL (no fragment)
     const itemUrl = toAbs((currentLang === 'hi' ? '/hi' : '') + (tractor?.page_url || ''));
     const name = `${(tractor?.brand || '').trim()} ${(tractor?.model || '').trim()}`.trim() || `Tractor ${pos}`;
 
-    // image: MUST be absolute array if available
     const image = tractor?.image ? toAbs(`https://images.tractorgyan.com/uploads${tractor.image}`) : undefined;
 
-    // price handling: only include offers if a real price exists (non-empty, > 0)
     const rawPrice = tractor?.price ?? tractor?.price_min ?? tractor?.price_max ?? null;
     let numericPrice = null;
     if (rawPrice !== null && rawPrice !== undefined && String(rawPrice).trim() !== '') {
@@ -78,7 +72,6 @@ const TractorListing = ({
     }
     const hasPrice = numericPrice !== null && numericPrice > 0;
 
-    // build offers only if hasPrice === true
     const offers = hasPrice ? {
       "@type": "Offer",
       "url": itemUrl,
@@ -90,8 +83,8 @@ const TractorListing = ({
     } : undefined;
 
     const node = {
-      "@type": "ListItem",
-      "@id": itemUrl,          // use absolute URL as @id (no fragment)
+      "@type": "Product",
+      "@id": itemUrl,         
       "name": name,
       "url": itemUrl,
       ...(image ? { "image": [image] } : {}),
@@ -100,26 +93,22 @@ const TractorListing = ({
       ...(offers ? { "offers": offers || 0 } : {})
     };
 
-    // add rating only if both present and valid numbers
     const avg = tractor?.avg_review ?? tractor?.total_reviews ?? tractor?.total_reviews ?? 0;
     const totalReviews = tractor?.total_reviews ?? tractor?.totalReview ?? tractor?.review_count;
     const avgNum = avg !== undefined && avg !== null ? Number(avg) : null;
     const totalNum = totalReviews !== undefined && totalReviews !== null ? Number(totalReviews) : null;
-    // if (avgNum !== null && !Number.isNaN(avgNum) && totalNum !== null && !Number.isNaN(totalNum)) {
       node.aggregateRating = {
         "@type": "AggregateRating",
         "ratingValue": String(avgNum || 0),
         "ratingCount": String(avgNum || 0)
       };
-    // }
 
     return node;
   });
 
-  // ItemList should reflect only the actual items you included above
   const itemListNode = itemsForSchema.length > 0 ? {
     "@type": "ItemList",
-    "name": `${translation?.headings?.hpGroupName || 'Tractors'}${pageType ? ` - ${pageType}` : ''}`, // todo
+    "name": `${translation?.headings?.hpGroupName || 'Tractors'}${pageType ? ` - ${pageType}` : ''}`, 
     "numberOfItems": Number(itemsForSchema.length), 
     "itemListOrder": "https://schema.org/ItemListOrderAscending",
     "itemListElement": itemsForSchema.map((tractor, i) => {
@@ -128,12 +117,11 @@ const TractorListing = ({
       return {
         "@type": "ListItem",
         "position": pos,
-        "item": { "@id": itemUrl } // reference the Product by its absolute @id
+        "item": { "@id": itemUrl } 
       };
     })
   } : null;
 
-  // Build the @graph array: all products then ItemList (order doesn't matter)
   const graph = [];
   if (productNodes.length) productNodes.forEach(n => graph.push(n));
   if (itemListNode) graph.push(itemListNode);
@@ -145,12 +133,9 @@ const TractorListing = ({
 
   return (
     <>
-      {/* Server-rendered JSON-LD: Products + ItemList (carousel). */}
       {jsonLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd }} />}
 
-      {/* NOTE: microdata fallback removed to avoid duplicate ItemList definitions */}
 
-      {/* Visible UI (unchanged) */}
       <div className="h-full w-full">
         {noDataFound ? (
           <div className="my-10 text-center md:mt-40">
@@ -160,7 +145,6 @@ const TractorListing = ({
           <>
             {pageType === 'tractors' && (
               <>
-                {/* Reels Section */}
                 {reel ? (
                   <div
                     className="flex flex-col md:flex-row flex-wrap items-stretch gap-4 lg:gap-4 mb-4"
