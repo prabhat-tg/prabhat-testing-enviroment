@@ -57,7 +57,7 @@ const TractorListing = ({
   };
 
   // items used for schema must match UI slicing
-  const itemsForSchema = (initialTyres || []).slice(0, 1);
+  const itemsForSchema = (initialTyres || []).slice(0);
 
   // Build product nodes and itemlist node for JSON-LD @graph
   const productNodes = itemsForSchema.map((tractor, i) => {
