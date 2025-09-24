@@ -72,6 +72,7 @@ const TractorListing = ({
     }
     const hasPrice = numericPrice !== null && numericPrice > 0;
 
+    
     const offers = hasPrice ? {
       "@type": "Offer",
       "url": itemUrl,
