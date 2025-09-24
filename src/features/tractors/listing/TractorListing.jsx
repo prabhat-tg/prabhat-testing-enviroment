@@ -84,8 +84,7 @@ const TractorListing = ({
 
     const node = {
       "@type": "Product",
-      // "@id": itemUrl,         
-      "position": pos,
+      "@id": productId,         
       "name": name,
       "url": itemUrl,
       ...(image ? { "image": [image] } : {}),
@@ -112,10 +111,12 @@ const TractorListing = ({
     "itemListElement": itemsForSchema.map((tractor, i) => {
       const pos = i + 1 + (cp - 1) * ipp;
       const itemUrl = toAbs((currentLang === 'hi' ? '/hi' : '') + (tractor?.page_url || ''));
+      const idFragment = String(tractor?.id ?? pos).replace(/\s+/g, '-');
+      const productId = `${itemUrl}#product-${encodeURIComponent(idFragment)}`;
       return {
         "@type": "ListItem",
         "position": pos,
-        "item": { "@id": itemUrl } 
+        "item": { "@id": productId } 
       };
     })
   } : null;
