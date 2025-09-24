@@ -119,9 +119,9 @@ const TractorListing = ({
   // ItemList should reflect only the actual items you included above
   const itemListNode = itemsForSchema.length > 0 ? {
     "@type": "ItemList",
-    // "name": `${translation?.headings?.hpGroupName || 'Tractors'}${pageType ? ` - ${pageType}` : ''}`, // todo
-    // "numberOfItems": Number(itemsForSchema.length), // use the actual length here
-    // "itemListOrder": "https://schema.org/ItemListOrderAscending",
+    "name": `${translation?.headings?.hpGroupName || 'Tractors'}${pageType ? ` - ${pageType}` : ''}`, // todo
+    "numberOfItems": Number(itemsForSchema.length), 
+    "itemListOrder": "https://schema.org/ItemListOrderAscending",
     "itemListElement": itemsForSchema.map((tractor, i) => {
       const pos = i + 1 + (cp - 1) * ipp;
       const itemUrl = toAbs((currentLang === 'hi' ? '/hi' : '') + (tractor?.page_url || ''));
