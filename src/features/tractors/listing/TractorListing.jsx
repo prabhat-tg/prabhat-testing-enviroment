@@ -108,9 +108,9 @@ const TractorListing = ({
 
   const itemListNode = itemsForSchema.length > 0 ? {
     "@type": "ItemList",
-    "name": `${translation?.headings?.hpGroupName || 'Tractors'}${pageType ? ` - ${pageType}` : ''}`, 
-    "numberOfItems": Number(itemsForSchema.length), 
-    "itemListOrder": "https://schema.org/ItemListOrderAscending",
+    // "name": `${translation?.headings?.hpGroupName || 'Tractors'}${pageType ? ` - ${pageType}` : ''}`, 
+    // "numberOfItems": Number(itemsForSchema.length), 
+    // "itemListOrder": "https://schema.org/ItemListOrderAscending",
     "itemListElement": itemsForSchema.map((tractor, i) => {
       const pos = i + 1 + (cp - 1) * ipp;
       const itemUrl = toAbs((currentLang === 'hi' ? '/hi' : '') + (tractor?.page_url || ''));
