@@ -147,28 +147,7 @@ const TractorListing = ({
       {/* Server-rendered JSON-LD: Products + ItemList (carousel). */}
       {jsonLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd }} />}
 
-      {/* Hidden microdata fallback for ItemList (Web-visible microdata kept minimal) */}
-      {itemsForSchema.length > 0 && (
-        <div itemScope itemType="https://schema.org/ItemList" style={{ display: 'none' }}>
-          <meta itemProp="numberOfItems" content={String(itemsForSchema.length)} />
-          <meta itemProp="itemListOrder" content="https://schema.org/ItemListOrderAscending" />
-          {itemsForSchema.map((tractor, i) => {
-            const pos = i + 1 + (cp - 1) * ipp;
-            const itemUrl = toAbs((currentLang === 'hi' ? '/hi' : '') + (tractor?.page_url || ''));
-            const name = `${(tractor?.brand || '').trim()} ${(tractor?.model || '').trim()}`.trim() || `Tractor ${pos}`;
-            return (
-              <div key={`md-${tractor?.id || pos}`} itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-                <meta itemProp="position" content={String(pos)} />
-                <div itemProp="item" itemScope itemType="https://schema.org/Product">
-                  <meta itemProp="url" content={itemUrl} />
-                  <meta itemProp="name" content={name} />
-                  {tractor?.image && <meta itemProp="image" content={toAbs(`https://images.tractorgyan.com/uploads${tractor.image}`)} />}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      )}
+      {/* NOTE: microdata fallback removed to avoid duplicate ItemList definitions */}
 
       {/* Visible UI (unchanged) */}
       <div className="h-full w-full">
@@ -319,6 +298,7 @@ const TractorListing = ({
 };
 
 export default TractorListing;
+
 
 
 
