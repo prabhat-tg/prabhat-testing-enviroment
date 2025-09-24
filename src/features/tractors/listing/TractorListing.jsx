@@ -61,7 +61,7 @@ const TractorListing = ({
     const pos = i + 1 + (cp - 1) * ipp;
     const itemUrl = toAbs((currentLang === 'hi' ? '/hi' : '') + (tractor?.page_url || ''));
      const idFragment = String(tractor?.id ?? pos).replace(/\s+/g, '-');
-    const productId = `${itemUrl}#product-${encodeURIComponent(idFragment)}`;
+    const productId = `${idFragment}`;
     const name = `${(tractor?.brand || '').trim()} ${(tractor?.model || '').trim()}`.trim() || `Tractor ${pos}`;
 
     const image = tractor?.image ? toAbs(`https://images.tractorgyan.com/uploads${tractor.image}`) : undefined;
