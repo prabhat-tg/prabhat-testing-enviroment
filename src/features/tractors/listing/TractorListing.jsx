@@ -6,14 +6,13 @@ import { TG_ReelsCard } from '@/src/components/ui/cards/reels/ReelsCards';
 import ClientVideoWrapper from '@/src/components/ui/video/ClientVideoWrapper';
 
 /**
- * TractorListing (full):
- * - Always emits ItemList JSON-LD (carousel)
- * - Emits Product nodes for items that have price or rating
- * - Fallback: if none eligible, emits Product nodes for first N items (best-effort)
+ * Updated TractorListing:
+ * - Removed any 'price' / 'offers' usage (as requested)
+ * - Product nodes are created ONLY when backend provides rating (avg_review / total_reviews)
+ * - ItemList is always emitted (so carousel structure exists), but Product nodes may be fewer
  *
- * IMPORTANT:
- * - To maximize Google eligibility, ensure your API returns numeric price (price/price_min/price_max)
- *   or review/rating counts for as many items as possible.
+ * Note: To make an item eligible for Product rich result (without price), it MUST have review/aggregateRating.
+ * If backend provides neither price nor rating, that item cannot be a Product node per Google requirements.
  */
 
 const TractorListing = ({
@@ -69,20 +68,9 @@ const TractorListing = ({
   // items used for schema must match UI slicing
   const itemsForSchema = (reel ? (initialTyres || []).slice(showReelAfter) : (initialTyres || []));
 
-  // helpers
-  const parseNumericPrice = (raw) => {
-    if (raw === null || raw === undefined) return null;
-    const s = String(raw).trim();
-    if (!s) return null;
-    const cleaned = s.replace(/[, ]+/g, '');
-    const n = Number(cleaned);
-    if (Number.isNaN(n)) return null;
-    return n;
-  };
-
-  // Build eligible product nodes map (only when item has price OR rating)
-  const productNodesMap = {};
+  // Build Product nodes ONLY when aggregateRating is present
   const productNodes = [];
+  const productNodesMap = {}; // itemUrl -> node
 
   itemsForSchema.forEach((tractor, i) => {
     const pos = i + 1 + (cp - 1) * ipp;
@@ -90,30 +78,19 @@ const TractorListing = ({
     const name = `${(tractor?.brand || '').trim()} ${(tractor?.model || '').trim()}`.trim() || `Tractor ${pos}`;
     const image = tractor?.image ? toAbs(`https://images.tractorgyan.com/uploads${tractor.image}`) : undefined;
 
-    // price/rating detection
-    const rawPrice = tractor?.price ?? tractor?.price_min ?? tractor?.price_max ?? null;
-    const numericPrice = parseNumericPrice(rawPrice);
-    const hasPrice = numericPrice !== null && numericPrice > 0;
-
+    // CHECK: aggregateRating presence (we rely only on rating/reviews since price/offers removed)
     const avg = tractor?.avg_review ?? tractor?.avgRating ?? tractor?.rating;
     const totalReviews = tractor?.total_reviews ?? tractor?.totalReview ?? tractor?.review_count;
     const avgNum = avg !== undefined && avg !== null ? Number(avg) : null;
     const totalNum = totalReviews !== undefined && totalReviews !== null ? Number(totalReviews) : null;
     const hasRating = avgNum !== null && !Number.isNaN(avgNum) && totalNum !== null && !Number.isNaN(totalNum);
 
-    // only create product node if hasPrice or hasRating (eligible)
-    if (!hasPrice && !hasRating) return;
+    if (!hasRating) {
+      // skip creating Product node if no rating — we removed offers/price path as requested
+      return;
+    }
 
-    const offers = hasPrice ? {
-      "@type": "Offer",
-      "url": itemUrl,
-      "price": String(numericPrice),
-      "priceCurrency": tractor?.currency || "INR",
-      "availability": tractor?.in_stock !== undefined
-        ? (tractor.in_stock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock")
-        : "https://schema.org/InStock"
-    } : undefined;
-
+    // create Product node with aggregateRating (no offers)
     const node = {
       "@type": "Product",
       "@id": itemUrl,
@@ -122,82 +99,18 @@ const TractorListing = ({
       ...(image ? { image: [image] } : {}),
       ...(tractor?.short_description ? { description: String(tractor.short_description).slice(0, 300) } : {}),
       ...(tractor?.sku ? { sku: String(tractor.sku) } : {}),
-      ...(offers ? { offers } : {})
-    };
-
-    if (hasRating) {
-      node.aggregateRating = {
+      "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": String(avgNum),
         "reviewCount": String(totalNum)
-      };
-    }
+      }
+    };
 
-    productNodesMap[itemUrl] = node;
     productNodes.push(node);
+    productNodesMap[itemUrl] = node;
   });
 
-  // FALLBACK: If we didn't create any eligible Product nodes, create best-effort Product nodes for first N items.
-  // This is to ensure ItemList references some Product nodes (improves chance for carousel).
-  // NOTE: ideally backend should supply price/rating for these items.
-  if (productNodes.length === 0 && itemsForSchema.length > 0) {
-    const FALLBACK_COUNT = Math.min(3, itemsForSchema.length); // create up to first 3 products
-    for (let i = 0; i < FALLBACK_COUNT; i++) {
-      const tractor = itemsForSchema[i];
-      const pos = i + 1 + (cp - 1) * ipp;
-      const itemUrl = toAbs((currentLang === 'hi' ? '/hi' : '') + (tractor?.page_url || ''));
-      const name = `${(tractor?.brand || '').trim()} ${(tractor?.model || '').trim()}`.trim() || `Tractor ${pos}`;
-      const image = tractor?.image ? toAbs(`https://images.tractorgyan.com/uploads${tractor.image}`) : undefined;
-
-      // best-effort price parse
-      const rawPrice = tractor?.price ?? tractor?.price_min ?? tractor?.price_max ?? null;
-      const numericPrice = parseNumericPrice(rawPrice);
-      const hasPrice = numericPrice !== null && numericPrice > 0;
-
-      const offers = hasPrice ? {
-        "@type": "Offer",
-        "url": itemUrl,
-        "price": String(numericPrice),
-        "priceCurrency": tractor?.currency || "INR",
-        "availability": tractor?.in_stock !== undefined
-          ? (tractor.in_stock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock")
-          : "https://schema.org/InStock"
-      } : undefined;
-
-      // create product node even if offers is undefined (fallback)
-      const node = {
-        "@type": "Product",
-        "@id": itemUrl,
-        "name": name,
-        "url": itemUrl,
-        ...(image ? { image: [image] } : {}),
-        ...(tractor?.short_description ? { description: String(tractor.short_description).slice(0, 300) } : {}),
-        ...(tractor?.sku ? { sku: String(tractor.sku) } : {}),
-        ...(offers ? { offers } : {})
-      };
-
-      // optional: include aggregateRating if present
-      const avg = tractor?.avg_review ?? tractor?.avgRating ?? tractor?.rating;
-      const totalReviews = tractor?.total_reviews ?? tractor?.totalReview ?? tractor?.review_count;
-      const avgNum = avg !== undefined && avg !== null ? Number(avg) : null;
-      const totalNum = totalReviews !== undefined && totalReviews !== null ? Number(totalReviews) : null;
-      if (avgNum !== null && !Number.isNaN(avgNum) && totalNum !== null && !Number.isNaN(totalNum)) {
-        node.aggregateRating = {
-          "@type": "AggregateRating",
-          "ratingValue": String(avgNum),
-          "reviewCount": String(totalNum)
-        };
-      }
-
-      // map + push
-      if (!productNodesMap[itemUrl]) {
-        productNodesMap[itemUrl] = node;
-        productNodes.push(node);
-      }
-    }
-  }
-
-  // Build itemListElement — prefer referencing Product @id when product node exists; else use URL string
+  // Build itemListElement: reference Product @id when we created a Product node; else use URL string
   const itemListElement = itemsForSchema.map((tractor, i) => {
     const pos = i + 1 + (cp - 1) * ipp;
     const itemUrl = toAbs((currentLang === 'hi' ? '/hi' : '') + (tractor?.page_url || ''));
@@ -217,7 +130,7 @@ const TractorListing = ({
     "itemListElement": itemListElement
   } : null;
 
-  // Put product nodes first in @graph (helps some validators)
+  // Build @graph with only productNodes (eligible) + ItemList
   const graph = [
     ...productNodes,
     ...(itemListNode ? [itemListNode] : [])
@@ -228,11 +141,11 @@ const TractorListing = ({
     "@graph": graph
   }).replace(/<\/script>/gi, '<\\/script>') : null;
 
-  // DEV logging (optional) - remove/comment in production
+  // DEV log
   if (process.env.NODE_ENV !== 'production') {
     try {
       // eslint-disable-next-line no-console
-      console.info('Structured data: products:', productNodes.length, 'itemsForSchema:', itemsForSchema.length);
+      console.info('SD: productNodes', productNodes.length, 'itemsForSchema', itemsForSchema.length);
     } catch (e) {}
   }
 
@@ -388,6 +301,7 @@ const TractorListing = ({
 };
 
 export default TractorListing;
+
 
 
 
