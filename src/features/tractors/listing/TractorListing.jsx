@@ -83,7 +83,7 @@ const TractorListing = ({
     } : undefined;
 
     const node = {
-      // "@type": "Product",
+      "@type": "Product",
       // "@id": itemUrl,         
       "name": name,
       "url": itemUrl,
