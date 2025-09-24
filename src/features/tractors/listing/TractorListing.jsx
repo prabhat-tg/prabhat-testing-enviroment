@@ -6,13 +6,12 @@ import { TG_ReelsCard } from '@/src/components/ui/cards/reels/ReelsCards';
 import ClientVideoWrapper from '@/src/components/ui/video/ClientVideoWrapper';
 
 /**
- * Strategy:
- * - Create Product nodes ONLY for items that have aggregateRating (avg_review + total_reviews).
- * - Build ItemList using ONLY those eligible Product nodes (no mixing with plain URLs).
- * - If no eligible items exist, don't emit structured JSON-LD (can't fake review/offers).
+ * TractorListing with optional test-mode structured-data injection.
  *
- * Note: For carousel to appear, Google needs eligible Product nodes. If ratings exist in backend,
- * this will include them and increase chance of carousel showing.
+ * Props:
+ * - forceStructuredDataTest (boolean) -> when true, allows injecting test ratings for first N items (dev/staging only)
+ *
+ * REMINDER: Do NOT set forceStructuredDataTest = true on production.
  */
 
 const TractorListing = ({
@@ -28,7 +27,8 @@ const TractorListing = ({
   basePath,
   pageOrigin = "https://tractorgyan.com",
   isMobile,
-  reel
+  reel,
+  forceStructuredDataTest = false // <--- pass true from page only for staging/testing
 }) => {
   const noDataFound = !initialTyres || initialTyres.length === 0;
   const cp = Number(currentPage || 1);
@@ -65,9 +65,10 @@ const TractorListing = ({
     return path.startsWith('/') ? `${origin}${path}` : `${origin}/${path}`;
   };
 
+  // Items that will be used for schema must match UI slicing
   const itemsForSchema = (reel ? (initialTyres || []).slice(showReelAfter) : (initialTyres || []));
 
-  // Helper: check rating presence & validity
+  // Helper: check rating presence & validity from backend
   const hasValidRating = (tractor) => {
     const avg = tractor?.avg_review ?? tractor?.avgRating ?? tractor?.rating;
     const total = tractor?.total_reviews ?? tractor?.totalReview ?? tractor?.review_count;
@@ -75,27 +76,30 @@ const TractorListing = ({
     const avgN = Number(avg);
     const totalN = Number(total);
     if (Number.isNaN(avgN) || Number.isNaN(totalN)) return false;
-    // ratingValue typically in range 1-5 (if your backend uses another scale adjust accordingly)
     if (avgN <= 0) return false;
     return true;
   };
 
-  // Build eligible list (only items that have rating info)
-  const eligibleItems = itemsForSchema.filter(hasValidRating);
+  // Build list of eligible items (with real rating)
+  const eligibleReal = itemsForSchema.filter(hasValidRating);
 
-  // If there are eligible items, create Product nodes and ItemList that references them.
+  // Determine if we are allowed to use test injection:
+  const allowTestInjection = forceStructuredDataTest === true || process.env.NODE_ENV !== 'production';
+
+  // Graph builder
   const graph = [];
-  if (eligibleItems.length > 0) {
-    const productNodes = eligibleItems.map((tractor, i) => {
+  let usedProductNodes = []; // keep nodes for ItemList
+
+  if (eligibleReal.length > 0) {
+    // Use real rated items
+    usedProductNodes = eligibleReal.map((tractor, i) => {
       const pos = i + 1 + (cp - 1) * ipp;
       const itemUrl = toAbs((currentLang === 'hi' ? '/hi' : '') + (tractor?.page_url || ''));
       const name = `${(tractor?.brand || '').trim()} ${(tractor?.model || '').trim()}`.trim() || `Tractor ${pos}`;
       const image = tractor?.image ? toAbs(`https://images.tractorgyan.com/uploads${tractor.image}`) : undefined;
-
       const avg = tractor?.avg_review ?? tractor?.avgRating ?? tractor?.rating;
       const total = tractor?.total_reviews ?? tractor?.totalReview ?? tractor?.review_count;
-
-      const node = {
+      return {
         "@type": "Product",
         "@id": itemUrl,
         "name": name,
@@ -109,16 +113,63 @@ const TractorListing = ({
           "reviewCount": String(Number(total))
         }
       };
-      return node;
     });
+  } else if (allowTestInjection && itemsForSchema.length > 0) {
+    // TEST FALLBACK: create product nodes for first N items with static test rating.
+    // NOTE: This block is ONLY for testing/staging (forceStructuredDataTest OR dev env).
+    // Remove/disable before production!
+    const FALLBACK_COUNT = Math.min(3, itemsForSchema.length);
+    const TEST_RATING_VALUE = 4.3; // static test value
+    const TEST_REVIEW_COUNT = 25;  // static test count
+    // dev warning
+    if (process.env.NODE_ENV === 'production') {
+      // eslint-disable-next-line no-console
+      console.warn('[Structured-Data] Test injection attempted in production - aborting injection.');
+    } else {
+      // eslint-disable-next-line no-console
+      console.warn('[Structured-Data] Using TEST aggregateRating for first', FALLBACK_COUNT, 'items. Remove before production.');
+      for (let i = 0; i < FALLBACK_COUNT; i++) {
+        const tractor = itemsForSchema[i];
+        const pos = i + 1 + (cp - 1) * ipp;
+        const itemUrl = toAbs((currentLang === 'hi' ? '/hi' : '') + (tractor?.page_url || ''));
+        const name = `${(tractor?.brand || '').trim()} ${(tractor?.model || '').trim()}`.trim() || `Tractor ${pos}`;
+        const image = tractor?.image ? toAbs(`https://images.tractorgyan.com/uploads${tractor.image}`) : undefined;
+        const node = {
+          "@type": "Product",
+          "@id": itemUrl,
+          "name": name,
+          "url": itemUrl,
+          ...(image ? { image: [image] } : {}),
+          ...(tractor?.short_description ? { description: String(tractor.short_description).slice(0, 300) } : {}),
+          ...(tractor?.sku ? { sku: String(tractor.sku) } : {}),
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": String(TEST_RATING_VALUE),
+            "reviewCount": String(TEST_REVIEW_COUNT)
+          }
+        };
+        usedProductNodes.push(node);
+      }
+    }
+  } else {
+    // No eligible items and test injection not allowed -> do not emit JSON-LD
+    if (process.env.NODE_ENV !== 'production') {
+      // eslint-disable-next-line no-console
+      console.info('[Structured-Data] No eligible Product nodes and test injection not enabled. JSON-LD will not be emitted.');
+    }
+  }
 
-    // push product nodes
-    productNodes.forEach(n => graph.push(n));
+  // If we have product nodes (real or test), build ItemList referencing them
+  if (usedProductNodes.length > 0) {
+    // push product nodes into graph
+    usedProductNodes.forEach(n => graph.push(n));
 
-    // build ItemList solely from eligible items (reference by @id)
-    const itemListElement = eligibleItems.map((tractor, i) => {
-      const pos = i + 1 + (cp - 1) * ipp;
-      const itemUrl = toAbs((currentLang === 'hi' ? '/hi' : '') + (tractor?.page_url || ''));
+    // Build item list referencing the same items by @id (position relative to UI)
+    const itemListElement = usedProductNodes.map((node, idx) => {
+      // We need position to match UI ordering. Find the index of this product in itemsForSchema.
+      const itemUrl = node['@id'];
+      const uiIndex = itemsForSchema.findIndex(t => toAbs((currentLang === 'hi' ? '/hi' : '') + (t?.page_url || '')) === itemUrl);
+      const pos = uiIndex >= 0 ? (uiIndex + 1 + (cp - 1) * ipp) : (idx + 1);
       return {
         "@type": "ListItem",
         "position": pos,
@@ -129,18 +180,12 @@ const TractorListing = ({
     const itemListNode = {
       "@type": "ItemList",
       "name": `${translation?.headings?.hpGroupName || 'Tractors'}${pageType ? ` - ${pageType}` : ''}`,
-      "numberOfItems": Number(eligibleItems.length),
+      "numberOfItems": Number(usedProductNodes.length),
       "itemListOrder": "https://schema.org/ItemListOrderAscending",
       "itemListElement": itemListElement
     };
 
     graph.push(itemListNode);
-  } else {
-    // No eligible items with ratings — don't emit Product ItemList (can't fabricate)
-    if (process.env.NODE_ENV !== 'production') {
-      // eslint-disable-next-line no-console
-      console.warn('Structured Data: No eligible items with aggregateRating found. Carousel cannot be emitted without rating or price.');
-    }
   }
 
   const jsonLd = graph.length > 0 ? JSON.stringify({
@@ -150,9 +195,10 @@ const TractorListing = ({
 
   return (
     <>
-      {/* JSON-LD only emitted when we have eligible items */}
+      {/* JSON-LD only emitted when usedProductNodes exists */}
       {jsonLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd }} />}
 
+      {/* Visible UI (unchanged) */}
       <div className="h-full w-full">
         {noDataFound ? (
           <div className="my-10 text-center md:mt-40">
@@ -299,6 +345,7 @@ const TractorListing = ({
 };
 
 export default TractorListing;
+
 
 
 
