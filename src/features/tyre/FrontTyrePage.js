@@ -11,7 +11,6 @@ import {
 } from '@/src/services/tyre/tyre-brand-webstore';
 import NavComponents from '@/src/features/tyre/NavComponents';
 import FooterComponents from '@/src/features/tyre/FooterComponents';
-import ClientComponentsWithoutAbout from '@/src/features/tyre/ClientComponents';
 import { getDictionary } from '@/src/lib/dictonaries';
 import { isMobileView } from '@/src/utils';
 import { getTyreTopContent } from '@/src/services/tyre/top-content';
@@ -196,11 +195,6 @@ const FrontTyrePage = async ({ params, searchParams }) => {
           slug={`${prefLang === 'en' ? '' : `${prefLang}/`}tyre/front`}
           translation={translation}
         />
-        {/* <ClientComponentsWithoutAbout
-          translation={translation}
-          pageName="tyre/front"
-          prefLang={prefLang}
-        /> */}
       </div>
       <FooterComponents translation={translation} />
     </>
