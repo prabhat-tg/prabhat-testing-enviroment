@@ -57,7 +57,7 @@ const TractorListing = ({
   };
 
   // items used for schema must match UI slicing
-  const itemsForSchema = (reel ? (initialTyres || []).slice(showReelAfter) : (initialTyres || []));
+  const itemsForSchema = (initialTyres || []).slice(0, showReelAfter);
 
   // Build product nodes and itemlist node for JSON-LD @graph
   const productNodes = itemsForSchema.map((tractor, i) => {
@@ -97,21 +97,21 @@ const TractorListing = ({
       ...(image ? { "image": [image] } : {}),
       ...(tractor?.short_description ? { "description": String(tractor.short_description).slice(0, 300) } : {}),
       ...(tractor?.sku ? { "sku": String(tractor.sku) } : {}),
-      ...(offers ? { "offers": offers } : {})
+      ...(offers ? { "offers": offers || 0 } : {})
     };
 
     // add rating only if both present and valid numbers
-    const avg = tractor?.avg_review ?? tractor?.avgRating ?? tractor?.rating;
+    const avg = tractor?.avg_review ?? tractor?.total_reviews ?? tractor?.total_reviews ?? 0;
     const totalReviews = tractor?.total_reviews ?? tractor?.totalReview ?? tractor?.review_count;
     const avgNum = avg !== undefined && avg !== null ? Number(avg) : null;
     const totalNum = totalReviews !== undefined && totalReviews !== null ? Number(totalReviews) : null;
-    if (avgNum !== null && !Number.isNaN(avgNum) && totalNum !== null && !Number.isNaN(totalNum)) {
+    // if (avgNum !== null && !Number.isNaN(avgNum) && totalNum !== null && !Number.isNaN(totalNum)) {
       node.aggregateRating = {
         "@type": "AggregateRating",
-        "ratingValue": String(avgNum),
-        "reviewCount": String(totalNum)
+        "ratingValue": String(avgNum || 0),
+        "reviewCount": String(totalNum || 0)
       };
-    }
+    // }
 
     return node;
   });
