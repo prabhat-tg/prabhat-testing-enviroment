@@ -72,7 +72,6 @@ const TractorListing = ({
     }
     const hasPrice = numericPrice !== null && numericPrice > 0;
 
-    
     const offers = hasPrice ? {
       "@type": "Offer",
       "url": itemUrl,
@@ -85,7 +84,7 @@ const TractorListing = ({
 
     const node = {
       "@type": "Product",
-      "@id": pos,         
+      "@id": itemUrl,         
       "name": name,
       "url": itemUrl,
       ...(image ? { "image": [image] } : {}),
