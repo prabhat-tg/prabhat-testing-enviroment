@@ -11,6 +11,7 @@ import {
 } from '@/src/services/tyre/tyre-brand-webstore';
 import NavComponents from '@/src/features/tyre/NavComponents';
 import FooterComponents from '@/src/features/tyre/FooterComponents';
+import ClientComponentsWithoutAbout from '@/src/features/tyre/ClientComponents';
 import { getDictionary } from '@/src/lib/dictonaries';
 import { isMobileView } from '@/src/utils';
 import { getTyreTopContent } from '@/src/services/tyre/top-content';
@@ -47,83 +48,80 @@ const FrontTyrePage = async ({ params, searchParams }) => {
 
   const seoData = await getSEOByPage(seoSlug);
 
-  try {
-    faqs = await getTyreFAQs({
-      langPrefix: prefLang,
-      slug: 'tyre/front',
-    });
+  // try {
+  //   faqs = await getTyreFAQs({
+  //     langPrefix: prefLang,
+  //     slug: 'tyre/front',
+  //   });
 
-    tyreBrands = await getTyreBrands();
-    const [videoData, reelData, webstoryData] = await Promise.all([
-      getTyreVideos('tractor-tyre-in-india'),
-      getTyreReels('tractor-tyre-in-india'),
-      getTyreWebstories('tractor-tyre-in-india'),
-    ]);
-    videos = videoData;
-    reels = reelData;
-    webstories = webstoryData;
+  //   seoData = await getSEOByPage(seoSlug);
+  //   tyreBrands = await getTyreBrands();
+  //   const [videoData, reelData, webstoryData] = await Promise.all([
+  //     getTyreVideos('tractor-tyre-in-india'),
+  //     getTyreReels('tractor-tyre-in-india'),
+  //     getTyreWebstories('tractor-tyre-in-india'),
+  //   ]);
+  //   videos = videoData;
+  //   reels = reelData;
+  //   webstories = webstoryData;
 
-    tyreTopContent = await getTyreTopContent({
-      ad_title: pageSlug,
-      currentLang: prefLang,
-      device_type: isMobile ? 'mobile' : 'desktop',
-    });
+  //   tyreTopContent = await getTyreTopContent({
+  //     ad_title: pageSlug,
+  //     currentLang: prefLang,
+  //     device_type: isMobile ? 'mobile' : 'desktop',
+  //   });
 
-    priceList = await getAllPriceList({
-      lang: prefLang,
-      tyre_slug: pageSlug,
-    });
-  } catch (error) {
-    console.error('Error fetching data for FrontTyrePage:', error);
-    return <div>Error loading page.</div>;
-  }
+  //   priceList = await getAllPriceList({
+  //     lang: prefLang,
+  //     tyre_slug: pageSlug,
+  //   });
+  // } catch (error) {
+  //   console.error('Error fetching data for FrontTyrePage:', error);
+  //   return <div>Error loading page.</div>;
+  // }
 
-  function formatTyreSize(input) {
-    if (!input) return '';
-    const parts = input.toLowerCase().split('-');
-    if (parts?.length >= 5) {
-      const formatted = `${parts[0]}.${parts[1]}x${parts[3]}`;
-      return formatted;
-    }
-    return input;
-  }
-  const tyreSize = formatTyreSize(searchParamsObj.sizeSlug);
+  // function formatTyreSize(input) {
+  //   if (!input) return '';
+  //   const parts = input.toLowerCase().split('-');
+  //   if (parts?.length >= 5) {
+  //     const formatted = `${parts[0]}.${parts[1]}x${parts[3]}`;
+  //     return formatted;
+  //   }
+  //   return input;
+  // }
+  // const tyreSize = formatTyreSize(searchParamsObj.sizeSlug);
 
-  // Get pagination info from TyreListingData
-  const { component: TyreListingComponent, paginationInfo } = await TyreListingData({
-    params: param,
-    searchParams,
-    basePath: 'tyre/front',
-    tyreBrands,
-    showBrandFilter: true,
-    showSizeFilter: false,
-    filterBySize: 'front',
-    pageType: 'tyre_type_page',
-  });
+  // const { component: TyreListingComponent, paginationInfo } = await TyreListingData({
+  //   params: param,
+  //   searchParams,
+  //   basePath: 'tyre/front',
+  //   tyreBrands,
+  //   showBrandFilter: true,
+  //   showSizeFilter: false,
+  //   filterBySize: 'front',
+  //   pageType: 'tyre_type_page',
+  // });
 
-  // Extract pagination data
-  const { hasNextPage, currentPage } = paginationInfo;
+  // const { hasNextPage, currentPage } = paginationInfo;
 
-  // Breadcrumbs for Front Tyre Page
-  const breadcrumbs = [
-    {
-      label: translation.breadcrubm.home,
-      href: prefLang === 'hi' ? '/hi' : '/',
-      title: translation.breadcrubm.home,
-    },
-    {
-      label: translation.headerNavbar.tyreHome,
-      href: prefLang === 'hi' ? '/hi/tractor-tyre-in-india' : '/tractor-tyre-in-india',
-      title: translation.headerNavbar.tyreHome,
-    },
-    {
-      label: translation.breadcrubm.frontTyres || translation.headings.front,
-      title: translation.breadcrubm.frontTyres || translation.headings.front,
-      isCurrent: true,
-    },
-  ];
-
-  console.log('---seoData', seoData);
+  // // Breadcrumbs for Front Tyre Page
+  // const breadcrumbs = [
+  //   {
+  //     label: translation.breadcrubm.home,
+  //     href: prefLang === 'hi' ? '/hi' : '/',
+  //     title: translation.breadcrubm.home,
+  //   },
+  //   {
+  //     label: translation.headerNavbar.tyreHome,
+  //     href: prefLang === 'hi' ? '/hi/tractor-tyre-in-india' : '/tractor-tyre-in-india',
+  //     title: translation.headerNavbar.tyreHome,
+  //   },
+  //   {
+  //     label: translation.breadcrubm.frontTyres || translation.headings.front,
+  //     title: translation.breadcrubm.frontTyres || translation.headings.front,
+  //     isCurrent: true,
+  //   },
+  // ];
 
   return (
     <>
@@ -142,9 +140,9 @@ const FrontTyrePage = async ({ params, searchParams }) => {
             : null,
         }}
       />
-      <DesktopHeader isMobile={isMobile} translation={translation} currentLang={prefLang} />{' '}
+      {/* <DesktopHeader isMobile={isMobile} translation={translation} currentLang={prefLang} />{' '} */}
       <div className="lg:mt-[159px]">
-        <TyresPriceList
+        {/* <TyresPriceList
           brandName={translation.headings.front}
           tyreTopContent={tyreTopContent}
           deviceType={isMobile ? 'mobile' : 'desktop'}
@@ -196,7 +194,12 @@ const FrontTyrePage = async ({ params, searchParams }) => {
         <AboutTractorGyanServer
           slug={`${prefLang === 'en' ? '' : `${prefLang}/`}tyre/front`}
           translation={translation}
-        />
+        /> */}
+        {/* <ClientComponentsWithoutAbout
+          translation={translation}
+          pageName="tyre/front"
+          prefLang={prefLang}
+        /> */}
       </div>
       {/* <FooterComponents translation={translation} /> */}
     </>
