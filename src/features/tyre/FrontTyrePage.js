@@ -129,16 +129,16 @@ const FrontTyrePage = async ({ params, searchParams }) => {
         seo={seoData}
         staticMetadata={{}}
         preloadUrls={[]}
-        paginationLinks={{
-          canonical: `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/tyre/front`,
-          prev:
-            currentPage > 1
-              ? `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/tyre/front?page=${currentPage - 1}`
-              : null,
-          next: hasNextPage
-            ? `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/tyre/front?page=${currentPage + 1}`
-            : null,
-        }}
+        // paginationLinks={{
+        //   canonical: `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/tyre/front`,
+        //   prev:
+        //     currentPage > 1
+        //       ? `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/tyre/front?page=${currentPage - 1}`
+        //       : null,
+        //   next: hasNextPage
+        //     ? `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/tyre/front?page=${currentPage + 1}`
+        //     : null,
+        // }}
       />
       {/* <DesktopHeader isMobile={isMobile} translation={translation} currentLang={prefLang} />{' '} */}
       <div className="lg:mt-[159px]">
