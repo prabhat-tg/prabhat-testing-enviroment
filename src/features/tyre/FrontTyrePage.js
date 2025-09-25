@@ -126,7 +126,7 @@ const FrontTyrePage = async ({ params, searchParams }) => {
   return (
     <>
       <SeoHead
-        seo={seoData}
+        seo={null}
         staticMetadata={{}}
         preloadUrls={[]}
         paginationLinks={{
@@ -189,14 +189,14 @@ const FrontTyrePage = async ({ params, searchParams }) => {
           defaultEnquiryType={'Tyre'}
           isMobile={isMobile}
         />
-        {/* <JoinOurCommunityServer translation={translation} currentLang={prefLang} />
+        <JoinOurCommunityServer translation={translation} currentLang={prefLang} />
         <TractorGyanOfferings translation={translation} />
         <AboutTractorGyanServer
           slug={`${prefLang === 'en' ? '' : `${prefLang}/`}tyre/front`}
           translation={translation}
-        /> */}
+        />
       </div>
-      <FooterComponents translation={translation} />
+      {/* <FooterComponents translation={translation} /> */}
     </>
   );
 };
