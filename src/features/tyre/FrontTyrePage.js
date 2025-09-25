@@ -32,7 +32,6 @@ const FrontTyrePage = async ({ params, searchParams }) => {
   const prefLang = await getSelectedLanguage();
   const seoSlug = prefLang === 'en' ? 'tyre/front' : `${prefLang}/tyre/front`;
 
-  let seoData;
   let tyreBrands;
   let videos;
   let reels;
@@ -46,13 +45,14 @@ const FrontTyrePage = async ({ params, searchParams }) => {
 
   const translation = await getDictionary(prefLang);
 
+  const seoData = await getSEOByPage(seoSlug);
+
   try {
     faqs = await getTyreFAQs({
       langPrefix: prefLang,
       slug: 'tyre/front',
     });
 
-    seoData = await getSEOByPage((prefLang == 'en' ? '' : `${prefLang}/`) + 'tyre-price');
     tyreBrands = await getTyreBrands();
     const [videoData, reelData, webstoryData] = await Promise.all([
       getTyreVideos('tractor-tyre-in-india'),
