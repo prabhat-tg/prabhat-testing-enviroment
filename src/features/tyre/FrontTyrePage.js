@@ -52,7 +52,7 @@ const FrontTyrePage = async ({ params, searchParams }) => {
       slug: 'tyre/front',
     });
 
-    seoData = await getSEOByPage(seoSlug);
+    seoData = await getSEOByPage((prefLang == 'en' ? '' : `${prefLang}/`) + 'tyre-price');
     tyreBrands = await getTyreBrands();
     const [videoData, reelData, webstoryData] = await Promise.all([
       getTyreVideos('tractor-tyre-in-india'),
