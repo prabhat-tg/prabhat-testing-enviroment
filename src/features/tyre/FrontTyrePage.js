@@ -141,8 +141,8 @@ const FrontTyrePage = async ({ params, searchParams }) => {
             : null,
         }}
       />
-      {/* <DesktopHeader isMobile={isMobile} translation={translation} currentLang={prefLang} />{' '} */}
-      {/* <div className="lg:mt-[159px]">
+      <DesktopHeader isMobile={isMobile} translation={translation} currentLang={prefLang} />{' '}
+      <div className="lg:mt-[159px]">
         <TyresPriceList
           brandName={translation.headings.front}
           tyreTopContent={tyreTopContent}
@@ -196,9 +196,13 @@ const FrontTyrePage = async ({ params, searchParams }) => {
           slug={`${prefLang === 'en' ? '' : `${prefLang}/`}tyre/front`}
           translation={translation}
         />
-
+        {/* <ClientComponentsWithoutAbout
+          translation={translation}
+          pageName="tyre/front"
+          prefLang={prefLang}
+        /> */}
       </div>
-      <FooterComponents translation={translation} /> */}
+      <FooterComponents translation={translation} />
     </>
   );
 };
