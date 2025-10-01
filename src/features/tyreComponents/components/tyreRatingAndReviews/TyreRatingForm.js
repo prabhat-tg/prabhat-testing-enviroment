@@ -9,7 +9,16 @@ import { getTractorBrands } from '@/src/services/tractor/all-tractor-brands-v2';
 import { getTractorModelsByBrand } from '@/src/services/tractor/get-model-by-brand-v2';
 import { getAllTractorModels } from '@/src/services/tractor/all-tractor-models';
 
-const TyreRatingForm = ({ brand, model, form_page_name, translation }) => {
+const TyreRatingForm = ({
+  brand,
+  model,
+  form_page_name,
+  translation,
+  mode = 'tyre',
+  implementType,
+  implementBrand,
+  implementModel
+}) => {
   const [selectedRating, setSelectedRating] = useState(0);
   const [formData, setFormData] = useState({
     name: '',
@@ -89,14 +98,32 @@ const TyreRatingForm = ({ brand, model, form_page_name, translation }) => {
       return;
     }
     setLoading(true);
-    // For tractor_review, use selectedBrand/selectedModel, else use props
-    const postData = {
-      ...formData,
-      total_rating: selectedRating,
-      brand: form_page_name === 'tractor_review' ? selectedBrand : brand,
-      model: form_page_name === 'tractor_review' ? selectedModel : model,
-      form_page_name,
-    };
+
+    let postData;
+
+    if (mode === 'implement') {
+      // Implement-specific payload structure
+      postData = {
+        name: formData.name,
+        mobile: formData.mobile,
+        user_message: formData.user_message,
+        brand: implementBrand,
+        model: implementModel,
+        total_rating: selectedRating,
+        form_page_name: form_page_name,
+        implement_type: implementType,
+      };
+    } else {
+      // Original tyre/tractor payload structure
+      postData = {
+        ...formData,
+        total_rating: selectedRating,
+        brand: form_page_name === 'tractor_review' ? selectedBrand : brand,
+        model: form_page_name === 'tractor_review' ? selectedModel : model,
+        form_page_name,
+      };
+    }
+
     try {
       const result = await addTyreRatingReview(postData);
       if (result.success) {

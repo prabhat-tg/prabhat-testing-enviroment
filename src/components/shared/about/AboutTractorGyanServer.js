@@ -14,9 +14,8 @@ export default async function AboutPage({
   if (isStatic) rawHtml = staticData;
   else if (isTractorDealer) {
     rawHtml = await getTractorDealerContent(tractorDealerPayload);
-  }
+  } else rawHtml = await getAboutContent(slug);
 
-  else rawHtml = await getAboutContent(slug);
   const { title, strippedContent } = processContent(rawHtml);
 
   if (!title && !strippedContent) {

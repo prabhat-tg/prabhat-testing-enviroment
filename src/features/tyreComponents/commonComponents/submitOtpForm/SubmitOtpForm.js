@@ -76,9 +76,12 @@ const SubmitOtpForm = ({
   // New props from WhatsAppTopButton for generalization
   productNameSingular,
   productNamePlural,
-  enquiryType, // This will determine the main context ('Tyre', 'Tractor', 'Dealer', 'Insurance')
+  enquiryType, // This will determine the main context ('Tyre', 'Tractor', 'Dealer', 'Insurance', 'BannerAd')
   currentLang,
-  encryptedOtp
+  encryptedOtp,
+  implementType,
+  // New props for banner form modal
+  showSuggested = true   // Whether to fetch and show suggested products
 }) => {
   // State
   const [otpTimer, setOtpTimer] = useState(20);
@@ -310,6 +313,9 @@ const SubmitOtpForm = ({
           } else if (enquiryType === 'Dealership') {
             // For dealership enquiries, call onClose to trigger success popup
             onClose?.();
+          } else if (enquiryType === 'BannerAd') {
+            // For BannerAd enquiries, show success without suggested products
+            setShowSuggestedPopup(true); // This will show thank you message only
           } else {
             fetchSuggestedProducts(!dealerContactName); // Call renamed function for other types
           }
@@ -342,23 +348,39 @@ const SubmitOtpForm = ({
 
   const fetchSuggestedProducts = () => {
     // Renamed and logic updated
-    if (dealerContactName || !enquiryType || enquiryType === 'Insurance') return; // Don't fetch for dealers, insurance, or if enquiryType is not set
+    if (dealerContactName || !enquiryType || enquiryType === 'Insurance' || !showSuggested) return; // Don't fetch for dealers, insurance, BannerAd, or if showSuggested is false
 
     let endpoint = '';
+    let payload = {};
+
     if (enquiryType === 'Tractor') {
       endpoint = `api/suggested_tractor`;
+      payload = {
+        product_id, // This might be specific to the main product, ensure API handles it
+        brand_name: bradn_name, // This might be specific to the main product
+        otp_verify: existVerified,
+      };
     } else if (enquiryType === 'Tyre') {
       endpoint = `api/suggested_tyre`;
+      payload = {
+        product_id, // This might be specific to the main product, ensure API handles it
+        brand_name: bradn_name, // This might be specific to the main product
+        otp_verify: existVerified,
+      };
+    } else if (enquiryType === 'Implement') {
+      endpoint = `api/suggested_implement`;
+      payload = {
+        brand_name: bradn_name,
+        product_id: product_id,
+        otp_verified: 'yes',
+        implement_type: implementType || '',
+      };
     } else {
-      return; // Do not fetch for other types like 'Dealer' or 'Insurance'
+      return; // Do not fetch for other types like 'Dealer', 'Insurance', or 'BannerAd'
     }
     console.log('sgg : ', dealerContactName, enquiryType);
 
-    postData(endpoint, {
-      product_id, // This might be specific to the main product, ensure API handles it
-      brand_name: bradn_name, // This might be specific to the main product
-      otp_verify: existVerified,
-    })
+    postData(endpoint, payload)
       .then(res => {
         console.log('sgg : ', res);
 
@@ -469,6 +491,10 @@ const SubmitOtpForm = ({
     } else if (enquiryType === 'Dealership') {
       setIsOtpSkipped(true);
       onClose?.();
+    } else if (enquiryType === 'BannerAd') {
+      // For BannerAd enquiries, show success without suggested products
+      setIsOtpSkipped(true);
+      setShowSuggestedPopup(true); // This will show thank you message only
     } else {
       if (!dealerContactName) fetchSuggestedProducts(); // Call renamed function for other types
     }
@@ -511,6 +537,10 @@ const SubmitOtpForm = ({
         typeIdForSuggested = isMobile ? 81 : 82;
         payloadProductType = product.product_category || 'Tyre';
       }
+    } else if (enquiryType === 'Implement') {
+      // For implement enquiries, use type IDs 99 for mobile and 100 for desktop
+      typeIdForSuggested = isMobile ? 99 : 100;
+      payloadProductType = 'Implement';
     } else {
       // Default fallback if enquiryType is neither Tyre nor Tractor (e.g., Dealer or undefined)
       // Using the original logic as a base for this fallback.
@@ -671,12 +701,14 @@ const SubmitOtpForm = ({
                       className="h-auto w-full"
                     />
                   </div>
+
                   <button
                     className="flex items-center justify-center gap-2 rounded-md bg-primary px-2 py-1 text-base text-white"
                     onClick={skipOtpVerification}
                   >
                     <span>{translation?.whatsappPopup.skip}</span>
                   </button>
+
                 </div>
                 <div className="mx-auto max-w-[350px]">
                   <div className="mb-3 text-center text-xl font-bold text-black">
@@ -833,25 +865,30 @@ const SubmitOtpForm = ({
               </button>
               <div className="text-center">
                 <span className="md:text-md text-sm text-gray-main">
-                  {existVerified == 'Non_Verified_Exist' ? 'You can only submit one enquiry within 24 hours.' : translation?.suggestedPopup?.mainPara ||
-                    'Your OTP is verified. You will receive a call from our agent shortly.'}
+                  {existVerified == 'Non_Verified_Exist' ? 'You can only submit one enquiry within 24 hours.' :
+                    enquiryType === 'BannerAd' ?
+                      (translation?.suggestedPopup?.bannerAdThankYou || 'Thank you for your enquiry! We will contact you shortly.') :
+                      (translation?.suggestedPopup?.mainPara ||
+                        'Your OTP is verified. You will receive a call from our agent shortly.')}
                 </span>
-                <div className="mx-auto my-2 flex flex-col items-center justify-center rounded-lg border-[1px] border-primary bg-white px-8 py-1 text-sm text-primary">
-                  <span className="text-xs">
-                    {translation?.suggestedPopup?.getThisProduct ||
-                      `Get this ${productNameSingular || 'product'} At`}
-                  </span>
-                  <span className="text-base font-bold">
-                    {isOtpVerified
-                      ? priceRange // Already formatted by formatPrice or is "Price Details Coming Soon"
-                      : maskOneWords(priceRange) || '₹X,XX,XXX - ₹XX,XX,XXX*'}
-                    {/* Keep maskOneWords for unverified, but priceRange is now pre-formatted */}
-                  </span>
-                  <span className="text-xs text-gray-main">
-                    {translation?.suggestedPopup.priceMayVary}
-                  </span>
-                </div>
-                {!isOtpVerified && (
+                {enquiryType !== 'BannerAd' && (
+                  <div className="mx-auto my-2 flex flex-col items-center justify-center rounded-lg border-[1px] border-primary bg-white px-8 py-1 text-sm text-primary">
+                    <span className="text-xs">
+                      {translation?.suggestedPopup?.getThisProduct ||
+                        `Get this ${productNameSingular || 'product'} At`}
+                    </span>
+                    <span className="text-base font-bold">
+                      {isOtpVerified
+                        ? priceRange // Already formatted by formatPrice or is "Price Details Coming Soon"
+                        : maskOneWords(priceRange) || '₹X,XX,XXX - ₹XX,XX,XXX*'}
+                      {/* Keep maskOneWords for unverified, but priceRange is now pre-formatted */}
+                    </span>
+                    <span className="text-xs text-gray-main">
+                      {translation?.suggestedPopup.priceMayVary}
+                    </span>
+                  </div>
+                )}
+                {!isOtpVerified && enquiryType !== 'BannerAd' && (
                   <button onClick={handleGetPrice} className="text-base text-blue-link">
                     {translation?.suggestedPopup.verifyMobile}
                   </button>
@@ -859,7 +896,7 @@ const SubmitOtpForm = ({
               </div>
               <WhatsappChannel translation={translation} />
             </div>
-            {suggestedProducts.length > 0 && (
+            {suggestedProducts.length > 0 && enquiryType !== 'BannerAd' && showSuggested && (
               <div className="text-cente">
                 <div className="my-1 text-center text-sm font-bold md:text-lg">
                   {translation?.suggestedPopup?.similarProducts ||
@@ -1078,13 +1115,17 @@ const SubmitOtpForm = ({
                 <span className="md:text-md text-sm text-gray-main">
                   {enquiryType === 'Tractor'
                     ? 'Thank you for your tractor inquiry!'
-                    : 'Thank you for reaching out.'}
+                    : enquiryType === 'BannerAd'
+                      ? 'Thank you for your enquiry! We will contact you shortly.'
+                      : 'Thank you for reaching out.'}
                 </span>
-                <DealerInfo
-                  dealerContactName={dealerContactName}
-                  dealerMobile={dealerMobile}
-                  maskMobile={maskMobile}
-                />
+                {dealerContactName && (
+                  <DealerInfo
+                    dealerContactName={dealerContactName}
+                    dealerMobile={dealerMobile}
+                    maskMobile={maskMobile}
+                  />
+                )}
                 {/* <button onClick={handleGetPrice} className="text-base text-blue-link">
                   {translation?.suggestedPopup.verifyMobile}
                 </button> */}

@@ -40,16 +40,17 @@ import { getImplementNews } from '@/src/services/implement/implement-news';
 import { getAllImplementBrandsByType } from '@/src/services/implement/all-implement-brands-by-type';
 import { getImplementFAQs } from '@/src/services/implement/get-implement-faqs';
 import { getImplementCategoryTopContent } from '@/src/services/implement/get-implement-category-top-content';
-import { getImplementTypeTopContent } from '@/src/services/implement/get-implement-type-top-content';
-import { getImplementTypePriceList } from '@/src/services/implement/implemet-type-price-list';
 import { getSEOByPage } from '@/src/services/seo/get-page-seo';
 import SeoHead from '@/src/components/shared/header/SeoHead';
 import TractorListingData from '../tractors/listing/TractorListingData';
 import { getAllImplementTypeListing } from '@/src/services/implement/get-all-implement-type-listing';
-import { getAllImplementBrandListing } from '@/src/services/implement/get-all-implement-brand-listing';
 import { getImplementBrandFAQs } from '@/src/services/implement/get-all-implement-brand-faqs';
+import { getImplementCategoryFilter } from '@/src/services/implement/get-implement-category-filter';
+import { getAllImplementBrandListing } from '@/src/services/implement/get-all-implement-brand-listing';
 import TyresPriceList from '../tyre/tyre-price/ListingMainSection';
 import Link from 'next/link';
+import { getImplementTypeTopContent } from '@/src/services/implement/get-implement-type-top-content';
+import { checkImplementSlug } from '@/src/services/implement/check-implement-slug';
 
 export const dynamic = 'force-dynamic'; // Ensure the page is always rendered dynamically
 
@@ -68,7 +69,27 @@ export default async function TractorImplementByBrandPage({ params, searchParams
 
   console.log('---params', param.brand)
 
-  const tractorBrands = await getAllTractorBrands();
+  // const tractorBrands = await getAllTractorBrands();
+
+  let brand_name;
+  try {
+    const check = await checkImplementSlug({
+      slug: param.brand
+    });
+    // if (check[0].is_implement_type == '1') {
+    //   brand_en = check[0].implement_type_en.charAt(0).toUpperCase() + check[0].implement_type_en.slice(1);
+    //   brand_hi = check[0].implement_type_hi;
+    // }
+    if (check[0].is_brand == '1') {
+      brand_name = currentLang == 'hi' ? check[0].brand_hi : check[0].brand_en.charAt(0).toUpperCase() + check[0].brand_en.slice(1);
+
+    }
+    console.log("check::", check);
+
+  }
+  catch (error) {
+    console.log("Error in slug check::", error);
+  }
 
   // TODO::
   // const brand = getBrandFromSlug('Massey-ferguson', tractorBrands);
@@ -81,7 +102,7 @@ export default async function TractorImplementByBrandPage({ params, searchParams
     news = [];
   }
 
-  const headingTitle = 'Tractors ' + param.brand + ' Implements';
+  const headingTitle = `${brand_name} ${translation.whatsappPopup.implements}`;
 
   const category = 'Implements';
 
@@ -92,23 +113,36 @@ export default async function TractorImplementByBrandPage({ params, searchParams
     getTyreWebstories(pageSlug),
   ]);
 
-  const priceList = await getImplementTypePriceList({
-    // lang: currentLang,
-    implement_type: param.brand,
-  });
+  // Get price list data using implement brand API (same as main listing)
+  let priceList = [];
+  try {
+    const priceListResponse = await getAllImplementBrandListing({
+      brand: param.brand,
+      start_limit: 0,
+      end_limit: 10, // Get first 10 items for price list display
+      lang: currentLang,
+    });
+    priceList = priceListResponse.items || [];
+  } catch (error) {
+    console.error('Failed to fetch price list:', error);
+    priceList = [];
+  }
 
   // const seoData = await getSEOByPage("tyres");
 
   let topContent;
   try {
     topContent = await getImplementTypeTopContent({
-      ad_title: `tractor-implements/${param.brand}`, //param.brand
-      ad_type_content_lang: currentLang,
+      ad_title: `tractor-implements/${param.brand}`,
       device_type: isMobile ? 'mobile' : 'desktop',
+      ad_type_content_lang: currentLang == 'en' ? 'english' : 'hindi',
     })
+
+
+
   } catch (error) {
-    console.error('Failed to fetch implement top content::', error);
-    allImplementBrands = [];
+    console.error('Failed to fetch implement top content:', error);
+    topContent = null;
   }
 
   let allImplementBrands;
@@ -135,55 +169,69 @@ export default async function TractorImplementByBrandPage({ params, searchParams
     faqs = [];
   }
 
-  // TODO:: For UI Only
-  const subcategories = [
-    { name: 'Self Propelled', img: tgi_implement_combine_harvester },
-    { name: 'Tractor Mounted', img: tgi_implement_combine_harvester },
-    { name: 'Sugarcane', img: tgi_implement_combine_harvester }
-  ];
+  // Fetch subcategories dynamically
+  let subcategories = [];
+  try {
+    const categoryFilterResponse = await getImplementCategoryFilter({
+      implement_type: param.brand,
+      lang: currentLang,
+    });
+    if (categoryFilterResponse && categoryFilterResponse.success) {
+      subcategories = categoryFilterResponse.data.map(item => ({
+        name: item.name,
+        name_en: item.name_en,
+        img: item.image,
+        url: item.url,
+        sr_no: item.sr_no,
+      }));
+    }
+  } catch (error) {
+    console.error('Failed to fetch subcategories:', error);
+    // Fallback to hardcoded subcategories
+  }
 
   const { tyresListingClientProps, tyresListingProps } = await prepareTyreListingComponent({
     param: params,
     isMobile,
     pageOrigin: 'tractorsByBrand',
     pageSlug,
-    pageType: 'implements',
+    pageType: 'implement-brand',
     prefLang: currentLang,
     translation,
-    tyreBrands: allImplementBrands,
+    tyreBrands: allImplementTypes, // Pass types instead of brands for filter
     allImplementTypes: allImplementTypes,
     ITEMS_PER_PAGE: 16,
     searchParamsObj: searchParamObj,
-    showImplementBrandsSection: true,
-    showImplementTypesSection: true,
+    showImplementBrandsSection: false, // Hide brands section
+    showImplementTypesSection: true, // Show types section
     subcategories: subcategories,
     showBrandFilter: true,
     basePath: param.brand
   });
 
   // Get pagination info from TractorListingData
-  const { component: TractorListingComponent, paginationInfo } = await TractorListingData({
-    params: param,
-    searchParams: searchParamObj,
-    // basePath: hpRange
-    //   ? `${currentLang == 'hi' ? '/hi/' : '/'}${hpRange}`
-    //   : `${currentLang == 'hi' ? '/hi' : ''}/tractor/${param['brand-name']}${isSeriesListing && seriesName ? `/${seriesName}` : ''}`,
-    tractorBrands,
-    // showBrandFilter: hpRange ? true : false,
-    showSizeFilter: false,
-    showTyreBrandsSection: false,
-    // brandName: isSeriesListing
-    //   ? brandByLang.name +
-    //   ' ' +
-    //   seriesName
-    //     .replace(/-/g, ' ')
-    //     .replace(/\b\w/g, l => l.toUpperCase())
-    //     .replace('Tractors', '')
-    //   : hpRange ? hpTitle : brandByLang.name,
-  });
+  // const { component: TractorListingComponent, paginationInfo } = await TractorListingData({
+  //   params: param,
+  //   searchParams: searchParamObj,
+  //   // basePath: hpRange
+  //   //   ? `${currentLang == 'hi' ? '/hi/' : '/'}${hpRange}`
+  //   //   : `${currentLang == 'hi' ? '/hi' : ''}/tractor/${param['brand-name']}${isSeriesListing && seriesName ? `/${seriesName}` : ''}`,
+  //   tractorBrands,
+  //   // showBrandFilter: hpRange ? true : false,
+  //   showSizeFilter: false,
+  //   showTyreBrandsSection: false,
+  //   // brandName: isSeriesListing
+  //   //   ? brandByLang.name +
+  //   //   ' ' +
+  //   //   seriesName
+  //   //     .replace(/-/g, ' ')
+  //   //     .replace(/\b\w/g, l => l.toUpperCase())
+  //   //     .replace('Tractors', '')
+  //   //   : hpRange ? hpTitle : brandByLang.name,
+  // });
 
   // Extract pagination data
-  const { hasNextPage, currentPage } = paginationInfo;
+  const { hasNextPage, currentPage, totalPages } = tyresListingProps;
 
   // Generate base URL for pagination
   const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com';
@@ -203,37 +251,8 @@ export default async function TractorImplementByBrandPage({ params, searchParams
 
   const ITEMS_PER_PAGE = 16;
 
-  const page = Number(searchParamObj?.page) || 1;
-  const searchKeyword = searchParamObj?.search || '';
-  const brandName = searchParamObj?.brand || null;
-  const sortBy = searchParamObj?.sortBy || '';
-
-  const startLimit = (page - 1) * ITEMS_PER_PAGE;
-  const endLimit = startLimit + ITEMS_PER_PAGE;
-
-  let latestImplement = 'no';
-  let popularImplement = 'no';
-
-  if (sortBy.toLowerCase() === 'popularity') {
-    popularImplement = 'yes';
-  }
-  if (sortBy.toLowerCase() === 'latest launches') {
-    latestImplement = 'yes';
-  }
-
-  const getAllImplementTypeListingData = await getAllImplementBrandListing({
-    brand: param.brand,
-    search_keyword: searchKeyword,
-    start_limit: startLimit,
-    end_limit: endLimit,
-    latest_implement: latestImplement,
-    popular_implement: popularImplement,
-    lang: currentLang,
-  });
-
   return (
     <main>
-      {' '}
       {/* Using main as the root layout element */}
       <SeoHead
         seo={seoData}
@@ -246,7 +265,7 @@ export default async function TractorImplementByBrandPage({ params, searchParams
       />
       <NavComponents translation={translation} isMobile={isMobile} prefLang={currentLang} />
       {/* TODO:: Setup Common Layout Class */}
-      <div className="container mx-auto mt-[16px] md:mt-[180px]">
+      <div className="lg:mt-[159px]">
         <TyresPriceList
           showBanner={true}
           headingTitle={headingTitle}
@@ -254,7 +273,7 @@ export default async function TractorImplementByBrandPage({ params, searchParams
           translation={translation}
           priceList={priceList}
           tyreTopContent={topContent}
-          brandName={brand.name}
+          brandName={brand_name}
           category={category}
           tableHeaders={[
             {
@@ -264,9 +283,9 @@ export default async function TractorImplementByBrandPage({ params, searchParams
                 <Link
                   href={(currentLang == 'hi' ? '/hi' : '') + (item.page_url || '#')}
                   className="hover:text-primary-dark font-bold text-primary transition-colors duration-200"
-                  title={`${item.brand_name} ${item.modal_name}`}
+                  title={`${item.brand_name} ${item.model}`}
                 >
-                  {`${item.brand_name} ${item.modal_name}`}
+                  {`${item.brand_name} ${item.model}`}
                 </Link>
               ),
             },
@@ -278,7 +297,7 @@ export default async function TractorImplementByBrandPage({ params, searchParams
             {
               key: 'implementPrice',
               width: 'w-[30%]',
-              dataKey: item => item.price,
+              dataKey: item => item.price === 'No' ? 'Price on Request' : item.price,
             },
           ]}
           breadcrumbs={[
@@ -290,11 +309,11 @@ export default async function TractorImplementByBrandPage({ params, searchParams
             {
               label: translation.breadcrumbs.implementBrands,
               href: (currentLang == 'hi' ? '/hi' : '') + '/tractor-implements-in-india',
-              title: 'Tractor Implements',
+              title: translation.breadcrumbs.implementBrands,
             },
             {
-              label: `${brand.name} Implements`,
-              title: `${brand.name} Implements`,
+              label: `${brand_name} ${translation.whatsappPopup.implements}`,
+              title: `${brand_name} ${translation.whatsappPopup.implements}`,
               isCurrent: true,
             },
           ]}
@@ -304,11 +323,11 @@ export default async function TractorImplementByBrandPage({ params, searchParams
 
       </div>
       {/* Tyre Listing Section with Two-Column Layout */}
-      <section className="mt-10 bg-section-gray py-6 md:py-8 lg:py-10">
+      <section className="bg-section-gray py-6 md:py-8 lg:py-10">
         <div className="container mx-auto">
           <TyrePageHeader
             isMobile={isMobile}
-            brandName={param.brand}
+            brandName={brand_name}
             translation={translation}
             heading={translation?.headings?.allTractorsByBrand}
             activeFilters={tyresListingProps.activeFilters}
@@ -317,9 +336,9 @@ export default async function TractorImplementByBrandPage({ params, searchParams
             searchParam={pageUrl}
           />
           {/* Sub Category Filter */}
-          {subcategories?.length && isMobile && (
-            <SubCategoryTabs heading="Combine Harvester By Category" subcategories={subcategories} />
-          )}
+          {(subcategories?.length && isMobile) ? (
+            <SubCategoryTabs heading="Combine Harvester By Category" subcategories={subcategories} currentLang={currentLang} />
+          ) : null}
           <div className="flex flex-col gap-6 md:flex-row lg:gap-2 xl:gap-6">
             {!isMobile && (
               <div className="md:w-[32%] lg:w-[24%] xl:w-[30%]">
@@ -328,7 +347,7 @@ export default async function TractorImplementByBrandPage({ params, searchParams
             )}
 
             <div className="flex-1">
-              <TractorListing {...tyresListingProps} initialTyres={getAllImplementTypeListingData} basePath={param.brand} />
+              <TractorListing {...tyresListingProps} basePath={param.brand} />
             </div>
           </div>
         </div>
@@ -336,21 +355,25 @@ export default async function TractorImplementByBrandPage({ params, searchParams
       {/* TODO:: Update the props to make them generic */}
       <TyrePriceInquireForm
         bgColor="bg-green-lighter"
-        formTitle={`Get ${param.brand} Implement Price`}
-        tyreBrands={tractorBrands}
+        formTitle={`${(translation.enquiryForm.getImplementPriceByType).replace('{type}', brand_name)}`}
+
+        tyreBrands={allImplementBrands}
         translation={translation}
         currentLang={currentLang}
         banner={tgb_implement_on_road_price}
         mobileBanner={tgb_implement_on_road_price_mobile}
-        type={'Implement'}
-        submitBtnText={'₹ Get Implement Price'}
+        type={'IMPLEMENT'}
+        submitBtnText={'₹ ' + translation.enquiryForm.getImplementPrice}
         isMobile={isMobile}
+        preFilledBrand={param.brand}
+        implementTypeId={isMobile ? 115 : 114}
+        showImplementTypeSelector={true}
       />
       <NewsSection
         translation={translation}
         langPrefix={currentLang}
         news={news}
-        title={`${param.brand} ${translation.headings.ImplementBlogsNews}`}
+        title={`${brand_name} ${translation.headings.ImplementBlogsNews}`}
         bgColor={'bg-section-gray'}
         showFilter={false}
       />
@@ -372,7 +395,9 @@ export default async function TractorImplementByBrandPage({ params, searchParams
       <TyreFAQs
         faqs={faqs}
         translation={translation}
-        headingKey={'tyrefaqs.allTractorTyres'}
+        headingKey={'faqs.implements'}
+        isDynamicTitle={true}
+        brandName={brand_name}
         bgColor="bg-white"
       />
       <JoinOurCommunityServer translation={translation} currentLang={currentLang} />

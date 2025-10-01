@@ -21,6 +21,12 @@ const PriceListToggle = ({ isMobile, brandName, langPrefix, productType = 'tyre'
         : `Popular ${brandName} Tractors Price List ${year} in India`;
     }
 
+    if (productType === 'implement') {
+      return langPrefix === 'hi'
+        ? `भारत में लोकप्रिय ${brandName} इम्प्लीमेंट प्राइस लिस्ट ${year}`
+        : `Popular ${brandName} Implements Price List ${year} in India`;
+    }
+
     // Default to tyre heading
     return langPrefix === 'hi'
       ? `भारत में लोकप्रिय ${brandName} टायर प्राइस लिस्ट ${year}`

@@ -123,7 +123,7 @@ const MobileNavbar = ({ tabset, translation, currentLang = 'en' }) => {
     },
     {
       tabHeading: translation.mobileNavbar.implement.implementBlogs,
-      linkUrl: `${langPrefix}/tractor-industry-news-blogs/category/tyre-news`,
+      linkUrl: `${langPrefix}/tractor-industry-news-blogs/category/implement-news`,
       imgUrl: tgi_implement_nav.all, // Icon needs to be designed
       altText: 'implement-blog-img',
     },
@@ -132,6 +132,18 @@ const MobileNavbar = ({ tabset, translation, currentLang = 'en' }) => {
       linkUrl: `${langPrefix}/tractor-videos`,
       imgUrl: tgi_implement_nav.videos,
       altText: 'implement-videos-img',
+    },
+    {
+      tabHeading: 'Emi Calculator',
+      linkUrl: `${langPrefix}/tractor-emi-calculator`,
+      imgUrl: tgi_implement_nav.emi_calculator,
+      altText: 'implement-emi-calculator-img',
+    },
+    {
+      tabHeading: 'Subsidy',
+      linkUrl: `${langPrefix}/tractors-subsidy-in-india`,
+      imgUrl: tgi_implement_nav.subsidy,
+      altText: 'implement-subsidy-img'
     },
   ];
 

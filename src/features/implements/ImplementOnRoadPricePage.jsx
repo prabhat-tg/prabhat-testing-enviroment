@@ -23,20 +23,64 @@ import TractorImplementBrands from '@/src/components/shared/tractor-implement-br
 import { getAllImplementTypes } from '@/src/services/implement/all-implement-types';
 import { tgb_implement_on_road_price, tgb_implement_on_road_price_mobile } from '@/src/utils/assets/banners';
 import { getAllImplementBrandsDetail } from '@/src/services/implement/get-all-implement-brands';
+import { getPopularImplements } from '@/src/services/implement/popular-implements';
+import { getLatestImplements } from '@/src/services/implement/get-latest-implements';
+import { getAllImplementDetails } from '@/src/services/implement/get-all-implement-details';
+import { getDetailPageHeaderSEO } from '@/src/services/detailPageHeaderSeo';
 
-const ImplementOnRoadPricePage = async () => {
+const ImplementOnRoadPricePage = async ({ params = {}, searchParams = {} }) => {
   const currentLang = await getSelectedLanguage();
   const translation = await getDictionary(currentLang);
   const isMobile = await isMobileView();
-  const seoData = await getSEOByPage('tyre-price');
-  const tyreBrands = await getTyreBrands();
 
-  const popularData = await getTractorPopularDetails(currentLang);
-  const popularTractorsError = false;
+  // Handle dynamic implement on-road-price URLs
+  const isImplementSpecific = params.implementSlug && params.implementId;
+  // const tyreBrands = await getTyreBrands();
 
-  const payload = {
-    pageSlug: 'tractor-dealers',
-  };
+  // Fetch implement details if this is an implement-specific page
+  const seoSlug = isImplementSpecific
+    ? `${params.implementSlug}/${params.priceType}/${params.implementId}`
+    : 'implement-on-road-price';
+
+  let seoData = {}, seoHtml;
+  let implementDetail = null;
+  if (isImplementSpecific && params.implementId) {
+    try {
+      implementDetail = await getAllImplementDetails(params.priceType.replaceAll('-on-road-price', ''), params.implementId, currentLang);
+
+      implementDetail.brand_name = currentLang === 'en' ? implementDetail.brand_name_en : implementDetail.brand_name_hi;
+      implementDetail.model_name = currentLang === 'en' ? implementDetail.model : implementDetail.model_hi;
+    } catch (error) {
+      console.error('Error fetching implement detail:', error);
+    }
+    seoHtml = await getDetailPageHeaderSEO({
+      page_type: 'implement_dynamic_on_road_price',
+      id: params.implementId,
+      page_url: `${params.implementSlug}/${params.priceType}/${params.implementId}`,
+      lang: currentLang,
+      implement_type: params.priceType.replaceAll('-on-road-price', '')
+
+    })
+
+  } else {
+    seoData = await getSEOByPage((currentLang == 'hi' ? 'hi/' : '') + seoSlug);
+  }
+
+
+  let popularData;
+  try {
+    popularData = await getPopularImplements(currentLang);
+  } catch (error) {
+    popularData = [];
+  }
+
+  let latestData;
+  try {
+    latestData = await getLatestImplements(currentLang);
+    // console.log('latest implements = ', latestData);
+  } catch (error) {
+    latestData = [];
+  }
 
   const allImplementTypes = await getAllImplementTypes();
 
@@ -50,21 +94,55 @@ const ImplementOnRoadPricePage = async () => {
 
   return (
     <>
-      <SeoHead seo={seoData} staticMetadata={{}} preloadUrls={[]} />
+      <SeoHead seo={seoData} staticMetadata={{}} preloadUrls={[]} seoHTMLDescription={seoHtml?.data} />
       <DesktopHeader isMobile={isMobile} translation={translation} currentLang={currentLang} />{' '}
       <div className="pt-4 md:mt-[164px]">
         <div className="container">
           <TittleAndCrumbs
-            title="Get Implement On Road Price"
-            breadcrumbs={[
+            title={isImplementSpecific
+              ? `${implementDetail.brand_name} ${implementDetail?.model_name || params.implementSlug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())} ${translation.headings.implementOnRoadPrice}`
+              : translation.headings.implementOnRoadPrice
+            }
+            breadcrumbs={isImplementSpecific ? [
               {
-                label: translation?.breadcrubm.home || 'Home',
-                href: '/',
-                title: translation?.breadcrubm.home || 'Home',
+                label: translation?.breadcrubm?.tractorGyanHome || 'Home',
+                href: currentLang == 'hi' ? '/hi' : '/',
+                title: translation?.breadcrumbs?.home || 'Home'
               },
               {
-                label: 'Implement On Road Price',
-                title: 'Implement On Road Price',
+                label: translation?.headerNavbar?.tractorImplements || 'Tractor Implements',
+                href: (currentLang == 'hi' ? '/hi' : '') + '/tractor-implements-in-india',
+                title: translation?.headerNavbar?.tractorImplements || 'Tractor Implements',
+              },
+              {
+                label: translation?.breadcrumbs?.implementBrands || 'Implements Brands',
+                href: (currentLang == 'hi' ? '/hi' : '') + '/tractor-implements-brands-in-india',
+                title: translation?.breadcrumbs?.implementBrands || 'Implements Brands',
+              },
+              {
+                label: `${implementDetail.brand_name} ${translation?.whatsappPopup?.implements || 'Implements'}`,
+                title: `${implementDetail.brand_name} ${translation?.whatsappPopup?.implements || 'Implements'}`,
+                href: `${currentLang == 'hi' ? '/hi' : ''}/tractor-implements/${(implementDetail.brand_name_en).replaceAll(/\s+/g, '-').toLowerCase()}`,
+              },
+              {
+                label: `${implementDetail.brand_name} ${implementDetail?.model_name}`,
+                title: `${implementDetail.brand_name} ${implementDetail?.model_name}`,
+                href: `${currentLang == 'hi' ? '/hi' : ''}/tractor-implements/${params.priceType.replaceAll('-on-road-price', '')}/${params.implementSlug}/${params.implementId}`,
+              },
+              {
+                label: `${implementDetail.brand_name} ${implementDetail?.model_name} ${translation?.headings.implementOnRoadPrice || 'On Road Price'}`,
+                title: `${implementDetail.brand_name} ${implementDetail?.model_name} - ${translation.headings.implementOnRoadPrice}`,
+                isCurrent: true,
+              },
+            ] : [
+              {
+                label: translation?.breadcrubm.tractorGyanHome || 'Home',
+                href: currentLang == 'hi' ? '/hi' : '/',
+                title: translation?.breadcrubm.tractorGyanHome || 'Home',
+              },
+              {
+                label: translation?.headings.implementOnRoadPrice || 'Implement On Road Price',
+                title: translation?.headings.implementOnRoadPrice || 'Implement On Road Price',
                 isCurrent: true,
               },
             ]}
@@ -72,7 +150,10 @@ const ImplementOnRoadPricePage = async () => {
           <TG_Banner
             imgUrl={tgb_implement_on_road_price}
             mobileImgUrl={tgb_implement_on_road_price_mobile}
-            title={'Implement On Road Price'}
+            title={isImplementSpecific
+              ? `${implementDetail.brand_name} ${implementDetail?.model_name || params.implementSlug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())} - ${translation?.headings.implementOnRoadPrice || 'Implement On Road Price'}`
+              : translation?.headings.implementOnRoadPrice || 'Implement On Road Price'
+            }
             additionalClasses={'max-h-auto'}
             imageClasses={'max-h-[260px]'}
           />
@@ -81,26 +162,40 @@ const ImplementOnRoadPricePage = async () => {
         <TyrePriceInquireForm
           hideBanner={true}
           bgColor="bg-green-lighter"
-          formTitle="Implement On Road Price"
+          formTitle={isImplementSpecific
+            ? `${implementDetail.brand_name} ${implementDetail?.model_name || params.implementSlug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())} ${translation?.headings.implementOnRoadPrice || 'Implement On Road Price'}`
+            : translation?.headings.implementOnRoadPrice || 'Implement On Road Price'
+          }
           tyreBrands={allImplementBrands}
           translation={translation}
           currentLang={currentLang}
           type='IMPLEMENT'
-          submitBtnText='₹ Get Implement Price'
+          implementType={isImplementSpecific ? params.priceType.replaceAll('-on-road-price', '') : null}
+          showImplementTypeSelector={!isImplementSpecific}
+          // implementTypeId={isMobile ? 95 : 96}
+          implementDetail={implementDetail}
+          preFilledBrand={implementDetail?.brand_name_en}
+          preFilledModel={implementDetail?.model}
+          preFilledModelId={implementDetail?.id}
+          submitBtnText={'₹ ' + translation.enquiryForm.getImplementPrice}
           isMobile={isMobile}
         />
 
-        <TractorImplementTypes
-          heading='Implements By Types'
-          allImplementTypes={allImplementTypes}
-          floatingBg={true}
-          slider={true}
-          isMobile={isMobile}
-        />
+        <div className='mt-4'>
+
+          <TractorImplementTypes
+            heading={translation.headings.ImplementsByTypes}
+            allImplementTypes={allImplementTypes}
+            floatingBg={true}
+            slider={true}
+            isMobile={isMobile}
+            currentLang={currentLang}
+          />
+        </div>
 
         <TractorImplementBrands
           bgColor={'bg-section-gray'}
-          heading='Implements By Brands'
+          heading={translation.headings.ImplementsByBrands}
           allImplementBrands={allImplementBrands}
           itemsShown={isMobile ? 9 : 12}
           translation={translation}
@@ -109,7 +204,7 @@ const ImplementOnRoadPricePage = async () => {
 
         <div className="mt-4">
           <LoanCalculator
-            title={'Calculate EMI'}
+            title={translation?.emiCalcytranslate?.CalculateEMI || 'Calculate EMI'}
             allSectionUse={true}
             translation={translation}
             currentLang={currentLang}
@@ -118,24 +213,27 @@ const ImplementOnRoadPricePage = async () => {
         </div>
 
         <PopularSection
-          heading="Popular Implements"
-          cta="View All Popular Implements"
-          popularData={popularData}
-          popularDataError={popularTractorsError}
-          translation={translation}
+          type={'implement'}
+          heading={translation.headerNavbar.popularImplements}
           langPrefix={currentLang}
+          popularData={popularData}
           isMobile={isMobile}
-          bgColor="bg-section-gray"
+          translation={translation}
+          redirectRoute="/tractors"
+          cta={translation.headerNavbar.viewAllPopularImplements}
+          showViewAll={false}
         />
 
         <JoinOurCommunityServer translation={translation} currentLang={currentLang} />
         <TractorGyanOfferings translation={translation} />
-        <AboutTractorGyanServer slug={'tyre-price'} translation={translation} />
+        <AboutTractorGyanServer
+          slug={(currentLang == 'hi' ? 'hi/' : '') + (isImplementSpecific ? seoSlug : 'implement-on-road-price')}
+          translation={translation}
+        />
         <WhatsAppTopButton
           translation={translation}
           currentLang={currentLang}
-          tyreBrands={tyreBrands}
-          defaultEnquiryType={'Tyre'}
+          defaultEnquiryType={'Implement'}
           isMobile={isMobile}
         />
       </div>

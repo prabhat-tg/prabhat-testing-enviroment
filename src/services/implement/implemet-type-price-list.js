@@ -20,10 +20,26 @@ export async function getImplementTypePriceList({ implement_type: pageName }) {
 
                 // Check if price exists and is not 'No' or empty
                 if (priceValue && priceValue !== 'No' && priceValue.toString().trim() !== '') {
-                    // Parse and format the price with comma separation and rupee symbol
-                    const numericPrice = parseInt(priceValue.toString().replace(/[^\d]/g, ''));
-                    if (!isNaN(numericPrice) && numericPrice > 0) {
-                        formattedPrice = `₹ ${numericPrice.toLocaleString('en-IN')}`;
+                    const priceStr = priceValue.toString().trim();
+
+                    // Check if it's a price range (contains dash/hyphen)
+                    if (priceStr.includes('-')) {
+                        // Split by dash and format each part
+                        const priceParts = priceStr.split('-').map(part => part.trim());
+                        if (priceParts.length === 2) {
+                            const minPrice = parseInt(priceParts[0].replace(/[^\d]/g, ''));
+                            const maxPrice = parseInt(priceParts[1].replace(/[^\d]/g, ''));
+
+                            if (!isNaN(minPrice) && !isNaN(maxPrice) && minPrice > 0 && maxPrice > 0) {
+                                formattedPrice = `₹${minPrice.toLocaleString('en-IN')} - ₹${maxPrice.toLocaleString('en-IN')}`;
+                            }
+                        }
+                    } else {
+                        // Single price value
+                        const numericPrice = parseInt(priceStr.replace(/[^\d]/g, ''));
+                        if (!isNaN(numericPrice) && numericPrice > 0) {
+                            formattedPrice = `₹${numericPrice.toLocaleString('en-IN')}`;
+                        }
                     }
                 }
 

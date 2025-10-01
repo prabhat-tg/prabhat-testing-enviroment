@@ -29,7 +29,7 @@ const RelatedTyres = ({
           heading:
             customHeading ||
             `${tyreDetail.brand_name || tyreDetail.brand || tyreDetail.brand_name_en} ${tyreDetail.model_name || tyreDetail.model}`,
-          linkType: 'tractor-loan',
+          linkType: 'tractor-implement-loan',
         };
       default: // tyre
         return {
@@ -41,6 +41,24 @@ const RelatedTyres = ({
   };
 
   const { detail, heading, linkType } = getItemDetail();
+
+  // Get banner images based on mode
+  const getBannerImages = () => {
+    switch (mode) {
+      case 'implement':
+        return {
+          mobile: 'https://images.tractorgyan.com/uploads/121149/68d26eeaf0f8c-Implement-Loan-Banner-Mob-(1).webp',
+          desktop: 'https://images.tractorgyan.com/uploads/121150/68d26f12ab7e8-Implement-Loan-Banner-(1).webp',
+        };
+      default:
+        return {
+          mobile: 'https://images.tractorgyan.com/uploads/120266/68874ee7518ab-Frame-1000006006.webp',
+          desktop: 'https://images.tractorgyan.com/uploads/120244/6884911094708-Frame-1000005862.webp',
+        };
+    }
+  };
+
+  const bannerImages = getBannerImages();
 
   if (tyres.length === 0) {
     return null; // Don't render the section if there are no related tyres
@@ -87,7 +105,7 @@ const RelatedTyres = ({
               className="block h-full max-h-[220px] w-full overflow-hidden rounded-2xl lg:hidden"
             >
               <Image
-                src="https://images.tractorgyan.com/uploads/120266/68874ee7518ab-Frame-1000006006.webp"
+                src={bannerImages.mobile}
                 height={900}
                 width={700}
                 alt="add-img"
@@ -100,7 +118,7 @@ const RelatedTyres = ({
               className="hidden h-full max-h-[526px] w-full max-w-[270px] overflow-hidden rounded-2xl lg:block"
             >
               <Image
-                src="https://images.tractorgyan.com/uploads/120244/6884911094708-Frame-1000005862.webp"
+                src={bannerImages.desktop}
                 height={5000}
                 width={5000}
                 alt="loan-img"

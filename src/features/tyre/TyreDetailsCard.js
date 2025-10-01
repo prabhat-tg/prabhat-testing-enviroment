@@ -86,7 +86,7 @@ const TyreDetailsCard = ({
           // feature1Label: translation.headings.type || 'Type',
           feature1Label: translation.headings.power || 'Power',
           // feature2Label: translation.blogs.category || 'Category',
-          buttonText: translation.buttons?.viewPrice || 'View Implement Price',
+          buttonText: translation.buttons?.viewImplementPrice || 'View Implement Price',
         };
       default: // tyre
         return {

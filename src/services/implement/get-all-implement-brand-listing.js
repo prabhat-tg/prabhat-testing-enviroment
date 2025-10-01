@@ -8,6 +8,7 @@ export async function getAllImplementBrandListing({
     popular_implement,
     brand,
     lang,
+    implement_type
 }) {
     try {
         // Always include brand
@@ -20,6 +21,7 @@ export async function getAllImplementBrandListing({
         if (latest_implement !== undefined) payload.latest_implement = latest_implement;
         if (popular_implement !== undefined) payload.popular_implement = popular_implement;
         if (lang) payload.lang = lang;
+        if (implement_type) payload.implement_type = (implement_type.replaceAll(' ', '-')).toLowerCase();
 
         console.log('implements fetch payload ===', payload);
 

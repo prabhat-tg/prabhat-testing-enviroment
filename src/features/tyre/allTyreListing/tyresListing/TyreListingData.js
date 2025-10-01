@@ -40,7 +40,7 @@ export default async function TyreListingData({
     translation,
     tyreBrands,
     ITEMS_PER_PAGE: 14,
-    basePathFromUrl: basePath,
+    basePathFromUrl: (basePath === "tyre/rear" && "/tyre/rear" || basePath === "tyre/front" && "/tyre/front") || basePath,
   });
 
   // Extract pagination info for parent component

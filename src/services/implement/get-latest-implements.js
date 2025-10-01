@@ -2,7 +2,7 @@ import { postData } from "../apiMethods";
 
 export async function getLatestImplements(lang) {
   try {
-    const result = await postData("/api/home_implement_latest");
+    const result = await postData("/api/home_implement_latest", { lang });
     // console.log('Latest Implements', result);
     // return result.data
     const modifiedData = result.data.map((item) => ({

@@ -429,7 +429,7 @@ const CompareTractorSelectionCard = ({
       {(showCheckPrice) ? (
         <div className="mb-4 -mt-6 md:-mt-8  flex w-full justify-center">
           {selectedTractor && selectedTractor.brand_name_en && selectedTractor.model ? (
-            <TG_LinkButton className={` ${isCompact ? '!px-1' : ''} border-primary text-primary rounded-lg`} href={`${currentLang == 'hi' ? '/hi' : ''}/${((selectedTractor.brand_name_en).replaceAll(' ', '-')).toLowerCase()}-${((selectedTractor?.model_en || selectedTractor.model_name_en).replaceAll(' ', '-')).toLowerCase()}/tractor-on-road-price/${selectedTractor.id}`}>
+            <TG_LinkButton className={` ${isCompact ? '!px-1' : ''} border-primary text-primary rounded-lg`} href={`${currentLang == 'hi' ? '/hi' : ''}/${((selectedTractor.brand_name_en)?.replaceAll(' ', '-'))?.toLowerCase()}-${((selectedTractor?.model_en || selectedTractor.model_name_en)?.replaceAll(' ', '-'))?.toLowerCase()}/tractor-on-road-price/${selectedTractor.id}`}>
               ₹ {translation?.headerNavbar?.checkPrice || 'Check Price'}
             </TG_LinkButton>
           ) : (

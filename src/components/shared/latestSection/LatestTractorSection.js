@@ -21,6 +21,9 @@ const LatestTractorSection = ({
   type = 'tractor',
   showViewAll = true
 }) => {
+
+  console.log("popularData in latest section:", popularData);
+
   const ArrowButton = ({ onClick, position, rotate = false, alt }) => {
     return (
       <div

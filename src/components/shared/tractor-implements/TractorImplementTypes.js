@@ -10,7 +10,6 @@ import "slick-carousel/slick/slick-theme.css";
 import MainButton from '@/src/features/tyreComponents/commonComponents/buttons/MainButton';
 import MainHeadings from '@/src/features/tyreComponents/commonComponents/MainHeadings';
 
-const currentLang = 'en';
 
 const ImplementTypeCard = ({ title, imgSrc, url, placedInFilter }) => {
   return (
@@ -129,7 +128,7 @@ const TractorImplementTypes = ({
                 key={index}
                 title={currentLang == 'hi' ? item.name_hi : item.name}
                 imgSrc={`https://images.tractorgyan.com/uploads/${item.image}`}
-                url={item.url}
+                url={(currentLang == 'hi' ? '/hi/' : '/') + item.url}
                 placedInFilter={placedInFilter}
               />
             ))}
@@ -174,7 +173,7 @@ const TractorImplementTypes = ({
                         key={`${index}-${subIndex}`}
                         title={currentLang == 'hi' ? item.name_hi : item.name}
                         imgSrc={`https://images.tractorgyan.com/uploads/${item.image}`}
-                        url={item.url}
+                        url={(currentLang == 'hi' ? '/hi/' : '/') + item.url}
                       />
                     ))}
                   </div>
@@ -186,7 +185,7 @@ const TractorImplementTypes = ({
                   <ImplementTypeCard
                     title={currentLang == 'hi' ? item.name_hi : item.name}
                     imgSrc={`https://images.tractorgyan.com/uploads/${item.image}`}
-                    url={item.url}
+                    url={(currentLang == 'hi' ? '/hi/' : '/') + item.url}
                   />
                 </div>
               ))
@@ -197,7 +196,7 @@ const TractorImplementTypes = ({
         {cta && (
           <MainButton
             text={cta}
-            linkUrl={`${currentLang == "en" ? "" : currentLang}/tractor-brands`}
+            linkUrl={`${currentLang == "hi" ? "/hi" : "/"}/tractor-implements-in-india`}
           />
         )}
       </div>

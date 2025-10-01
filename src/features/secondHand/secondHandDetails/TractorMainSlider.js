@@ -62,14 +62,14 @@ const TractorMainSlider = ({
           <div className="relative w-full">
             {isSoldOut && <SoldOutStrip />}
             <div className="flex w-full items-start justify-between">
-              <Image
+              {brandLogo && <Image
                 src={brandLogo}
                 height={100}
                 width={100}
                 className="w-full min-w-[44px] max-w-[44px]"
                 alt={'icon-' + title}
                 title={title}
-              />
+              />}
               {isPopular && (
                 <span className="rounded-full border border-[#D31A00] px-3 py-1 text-xs text-[#D31A00] shadow-main">
                   Popular

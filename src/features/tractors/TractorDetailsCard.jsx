@@ -98,11 +98,22 @@ const TractorDetailsCard = ({
             {`${tractorDetail.brand} ${tractorDetail.model}`}
           </h1>
         </Tooltip> : null}
-        <div className="flex flex-row-reverse md:flex-row justify-between items-start">
+        <div className="flex flex-row-reverse md:flex-row justify-between items-start md:items-end md:pb-2">
+
+          <div>
+            <span className='block md:hidden text-sm'>Share</span>
+            <SocialMediaLinksShare
+              title={
+                translation?.tractorDetails?.shareTitle || 'Check out this tractor on TractorGyan!'
+              }
+              url={'https://tractorgyan.com' + tractorDetail.page_url}
+            />
+          </div>
+
           <div>
             {rawRating > 0 ? (
               <div
-                className="flex justify-end md:justify-start items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
+                className="flex justify-end md:justify-end items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
                 onClick={() => {
                   const reviewSection = document.getElementById('review-section');
                   if (reviewSection) {
@@ -143,7 +154,7 @@ const TractorDetailsCard = ({
             )}
 
             <button
-              className="flex md:hidden items-center justify-center gap-1.5 rounded-full border-[1px] border-gray-light px-3 py-1.5 md:px-4 mt-2"
+              className="flex items-center justify-center gap-1.5 rounded-full border-[1px] border-gray-light px-3 py-1.5 md:px-4 mt-2"
               onClick={() => {
                 const reviewSection = document.getElementById('review-section');
                 if (reviewSection) {
@@ -167,15 +178,7 @@ const TractorDetailsCard = ({
             </button>
           </div>
 
-          <div>
-            <span className='block md:hidden text-sm'>Share</span>
-            <SocialMediaLinksShare
-              title={
-                translation?.tractorDetails?.shareTitle || 'Check out this tractor on TractorGyan!'
-              }
-              url={'https://tractorgyan.com' + tractorDetail.page_url}
-            />
-          </div>
+
         </div>
         {isMobile ? (
           <div className="mb-6 mt-4 grid min-h-[62px] grid-cols-3 gap-2 md:gap-4 bg-green-lighter shadow-card">

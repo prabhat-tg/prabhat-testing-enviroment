@@ -1,9 +1,9 @@
 import { fetchData } from "../apiMethods";
 
-export async function getAllImplementTypes() {
+export async function getAllImplementTypes(payload) {
   try {
-    const result = await fetchData("/api/all_implements_type");
-    // console.log("All Implement Types::", result);
+    const result = await fetchData("/api/all_implements_type", payload);
+    console.log("All Implement Types::", result);
     return result.data;
   } catch (error) {
     console.error("Error fetching all Implement Types", error);

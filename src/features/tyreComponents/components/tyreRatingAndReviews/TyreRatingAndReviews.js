@@ -17,7 +17,13 @@ const TyreRatingAndReviews = async ({
   form_page_name = 'model_detail',
   model,
   showUserReviewTitle = true,
-  isTractorReviewPage = false
+  isTractorReviewPage = false,
+  // Implement-specific props
+  mode = 'tyre',
+  implementType,
+  implementBrand,
+  implementModel,
+  formPageName
 }) => {
   // const [reviews, setReviews] = useState([]);
   // const [loading, setLoading] = useState(true);
@@ -110,7 +116,11 @@ const TyreRatingAndReviews = async ({
                   translation={translation}
                   brand={brand}
                   model={model}
-                  form_page_name={form_page_name}
+                  form_page_name={formPageName || form_page_name}
+                  mode={mode}
+                  implementType={implementType}
+                  implementBrand={implementBrand}
+                  implementModel={implementModel}
                 />
               </div>
               <div className="col-span-7 md:col-span-4">

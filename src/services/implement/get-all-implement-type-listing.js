@@ -12,7 +12,7 @@ export async function getAllImplementTypeListing({
 }) {
     try {
 
-        console.log("Fetching all tractors listing with params:", {
+        console.log("Fetching all implements listing with params:", {
             implement_type,
             search_keyword,
             start_limit,

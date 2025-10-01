@@ -10,7 +10,6 @@ import TyresListingClient from '@/src/features/tyre/allTyreListing/tyresListing/
 import TyrePageHeader from '@/src/features/tyre/allTyreListing/tyresListing/TyrePageHeader';
 import UpdatesSection from '@/src/features/tyreComponents/components/updatesAbouteTyre/UpdatesSection';
 import TyreFAQs from '@/src/features/tyre/tyreFAQs/TyreFAQs';
-import { getTyreBrands } from '@/src/services/tyre/tyre-brands';
 import {
   getTyreReels,
   getTyreVideos,
@@ -48,6 +47,13 @@ import { getImplementTypePriceList } from '@/src/services/implement/implemet-typ
 import { getSEOByPage } from '@/src/services/seo/get-page-seo';
 import SeoHead from '@/src/components/shared/header/SeoHead';
 import TractorListingData from '../tractors/listing/TractorListingData';
+import { checkImplementSlug } from '@/src/services/implement/check-implement-slug';
+import { getImplementEnquiryTypeId } from '@/src/services/implement/get-implement-enquiry-type-id';
+import { t } from 'i18next';
+import { getImplementCategoryFilter } from '@/src/services/implement/get-implement-category-filter';
+import ImplementsCategorySlider from '@/src/components/implements/ImplementsCategorySlider';
+import { getAllImplementCategories } from '@/src/services/implement/all-implement-categories';
+import { getImplementBrandFAQs } from '@/src/services/implement/get-all-implement-brand-faqs';
 
 export const dynamic = 'force-dynamic'; // Ensure the page is always rendered dynamically
 
@@ -63,8 +69,41 @@ export default async function TractorImplementTypePage({ params, searchParams })
   // const pageSlug = 'tyres'; // Temporary as data is not fetched for above slug
 
   // const params = await params;
+  let type_en, type_hi, type_id;
 
-  const tractorBrands = await getAllTractorBrands();
+  try {
+    const check = await checkImplementSlug({
+      slug: param?.slug
+    });
+    if (check[0].is_implement_type == '1') {
+      type_en = check[0].implement_type_en.charAt(0).toUpperCase() + check[0].implement_type_en.slice(1);
+      type_hi = check[0].implement_type_hi;
+    }
+    if (check[0].is_brand == '1') {
+      type_en = check[0].brand_en.charAt(0).toUpperCase() + check[0].brand_en.slice(1);
+      type_hi = check[0].brand_hi;
+    }
+    console.log("check::", check);
+
+  }
+  catch (error) {
+    console.log("Error in slug check::", error);
+  }
+
+  // Fetch type_id for enquiry form
+  try {
+    const enquiryTypeResponse = await getImplementEnquiryTypeId({
+      implement_type: param.slug,
+      device_type: isMobile ? 'mobile' : 'desktop',
+    });
+    if (enquiryTypeResponse && enquiryTypeResponse.success) {
+      type_id = enquiryTypeResponse.enquiry_id;
+    }
+  } catch (error) {
+    console.error('Failed to fetch enquiry type ID:', error);
+    type_id = null;
+  }
+  // const tractorBrands = await getAllTractorBrands();
 
   // TODO::
   // const brand = getBrandFromSlug('Massey-ferguson', tractorBrands);
@@ -79,11 +118,18 @@ export default async function TractorImplementTypePage({ params, searchParams })
     news = [];
   }
 
-  const headingTitle = `${param?.slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())} Implements`;
+  const headingTitle = `${currentLang == 'hi' ? type_hi : type_en} ${translation.whatsappPopup.implements}`;
 
   const category = 'Implements';
 
-  const tyreBrandsData = await getTyreBrands();
+  let implementCategories;
+  try {
+    implementCategories = await getAllImplementCategories();
+  } catch (error) {
+    implementCategories = [];
+  }
+
+
   const [videos, reels, webstories] = await Promise.all([
     getTyreVideos(pageSlug),
     getTyreReels(pageSlug),
@@ -121,10 +167,12 @@ export default async function TractorImplementTypePage({ params, searchParams })
 
   let faqs = [];
   try {
-    const faqResponse = await getImplementFAQs({
-      category_slug: param.slug, // 'seeding-and-planting'
-      lang: currentLang,
-    });
+    const faqResponse = await getImplementBrandFAQs(
+      {
+        faq_tag: pageSlug, // 'seeding-and-planting'
+        faq_lang: currentLang,
+      }
+    );
     if (faqResponse && faqResponse.success) {
       faqs = faqResponse.data || [];
     }
@@ -134,11 +182,25 @@ export default async function TractorImplementTypePage({ params, searchParams })
   }
 
   // TODO:: For UI Only
-  const subcategories = [
-    { name: translation.headerNavbar.selfPropelled, img: tgi_implement_combine_harvester },
-    { name: translation.headerNavbar.tractorMounted, img: tgi_implement_combine_harvester },
-    { name: translation.headerNavbar.sugarcane, img: tgi_implement_combine_harvester }
-  ];
+  let subcategories = [];
+  try {
+    const categoryFilterResponse = await getImplementCategoryFilter({
+      implement_type: param.slug,
+      lang: currentLang,
+    });
+    if (categoryFilterResponse && categoryFilterResponse.success) {
+      subcategories = categoryFilterResponse.data.map(item => ({
+        name: item.name,
+        name_en: item.name_en,
+        img: item.image,
+        url: item.url,
+        sr_no: item.sr_no,
+      }));
+    }
+  } catch (error) {
+    console.error('Failed to fetch subcategories:', error);
+    // Fallback to hardcoded subcategories
+  }
 
   const { tyresListingClientProps, tyresListingProps } = await prepareTyreListingComponent({
     param: param,
@@ -182,7 +244,7 @@ export default async function TractorImplementTypePage({ params, searchParams })
     : null;
   const nextUrl = hasNextPage ? `${baseUrl}${pageUrl}?page=${currentPage + 1}` : null;
 
-  const seoData = await getSEOByPage(pageSlug);
+  const seoData = await getSEOByPage((currentLang == 'hi' ? 'hi/' : '') + pageSlug);
 
   return (
     <main>
@@ -205,12 +267,13 @@ export default async function TractorImplementTypePage({ params, searchParams })
           translation={translation}
           priceList={priceList}
           tyreTopContent={topContent}
-          brandName={brand.name}
+          brandName={currentLang === 'hi' ? type_hi : type_en}
           category={category}
+          showOutline={true}
           tableHeaders={[
             {
-              key: translation.headings.implementModel,
-              width: 'w-[45%]',
+              key: `implementModel`,
+              width: 'w-[40%]',
               dataKey: item => (
                 <Link
                   href={(currentLang == 'hi' ? '/hi' : '') + (item.page_url || '#')}
@@ -222,13 +285,13 @@ export default async function TractorImplementTypePage({ params, searchParams })
               ),
             },
             {
-              key: translation.headings.implementPower,
-              width: 'w-[25%]',
+              key: `implementPower`,
+              width: 'w-[20%]',
               dataKey: item => item.implement_power,
             },
             {
-              key: translation.headings.implementPrice,
-              width: 'w-[30%]',
+              key: `implementPrice`,
+              width: 'w-[40%]',
               dataKey: item => item.price,
             },
           ]}
@@ -244,8 +307,8 @@ export default async function TractorImplementTypePage({ params, searchParams })
               title: translation.headerNavbar.tractorImplements,
             },
             {
-              label: `${translation.common.tractor} ${brand.name} ${translation.headerNavbar.implement}`,
-              title: `${translation.common.tractor} ${brand.name} ${translation.headerNavbar.implement}`,
+              label: `${translation.common.tractor} ${currentLang === 'hi' ? type_hi : type_en} ${translation.headerNavbar.implement}`,
+              title: `${translation.common.tractor} ${currentLang === 'hi' ? type_hi : type_en} ${translation.headerNavbar.implement}`,
               isCurrent: true,
             },
           ]}
@@ -254,22 +317,22 @@ export default async function TractorImplementTypePage({ params, searchParams })
         />
       </div>
       {/* Tyre Listing Section with Two-Column Layout */}
-      <section className="mt-10 bg-section-gray py-6 md:py-8 lg:py-10">
+      <section className="bg-section-gray py-6 md:py-8 lg:py-10">
         <div className="container mx-auto">
           <TyrePageHeader
             isMobile={isMobile}
-            brandName={brand.name}
+            brandName={currentLang === 'hi' ? type_hi : type_en}
             translation={translation}
-            heading={translation?.headings?.allTractorsByBrand}
+            heading={translation?.headings?.allImplementsByBrand}
             activeFilters={tyresListingProps.activeFilters}
             tyresListingClientProps={tyresListingClientProps}
             searchPlaceholder={translation.placeholder.SearchForImplements}
             searchParam={pageUrl}
           />
           {/* Sub Category Filter */}
-          {subcategories?.length && isMobile && (
-            <SubCategoryTabs heading={translation.headerNavbar.combineHarvesterByCategory} subcategories={subcategories} />
-          )}
+          {(subcategories.length && isMobile) ? (
+            <SubCategoryTabs heading={translation.headerNavbar.combineHarvesterByCategory} subcategories={subcategories} currentLang={currentLang} />
+          ) : null}
           <div className="flex flex-col gap-6 md:flex-row lg:gap-2 xl:gap-6">
             {!isMobile && (
               <div className="md:w-[32%] lg:w-[24%] xl:w-[30%]">
@@ -286,20 +349,43 @@ export default async function TractorImplementTypePage({ params, searchParams })
       {/* TODO:: Update the props to make them generic */}
       <TyrePriceInquireForm
         bgColor="bg-green-lighter"
-        formTitle={`${translation.headings.getImplementPrice || 'Get'} ${brand.name} ${translation.headerNavbar.implement}`}
-        tyreBrands={tractorBrands}
+        formTitle={`${(translation.enquiryForm.getImplementPriceByType).replace('{type}', (currentLang === 'hi' ? type_hi : type_en))}`}
+        tyreBrands={allImplementBrands}
         translation={translation}
         currentLang={currentLang}
         banner={tgb_implement_on_road_price}
         mobileBanner={tgb_implement_on_road_price_mobile}
         isMobile={isMobile}
+        implementTypeId={22}
+        type='IMPLEMENT'
+        pageName={'implement_brand'}
+        pageSource={`/tractor-implements-in-india/${param.slug}`}
+        implementType={type_en}
+
+      // implementStaticPayload={
+      //   {
+      //     "page_name": "implement_brand",
+      //     "page_source": `/tractor-implements-in-india/${param.slug}`,
+      //     "implement_type": type_en,
+      //     "type_id": type_id
+      //   }
+      // }
       />
+
+      <ImplementsCategorySlider
+        bgColor='bg-section-gray'
+        isMobile={isMobile}
+        heading={translation.headerNavbar.implementByCategory}
+        categories={implementCategories}
+        currentLang={currentLang}
+      />
+
       <NewsSection
         translation={translation}
         langPrefix={currentLang}
         news={news}
-        title={`${brand.name} ${translation.headings.ImplementBlogsNews}`}
-        bgColor={'bg-section-gray'}
+        title={`${currentLang === 'hi' ? type_hi : type_en} ${translation.headings.ImplementBlogsNews}`}
+        bgColor={'bg-section-white'}
         showFilter={false}
       />
       <UpdatesSection
@@ -310,7 +396,7 @@ export default async function TractorImplementTypePage({ params, searchParams })
         translation={translation}
         slug={'tractor-implements-in-india'}
         moduleType={'implement'}
-        brandName={''}
+        brandName={currentLang === 'hi' ? type_hi : type_en}
         linkUrls={{
           videos: `${currentLang === 'hi' ? '/hi' : ''}/tractor-videos`,
           webstories: `${currentLang === 'hi' ? '/hi' : ''}/web-story-in-india`,
@@ -320,7 +406,9 @@ export default async function TractorImplementTypePage({ params, searchParams })
       <TyreFAQs
         faqs={faqs}
         translation={translation}
-        headingKey={'tyrefaqs.allTractorTyres'}
+        headingKey={'faqs.implements'}
+        brandName={currentLang === 'hi' ? type_hi : type_en}
+        isDynamicTitle={true}
         bgColor="bg-white"
       />
       <JoinOurCommunityServer translation={translation} currentLang={currentLang} />
@@ -330,7 +418,6 @@ export default async function TractorImplementTypePage({ params, searchParams })
       <WhatsAppTopButton
         translation={translation}
         currentLang={currentLang}
-        tyreBrands={tyreBrandsData}
         defaultEnquiryType={'Implement'}
         isMobile={isMobile}
       />

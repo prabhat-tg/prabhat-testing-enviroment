@@ -28,6 +28,10 @@ import { getImplementHomeBanner } from '@/src/services/implement/get-implement-h
 import { getAllImplementBrandsDetail } from '@/src/services/implement/get-all-implement-brands';
 import { getLatestImplements } from '@/src/services/implement/get-latest-implements';
 import { getImplementReels, getImplementVideos, getImplementWebstories } from '@/src/services/implement/implement-updates';
+import GoogleAdVertical from '../social/GoogleAdVertical/GoogleAdVertical';
+import GoogleAdHorizontal from '../social/GoogleAdHorizontal/GoogleAdHorizontal';
+import TyreFAQs from '../tyre/tyreFAQs/TyreFAQs';
+import { getImplementBrandFAQs } from '@/src/services/implement/get-all-implement-brand-faqs';
 
 export const dynamic = 'force-dynamic';
 export default async function TractorImplementsPage({ params }) {
@@ -44,7 +48,7 @@ export default async function TractorImplementsPage({ params }) {
   const reels = reelsData || [];
   const webstories = webstoriesData || [];
 
-  const seoSlug = 'tractor-implements-in-india';
+  const seoSlug = (currentLang == 'hi' ? 'hi/' : '') + 'tractor-implements-in-india';
 
   // TODO:: Update this
   const staticMetadata = {
@@ -96,7 +100,25 @@ export default async function TractorImplementsPage({ params }) {
     latestData = [];
   }
 
-  const allImplementTypes = await getAllImplementTypes();
+
+  let faqs = [];
+  try {
+    const faqResponse = await getImplementBrandFAQs(
+      {
+        faq_tag: 'tractor-implements-in-india', // 'seeding-and-planting'
+        faq_lang: currentLang,
+      }
+    );
+    if (faqResponse && faqResponse.success) {
+      faqs = faqResponse.data || [];
+    }
+  } catch (error) {
+    console.error('Failed to fetch FAQs:', error);
+    faqs = [];
+  }
+
+
+  const allImplementTypes = await getAllImplementTypes({ lang: currentLang });
 
   let banner;
   try {
@@ -115,7 +137,7 @@ export default async function TractorImplementsPage({ params }) {
 
   let allImplementBrandsWithDetails;
   try {
-    allImplementBrandsWithDetails = await getAllImplementBrandsDetail();
+    allImplementBrandsWithDetails = await getAllImplementBrandsDetail({ lang: currentLang });
   } catch (error) {
     console.error('Failed to fetch implement brands data:', error);
     allImplementBrandsWithDetails = [];
@@ -133,8 +155,10 @@ export default async function TractorImplementsPage({ params }) {
       {/* TODO:: Update SEO Data */}
       <SeoHead
         seo={seoData}
-        staticMetadata={staticMetadata}
         preloadUrls={[]}
+        paginationLinks={{
+          canonical: `https://tractorgyan.com/${currentLang === 'hi' ? 'hi/' : ''}tractor-implements-in-india`,
+        }}
       />
       <NavComponents
         translation={translation}
@@ -144,7 +168,7 @@ export default async function TractorImplementsPage({ params }) {
         showMobileTab={true}
       />
 
-      <ImplementHomePageBanner banner={banner} isMobile={isMobile} currentLang={currentLang} />
+      <ImplementHomePageBanner translation={translation} banner={banner} isMobile={isMobile} currentLang={currentLang} />
 
       <TractorImplementTypes
         heading={translation.headerNavbar.implementsByTypes}
@@ -159,7 +183,7 @@ export default async function TractorImplementsPage({ params }) {
         bgColor={'bg-section-gray'}
         heading={translation.headerNavbar.implementsByBrands}
         allImplementBrands={allImplementBrandsWithDetails}
-        itemsShown={isMobile ? 9 : 10}
+        itemsShown={isMobile ? 9 : 9}
         translation={translation}
         prefLang={currentLang}
       />
@@ -197,8 +221,12 @@ export default async function TractorImplementsPage({ params }) {
       />
 
       {/* TODO:: Upload and Replace Banner Image */}
-      <section className="container">
-        <TG_Banner
+      {/* <GoogleAdVertical /> */}
+      <GoogleAdHorizontal />
+      {/* <section className="container">
+        </section> */}
+
+      {/* <TG_Banner
           imgUrl={
             'https://images.tractorgyan.com/uploads/120752/1756192422tractor-finance.webp'
           }
@@ -207,8 +235,7 @@ export default async function TractorImplementsPage({ params }) {
           }
           title={translation.headerNavbar.tractorLoanBanner}
           additionalClasses={'my-6 md:my-10'}
-        />
-      </section>
+        /> */}
 
       <div className="mt-4">
         <LoanCalculator
@@ -230,9 +257,9 @@ export default async function TractorImplementsPage({ params }) {
         slug={'tractor-implements-in-india'}
         brandName={''}
         linkUrls={{
-          videos: `${currentLang === 'hi' ? '/hi' : ''}/implement-videos`,
+          videos: `${currentLang === 'hi' ? '/hi' : ''}/tractor-videos`,
           webstories: `${currentLang === 'hi' ? '/hi' : ''}/web-story-in-india`,
-          reels: `${currentLang === 'hi' ? '/hi' : ''}/implement-reels-and-shorts`,
+          reels: `${currentLang === 'hi' ? '/hi' : ''}/tractor-reels-and-shorts`,
         }}
       />
 
@@ -240,11 +267,19 @@ export default async function TractorImplementsPage({ params }) {
         translation={translation}
         langPrefix={currentLang}
         news={news}
-        title={translation.headerNavbar.news}
+        title={translation.headings.implementNewsAndUpdates}
         bgColor={'bg-section-gray'}
         showFilter={false}
       />
 
+      <TyreFAQs
+        faqs={faqs}
+        translation={translation}
+        headingKey={'faqs.implements'}
+        bgColor="bg-white"
+        brandName={' '}
+        isDynamicTitle={true}
+      />
       <JoinOurCommunityServer translation={translation} currentLang={currentLang} />
 
       <TractorGyanOfferings translation={translation} />
@@ -256,7 +291,7 @@ export default async function TractorImplementsPage({ params }) {
       <WhatsAppTopButton
         translation={translation}
         currentLang={currentLang}
-        defaultEnquiryType={translation.headerNavbar.implement}
+        defaultEnquiryType={'Implement'}
         isMobile={isMobile}
       />
     </main>

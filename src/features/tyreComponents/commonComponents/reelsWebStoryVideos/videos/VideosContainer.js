@@ -15,12 +15,15 @@ const VideosContainer = ({ videos, openVideoPopup }) => {
   }, []);
   // Calculate how many slides are visible based on window width
   const getSlidesToShow = () => {
-    if (windowWidth <= 440) return 1.1;
-    if (windowWidth <= 600) return 1.5;
-    if (windowWidth <= 768) return 1.8;
-    if (windowWidth <= 970) return 2.2;
-    if (windowWidth <= 1150) return 3.1;
-    if (windowWidth <= 1280) return 3.5;
+    // if (windowWidth <= 440) return 1.1;
+    // if (windowWidth <= 600) return 1.5;
+    // if (windowWidth <= 768) return 1.8;
+    // if (windowWidth <= 970) return 2.2;
+    // if (windowWidth <= 1150) return 3.1;
+    // if (windowWidth <= 1280) return 3.5;
+    if (windowWidth <= 440) return 1;
+    if (windowWidth <= 768) return 2;
+    if (windowWidth <= 1150) return 3;
     return 4;
   };
 
@@ -30,11 +33,12 @@ const VideosContainer = ({ videos, openVideoPopup }) => {
   let totalDots = 1;
   if (windowWidth <= 768) totalDots = videos.length;
   else if (windowWidth <= 970) totalDots = videos.length - 1;
-  else totalDots = videos.length - 2;
+  else totalDots = videos.length - slidesToShow + 1;
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const sliderRef = useRef(null);
   const settings = {
+    // dots: true,
     dots: false,
     speed: 500,
     slidesToShow: 4,
@@ -47,7 +51,7 @@ const VideosContainer = ({ videos, openVideoPopup }) => {
       {
         breakpoint: 1280,
         settings: {
-          slidesToShow: 3.5,
+          slidesToShow: 4,
           slidesToScroll: 1,
           // dots: true,
         },
@@ -55,7 +59,7 @@ const VideosContainer = ({ videos, openVideoPopup }) => {
       {
         breakpoint: 1150,
         settings: {
-          slidesToShow: 3.1,
+          slidesToShow: 3,
           slidesToScroll: 1,
           // dots: true,
         },
@@ -63,7 +67,7 @@ const VideosContainer = ({ videos, openVideoPopup }) => {
       {
         breakpoint: 970,
         settings: {
-          slidesToShow: 2.2,
+          slidesToShow: 2,
           slidesToScroll: 1,
           // dots: true,
         },
@@ -71,15 +75,7 @@ const VideosContainer = ({ videos, openVideoPopup }) => {
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 1.8,
-          slidesToScroll: 1,
-          // dots: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 1.5,
+          slidesToShow: 2,
           slidesToScroll: 1,
           // dots: true,
         },
@@ -87,7 +83,7 @@ const VideosContainer = ({ videos, openVideoPopup }) => {
       {
         breakpoint: 440,
         settings: {
-          slidesToShow: 1.1,
+          slidesToShow: 1,
           slidesToScroll: 1,
           // dots: true,
         },
@@ -178,9 +174,8 @@ const VideosContainer = ({ videos, openVideoPopup }) => {
             <>
               <button
                 key={i}
-                className={`mx-1 h-3 w-3 rounded-full ${
-                  Math.ceil(currentSlide) === i ? 'bg-primary' : 'bg-section-gray'
-                }`}
+                className={`mx-1 h-3 w-3 rounded-full ${Math.ceil(currentSlide) === i ? 'bg-primary' : 'bg-gray-light'
+                  }`}
                 onClick={() => sliderRef.current.slickGoTo(i)}
               />
             </>

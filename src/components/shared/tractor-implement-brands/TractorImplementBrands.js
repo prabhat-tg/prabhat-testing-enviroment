@@ -49,7 +49,7 @@ const TractorImplementBrands = ({
           <MainHeadings text={heading} />
         )}
 
-        <div className={`${placedInFilter || showAll ? 'lg:flex-wrap' : 'lg:flex-nowrap'} ${showAll ? 'justify-between gap-6' : 'justify-between gap-4'} flex flex-wrap mb-6`}>
+        <div className={`${showAll ? 'gap-6' : 'gap-4'} ${placedInFilter ? 'grid grid-cols-2 sm:grid-cols-3' : 'grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-9'} mb-6`}>
           {!parent && (showAll ? allImplementBrands : allImplementBrands?.slice(0, itemsShown))?.map((item, index) => (
             <ImplementBrandCard
               key={index}

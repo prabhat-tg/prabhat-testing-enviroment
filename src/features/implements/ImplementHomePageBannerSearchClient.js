@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { getAllImplementCategories } from '@/src/services/implement/all-implement-categories';
 import { getAllImplementBrandsDetail } from '@/src/services/implement/get-all-implement-brands';
+import { getAllImplementTypes } from '@/src/services/implement/all-implement-types';
 
 const ImplementHomePageBannerSearchClient = ({ currentLang }) => {
   const router = useRouter();
@@ -41,7 +42,7 @@ const ImplementHomePageBannerSearchClient = ({ currentLang }) => {
   const loadCategories = async () => {
     setLoading(prev => ({ ...prev, category: true }));
     try {
-      const categoriesData = await getAllImplementCategories();
+      const categoriesData = await getAllImplementTypes();
       setCategories(categoriesData || []);
     } catch (error) {
       console.error('Error loading Categories:', error);
@@ -56,7 +57,6 @@ const ImplementHomePageBannerSearchClient = ({ currentLang }) => {
       setSelectedBrand(null);
     } else {
       setSelectedBrand(brand);
-      setSelectedCategory(null);
     }
     setIsOpen(prev => ({ ...prev, brand: false }));
   };
@@ -67,16 +67,25 @@ const ImplementHomePageBannerSearchClient = ({ currentLang }) => {
       setSelectedCategory(null);
     } else {
       setSelectedCategory(category);
-      setSelectedBrand(null);
     }
     setIsOpen(prev => ({ ...prev, category: false }));
   };
 
   const handleSearch = () => {
-    if (selectedBrand?.page_url) {
-      router.push(selectedBrand.page_url);
-    } else if (selectedCategory?.url) {
-      router.push(selectedCategory.url);
+    const langPrefix = currentLang === 'hi' ? '/hi' : '';
+
+    if (selectedBrand && selectedCategory) {
+      // Both brand and category selected: /tractor-implements-in-india/backhoe-loader/abs
+      const url = `${langPrefix}/tractor-implements-in-india/${selectedCategory.slug || selectedCategory.name}/${selectedBrand.slug || selectedBrand.name}`;
+      router.push(url);
+    } else if (selectedBrand && !selectedCategory) {
+      // Only brand selected: /tractor-implements/abs
+      const url = `${langPrefix}/tractor-implements/${selectedBrand.slug || selectedBrand.name}`;
+      router.push(url);
+    } else if (selectedCategory && !selectedBrand) {
+      // Only category selected: /tractor-implements-in-india/backhoe-loader
+      const url = `${langPrefix}/tractor-implements-in-india/${selectedCategory.slug || selectedCategory.name}`;
+      router.push(url);
     } else {
       alert('Please select a brand or type to search');
     }
@@ -92,7 +101,7 @@ const ImplementHomePageBannerSearchClient = ({ currentLang }) => {
   const DropdownButton = ({ type, placeholder, selectedValue, disabled = false }) => (
     <button
       type="button"
-      className={`shadow-sm ring-gray-300 hover:bg-gray-50 inline-flex w-full items-center justify-between gap-x-1.5 rounded-md bg-white px-2 py-1.5 text-xs font-normal ring-1 ring-inset ${disabled ? 'text-gray-400 bg-gray-100 cursor-not-allowed' : 'text-[#AFAFAF]'
+      className={`shadow-sm ring-gray-300 hover:bg-gray-50 inline-flex w-full items-center justify-between gap-x-1.5 rounded-md bg-white px-2 py-1.5 text-xs font-normal ring-1 ring-inset ${disabled ? 'text-gray-400 bg-gray-100 cursor-not-allowed' : selectedValue ? 'text-gray-800 font-medium' : 'text-[#AFAFAF]'
         }`}
       onClick={() => !disabled && toggleDropdown(type)}
       disabled={disabled}
@@ -164,7 +173,6 @@ const ImplementHomePageBannerSearchClient = ({ currentLang }) => {
             type="brand"
             placeholder="Select brand"
             selectedValue={selectedBrand?.name}
-            disabled={selectedCategory}
           />
           <Dropdown
             type="brand"
@@ -175,7 +183,7 @@ const ImplementHomePageBannerSearchClient = ({ currentLang }) => {
           />
         </div>
       </div>
-      <p className="mb-2.5 text-center text-xs font-bold text-[#595959]">OR</p>
+      <p className="mb-2.5 text-center text-xs font-bold text-[#595959]">AND / OR</p>
 
       <p className="mb-1.5 text-xs font-medium text-[#595959]">Search by Type</p>
       <div className="mb-2.5 flex gap-2.5">
@@ -184,7 +192,6 @@ const ImplementHomePageBannerSearchClient = ({ currentLang }) => {
             type="category"
             placeholder="Select Type"
             selectedValue={selectedCategory?.name}
-            disabled={selectedBrand}
           />
           <Dropdown
             type="category"

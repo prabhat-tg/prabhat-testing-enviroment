@@ -1,10 +1,8 @@
-import { getSelectedLanguage } from '@/src/services/locale';
 import React from 'react';
 import ConstructionMachineryCard from './ConstructionMachineryCard';
 import MainHeadings from '../tyreComponents/commonComponents/MainHeadings';
 
-const ConstructionMachineryType = async ({ translation, parentHeading }) => {
-    const currentLang = await getSelectedLanguage();
+const ConstructionMachineryType = async ({ translation, parentHeading, currentLang, hasHtml }) => {
 
     const mahindraData = [
         {
@@ -84,27 +82,27 @@ const ConstructionMachineryType = async ({ translation, parentHeading }) => {
     const constructionData = [
         {
             id: 1,
-            name: "Backhoe Loader",
-            image: "https://images.tractorgyan.com/uploads/120641/68a3285ea1a50-file-(16).webp",
-            link: "/construction-machinery/backhoe-loader",
+            name: translation.headings.BackhoeLoader,  // ✅ comes from JSON (English or Hindi)
+            image: "https://images.tractorgyan.com/uploads/121031/68c7c8afa9b48-Group-1000003061-(1).webp",
+            link: `/tractor-implements-in-india/backhoe-loader`,
             cardBg: "https://images.tractorgyan.com/uploads/120643/68a3289f62396-Vector.webp"
         },
-        {
-            id: 2,
-            name: "Front Loader",
-            image: "https://images.tractorgyan.com/uploads/120642/68a328794fb15-file-(15).webp",
-            link: "/construction-machinery/front-loader",
-            cardBg: "https://images.tractorgyan.com/uploads/120643/68a3289f62396-Vector.webp"
-        },
+        // {
+        //     id: 2,
+        //     name: "Front Loader",
+        //     image: "https://images.tractorgyan.com/uploads/120642/68a328794fb15-file-(15).webp",
+        //     link: "/construction-machinery/front-loader",
+        //     cardBg: "https://images.tractorgyan.com/uploads/120643/68a3289f62396-Vector.webp"
+        // },
     ];
-
     return (
-        <section>
-            <div className="container">
+        <section className="mb-0 pt-1 pb-1">
+            <div className='container'>
                 {parentHeading ? (<MainHeadings
                     text={`${translation.headings.Popular} ${parentHeading} ${translation.headings.brands}`}
                 />) : (<MainHeadings
-                    text={"Construction Machinery By Type"}
+                    text={`${translation.headings.ConstructionMachineryByType}`}
+
                 />)}
 
                 <div className="flex flex-wrap justify-start sm:justify-center xl:justify-start items-center gap-3 md:gap-4 2xl:gap-6">

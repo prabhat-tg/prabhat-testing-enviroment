@@ -58,6 +58,7 @@ export const tgi_implement_nav = {
     subsidy: `${CDN_URL}/121059/1758120538Implements-Subsidy-Icon.webp`,
     videos: `${CDN_URL}/121060/1758120551Implements-Videos-Icon.webp`,
     webstory: `${CDN_URL}/121061/1758120566Implements-Webstory-Icon.webp`,
+    emi_calculator: `${CDN_URL}/121116/68d116a253678-EMI-Calculator-icon.webp`,
 };
 
 

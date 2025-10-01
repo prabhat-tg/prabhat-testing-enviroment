@@ -31,6 +31,8 @@ import { getTractorBrandKeyHighlights } from '@/src/services/tractor/get-tractor
 import { getBrandSecondHandTractors } from '@/src/services/second-hand-tractors/get-brand-second-hand-tractors';
 import { getTractorBrandDealersByState } from '@/src/services/tractor/get-tractor-brand-dealers-by-state';
 import { getTractorBrands } from '@/src/services/tractor/all-tractor-brands-v2';
+import PopularSection from '@/src/components/shared/popularSection/PopularSection';
+import { getTractorPopularDetails } from '@/src/services/tractor/tractor-popular-details';
 
 const UpdatesSection = nextDynamic(() => import('@/src/features/tyreComponents/components/updatesAbouteTyre/UpdatesSection'));
 const TractorFAQs = nextDynamic(() => import('@/src/features/tyre/tyreFAQs/TyreFAQs'));
@@ -63,12 +65,12 @@ export default async function TractorByBrandPage({
 
   const translation = await getDictionary(currentLang);
 
-  const brandName = hpRange ? '' : param['brand-name'].split('-').join(' '); // Convert slug to brand name
+  const brandName = hpRange ? 'tractors' : param['brand-name'].split('-').join(' '); // Convert slug to brand name
 
   const pageSlug = hpRange
-    ? `${currentLang == 'hi' ? 'hi/' : ''}${hpRange}`
+    ? `${currentLang == 'hi' ? 'hi/' : ''}tractors`
     : isSeriesListing && seriesName
-      ? `${currentLang == 'hi' ? 'hi/' : ''}tractor/${param['brand-name']}/${seriesName}`
+      ? (`${currentLang == 'hi' ? 'hi/' : ''}tractor/${param['brand-name']}`)
       : `${currentLang == 'hi' ? 'hi/' : ''}tractor/${param['brand-name']}`; // Dynamic based on listing type
 
   let tractorBrands = await getTractorBrands(currentLang);
@@ -76,6 +78,7 @@ export default async function TractorByBrandPage({
     ...brand,
     image: 'https://images.tractorgyan.com/uploads' + brand.image,
   }));
+
 
   const brandByLang = hpRange
     ? { name: '', brand_name_en: '' } // For HP range, no specific brand
@@ -143,7 +146,7 @@ export default async function TractorByBrandPage({
     wheelDriveData,
     dealerStatesResponse
   ] = await Promise.all([
-    getTractorBrandBlogNews({ brand_name: hpRange ? hpRange : param['brand-name'] }),
+    getTractorBrandBlogNews({ brand_name: hpRange ? 'tractors' : param['brand-name'] }),
     getTyreVideos(pageSlug),
     getTyreReels(pageSlug),
     getTyreWebstories(pageSlug),
@@ -244,6 +247,8 @@ export default async function TractorByBrandPage({
     stateImages = dealerStatesResponse.state_images || '';
   }
 
+  const popularTractors = (await getTractorPopularDetails(currentLang)) || [];
+
   // Process tractor series data for the slider component
   const tractorSeries =
     tractorSeriesData?.data?.map(series => ({
@@ -290,6 +295,8 @@ export default async function TractorByBrandPage({
       'most_affordable _tractor': most_affordable_tractor,
       popular_tractor,
     } = keyHighlightsData;
+
+
 
     return (
       <section className="container bg-white">
@@ -519,6 +526,15 @@ export default async function TractorByBrandPage({
       </div>
       {/* Tractor Listing Section with Two-Column Layout */}
       {TractorListingComponent}
+      <PopularSection
+        langPrefix={currentLang}
+        popularData={popularTractors}
+        isMobile={isMobile}
+        translation={translation}
+        bgColor={'bg-whitesection-gray'}
+        redirectRoute="/tractors"
+      />
+
       {!hpRange && tractorSeries.length > 0 ? (
         <section className="mt-0 md:mt-10">
           <div className="container">

@@ -24,8 +24,8 @@ const TractorImplementBrandsPage = async () => {
   const currentLang = await getSelectedLanguage();
   const translation = await getDictionary(currentLang);
   const isMobile = await isMobileView();
-  const seoData = await getSEOByPage('tyre-price');
-  const tyreBrands = await getTyreBrands();
+  const seoData = await getSEOByPage((currentLang == 'hi' ? 'hi/' : '') + 'tractor-implements-brands-in-india');
+  // const tyreBrands = await getTyreBrands();
 
   const popularData = await getPopularImplements(currentLang);
   const popularTractorsError = false;
@@ -42,26 +42,28 @@ const TractorImplementBrandsPage = async () => {
 
   return (
     <>
-      <SeoHead seo={seoData} staticMetadata={{}} preloadUrls={[]} />
+      <SeoHead seo={seoData} staticMetadata={{}} preloadUrls={[]} paginationLinks={{
+        canonical: (currentLang == 'hi' ? 'https://tractorgyan.com/hi/tractor-implements-brands-in-india' : 'https://tractorgyan.com/tractor-implements-brands-in-india'),
+      }} />
       <DesktopHeader isMobile={isMobile} translation={translation} currentLang={currentLang} />{' '}
       <div className="pt-4 md:mt-[164px]">
         <div className="container">
           <TittleAndCrumbs
-            title="All Implement Brands"
+            title={translation.headings.allImplementBrands}
             breadcrumbs={[
               {
-                label: translation?.breadcrubm.home || 'Home',
-                href: '/',
-                title: translation?.breadcrubm.home || 'Home',
+                label: translation?.breadcrubm.tractorGyanHome || 'Home',
+                href: (currentLang == 'hi' ? '/hi' : '') + '/',
+                title: translation?.breadcrubm.tractorGyanHome || 'Home',
               },
               {
-                label: 'Tractor Implements',
-                href: '/tractor-implements-in-india',
-                title: 'Tractor Implements',
+                label: translation.headerNavbar.tractorImplements,
+                href: (currentLang == 'hi' ? '/hi' : '') + '/tractor-implements-in-india',
+                title: translation.headerNavbar.tractorImplements,
               },
               {
-                label: 'All Implement Brands',
-                title: 'All Implement Brands',
+                label: translation.headings.allImplementBrands,
+                title: translation.headings.allImplementBrands,
                 isCurrent: true,
               },
             ]}
@@ -69,6 +71,7 @@ const TractorImplementBrandsPage = async () => {
         </div>
 
         <TractorImplementBrands
+
           allImplementBrands={allImplementBrands}
           showAll={true}
           translation={translation}
@@ -76,16 +79,17 @@ const TractorImplementBrandsPage = async () => {
         />
 
         <TractorImplementTypes
-          heading='Implements By Types'
+          heading={translation.headerNavbar.implementsByTypes}
           allImplementTypes={allImplementTypes}
           floatingBg={true}
           slider={true}
           isMobile={isMobile}
+          currentLang={currentLang}
         />
 
         <PopularSection
-          heading="Popular Implements"
-          cta="View All Popular Implements"
+          heading={translation.headerNavbar.popularImplements}
+          cta={translation.headerNavbar.viewAllPopularImplements}
           popularData={popularData}
           popularDataError={popularTractorsError}
           translation={translation}
@@ -93,16 +97,16 @@ const TractorImplementBrandsPage = async () => {
           isMobile={isMobile}
           bgColor="bg-section-gray"
           type='implement'
+          redirectRoute={`/tractor-implements-in-india`}
         />
 
         <JoinOurCommunityServer translation={translation} currentLang={currentLang} />
         <TractorGyanOfferings translation={translation} />
-        <AboutTractorGyanServer slug={'tractor-implements-in-india'} translation={translation} />
+        <AboutTractorGyanServer slug={(currentLang == 'hi' ? 'hi/' : '') + 'tractor-implements-in-india'} translation={translation} />
         <WhatsAppTopButton
           translation={translation}
           currentLang={currentLang}
-          tyreBrands={tyreBrands}
-          defaultEnquiryType={'Tyre'}
+          defaultEnquiryType={'Tractor'}
           isMobile={isMobile}
         />
       </div>

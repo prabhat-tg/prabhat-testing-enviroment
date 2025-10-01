@@ -92,21 +92,15 @@ export default async function TyreBrandPage({ params, searchParams }) {
         paginationLinks={{
           canonical:
             currentPage > 1
-              ? `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}${prefLang === "en" ? '' : "/hi"}/tyre/${param.brandSlug}?page=${currentPage}`
-              : `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}${prefLang === "en" ? '' : "/hi"}/tyre/${param.brandSlug}`,
+              ? `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/tyre/${param.brandSlug}?page=${currentPage}`
+              : `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/tyre/${param.brandSlug}`,
           prev:
             currentPage > 1
-              ? `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}${prefLang === "en" ? '' : "/hi"}/tyre/${param.brandSlug}?page=${currentPage - 1}`
+              ? `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/tyre/${param.brandSlug}?page=${currentPage - 1}`
               : null,
           next: hasNextPage
-            ? `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}${prefLang === "en" ? '' : "/hi"}/tyre/${param.brandSlug}?page=${currentPage + 1}`
+            ? `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/tyre/${param.brandSlug}?page=${currentPage + 1}`
             : null,
-        }}
-        hreflang={{
-          en:
-            `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/tyre/${param.brandSlug}`,
-          hi:
-            `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/hi/tyre/${param.brandSlug}`
         }}
       />
       <DesktopHeader isMobile={isMobile} translation={translation} currentLang={prefLang} />{' '}

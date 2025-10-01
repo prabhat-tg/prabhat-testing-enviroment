@@ -184,10 +184,11 @@ export default async function TractorImplementCategoryPage({ params, searchParam
   let latestImplement = 'no';
   let popularImplement = 'no';
 
-  if (sortBy.toLowerCase() === 'popularity') {
+  // Use translation-based comparison for consistent sorting logic
+  if (sortBy === translation?.headings?.popularity) {
     popularImplement = 'yes';
   }
-  if (sortBy.toLowerCase() === 'latest launches') {
+  if (sortBy === translation?.headings?.latestLaunches) {
     latestImplement = 'yes';
   }
 

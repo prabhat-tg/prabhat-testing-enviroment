@@ -1,8 +1,8 @@
 import { postData } from "../apiMethods";
 
-export async function getAllImplementBrandsDetail() {
+export async function getAllImplementBrandsDetail(payload) {
   try {
-    const result = await postData("/api/implement_brand");
+    const result = await postData("/api/implement_brand", payload);
     console.log("Fetched Implement brands", result);
     return result.data;
   } catch (error) {

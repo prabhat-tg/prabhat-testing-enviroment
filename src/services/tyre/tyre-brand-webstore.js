@@ -28,10 +28,10 @@ export async function getTyreMedia(mediaType, slug) {
       console.warn(`No ${mediaType} data found for slug: ${slug}`);
       return [];
     }
-    console.log("----result", result)
+
+    console.log("Fetching result:", payload, endpoint, result);
 
     return result.data;
-
   } catch (error) {
     console.error(`Error fetching ${mediaType} for ${slug}:`, error);
     return []; // Return empty array instead of throwing to prevent UI crashes

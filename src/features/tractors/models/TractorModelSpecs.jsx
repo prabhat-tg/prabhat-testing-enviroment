@@ -42,31 +42,31 @@ const TractorDetailsSpecs = ({ tractorDetail, translation, currentLang, bannerDe
       // Engine specifications
       'Engine Name': formatTooltip(
         translation?.tractorSpecs?.tooltips?.engineName,
-        'The name and model of the engine used in {brandModel} tractor'
+        'Engine model or name'
       ),
       HP: formatTooltip(
         translation?.tractorSpecs?.tooltips?.hp,
-        'Horsepower - The power output of the {brandModel} engine'
+        'Horsepower of the engine'
       ),
       'Power (kW)': formatTooltip(
         translation?.tractorSpecs?.tooltips?.powerKw,
-        'Power output of {brandModel} measured in kilowatts'
+        'Total power output of engine'
       ),
       Cylinders: formatTooltip(
         translation?.tractorSpecs?.tooltips?.cylinders,
-        'Number of cylinders in the {brandModel} engine'
+        'Number of cylinders in engine'
       ),
       Displacement: formatTooltip(
         translation?.tractorSpecs?.tooltips?.displacement,
-        'Engine displacement of {brandModel} in cubic centimeters (CC)'
+        'Engine capacity in cubic centimeters'
       ),
       'Engine Rated RPM': formatTooltip(
         translation?.tractorSpecs?.tooltips?.engineRatedRpm,
-        'The optimal RPM at which the {brandModel} engine operates efficiently'
+        'Engine speed in revolutions per minute'
       ),
       'Cooling System': formatTooltip(
         translation?.tractorSpecs?.tooltips?.coolingSystem,
-        'Type of cooling system used in {brandModel} to maintain engine temperature'
+        'Type of engine cooling (air/water)'
       ),
       'Specific Fuel Consumption': formatTooltip(
         translation?.tractorSpecs?.tooltips?.specificFuelConsumption,
@@ -80,57 +80,57 @@ const TractorDetailsSpecs = ({ tractorDetail, translation, currentLang, bannerDe
       // Transmission specifications
       'Transmission Name': formatTooltip(
         translation?.tractorSpecs?.tooltips?.transmissionName,
-        'Type and model of the transmission system in {brandModel}'
+        'Gear system type (manual, synchromesh, etc.)'
       ),
       'Number of Gears': formatTooltip(
         translation?.tractorSpecs?.tooltips?.numberOfGears,
-        'Total number of forward and reverse gears available in {brandModel}'
+        'Total forward and reverse gears'
       ),
       'Maximum Forward Speed': formatTooltip(
         translation?.tractorSpecs?.tooltips?.maximumForwardSpeed,
-        'Maximum speed the {brandModel} can achieve in forward direction'
+        'Highest forward speed'
       ),
       'Maximum Reverse Speed': formatTooltip(
         translation?.tractorSpecs?.tooltips?.maximumReverseSpeed,
-        'Maximum speed the {brandModel} can achieve in reverse direction'
+        'Highest reverse speed'
       ),
       'Clutch Size': formatTooltip(
         translation?.tractorSpecs?.tooltips?.clutchSize,
-        'Size of the clutch mechanism in {brandModel}'
+        'Diameter of the clutch'
       ),
       'Clutch Type': formatTooltip(
         translation?.tractorSpecs?.tooltips?.clutchType,
-        'Type of clutch system used in {brandModel}'
+        'Type of clutch (single, dual)'
       ),
 
       // PTO specifications
       'PTO HP': formatTooltip(
         translation?.tractorSpecs?.tooltips?.ptoHp,
-        'Power Take-Off horsepower available for implements in {brandModel}'
+        'Horsepower available at PTO'
       ),
       'PTO Type': formatTooltip(
         translation?.tractorSpecs?.tooltips?.ptoType,
-        'Type of Power Take-Off system in {brandModel}'
+        'Type of PTO (Live, Independent, etc.)'
       ),
       'PTO Speed': formatTooltip(
         translation?.tractorSpecs?.tooltips?.ptoSpeed,
-        'Operating speed of the Power Take-Off in {brandModel}'
+        'Rotational speed of PTO'
       ),
 
       // Brakes
       Brakes: formatTooltip(
         translation?.tractorSpecs?.tooltips?.brakes,
-        'Type of braking system used in {brandModel}'
+        'Type of brakes used'
       ),
 
       // Steering specifications
       Steering: formatTooltip(
         translation?.tractorSpecs?.tooltips?.steering,
-        'Type of steering system used in {brandModel}'
+        'Type of steering (manual/power)'
       ),
       'Steering Adjustment': formatTooltip(
         translation?.tractorSpecs?.tooltips?.steeringAdjustment,
-        'Adjustability features of the steering system in {brandModel}'
+        'Is steering adjustable?'
       ),
       'Turning Radius': formatTooltip(
         translation?.tractorSpecs?.tooltips?.turningRadius,
@@ -140,7 +140,7 @@ const TractorDetailsSpecs = ({ tractorDetail, translation, currentLang, bannerDe
       // Fuel Tank specifications
       'Fuel Tank Capacity': formatTooltip(
         translation?.tractorSpecs?.tooltips?.fuelTankCapacity,
-        'Maximum fuel storage capacity of {brandModel} tank'
+        'Size of fuel tank in liters'
       ),
       'Pump Flow': formatTooltip(
         translation?.tractorSpecs?.tooltips?.pumpFlow,
@@ -150,51 +150,51 @@ const TractorDetailsSpecs = ({ tractorDetail, translation, currentLang, bannerDe
       // Dimension & Weight specifications
       Length: formatTooltip(
         translation?.tractorSpecs?.tooltips?.length,
-        'Overall length of {brandModel}'
+        'Overall length of tractor'
       ),
       Height: formatTooltip(
         translation?.tractorSpecs?.tooltips?.height,
-        'Overall height of {brandModel}'
+        'Overall height of tractor'
       ),
       Width: formatTooltip(
         translation?.tractorSpecs?.tooltips?.width,
-        'Overall width of {brandModel}'
+        'Overall width of tractor'
       ),
       'Wheel Base': formatTooltip(
         translation?.tractorSpecs?.tooltips?.wheelBase,
-        'Distance between the front and rear axles of {brandModel}'
+        'Distance between front and rear wheels'
       ),
       'Tractor Weight': formatTooltip(
         translation?.tractorSpecs?.tooltips?.tractorWeight,
-        'Total weight of {brandModel} without implements'
+        'Overall weight of tractor'
       ),
       'Ground Clearance': formatTooltip(
         translation?.tractorSpecs?.tooltips?.groundClearance,
-        'Minimum distance between the ground and the lowest part of {brandModel}'
+        'Distance between ground and chassis'
       ),
 
       // Hydraulic specifications
       'Lifting Capacity': formatTooltip(
         translation?.tractorSpecs?.tooltips?.liftingCapacity,
-        'Maximum weight the hydraulic system of {brandModel} can lift'
+        'Hydraulic lifting power'
       ),
       'Point Linkage': formatTooltip(
         translation?.tractorSpecs?.tooltips?.pointLinkage,
-        'Type of linkage system for implements in {brandModel}'
+        'Type of 3-point linkage'
       ),
       'Hydraulic Control': formatTooltip(
         translation?.tractorSpecs?.tooltips?.hydraulicControl,
-        'Type of hydraulic control system in {brandModel}'
+        'Type of hydraulic system'
       ),
 
       // Wheels & Tyres specifications
       'Tyre Size': formatTooltip(
         translation?.tractorSpecs?.tooltips?.tyreSize,
-        'Size specifications of the tyres used in {brandModel}'
+        'Size of front and rear tyres'
       ),
       'Wheel Drive': formatTooltip(
         translation?.tractorSpecs?.tooltips?.wheelDrive,
-        'Type of wheel drive system (2WD or 4WD) in {brandModel}'
+        'Type of drive (2WD/4WD)'
       ),
 
       // Other specifications
@@ -212,7 +212,7 @@ const TractorDetailsSpecs = ({ tractorDetail, translation, currentLang, bannerDe
       // ),
       Warranty: formatTooltip(
         translation?.tractorSpecs?.tooltips?.warranty,
-        'Warranty period and coverage details for {brandModel}'
+        'Warranty period of tractor'
       ),
       Application: formatTooltip(
         translation?.tractorSpecs?.tooltips?.application,
@@ -224,7 +224,7 @@ const TractorDetailsSpecs = ({ tractorDetail, translation, currentLang, bannerDe
       ),
       Accessories: formatTooltip(
         translation?.tractorSpecs?.tooltips?.accessories,
-        'Additional accessories available with {brandModel}'
+        'Additional tools or features'
       ),
       'Air Filter': formatTooltip(
         translation?.tractorSpecs?.tooltips?.airFilter,
@@ -236,7 +236,7 @@ const TractorDetailsSpecs = ({ tractorDetail, translation, currentLang, bannerDe
       ),
       'AC Type': formatTooltip(
         translation?.tractorSpecs?.tooltips?.acType,
-        'Type of air conditioning system in {brandModel}'
+        'Is AC cabin available?'
       ),
       Series: formatTooltip(
         translation?.tractorSpecs?.tooltips?.series,
@@ -244,11 +244,11 @@ const TractorDetailsSpecs = ({ tractorDetail, translation, currentLang, bannerDe
       ),
       Battery: formatTooltip(
         translation?.tractorSpecs?.tooltips?.battery,
-        'Battery specifications and capacity of {brandModel}'
+        'Battery specifications'
       ),
       Alternator: formatTooltip(
         translation?.tractorSpecs?.tooltips?.alternator,
-        'Alternator specifications for charging system in {brandModel}'
+        'Type/capacity of alternator'
       ),
       'Differential Lock': formatTooltip(
         translation?.tractorSpecs?.tooltips?.differentialLock,

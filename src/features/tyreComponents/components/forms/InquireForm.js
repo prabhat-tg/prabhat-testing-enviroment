@@ -14,6 +14,8 @@ import { getFetchTehsil } from '@/src/services/tyre/all-tehsil';
 import { tg_getTittleFromNestedKey } from '@/src/utils';
 import { tgi_arrow_right } from '@/src/utils/assets/icons';
 import { getAllImplementBrandListing } from '@/src/services/implement/get-all-implement-brand-listing';
+import { getImplementEnquiryTypeId } from '@/src/services/implement/get-implement-enquiry-type-id';
+import { getAllImplementTypes } from '@/src/services/implement/all-implement-types';
 
 const TyrePriceInquireForm = ({
   hideBanner = false,
@@ -36,7 +38,10 @@ const TyrePriceInquireForm = ({
   isMobile,
   pageName,
   pageSource,
-  implementType
+  implementType,
+  implementTypeId,
+  implementDetail,
+  showImplementTypeSelector = false
 }) => {
   useEffect(() => {
     console.log("TyrePriceInquireForm props:", { pageName, pageSource });
@@ -71,6 +76,20 @@ const TyrePriceInquireForm = ({
   const [existVerified, setExistVerified] = useState('');
   const [otp, setOtp] = useState('');
   const [primaryId, setPrimaryId] = useState(null);
+  const [typeId, setTypeId] = useState('');
+  const [implementTypes, setImplementTypes] = useState([]);
+  const [selectedImplementType, setSelectedImplementType] = useState('');
+
+  // Effect to set pre-filled brand and model for implements
+  useEffect(() => {
+    if (type === 'IMPLEMENT' && implementDetail) {
+      setSelectedBrand(implementDetail.brand_name_en);
+      setSelectedModel(implementDetail.model);
+      setProductId(implementDetail.id);
+    } else if (preFilledBrand) {
+      setSelectedBrand(preFilledBrand);
+    }
+  }, [preFilledBrand, type, implementDetail]);
 
   useEffect(() => {
     if (!showOtpPopup) {
@@ -85,19 +104,21 @@ const TyrePriceInquireForm = ({
     }
   }, [showOtpPopup]);
 
-  // useEffect(() => {
-  //   const fetchModels = async () => {
-  //     try {
-  //       const result = await postData("/api/tyre_modal", {
-  //         brand_name: selectedBrand,
-  //       });
-  //       setTyreModels(result.data);
-  //     } catch (error) {
-  //       console.error("Error fetching in tyre models:", error);
-  //     }
-  //   };
-  //   fetchModels();
-  // }, [selectedBrand]);
+  // Fetch implement types when showImplementTypeSelector is true
+  useEffect(() => {
+    const fetchImplementTypes = async () => {
+      if (type === 'IMPLEMENT' && showImplementTypeSelector) {
+        try {
+          const data = await getAllImplementTypes();
+          setImplementTypes(data || []);
+        } catch (error) {
+          console.error('Error fetching implement types:', error);
+          setImplementTypes([]);
+        }
+      }
+    };
+    fetchImplementTypes();
+  }, [type, showImplementTypeSelector]);
 
   useEffect(() => {
     const fetchModels = async () => {
@@ -119,11 +140,19 @@ const TyrePriceInquireForm = ({
         const data = await getAllImplementBrandListing({
           brand: selectedBrand,
           start_limit: 0,
-          end_limit: 100, // TODO:: Refactor | This is a required field, so setting 100 for now
+          end_limit: 1000, // TODO:: Refactor | This is a required field, so setting 100 for now
           // lang: currentLang,
         });
         setTyreModels(data.items);
-      } else {
+        // If we have a pre-filled implement detail, ensure it's in the model list
+        if (implementDetail && data.items) {
+          const existingModel = data.items.find(item => item.id === implementDetail.id);
+          if (!existingModel) {
+            // Add the current implement to the models list if not already present
+            setTyreModels([implementDetail, ...data.items]);
+          }
+        }
+      } else if (selectedBrand !== '') {
         const data = await getTyreModal(selectedBrand);
         setTyreModels(data);
       }
@@ -133,58 +162,35 @@ const TyrePriceInquireForm = ({
   }, [selectedBrand, type]);
 
   useEffect(() => {
-    // const fetchBrands = async () => {
-    //   try {
-    //     const result = await postData("/api/all_tyre_brands");
-    //     setBrands(result.data);
-    //   } catch (error) {
-    //     console.error("Error fetching in brands:", error);
-    //   }
-    // };
-
-    // const fetchState = async () => {
-    //   try {
-    //     const result = await fetchData("/api/all_state");
-    //     setStates(result.data || []);
-    //   } catch (error) {
-    //     console.error("Error fetching states:", error);
-    //   }
-    // };
-
     const fetchState = async () => {
       const data = await getAllStates();
       setStates(data || []);
     };
 
-    // fetchBrands();
+    if (implementTypeId) setTypeId(implementTypeId)
     fetchState();
   }, []);
 
-  // Effect to set pre-filled brand and model
+  // Fetch type_id for implement enquiry
   useEffect(() => {
-    if (preFilledBrand) {
-      setSelectedBrand(preFilledBrand);
-    }
-
-  }, [preFilledBrand]);
-
-  // useEffect(() => {
-  //   const fetchDistricts = async () => {
-  //     if (!selectedState) return;
-  //     try {
-  //       const result = await postData("/api/all_district", {
-  //         state: selectedState,
-  //       });
-  //       setDistricts(result.data);
-  //       setTehsils([]);
-  //       // setTehsils(result.data)
-  //     } catch (error) {
-  //       console.error("Error fetching districts:", error);
-  //     }
-  //   };
-
-  //   fetchDistricts();
-  // }, [selectedState]);
+    const fetchTypeId = async () => {
+      const typeToUse = showImplementTypeSelector ? selectedImplementType : implementType;
+      if (type === 'IMPLEMENT' && typeToUse && !implementTypeId) {
+        try {
+          const result = await getImplementEnquiryTypeId({
+            implement_type: typeToUse,
+            device_type: isMobile ? 'mobile' : 'desktop'
+          });
+          if (result.success) {
+            setTypeId(result.enquiry_id);
+          }
+        } catch (error) {
+          console.error('Error fetching type_id for implement:', error);
+        }
+      }
+    };
+    fetchTypeId();
+  }, [type, implementType, selectedImplementType, showImplementTypeSelector]);
 
   useEffect(() => {
     if (!selectedState) return;
@@ -196,22 +202,6 @@ const TyrePriceInquireForm = ({
     };
     fetchModels();
   }, [selectedState]);
-
-  // useEffect(() => {
-  //   const fetchTehsils = async () => {
-  //     if (!selectedDistrict) return;
-  //     try {
-  //       const result = await postData("/api/all_tehsil", {
-  //         district: selectedDistrict,
-  //       });
-  //       console.log("tehsil", result);
-  //       setTehsils(result.data || []);
-  //     } catch (error) {
-  //       console.error("Error fetching tehsil:", error);
-  //     }
-  //   };
-  //   fetchTehsils();
-  // }, [selectedDistrict]);
 
   useEffect(() => {
     if (!selectedDistrict) return;
@@ -227,6 +217,10 @@ const TyrePriceInquireForm = ({
     e.preventDefault();
     if (!selectedTehsil) {
       setError('Tehsil is required');
+      return;
+    }
+    if (type === 'IMPLEMENT' && showImplementTypeSelector && !selectedImplementType) {
+      setError('Implement type is required');
       return;
     }
     setIsSubmitting(true);
@@ -251,23 +245,22 @@ const TyrePriceInquireForm = ({
       apiEndpoint = '/api/enquiry_data_otp_send';
     } else if (type === 'IMPLEMENT') {
       // Payload for implement
+      const typeToUse = showImplementTypeSelector ? selectedImplementType : implementType;
       payload = {
-        // 'user-message': 'Enquiry',
-        // Enquiry: '',
-        // otp_type: 'form_submit_otp_send',
         name: name,
-        mobile: mobile,
-        model: selectedModel,
-        brand: selectedBrand,
-        implement_type: implementType,
-        state: selectedState,
+        mobile_name: mobile,
+        manufacture_id: selectedBrand,
+        first: selectedModel,
+        demo_field_4: '',
         district: selectedDistrict,
-        tehsil: selectedTehsil,
-        type_id: 34, // TODO:: Confirm and Update the type ID for mobile
-        page_name: pageName,
-        page_source: pageSource
+        tahsil: selectedTehsil,
+        implement_type: typeToUse || '',
+        state: selectedState,
+        type_id: typeId || '',
+        'user-message': 'Enquiry',
+        otp_type: 'form_submit_otp_send',
       };
-      apiEndpoint = '/api/all_implement_enquiry';
+      apiEndpoint = '/api/enquiry_data_otp_send';
     } else {
       // Original API and payload for tyre
       payload = {
@@ -290,10 +283,12 @@ const TyrePriceInquireForm = ({
 
     console.log('payload', payload);
     try {
-      const result = await postData(apiEndpoint, payload);
-      console.log('result', result);
+      let result = await postData(apiEndpoint, payload);
 
       if (result.status === 'success' || result.message == "success") {
+        // if (type == 'IMPLEMENT') {
+        //   result = result.data
+        // }
         setOtp(result.otp);
         setShowOtpPopup(new Date());
         setPrimaryId(result.primary_id);
@@ -408,7 +403,37 @@ const TyrePriceInquireForm = ({
                       </div>
                     </div>
                   </div>
-                  <div className="col-span-3">
+                  {/* Implement Type Selector - only show when showImplementTypeSelector is true */}
+                  {type === 'IMPLEMENT' && showImplementTypeSelector && (
+                    <div className="col-span-6 md:col-span-3">
+                      <label htmlFor="implementType" className="mb-0 block text-sm font-bold text-black">
+                        {translation.enquiryForm.implementType || 'Implement Type'}
+                      </label>
+                      <div className="mt-2">
+                        <select
+                          id="implementType"
+                          value={selectedImplementType}
+                          onChange={e => setSelectedImplementType(e.target.value)}
+                          required
+                          className="h-[38px] w-full rounded-lg border border-gray-light bg-transparent px-4 py-2 text-sm text-black focus:outline-none"
+                        >
+                          <option value="">
+                            {translation.enquiryForm.selectImplementType || 'Select Implement Type'}
+                          </option>
+                          {implementTypes?.length > 0 ? (
+                            implementTypes.map((implementTypeItem, index) => (
+                              <option key={index} value={implementTypeItem.name_en || implementTypeItem.name}>
+                                {implementTypeItem.name}
+                              </option>
+                            ))
+                          ) : (
+                            <option disabled>Loading...</option>
+                          )}
+                        </select>
+                      </div>
+                    </div>
+                  )}
+                  <div className={`${type === 'IMPLEMENT' && showImplementTypeSelector ? 'col-span-6 md:col-span-3' : 'col-span-3'}`}>
                     <label htmlFor="tyreBrand" className="mb-0 block text-sm font-bold text-black">
                       {type === 'TYRE'
                         ? translation.enquiryForm.tyreBrand
@@ -424,6 +449,7 @@ const TyrePriceInquireForm = ({
                         value={selectedBrand}
                         onChange={e => setSelectedBrand(e.target.value)}
                         className="h-[38px] w-full rounded-lg border border-gray-light bg-transparent px-4 py-2 text-sm text-black focus:outline-none"
+                      // disabled={type === 'IMPLEMENT' && implementDetail}
                       >
                         <option value="">{translation.enquiryForm.selectBrand}</option>
                         {tyreBrands?.length > 0 ? (
@@ -439,7 +465,7 @@ const TyrePriceInquireForm = ({
                     </div>
                   </div>
 
-                  <div className="col-span-3">
+                  <div className={`${type === 'IMPLEMENT' && showImplementTypeSelector ? 'col-span-6 md:col-span-3' : 'col-span-3'}`}>
                     <label htmlFor="tyreModel" className="mb-0 block text-sm font-bold text-black">
                       {type === 'TYRE'
                         ? translation.enquiryForm.tyreModel
@@ -490,7 +516,7 @@ const TyrePriceInquireForm = ({
                     </div>
                   </div>
 
-                  <div className="col-span-6 md:col-span-2">
+                  <div className={`${type === 'IMPLEMENT' && showImplementTypeSelector ? 'col-span-6 md:col-span-3' : 'col-span-6 md:col-span-2'}`}>
                     <label
                       htmlFor="selectState"
                       className="mb-0 block text-sm font-bold text-black"
@@ -518,7 +544,7 @@ const TyrePriceInquireForm = ({
                       </select>
                     </div>
                   </div>
-                  <div className="col-span-3 md:col-span-2">
+                  <div className={`${type === 'IMPLEMENT' && showImplementTypeSelector ? 'col-span-6 md:col-span-3' : 'col-span-3 md:col-span-2'}`}>
                     <label
                       htmlFor="selectDistrict"
                       className="mb-0 block text-sm font-bold text-black"
@@ -548,7 +574,7 @@ const TyrePriceInquireForm = ({
                     </div>
                   </div>
 
-                  <div className="col-span-3 md:col-span-2">
+                  <div className={`${type === 'IMPLEMENT' && showImplementTypeSelector ? 'col-span-6 md:col-span-3' : 'col-span-3 md:col-span-2'}`}>
                     <label
                       htmlFor="selectTehsil"
                       className="mb-0 block text-sm font-bold text-black"
@@ -609,7 +635,10 @@ const TyrePriceInquireForm = ({
                             ? submitBtnText
                             : type === 'TRACTOR'
                               ? `₹ ${translation.enquiryForm.getTractorPrice || 'Get Tractor Price'}`
-                              : `₹ ${translation.enquiryForm.getTyrePrice}`}
+                              : type === "IMPLEMENT"
+                                ? `₹ ${translation.enquiryForm.getImplementPrice || 'Get Implement Price'}`
+                                : `₹ ${translation.enquiryForm.getTyrePrice}`
+                        }
                       </span>
                       <Image
                         src={tgi_arrow_right}
@@ -666,15 +695,16 @@ const TyrePriceInquireForm = ({
           product_id={product_id}
           existVerified={existVerified}
           closeEnquryPopup={() => setShowOtpPopup(false)}
-          enquiryType={type === 'TRACTOR' ? 'Tractor' : 'Tyre'}
-          productNameSingular={type === 'TRACTOR' ? 'tractor' : 'tyre'}
-          productNamePlural={type === 'TRACTOR' ? 'tractors' : 'tyres'}
+          enquiryType={type === 'TRACTOR' ? 'Tractor' : type === 'IMPLEMENT' ? 'Implement' : 'Tyre'}
+          productNameSingular={type === 'TRACTOR' ? 'tractor' : type === 'IMPLEMENT' ? 'implement' : 'tyre'}
+          productNamePlural={type === 'TRACTOR' ? 'tractors' : type === 'IMPLEMENT' ? 'implements' : 'tyres'}
           onClose={() => setShowOtpPopup(false)}
           tehsil={selectedTehsil}
           state={selectedState}
           district={selectedDistrict}
           name={name}
           successDealerFormShow={'No'}
+          implementType={showImplementTypeSelector ? selectedImplementType : implementType}
         />
       )}
     </>
