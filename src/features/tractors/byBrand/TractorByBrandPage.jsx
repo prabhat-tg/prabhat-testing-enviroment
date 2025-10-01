@@ -34,6 +34,8 @@ import { getTractorBrands } from '@/src/services/tractor/all-tractor-brands-v2';
 import PopularSection from '@/src/components/shared/popularSection/PopularSection';
 import { getTractorPopularDetails } from '@/src/services/tractor/tractor-popular-details';
 import { getAllTractorNews } from '@/src/services/tractor/all-tractor-news';
+import { getHomeVideos } from '@/src/services/home/home-videos';
+import { getAllWebstories } from '@/src/services/home/home-webstory';
 
 const UpdatesSection = nextDynamic(() => import('@/src/features/tyreComponents/components/updatesAbouteTyre/UpdatesSection'));
 const TractorFAQs = nextDynamic(() => import('@/src/features/tyre/tyreFAQs/TyreFAQs'));
@@ -148,9 +150,9 @@ export default async function TractorByBrandPage({
     dealerStatesResponse
   ] = await Promise.all([
     hpRange ? getAllTractorNews('tractor-news') : getTractorBrandBlogNews({ brand_name: param['brand-name'] }),
-    getTyreVideos(pageSlug),
-    getTyreReels(pageSlug),
-    getTyreWebstories(pageSlug),
+    hpRange ? getHomeVideos('videos') : getTyreVideos(pageSlug),
+    hpRange ? getHomeVideos('reels') : getTyreReels(pageSlug),
+    hpRange ? getAllWebstories() : getTyreWebstories(pageSlug),
     getSEOByPage(pageSlug),
     getTractorFAQs({
       faq_tag: `${seriesName ? `tractor/${param['brand-name']}/${seriesName}` : `tractor/${param['brand-name']}`}`,
@@ -676,22 +678,35 @@ export default async function TractorByBrandPage({
         bgColor={'bg-section-white'}
       />}
       <UpdatesSection
+        // bgColor={'bg-section-gray'}
+        // videos={videos}
+        // reels={reels}
+        // webstories={webstories}
+        // translation={translation}
+        // slug={pageSlug}
+        // brandName={
+        //   isSeriesListing
+        //     ? brandByLang.name +
+        //     ' ' +
+        //     seriesName
+        //       .replace(/-/g, ' ')
+        //       .replace(/\b\w/g, l => l.toUpperCase())
+        //       .replace('Tractors', '')
+        //     : brandByLang.name
+        // }
+        // linkUrls={{
+        //   videos: `${currentLang === 'hi' ? '/hi' : ''}/tractor-videos`,
+        //   webstories: `${currentLang === 'hi' ? '/hi' : ''}/web-story-in-india`,
+        //   reels: `${currentLang === 'hi' ? '/hi' : ''}/tractor-reels-and-shorts`,
+        // }}
+        // moduleType="tractor"
         bgColor={'bg-section-gray'}
         videos={videos}
         reels={reels}
         webstories={webstories}
         translation={translation}
         slug={pageSlug}
-        brandName={
-          isSeriesListing
-            ? brandByLang.name +
-            ' ' +
-            seriesName
-              .replace(/-/g, ' ')
-              .replace(/\b\w/g, l => l.toUpperCase())
-              .replace('Tractors', '')
-            : brandByLang.name
-        }
+        brandName={brandName}
         linkUrls={{
           videos: `${currentLang === 'hi' ? '/hi' : ''}/tractor-videos`,
           webstories: `${currentLang === 'hi' ? '/hi' : ''}/web-story-in-india`,
