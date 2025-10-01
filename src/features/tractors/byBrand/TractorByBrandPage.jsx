@@ -33,6 +33,7 @@ import { getTractorBrandDealersByState } from '@/src/services/tractor/get-tracto
 import { getTractorBrands } from '@/src/services/tractor/all-tractor-brands-v2';
 import PopularSection from '@/src/components/shared/popularSection/PopularSection';
 import { getTractorPopularDetails } from '@/src/services/tractor/tractor-popular-details';
+import { getAllTractorNews } from '@/src/services/tractor/all-tractor-news';
 
 const UpdatesSection = nextDynamic(() => import('@/src/features/tyreComponents/components/updatesAbouteTyre/UpdatesSection'));
 const TractorFAQs = nextDynamic(() => import('@/src/features/tyre/tyreFAQs/TyreFAQs'));
@@ -146,7 +147,7 @@ export default async function TractorByBrandPage({
     wheelDriveData,
     dealerStatesResponse
   ] = await Promise.all([
-    getTractorBrandBlogNews({ brand_name: hpRange ? 'tractors' : param['brand-name'] }),
+    hpRange ? getAllTractorNews('tractor-news') : getTractorBrandBlogNews({ brand_name: param['brand-name'] }),
     getTyreVideos(pageSlug),
     getTyreReels(pageSlug),
     getTyreWebstories(pageSlug),
@@ -643,7 +644,7 @@ export default async function TractorByBrandPage({
           />
         </div>
       ) : null}
-      {news ? (
+      {(news && !hpRange) && (
         <NewsSection
           title={translation.headerNavbar.tractorBlogsNewsBrand.replace(
             '{brandName}',
@@ -662,7 +663,18 @@ export default async function TractorByBrandPage({
           showFilter={false}
           bgColor={'bg-section-white'}
         />
-      ) : null}
+      )}
+      {(news && hpRange) && <NewsSection
+        title={translation.headings.blogsAndNews.replace(
+          '{prefix}',
+          headingTitle
+        )}
+        translation={translation}
+        langPrefix={currentLang}
+        news={news || []}
+        showFilter={false}
+        bgColor={'bg-section-white'}
+      />}
       <UpdatesSection
         bgColor={'bg-section-gray'}
         videos={videos}
