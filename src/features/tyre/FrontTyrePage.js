@@ -140,6 +140,12 @@ const FrontTyrePage = async ({ params, searchParams }) => {
             ? `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/tyre/front?page=${currentPage + 1}`
             : null,
         }}
+        hreflang={{
+          en:
+            `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/tyre/front`,
+          hi:
+            `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/hi/tyre/front`
+        }}
       />
       <DesktopHeader isMobile={isMobile} translation={translation} currentLang={prefLang} />{' '}
       <div className="lg:mt-[159px]">

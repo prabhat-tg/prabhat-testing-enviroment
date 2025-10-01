@@ -610,7 +610,6 @@
   "tractorfaqs": {
     "allTractors": "Frequently Asked Questions About Tractors",
     "brandTractors": "Frequently Asked Questions About {brandName} Tractors",
-    "brandMiniTractors": "Frequently Asked Questions About {brandName} Mini Tractors",
     "tractorDealer": "Frequently Asked Questions About Tractor Dealers",
     "tractorDealerDetail": "Frequently Asked Questions About This Tractor Dealer",
     "tractorDealerBrand": "Frequently Asked Questions About {brand_name} Tractor Dealers",
@@ -1027,7 +1026,7 @@
     "TyreDealersByBrands": "Tyre Dealers By Brands",
     "TyreDealersByStates": "Tyre Dealers By States",
     "dataLastUpdatedOn": "Data Last Updated On",
-    "priceMayVaryFromStateToState": "*Price may vary from state to state to know price in your city",
+    "priceMayVaryFromStateToState": "*Price may vary from state to state",
     "inquireforTyrePrice": "Inquire for {brand} Price",
     "byTeamTractorGyan": "By Tractor Gyan",
     "tractorGyanBlogs": "Tractor Gyan Blogs",
@@ -1077,13 +1076,12 @@
     "and": "and",
     "brands": "Brands",
     "popularSecondHandTractors": "Popular Second Hand Tractors",
-    "popularSecondHandMiniTractors": "Popular Second Hand Mini Tractors",
     "blogsAndNews": "{prefix} Blogs & News",
     "miniTractorsByBrands": "{brand} Mini Tractors",
     "popularSecondHandTractorsByBrand": "Popular {brand} Second Hand Tractors",
-    "popularSecondHandMiniTractorsByBrand": "Popular {brand} Second Hand Mini Tractors",
     "popularTractorComparison": "Popular Tractor Comparison",
     "tractorDealersByBrands": "Tractor Dealers by Brands",
+    "discontinued": "Discontinued",
     "implementNewsAndUpdates": "Implement News & Updates",
     "allImplementBrands": "All Implement Brands",
     "implementOnRoadPrice": "Implement On Road Price"
@@ -1292,8 +1290,7 @@
     "viewImplementPrice": "View Implement Price",
     "type": "Type",
     "find": "Find",
-    "in": "in",
-    "clickHere": "Click Here"
+    "in": "in"
   },
   "breadcrumbs": {
     "tractorBrands": "Tractor Brands",

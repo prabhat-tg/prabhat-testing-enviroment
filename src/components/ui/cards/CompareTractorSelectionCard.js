@@ -426,7 +426,7 @@ const CompareTractorSelectionCard = ({
         </div>
       )}
       {/* TODO:: When this button is shown, the compare tractor button will not be shown in the section cta */}
-      {(showCheckPrice) ? (
+      {/* {(showCheckPrice) ? (
         <div className="mb-4 -mt-6 md:-mt-8  flex w-full justify-center">
           {selectedTractor && selectedTractor.brand_name_en && selectedTractor.model ? (
             <TG_LinkButton className={` ${isCompact ? '!px-1' : ''} border-primary text-primary rounded-lg`} href={`${currentLang == 'hi' ? '/hi' : ''}/${((selectedTractor.brand_name_en)?.replaceAll(' ', '-'))?.toLowerCase()}-${((selectedTractor?.model_en || selectedTractor.model_name_en)?.replaceAll(' ', '-'))?.toLowerCase()}/tractor-on-road-price/${selectedTractor.id}`}>
@@ -438,7 +438,7 @@ const CompareTractorSelectionCard = ({
             </TG_LinkButton>
           )}
         </div>
-      ) : null}
+      ) : null} */}
     </div>
   );
 };

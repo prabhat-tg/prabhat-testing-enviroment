@@ -94,7 +94,7 @@ export default function TyreDealerDetail({
 
   return (
     <>
-      <section className="pt-4 container lg:mt-[159px]">
+      <section className="pt-4 container lg:mt-[174px]">
         <div className=" relative">
           <TittleAndCrumbs
             title={getTitle()}

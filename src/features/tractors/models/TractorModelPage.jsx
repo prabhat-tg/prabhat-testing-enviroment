@@ -505,7 +505,7 @@ export default async function TractorModelPage({ params }) {
         </section>
       ) : null}
 
-      <PopularSection
+      {releatedTractors?.length > 0 && (<PopularSection
         heading={`${translation?.common?.similar || 'Related'} ${tractorDetail.brand} ${tractorDetail.model} ${translation?.common?.tractors || 'Tractors'}`}
         popularData={releatedTractors}
         popularDataError={popularTractorsError}
@@ -514,7 +514,7 @@ export default async function TractorModelPage({ params }) {
         isMobile={isMobile}
         bgColor="bg-section-gray"
         redirectRoute={'/tractors'}
-      />
+      />)}
 
       {/* TODO:: Manage Sell Your Tractor Banner */}
       <SecondHandMiniTractorCards

@@ -50,7 +50,23 @@ export default async function TractorTyreDealersPage({ params, searchParams }) {
 
   return (
     <>
-      <SeoHead seo={seoData} staticMetadata={{}} preloadUrls={[]} />
+      <SeoHead
+        seo={seoData}
+        staticMetadata={{}}
+        preloadUrls={[]}
+        paginationLinks={{
+          canonical:
+            currentPage > 1
+              ? `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}${currentLang === "en" ? '' : "/hi"}/tractor-tyre-dealers-in-india?page=${currentPage}`
+              : `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}${currentLang === "en" ? '' : "/hi"}/tractor-tyre-dealers-in-india`,
+        }}
+        hreflang={{
+          en:
+            `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/tractor-tyre-dealers-in-india`,
+          hi:
+            `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/hi/tractor-tyre-dealers-in-india`
+        }}
+      />
       <DesktopHeader isMobile={isMobile} translation={translation} currentLang={currentLang} />{' '}
       <DealerFilterSection
         translation={translation}

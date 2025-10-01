@@ -17,6 +17,7 @@ const TyreDetailsClientInteractions = ({
   features,
   aboutSectionSlot,
   translation,
+  isMobile
 }) => {
   // Added aboutSectionSlot
   const [isOpen1, setIsopen1] = useState(true);
@@ -47,7 +48,7 @@ const TyreDetailsClientInteractions = ({
           {/* Main content section including slider, highlights, share buttons */}
           <div className="justify-around rounded-2xl md:flex md:shadow-main xl:p-4 xl:pb-0">
             {/* Title and Tooltip for Mobiel UI */}
-            <Tooltip content={tooltipContent}>
+            {isMobile === true && (<Tooltip content={tooltipContent}>
               <h1 className="block cursor-pointer text-lg font-semibold text-black md:hidden">
                 {tyreDetail.brand_name ? (
                   `${tyreDetail.brand_name} ${tyreDetail.model_name}`
@@ -55,7 +56,7 @@ const TyreDetailsClientInteractions = ({
                   <p>{translation.tyreDetails.loading}</p>
                 )}
               </h1>
-            </Tooltip>
+            </Tooltip>)}
             <div className="relative h-full w-full px-0 pt-3 md:max-h-[480px] md:max-w-[350px] md:px-4 lg:max-w-[335px] xl:max-w-[350px]">
               <TyreDetailMainSlider
                 title={`${tyreDetail.brand_name} ${tyreDetail.model_name} image`}
@@ -65,7 +66,7 @@ const TyreDetailsClientInteractions = ({
               />
             </div>
             <div className="mt-8 w-full rounded-2xl p-4 shadow-main md:mt-2 md:max-w-[370px] md:p-0 md:shadow-none lg:max-w-[335px] xl:max-w-[450px]">
-              <Tooltip
+              {isMobile === false && (<Tooltip
                 content={` ${tyreDetail.brand_name} ${tyreDetail.model_name} gives the perfect traction in uneven and wet areas. This tyre distributes tractor weight evenly and handles heavy loads easily. It maintains soil structure and reduces compaction. This tyre absorbs uneven ground shocks and provides comfort while driving the tractor. The price of ${tyreDetail.brand_name} ${tyreDetail.model_name} is affordable for Indian farmers. ${tyreDetail.brand_name} ${tyreDetail.model_name} is made of high-quality components and can handle tough farming.`}
               >
                 <h1 className="mb-4 hidden cursor-pointer text-lg font-semibold text-black md:block md:text-2xl">
@@ -75,7 +76,7 @@ const TyreDetailsClientInteractions = ({
                     <p>{translation.tyreDetails.loading}</p>
                   )}
                 </h1>
-              </Tooltip>
+              </Tooltip>)}
               <div>
                 <h5 className="mb-4 hidden text-lg font-semibold text-black xl:block">
                   {translation.tyreDetails.highlights}
@@ -154,18 +155,16 @@ const TyreDetailsClientInteractions = ({
             </h2>
             <div className="mb-4">
               <div
-                className={`${
-                  !isOpen1 && 'rounded-b-lg'
-                } flex items-center justify-between gap-3 rounded-t-lg bg-primary p-4 text-base font-semibold leading-[18px] text-white shadow-main`}
+                className={`${!isOpen1 && 'rounded-b-lg'
+                  } flex items-center justify-between gap-3 rounded-t-lg bg-primary p-4 text-base font-semibold leading-[18px] text-white shadow-main`}
               >
                 <h3>{`${tyreDetail.brand_name} ${tyreDetail.model_name} ${translation.tyreDetails.specifications}`}</h3>
                 <button onClick={toggleDropdown1}>
                   <Image
-                    src={`${
-                      isOpen1
-                        ? 'https://images.tractorgyan.com/uploads/114119/66a8b1e63149d-upArrowFeature.png'
-                        : 'https://images.tractorgyan.com/uploads/114118/66a8b19bd6d66-featureTableDown.png'
-                    }`}
+                    src={`${isOpen1
+                      ? 'https://images.tractorgyan.com/uploads/114119/66a8b1e63149d-upArrowFeature.png'
+                      : 'https://images.tractorgyan.com/uploads/114118/66a8b19bd6d66-featureTableDown.png'
+                      }`}
                     height={20}
                     width={20}
                     alt="toggle-button-image"
@@ -246,18 +245,16 @@ const TyreDetailsClientInteractions = ({
             </div>
             <div className="mb-4">
               <div
-                className={`${
-                  !isOpen2 && 'rounded-b-lg'
-                } flex items-center justify-between gap-3 rounded-t-lg bg-primary p-4 text-base font-semibold leading-[18px] text-white shadow-main`}
+                className={`${!isOpen2 && 'rounded-b-lg'
+                  } flex items-center justify-between gap-3 rounded-t-lg bg-primary p-4 text-base font-semibold leading-[18px] text-white shadow-main`}
               >
                 <h3>{`${tyreDetail.brand_name} ${tyreDetail.model_name} ${translation.tyreDetails.featuresAndBenefits}`}</h3>
                 <button onClick={toggleDropdown2}>
                   <Image
-                    src={`${
-                      isOpen2
-                        ? 'https://images.tractorgyan.com/uploads/114119/66a8b1e63149d-upArrowFeature.png'
-                        : 'https://images.tractorgyan.com/uploads/114118/66a8b19bd6d66-featureTableDown.png'
-                    }`}
+                    src={`${isOpen2
+                      ? 'https://images.tractorgyan.com/uploads/114119/66a8b1e63149d-upArrowFeature.png'
+                      : 'https://images.tractorgyan.com/uploads/114118/66a8b19bd6d66-featureTableDown.png'
+                      }`}
                     height={20}
                     width={20}
                     alt="toggle-button-image"
@@ -271,9 +268,8 @@ const TyreDetailsClientInteractions = ({
                   {features?.map((feature, index) => (
                     <li
                       key={index}
-                      className={`w-full px-2 py-[13px] text-xs font-normal leading-[14px] text-gray-dark ${
-                        index !== features?.length - 1 ? 'border-b-[1px] border-gray-light' : ''
-                      }`}
+                      className={`w-full px-2 py-[13px] text-xs font-normal leading-[14px] text-gray-dark ${index !== features?.length - 1 ? 'border-b-[1px] border-gray-light' : ''
+                        }`}
                     >
                       {feature}
                     </li>

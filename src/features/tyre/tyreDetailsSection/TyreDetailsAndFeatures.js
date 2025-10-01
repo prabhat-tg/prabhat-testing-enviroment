@@ -278,6 +278,7 @@ const TyreDetailsAndFeatures = ({
           tyreId={tyreId}
           tyreDetail={tyreDetail}
           features={features}
+          isMobile={isMobile}
           aboutSectionSlot={aboutSectionSlot} // Pass the server-rendered "About" section
         />
       </div>

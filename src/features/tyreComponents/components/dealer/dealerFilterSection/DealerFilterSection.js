@@ -126,7 +126,7 @@ export default async function DealerFilterSection({
         : 'https://images.tractorgyan.com/uploads/117674/67988ae896d7f-tyre-dealer-banner-mobile.webp';
 
   return (
-    <section className="container lg:mt-[142px]">
+    <section className="container lg:mt-[172px]">
       <div className=" relative">
         {/* <div className={isMobile ? `w-[90%] m-auto` : ``}>
         </div> */}

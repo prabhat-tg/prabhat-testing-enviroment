@@ -333,7 +333,7 @@ export default async function TractorPageLayout(config, { params, searchParams }
     } catch (error) {
       console.error('Error fetching second hand tractors:', error);
       secondHandTractors = [];
-    };
+    }
 
     return (
       <main>
@@ -486,7 +486,7 @@ export default async function TractorPageLayout(config, { params, searchParams }
           <SecondHandMiniTractorCards
             bgColor="bg-section-gray"
             heading={
-              isMiniTractorBrandPage ? translation.headings.popularSecondHandMiniTractorsByBrand?.replace('{brand}', brandByLang.name) : (isMiniTractorPage ? translation?.headings?.popularSecondHandMiniTractors : translation?.headings?.popularSecondHandTractors) || 'Popular Second Hand Tractors'
+              isMiniTractorBrandPage ? translation.headings.popularSecondHandTractorsByBrand.replace('{brand}', brandByLang.name) : translation?.headings?.popularSecondHandTractors || 'Popular Second Hand Tractors'
             }
             buttonText={
               (translation?.secondHandTractors?.viewAllSecondHandTractors).replace('{brandName}', brandName) ||
@@ -548,7 +548,7 @@ export default async function TractorPageLayout(config, { params, searchParams }
           <TractorFAQs
             faqs={faqs}
             translation={translation}
-            headingKey={isMiniTractorBrandPage ? 'tractorfaqs.brandMiniTractors' : 'tractorfaqs.brandTractors'}
+            headingKey={'tractorfaqs.brandTractors'}
             isDynamicTitle={true}
             brandName={isMiniTractorBrandPage ? brandByLang.name : brandName}
             bgColor="bg-white"

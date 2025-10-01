@@ -1107,7 +1107,7 @@
     "TyreDealersByBrands": "ब्रांड के अनुसार टायर विक्रेता",
     "TyreDealersByStates": "राज्यों के अनुसार टायर विक्रेता",
     "dataLastUpdatedOn": "जानकारी अंतिम बार अपडेट हुई",
-    "priceMayVaryFromStateToState": "*कीमत राज्य के अनुसार बदल सकती है, अपने शहर की कीमत जानने के लिए देखें",
+    "priceMayVaryFromStateToState": "कीमत* अलग-अलग राज्यों में अलग-अलग हो सकती है",
     "inquireforTyrePrice": "{brand} की कीमत जानें",
     "byTeamTractorGyan": "ट्रैक्टर ज्ञान द्वारा",
     "tractorGyanBlogs": "ट्रैक्टर ज्ञान ब्लॉग्स",
@@ -1157,13 +1157,12 @@
     "and": "और",
     "brands": "ब्रांड्स",
     "popularSecondHandTractors": "लोकप्रिय सेकेंड हैंड ट्रैक्टर",
-    "popularSecondHandMiniTractors": "लोकप्रिय सेकंड हैंड मिनी ट्रैक्टर",
     "blogsAndNews": "{prefix} ब्लॉग्स और समाचार",
     "miniTractorsByBrands": "{brand} मिनी ट्रैक्टर्स",
     "popularSecondHandTractorsByBrand": "लोकप्रिय सेकेंड हैंड {brand} ट्रैक्टर",
-    "popularSecondHandMiniTractorsByBrand": "लोकप्रिय {brand} सेकंड हैंड मिनी ट्रैक्टर",
     "popularTractorComparison": "लोकप्रिय ट्रैक्टर तुलना",
-    "tractorDealersByBrands": "ट्रैक्टर ब्रांड्स डीलर",
+    "tractorDealersByBrands": "ब्रांड्स द्वारा ट्रैक्टर डीलर",
+    "discontinued": "निष्क्रिय",
     "implementNewsAndUpdates": "इम्प्लीमेंट समाचार और अपडेट",
     "allImplementBrands": "सभी इम्प्लीमेंट ब्रांड",
     "implementOnRoadPrice": "इम्प्लीमेंट ऑन रोड प्राइस"
@@ -1288,8 +1287,7 @@
     "viewImplementPrice": "इम्प्लीमेंट की कीमत देखें",
     "type": "प्रकार",
     "find": "खोजें",
-    "in": "में",
-    "clickHere": "यहाँ क्लिक करें"
+    "in": "में"
   },
   "breadcrumbs": {
     "tractorBrands": "ट्रैक्टर ब्रांड",

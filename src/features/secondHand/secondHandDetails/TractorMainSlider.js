@@ -15,7 +15,9 @@ const TractorMainSlider = ({
   brandLogo,
   isPopular = false,
   isSoldOut = false,
-  showThumbnails = false
+  showThumbnails = false,
+  translation,
+  status
 }) => {
   const isMobile = useIsMobile();
   const [nav1, setNav1] = useState(null);
@@ -61,6 +63,13 @@ const TractorMainSlider = ({
         <div className="slider-container">
           <div className="relative w-full">
             {isSoldOut && <SoldOutStrip />}
+            <div className="h-auto w-full min-w-[44px] max-w-[65px] pb-2">
+              {status === "Discontinue" && (
+                <button className='rounded-[5px] border border-error-report px-3 py-1 text-sm text-error-report'>
+                  {translation?.headings?.discontinued || 'Discontinued'}
+                </button>
+              )}
+            </div>
             <div className="flex w-full items-start justify-between">
               {brandLogo && <Image
                 src={brandLogo}
@@ -76,6 +85,7 @@ const TractorMainSlider = ({
                 </span>
               )}
             </div>
+
             <Slider
               infinite={imageUrls.length > 1}
               speed={500}
@@ -174,6 +184,14 @@ const TractorMainSlider = ({
               </div>
             ))}
           </Slider>
+
+          {status === "Discontinue" && (
+            <div className="absolute top-7 right-[10px] h-auto w-full min-w-[44px] max-w-[65px]">
+              <button className='rounded-[5px] border border-error-report px-3 py-1 text-sm text-error-report'>
+                {translation?.headings?.discontinued || 'Discontinued'}
+              </button>
+            </div>
+          )}
 
           {/* Thumbnail Slider */}
           {imageUrls.length > 1 && (

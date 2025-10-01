@@ -573,7 +573,7 @@ const WhatsAppTopButton = ({
                 >
                   {/* Name */}
                   <div className="col-span-3">
-                    <label htmlFor="name" className="mb-0 block text-sm font-bold text-black text-start">
+                    <label htmlFor="name" className="mb-0 block text-sm font-bold text-black">
                       {translation?.enquiryForm.name}
                     </label>
                     <div className="mt-1">
@@ -592,7 +592,7 @@ const WhatsAppTopButton = ({
                   </div>
                   {/* Mobile */}
                   <div className="col-span-3">
-                    <label htmlFor="mobile" className="mb-0 block text-sm font-bold text-black text-start">
+                    <label htmlFor="mobile" className="mb-0 block text-sm font-bold text-black">
                       {translation?.enquiryForm.mobile}
                     </label>
                     <div className="relative mt-1">
@@ -619,7 +619,7 @@ const WhatsAppTopButton = ({
                     <>
                       {/* Brand */}
                       <div className="col-span-3">
-                        <label htmlFor="brand" className="mb-0 block text-sm font-bold text-black text-start">
+                        <label htmlFor="brand" className="mb-0 block text-sm font-bold text-black">
                           {enquiryConfigs[defaultEnquiryType]?.brandLabel}
                         </label>
                         <div className="mt-1">
@@ -653,7 +653,7 @@ const WhatsAppTopButton = ({
                       </div>
                       {/* Model */}
                       <div className="col-span-3">
-                        <label htmlFor="model" className="mb-0 block text-sm font-bold text-black text-start">
+                        <label htmlFor="model" className="mb-0 block text-sm font-bold text-black">
                           {enquiryConfigs[defaultEnquiryType]?.modelLabel}
                         </label>
                         <div className="mt-1">
@@ -697,7 +697,7 @@ const WhatsAppTopButton = ({
                   )}
                   {/* State */}
                   <div className="col-span-6">
-                    <label htmlFor="state" className="mb-0 block text-sm font-bold text-black text-start">
+                    <label htmlFor="state" className="mb-0 block text-sm font-bold text-black">
                       {translation?.enquiryForm.selectState}
                     </label>
                     <div className="mt-1">
@@ -724,7 +724,7 @@ const WhatsAppTopButton = ({
                   </div>
                   {/* District */}
                   <div className="col-span-3">
-                    <label htmlFor="district" className="mb-0 block text-sm font-bold text-black text-start">
+                    <label htmlFor="district" className="mb-0 block text-sm font-bold text-black">
                       {translation?.enquiryForm.selectDistrict}
                     </label>
                     <div className="mt-1">
@@ -752,7 +752,7 @@ const WhatsAppTopButton = ({
                   </div>
                   {/* Tehsil */}
                   <div className="col-span-3">
-                    <label htmlFor="tehsil" className="mb-0 block text-sm font-bold text-black text-start">
+                    <label htmlFor="tehsil" className="mb-0 block text-sm font-bold text-black">
                       {translation?.enquiryForm.selectTehsil}
                     </label>
                     <div className="mt-1">

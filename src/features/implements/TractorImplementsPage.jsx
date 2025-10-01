@@ -4,7 +4,6 @@ import { isMobileView } from '@/src/utils';
 import JoinOurCommunityServer from '@/src/components/shared/community/JoinOurCommunityServer';
 import TractorGyanOfferings from '@/src/components/shared/offerings/TractorGyanOfferings';
 import AboutTractorGyanServer from '@/src/components/shared/about/AboutTractorGyanServer';
-import TG_Banner from '@/src/components/shared/bannners/Banner';
 import PopularSection from '@/src/components/shared/popularSection/PopularSection';
 import LatestTractorSection from '@/src/components/shared/latestSection/LatestTractorSection';
 import TractorImplementTypes from '@/src/components/shared/tractor-implements/TractorImplementTypes';

@@ -27,7 +27,7 @@ export default async function TyreFrontDetailPage({ params, searchParams }) {
   const currentLang = await getSelectedLanguage();
   const translation = await getDictionary(currentLang);
   const isMobile = await isMobileView();
-  const pageSlug = `${currentLang === 'en' ? '' : `${currentLang}/`}tyre/front/${param.sizeSlug}/${param.id}`;
+  const pageSlug = `tyre/front/${param.sizeSlug}/${param.id}`;
   const priceListSlug = `front/${param.sizeSlug}/${param.id}`;
   const seoData = await getSEOByPage(pageSlug);
   const tyreBrands = await getTyreBrands();
@@ -48,6 +48,9 @@ export default async function TyreFrontDetailPage({ params, searchParams }) {
     if (parts?.length >= 5) {
       const formatted = `${parts[0]}.${parts[1]}x${parts[3]}`;
       return formatted;
+    }
+    if (currentLang === 'hi') {
+      return input.replace(/size/gi, 'आकार');
     }
     return input;
   }
@@ -107,6 +110,12 @@ export default async function TyreFrontDetailPage({ params, searchParams }) {
           next: hasNextPage
             ? `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/${pageSlug}?page=${currentPage + 1}`
             : null,
+        }}
+        hreflang={{
+          en:
+            `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/${pageSlug}`,
+          hi:
+            `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/hi/${pageSlug}`
         }}
       />
       <DesktopHeader isMobile={isMobile} translation={translation} currentLang={currentLang} />{' '}

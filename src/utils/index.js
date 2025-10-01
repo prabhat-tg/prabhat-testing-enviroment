@@ -328,6 +328,11 @@ export const prepareTyreListingComponent = async ({
   brandPageUrl,
   basePathFromUrl,
   basePath,
+  customListingData,
+  customTotalCount,
+  customCurrentPage,
+  customTotalPages,
+  customHasNextPage,
 }) => {
   const currentPage = parseInt(searchParamsObj?.page) || 1;
 
@@ -343,8 +348,13 @@ export const prepareTyreListingComponent = async ({
   let initialTyres = [];
   let totalTyresCount = 0;
 
+  // Use custom data if provided (for brand/sub-type pages)
+  if (customListingData) {
+    initialTyres = customListingData;
+    totalTyresCount = customTotalCount || 0;
+  }
   // Handle different pageTypes with unified data fetching
-  if (pageType === 'implements') {
+  else if (pageType === 'implements') {
     // Use implement listing API with proper server-side pagination
     const startLimit = (currentPage - 1) * 22;
     const endLimit = startLimit + 22;
@@ -480,7 +490,7 @@ export const prepareTyreListingComponent = async ({
   const tyresListingProps = {
     initialTyres: initialTyres,
     totalTyresCount: totalTyresCount,
-    currentPage,
+    currentPage: customCurrentPage || currentPage,
     itemsPerPage: ITEMS_PER_PAGE,
     activeFilters,
     tyreBrands: tyreBrands,
@@ -492,9 +502,9 @@ export const prepareTyreListingComponent = async ({
     basePath: basePathFromUrl || basePath,
     pageType,
     pageOrigin: pageType === 'implements' || pageType === 'implement-brand' ? 'implement' : 'tyre',
-    // Add pagination info
-    hasNextPage: currentPage < Math.ceil(totalTyresCount / ITEMS_PER_PAGE),
-    totalPages: Math.ceil(totalTyresCount / ITEMS_PER_PAGE),
+    // Add pagination info - use custom pagination if provided
+    hasNextPage: customHasNextPage !== undefined ? customHasNextPage : currentPage < Math.ceil(totalTyresCount / ITEMS_PER_PAGE),
+    totalPages: customTotalPages || Math.ceil(totalTyresCount / ITEMS_PER_PAGE),
     totalItems: totalTyresCount,
   };
 

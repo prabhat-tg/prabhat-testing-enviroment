@@ -141,6 +141,12 @@ const RearTyreDetailPage = async ({ params, searchParams }) => {
             ? `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/tyre/rear/${sizeSlug}/${id}?page=${currentPage + 1}`
             : null,
         }}
+        hreflang={{
+          en:
+            `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/tyre/rear/${sizeSlug}/${id}`,
+          hi:
+            `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/hi/tyre/rear/${sizeSlug}/${id}`
+        }}
       />
       <DesktopHeader isMobile={isMobile} translation={translation} currentLang={prefLang} />{' '}
       <div className="lg:mt-[159px]">

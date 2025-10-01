@@ -79,6 +79,8 @@ const TractorDetailsCard = ({
     </div>
   );
 
+  console.log('tractorDetail render', tractorDetail.status);
+
   return (
     <div className="justify-around rounded-2xl md:flex md:p-4 md:shadow-main">
       {/* <div className="relative h-full w-full flex justify-center px-4 pt-3 md:justify-start md:max-h-[480px] md:max-w-[350px] lg:max-w-[335px] xl:max-w-[350px]"> */}
@@ -89,6 +91,8 @@ const TractorDetailsCard = ({
           brandLogo={tractorDetail.brand_logo || ''}
           showThumbnails={true}
           isPopular={tractorDetail?.popular_tractor === '1' ? true : false}
+          translation={translation}
+          status={tractorDetail?.status}
         />
       </div>
       <div className="mt-8 w-full rounded-2xl p-4 shadow-main md:mt-2 md:max-w-[370px] md:p-0 md:p-2 md:shadow-none lg:max-w-[335px] xl:max-w-[450px]">
@@ -98,22 +102,11 @@ const TractorDetailsCard = ({
             {`${tractorDetail.brand} ${tractorDetail.model}`}
           </h1>
         </Tooltip> : null}
-        <div className="flex flex-row-reverse md:flex-row justify-between items-start md:items-end md:pb-2">
-
-          <div>
-            <span className='block md:hidden text-sm'>Share</span>
-            <SocialMediaLinksShare
-              title={
-                translation?.tractorDetails?.shareTitle || 'Check out this tractor on TractorGyan!'
-              }
-              url={'https://tractorgyan.com' + tractorDetail.page_url}
-            />
-          </div>
-
+        <div className="flex flex-row-reverse md:flex-row justify-between items-start">
           <div>
             {rawRating > 0 ? (
               <div
-                className="flex justify-end md:justify-end items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
+                className="flex justify-end md:justify-start items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
                 onClick={() => {
                   const reviewSection = document.getElementById('review-section');
                   if (reviewSection) {
@@ -154,7 +147,7 @@ const TractorDetailsCard = ({
             )}
 
             <button
-              className="flex items-center justify-center gap-1.5 rounded-full border-[1px] border-gray-light px-3 py-1.5 md:px-4 mt-2"
+              className="flex md:hidden items-center justify-center gap-1.5 rounded-full border-[1px] border-gray-light px-3 py-1.5 md:px-4 mt-2"
               onClick={() => {
                 const reviewSection = document.getElementById('review-section');
                 if (reviewSection) {
@@ -178,7 +171,15 @@ const TractorDetailsCard = ({
             </button>
           </div>
 
-
+          <div>
+            <span className='block md:hidden text-sm'>Share</span>
+            <SocialMediaLinksShare
+              title={
+                translation?.tractorDetails?.shareTitle || 'Check out this tractor on TractorGyan!'
+              }
+              url={'https://tractorgyan.com' + tractorDetail.page_url}
+            />
+          </div>
         </div>
         {isMobile ? (
           <div className="mb-6 mt-4 grid min-h-[62px] grid-cols-3 gap-2 md:gap-4 bg-green-lighter shadow-card">

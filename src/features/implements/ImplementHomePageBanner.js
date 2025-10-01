@@ -74,7 +74,7 @@ const ImplementHomePageBanner = ({
     //     </div>
     //   )}
     // </section>
-    <section className='relative p-0 m-0 h-full min-h-[200px] max-h-[202px] w-full bg-cover bg-center md:max-h-[344px] border-2 border-gray-300 rounded-lg overflow-hidden'>
+    <section className='relative p-0 m-0 h-full min-h-[200px] max-h-[202px] w-full bg-cover bg-center md:max-h-[344px] border-2 border-gray-300 rounded-lg '>
       <Slider {...settings} className="home-banner-slider">
         {banner?.map((bannerItem, index) => (
           <div key={index} className="relative h-full w-full">

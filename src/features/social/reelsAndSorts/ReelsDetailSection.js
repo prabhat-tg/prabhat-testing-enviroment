@@ -110,7 +110,7 @@ const ReelsDetailSection = ({ param, reelDetailData, isMobile, youtubeCount }) =
           ]}
           customClass={`max-sm:leading-[22px] md:!text-xl`}
         />
-        <div className="grid w-full grid-cols-8 gap-4 md:grid-cols-8 lg:w-fit md:-mt-3">
+        <div className="grid w-full grid-cols-8 gap-4 md:grid-cols-8 lg:w-full md:-mt-3">
           <div className="col-span-8 bg-gradient-to-r from-[#DBF5DB] via-[#F5FBF5] to-[#C3EFC3] rounded-2xl py-4 px-2.5 md:p-4 flex justify-center items-center gap-3 md:gap-8">
             <button onClick={() => handleNavigation('prev')}
               disabled={isLoading || isFirst}
@@ -158,7 +158,7 @@ const ReelsDetailSection = ({ param, reelDetailData, isMobile, youtubeCount }) =
             </button>
           </div>
 
-          <div className="col-span-8">
+          {/* <div className="col-span-8">
 
             <div className="mt-2 w-full">
               <MainHeadings text={'Latest reels'} />
@@ -168,12 +168,12 @@ const ReelsDetailSection = ({ param, reelDetailData, isMobile, youtubeCount }) =
             <div className="grid grid-cols-2 gap-4 md:gap-5 sm:grid-cols-3 lg:grid-cols-4  xl:grid-cols-6">
               {reelLatestVideo?.map((item, index) => (
                 <div key={index} className="col-span-1 lg:col-span-1">
-                  {/* <ReelsDetailsCard data={item} /> */}
+                
                   <TG_ReelsDetailCard data={item} />
                 </div>
               ))}
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

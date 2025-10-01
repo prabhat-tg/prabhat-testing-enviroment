@@ -31,11 +31,6 @@ import { getTractorBrandKeyHighlights } from '@/src/services/tractor/get-tractor
 import { getBrandSecondHandTractors } from '@/src/services/second-hand-tractors/get-brand-second-hand-tractors';
 import { getTractorBrandDealersByState } from '@/src/services/tractor/get-tractor-brand-dealers-by-state';
 import { getTractorBrands } from '@/src/services/tractor/all-tractor-brands-v2';
-import PopularSection from '@/src/components/shared/popularSection/PopularSection';
-import { getTractorPopularDetails } from '@/src/services/tractor/tractor-popular-details';
-import { getAllTractorNews } from '@/src/services/tractor/all-tractor-news';
-import { getHomeVideos } from '@/src/services/home/home-videos';
-import { getAllWebstories } from '@/src/services/home/home-webstory';
 
 const UpdatesSection = nextDynamic(() => import('@/src/features/tyreComponents/components/updatesAbouteTyre/UpdatesSection'));
 const TractorFAQs = nextDynamic(() => import('@/src/features/tyre/tyreFAQs/TyreFAQs'));
@@ -68,12 +63,12 @@ export default async function TractorByBrandPage({
 
   const translation = await getDictionary(currentLang);
 
-  const brandName = hpRange ? 'tractors' : param['brand-name'].split('-').join(' '); // Convert slug to brand name
+  const brandName = hpRange ? '' : param['brand-name'].split('-').join(' '); // Convert slug to brand name
 
   const pageSlug = hpRange
-    ? `${currentLang == 'hi' ? 'hi/' : ''}tractors`
+    ? `${currentLang == 'hi' ? 'hi/' : ''}${hpRange}`
     : isSeriesListing && seriesName
-      ? (`${currentLang == 'hi' ? 'hi/' : ''}tractor/${param['brand-name']}`)
+      ? `${currentLang == 'hi' ? 'hi/' : ''}tractor/${param['brand-name']}/${seriesName}`
       : `${currentLang == 'hi' ? 'hi/' : ''}tractor/${param['brand-name']}`; // Dynamic based on listing type
 
   let tractorBrands = await getTractorBrands(currentLang);
@@ -82,16 +77,23 @@ export default async function TractorByBrandPage({
     image: 'https://images.tractorgyan.com/uploads' + brand.image,
   }));
 
-
   const brandByLang = hpRange
     ? { name: '', brand_name_en: '' } // For HP range, no specific brand
     : getBrandFromSlug(`${param['brand-name']}`, tractorBrands);
 
+  // const headingTitle = hpRange
+  //   ? hpRange.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) // Format HP range title
+  //   : isSeriesListing && seriesName
+  //     ? `${brandByLang.name} ${seriesName.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())} ${seriesName.includes('tractors') ? '' : translation.headerNavbar.tractors}`
+  //     : brandByLang.name + ' ' + translation.headerNavbar.tractors;
+
   const headingTitle = hpRange
-    ? hpRange.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) // Format HP range title
+    ? `${hpTitle} Tractors In India` // Format HP range title
     : isSeriesListing && seriesName
       ? `${brandByLang.name} ${seriesName.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())} ${seriesName.includes('tractors') ? '' : translation.headerNavbar.tractors}`
       : brandByLang.name + ' ' + translation.headerNavbar.tractors;
+
+
 
   const category = 'Tractors';
 
@@ -149,10 +151,10 @@ export default async function TractorByBrandPage({
     wheelDriveData,
     dealerStatesResponse
   ] = await Promise.all([
-    hpRange ? getAllTractorNews('tractor-news') : getTractorBrandBlogNews({ brand_name: param['brand-name'] }),
-    hpRange ? getHomeVideos('videos') : getTyreVideos(pageSlug),
-    hpRange ? getHomeVideos('reels') : getTyreReels(pageSlug),
-    hpRange ? getAllWebstories() : getTyreWebstories(pageSlug),
+    getTractorBrandBlogNews({ brand_name: hpRange ? hpRange : param['brand-name'] }),
+    getTyreVideos(pageSlug),
+    getTyreReels(pageSlug),
+    getTyreWebstories(pageSlug),
     getSEOByPage(pageSlug),
     getTractorFAQs({
       faq_tag: `${seriesName ? `tractor/${param['brand-name']}/${seriesName}` : `tractor/${param['brand-name']}`}`,
@@ -250,8 +252,6 @@ export default async function TractorByBrandPage({
     stateImages = dealerStatesResponse.state_images || '';
   }
 
-  const popularTractors = (await getTractorPopularDetails(currentLang)) || [];
-
   // Process tractor series data for the slider component
   const tractorSeries =
     tractorSeriesData?.data?.map(series => ({
@@ -298,8 +298,6 @@ export default async function TractorByBrandPage({
       'most_affordable _tractor': most_affordable_tractor,
       popular_tractor,
     } = keyHighlightsData;
-
-
 
     return (
       <section className="container bg-white">
@@ -528,17 +526,10 @@ export default async function TractorByBrandPage({
         />
       </div>
       {/* Tractor Listing Section with Two-Column Layout */}
-      {TractorListingComponent}
-      <PopularSection
-        langPrefix={currentLang}
-        popularData={popularTractors}
-        isMobile={isMobile}
-        translation={translation}
-        bgColor={'bg-whitesection-gray'}
-        redirectRoute="/tractors"
-      />
 
-      {!hpRange && tractorSeries.length > 0 ? (
+      {TractorListingComponent}
+
+      {!hpRange && (tractorSeries.length > 0 || wheelDriveData?.data) ? (
         <section className="mt-0 md:mt-10">
           <div className="container">
             <div className="flex flex-col gap-6 md:flex-row">
@@ -646,7 +637,7 @@ export default async function TractorByBrandPage({
           />
         </div>
       ) : null}
-      {(news && !hpRange) && (
+      {news ? (
         <NewsSection
           title={translation.headerNavbar.tractorBlogsNewsBrand.replace(
             '{brandName}',
@@ -665,18 +656,7 @@ export default async function TractorByBrandPage({
           showFilter={false}
           bgColor={'bg-section-white'}
         />
-      )}
-      {(news && hpRange) && <NewsSection
-        title={translation.headings.blogsAndNews.replace(
-          '{prefix}',
-          headingTitle
-        )}
-        translation={translation}
-        langPrefix={currentLang}
-        news={news || []}
-        showFilter={false}
-        bgColor={'bg-section-white'}
-      />}
+      ) : null}
       <UpdatesSection
         bgColor={'bg-section-gray'}
         videos={videos}

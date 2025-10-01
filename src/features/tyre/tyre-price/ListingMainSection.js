@@ -7,7 +7,6 @@ import TyrePriceBannerClient from './TyrePriceBannerClient';
 // import BannerSlider from '@/src/components/shared/bannners/BannerSlider';
 import HeightSyncClient from './HeightSyncClient';
 import dynamic from 'next/dynamic';
-import ClickHereClient from '@/src/components/shared/client/ClickHereClient';
 const BannerSlider = dynamic(() => import('@/src/components/shared/bannners/BannerSlider'), {
   loading: () => <div style={{ minHeight: '250px' }} />,
   ssr: true
@@ -200,13 +199,14 @@ const TyresPriceList = ({
                           ))}
                         </tr>
                       ))}
-                      <tr className="flex justify-center gap-4 border-b-[1px] border-gray-light px-1.5 py-1.5">
+                      <tr className="flex justify-center gap-4 border-b-[1px] border-gray-light px-2 py-2.5">
                         <td colSpan={finalTableHeaders.length}>
-                          <span className="mx-auto text-[10px] font-medium text-gray-dark grid gap-0 text-center">
-                            {/* <span>
+                          <span className="mx-auto text-xs font-medium text-gray-dark">
+                            <span>
                               {translation.headings.dataLastUpdatedOn}: {currentDate}{' '}
-                            </span> */}
-                            <span>{translation.headings.priceMayVaryFromStateToState} <ClickHereClient translation={translation} currentLang={currentLang} isMobile={isMobile} /> </span>
+                            </span>
+                            <br />
+                            <span>{translation.headings.priceMayVaryFromStateToState}</span>
                           </span>
                         </td>
                       </tr>

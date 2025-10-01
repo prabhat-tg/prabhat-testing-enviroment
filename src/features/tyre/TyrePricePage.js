@@ -18,6 +18,7 @@ import { getTyrePopularDetails } from '@/src/services/tyre/tyre-popular-details'
 import TyresByBrands from './TyresByBrands';
 import DesktopHeader from '@/src/components/shared/header/DesktopHeader';
 import TittleAndCrumbs from '@/src/components/shared/TittleAndCrumbs/TittleAndCrumbs';
+import TyreFaqsData from './tyreFAQs/TyreFaqsData';
 
 export default async function TyrePricePage() {
   const prefLang = await getSelectedLanguage();
@@ -29,7 +30,20 @@ export default async function TyrePricePage() {
 
   return (
     <>
-      <SeoHead seo={seoData} staticMetadata={{}} preloadUrls={[]} />
+      <SeoHead
+        seo={seoData}
+        staticMetadata={{}}
+        preloadUrls={[]}
+        paginationLinks={{
+          canonical:
+            `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}${prefLang === "en" ? '' : "/hi"}/tyre-price`,
+        }}
+        hreflang={{
+          en:
+            `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/tyre-price`,
+          hi:
+            `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/hi/tyre-price`
+        }} />
       <DesktopHeader isMobile={isMobile} translation={translation} currentLang={prefLang} />{' '}
       <div className="pt-4 md:mt-[164px]">
         <div className="container">
@@ -72,6 +86,10 @@ export default async function TyrePricePage() {
           isMobile={isMobile}
           translation={translation}
           tyreBrands={tyreBrands}
+        />
+        <TyreFaqsData
+          pageSlug={'tyre-price'}
+          headingKey={'tyrefaqs.tractorTyreDealerHome'}
         />
         <JoinOurCommunityServer translation={translation} currentLang={prefLang} />
         <TractorGyanOfferings translation={translation} />

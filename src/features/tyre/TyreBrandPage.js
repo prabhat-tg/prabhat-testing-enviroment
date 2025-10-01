@@ -20,6 +20,8 @@ import TyreFaqsData from './tyreFAQs/TyreFaqsData';
 import { getCurrentPageTyreBrand } from '@/src/utils/tyre';
 import TyresPriceList from './tyre-price/ListingMainSection';
 import DesktopHeader from '@/src/components/shared/header/DesktopHeader';
+import NewsSection from './tyreNews/NewsSection';
+import { getTyreNewsByBrand } from '@/src/services/tyre/tyre-news-by-brand';
 
 export default async function TyreBrandPage({ params, searchParams }) {
   const param = await params;
@@ -36,6 +38,8 @@ export default async function TyreBrandPage({ params, searchParams }) {
   const brand = getCurrentPageTyreBrand(tyreBrands, 'tyre/' + param.brandSlug);
   const pageSlug = prefLang === 'en' ? brand.url : `${prefLang}/${brand.url}`;
   const seoData = await getSEOByPage(pageSlug);
+  const news = await getTyreNewsByBrand('tyre-news,mrf,jk,apollo,ceat');
+
 
   const tyreTopContent = await getTyreTopContent({
     ad_title: brand.url,
@@ -92,15 +96,21 @@ export default async function TyreBrandPage({ params, searchParams }) {
         paginationLinks={{
           canonical:
             currentPage > 1
-              ? `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/tyre/${param.brandSlug}?page=${currentPage}`
-              : `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/tyre/${param.brandSlug}`,
+              ? `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}${prefLang === "en" ? '' : "/hi"}/tyre/${param.brandSlug}?page=${currentPage}`
+              : `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}${prefLang === "en" ? '' : "/hi"}/tyre/${param.brandSlug}`,
           prev:
             currentPage > 1
-              ? `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/tyre/${param.brandSlug}?page=${currentPage - 1}`
+              ? `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}${prefLang === "en" ? '' : "/hi"}/tyre/${param.brandSlug}?page=${currentPage - 1}`
               : null,
           next: hasNextPage
-            ? `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/tyre/${param.brandSlug}?page=${currentPage + 1}`
+            ? `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}${prefLang === "en" ? '' : "/hi"}/tyre/${param.brandSlug}?page=${currentPage + 1}`
             : null,
+        }}
+        hreflang={{
+          en:
+            `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/tyre/${param.brandSlug}`,
+          hi:
+            `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/hi/tyre/${param.brandSlug}`
         }}
       />
       <DesktopHeader isMobile={isMobile} translation={translation} currentLang={prefLang} />{' '}
@@ -146,6 +156,13 @@ export default async function TyreBrandPage({ params, searchParams }) {
             webstories: `${prefLang === 'hi' ? '/hi' : ''}/web-story-in-india`,
             reels: `${prefLang === 'hi' ? '/hi' : ''}/tractor-reels-and-shorts`,
           }}
+        />
+        <NewsSection
+          translation={translation}
+          langPrefix={prefLang}
+          news={news}
+          bgColor={'bg-section-gray'}
+          title={translation.headings.tyreNews}
         />
         <TyreFaqsData
           pageSlug={brand.url}

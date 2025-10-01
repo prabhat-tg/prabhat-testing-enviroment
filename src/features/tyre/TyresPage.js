@@ -49,7 +49,7 @@ export default async function TyresPage({ params, searchParams }) {
         staticMetadata={{}}
         preloadUrls={[]}
         paginationLinks={{
-          canonical: `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/tyres`,
+          canonical: `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/${currentPage === "en" ? '' : "/hi"}/tyres`,
           prev:
             currentPage > 1
               ? `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/tyres?page=${currentPage - 1}`
@@ -57,6 +57,12 @@ export default async function TyresPage({ params, searchParams }) {
           next: hasNextPage
             ? `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/tyres?page=${currentPage + 1}`
             : null,
+        }}
+        hreflang={{
+          en:
+            `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/tyres`,
+          hi:
+            `${process.env.NEXT_PUBLIC_API_URL || 'https://tractorgyan.com'}/hi/tyres`,
         }}
       />
       <DesktopHeader isMobile={isMobile} translation={translation} currentLang={currentLang} />{' '}

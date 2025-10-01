@@ -29,8 +29,6 @@ export async function getTyreMedia(mediaType, slug) {
       return [];
     }
 
-    console.log("Fetching result:", payload, endpoint, result);
-
     return result.data;
   } catch (error) {
     console.error(`Error fetching ${mediaType} for ${slug}:`, error);

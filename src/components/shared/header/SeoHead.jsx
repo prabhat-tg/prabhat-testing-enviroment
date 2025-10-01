@@ -2,6 +2,7 @@ import { JSDOM } from 'jsdom';
 
 export default function SeoHead({
   seo: seoProp,
+  hreflang,
   staticMetadata,
   preloadUrls = [],
   paginationLinks,
@@ -58,7 +59,6 @@ export default function SeoHead({
     canonical,
     structuredData = [],
   } = seo || {};
-
   return (
     <>
       <title>{title}</title>
@@ -110,6 +110,13 @@ export default function SeoHead({
           {paginationLinks.canonical && <link rel="canonical" href={paginationLinks.canonical} />}
           {paginationLinks.prev && <link rel="prev" href={paginationLinks.prev} />}
           {paginationLinks.next && <link rel="next" href={paginationLinks.next} />}
+        </>
+      )}
+
+      {hreflang && (
+        <>
+          {hreflang.en && <link rel="alternate" href={hreflang.en} hreflang="x-default" />}
+          {hreflang.hi && <link rel="alternate" href={hreflang.hi} hreflang="hi" />}
         </>
       )}
     </>
