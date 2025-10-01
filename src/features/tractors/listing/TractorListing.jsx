@@ -306,6 +306,7 @@ const TractorListing = ({
                   {translation?.headings?.of || 'of'} {totalPages}
                 </span>
               </div>
+            )}
           </>
         )}
       </div>
