@@ -678,35 +678,22 @@ export default async function TractorByBrandPage({
         bgColor={'bg-section-white'}
       />}
       <UpdatesSection
-        // bgColor={'bg-section-gray'}
-        // videos={videos}
-        // reels={reels}
-        // webstories={webstories}
-        // translation={translation}
-        // slug={pageSlug}
-        // brandName={
-        //   isSeriesListing
-        //     ? brandByLang.name +
-        //     ' ' +
-        //     seriesName
-        //       .replace(/-/g, ' ')
-        //       .replace(/\b\w/g, l => l.toUpperCase())
-        //       .replace('Tractors', '')
-        //     : brandByLang.name
-        // }
-        // linkUrls={{
-        //   videos: `${currentLang === 'hi' ? '/hi' : ''}/tractor-videos`,
-        //   webstories: `${currentLang === 'hi' ? '/hi' : ''}/web-story-in-india`,
-        //   reels: `${currentLang === 'hi' ? '/hi' : ''}/tractor-reels-and-shorts`,
-        // }}
-        // moduleType="tractor"
         bgColor={'bg-section-gray'}
         videos={videos}
         reels={reels}
         webstories={webstories}
         translation={translation}
         slug={pageSlug}
-        brandName={brandName}
+        brandName={
+          isSeriesListing
+            ? brandByLang.name +
+            ' ' +
+            seriesName
+              .replace(/-/g, ' ')
+              .replace(/\b\w/g, l => l.toUpperCase())
+              .replace('Tractors', '')
+            : brandByLang.name
+        }
         linkUrls={{
           videos: `${currentLang === 'hi' ? '/hi' : ''}/tractor-videos`,
           webstories: `${currentLang === 'hi' ? '/hi' : ''}/web-story-in-india`,
