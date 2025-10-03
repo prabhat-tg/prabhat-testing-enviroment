@@ -27,7 +27,7 @@ const TractorListing = ({
   const totalPages = Math.ceil((Number(totalTyresCount) || 0) / ipp);
   const showReelAfter = isMobile ? 1 : 3;
 
-  console.log("Aniket : ", pageType);
+  console.log("---initialTyres coutes : ", initialTyres);
 
 
   const buildPageLink = pageNumber => {
@@ -98,14 +98,14 @@ const TractorListing = ({
       ...(offers ? { "offers": offers || 0 } : {})
     };
 
-    const avg = tractor?.avg_review ?? tractor?.total_reviews ?? tractor?.total_reviews ?? 0;
-    const totalReviews = tractor?.total_reviews ?? tractor?.totalReview ?? tractor?.review_count;
+    const avg = tractor?.avg_review ?? tractor?.total_reviews ?? tractor?.total_reviews ?? 0;    
+    const totalReviews = tractor?.total_review ?? 0;
     const avgNum = avg !== undefined && avg !== null ? Number(avg) : null;
     const totalNum = totalReviews !== undefined && totalReviews !== null ? Number(totalReviews) : null;
     node.aggregateRating = {
       "@type": "AggregateRating",
       "ratingValue": String(avgNum || 0),
-      "ratingCount": String(avgNum || 0)
+      "ratingCount": String(totalNum || 0)
     };
 
     return node;
